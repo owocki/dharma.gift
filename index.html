@@ -3,375 +3,695 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>capital allocation design space — 3d explorer (faceted)</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<title>resource allocation through history · living poster</title>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://resource-allocation-history.surge.sh/">
+<meta property="og:title" content="resource allocation through history">
+<meta property="og:description" content="12,000 years of deciding who gets what: 81 allocation mechanisms as living art, potlatch to quadratic funding. what each is good for, what it's not, and the unbuilt ones nobody has shipped yet. click around, it sparkles.">
+<meta property="og:image" content="https://resource-allocation-history.surge.sh/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="resource allocation through history">
+<meta name="twitter:description" content="12,000 years of deciding who gets what. 81 allocation mechanisms as living art, every one explained. click around, it sparkles.">
+<meta name="twitter:image" content="https://resource-allocation-history.surge.sh/og.png">
+<meta name="description" content="an interactive remake of the gitcoin 'resource allocation through history' poster. 81 mechanisms across 5 eras, each explained: what it's good for, what it's not.">
 <style>
-  :root{ --bg:#f6f7f9; --panel:#ffffff; --ink:#15181d; --muted:#5c6672; --line:#e2e6ea; --accent:#22a884; --stage:#0b0f16; }
-  @media (prefers-color-scheme:dark){ :root{ --bg:#0b0e13; --panel:#12161d; --ink:#e7ecf2; --muted:#8b97a6; --line:#232a34; --stage:#05080d; } }
-  :root[data-theme="dark"]{ --bg:#0b0e13; --panel:#12161d; --ink:#e7ecf2; --muted:#8b97a6; --line:#232a34; --stage:#05080d; }
-  :root[data-theme="light"]{ --bg:#f6f7f9; --panel:#ffffff; --ink:#15181d; --muted:#5c6672; --line:#e2e6ea; --stage:#0b0f16; }
+  :root{
+    --bg:#f1edfa; --ink:#221c30; --muted:#665e78; --panel:#ffffff; --line:#ddd4ec;
+    --pgrad:linear-gradient(175deg,#c3b0f2 0%,#e2c4f0 52%,#fbc6e3 100%);
+    --disc-mix:#ffffff; --pmix:76%; --card:#14101c; --cardink:#f4effc;
+    --goodt:#0a7d0a; --badt:#b32626;
+  }
+  @media (prefers-color-scheme:dark){ :root{
+    --bg:#0d0a16; --ink:#e6dff2; --muted:#a095b5; --panel:#191225; --line:#2e2440;
+    --pgrad:linear-gradient(175deg,#221448 0%,#331754 52%,#43164a 100%);
+    --disc-mix:#150f24; --pmix:38%; --card:#0b0813; --cardink:#f1eafc;
+    --goodt:#5ad07d; --badt:#ff8080;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0d0a16; --ink:#e6dff2; --muted:#a095b5; --panel:#191225; --line:#2e2440;
+    --pgrad:linear-gradient(175deg,#221448 0%,#331754 52%,#43164a 100%);
+    --disc-mix:#150f24; --pmix:38%; --card:#0b0813; --cardink:#f1eafc;
+    --goodt:#5ad07d; --badt:#ff8080;
+  }
+  :root[data-theme="light"]{
+    --bg:#f1edfa; --ink:#221c30; --muted:#665e78; --panel:#ffffff; --line:#ddd4ec;
+    --pgrad:linear-gradient(175deg,#c3b0f2 0%,#e2c4f0 52%,#fbc6e3 100%);
+    --disc-mix:#ffffff; --pmix:76%; --card:#14101c; --cardink:#f4effc;
+    --goodt:#0a7d0a; --badt:#b32626;
+  }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font:13.5px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:22px 18px 60px}
-  .wrap{max-width:1280px;margin:0 auto}
-  h1{font-size:21px;margin:0 0 4px;letter-spacing:-.01em;font-weight:650}
-  .sub{color:var(--muted);max-width:88ch;margin:0 0 14px}
-  .layout{display:grid;grid-template-columns:250px 1fr 210px;gap:18px;align-items:start}
-  @media(max-width:900px){ .layout{grid-template-columns:1fr} }
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
-  .panel h2{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px}
-  .axpick{margin-bottom:11px}
-  .axpick label{display:block;font-size:11px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
-  .axpick select{width:100%;font:inherit;font-size:13px;padding:5px 7px;border-radius:7px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
-  .facet select{border-color:var(--accent)}
-  .xC{color:#f2707a} .yC{color:#5dc963} .zC{color:#5aa9ff}
-  .opt{display:flex;align-items:center;gap:7px;margin:8px 0;font-size:12.5px;color:var(--muted);cursor:pointer}
-  .stagewrap{background:var(--stage);border:1px solid var(--line);border-radius:12px;position:relative;padding:10px}
-  .stagewrap:fullscreen{border-radius:0;overflow:auto}
-  #facets{display:grid;gap:8px}
-  .p3{position:relative;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:4px 4px 2px}
-  .ptitle{color:#cfd8e3;font-size:11.5px;font-weight:700;padding:2px 4px 0;display:flex;justify-content:space-between}
-  .ptitle span{color:#7d8b99;font-weight:600}
-  canvas{display:block;width:100%;cursor:grab;touch-action:none}
-  canvas:active{cursor:grabbing}
-  .fsbtn{position:absolute;right:12px;top:12px;z-index:5;font:inherit;font-weight:600;font-size:12px;padding:5px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.5);color:#fff;cursor:pointer}
-  .fsbtn:hover{background:rgba(0,0,0,.72)}
-  .card{position:absolute;left:14px;top:14px;z-index:6;max-width:290px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px 12px;box-shadow:0 10px 34px rgba(0,0,0,.4);font-size:12px;display:none}
-  .card .nm{font-size:15px;font-weight:700;line-height:1.15;padding-right:20px}
-  .card .er{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-  .card .pv{font-size:20px;font-weight:700;color:var(--accent)}
-  .card table{border-collapse:collapse;width:100%;margin-top:5px}
-  .card td{padding:1px 0} .card td.k{color:var(--muted);padding-right:8px;white-space:nowrap} .card td.v{text-align:right;font-weight:600}
-  .card tr.ax td.k,.card tr.ax td.v{color:var(--accent)} .card tr.fk td.k,.card tr.fk td.v{color:#e0a83a}
-  .card .x{position:absolute;right:9px;top:6px;cursor:pointer;color:var(--muted);font-size:17px;line-height:1}
-  .card .x:hover{color:var(--ink)}
-  .legend{display:flex;align-items:center;gap:9px;margin:12px 2px 0;color:var(--muted);font-size:11.5px}
-  .ramp{height:11px;width:150px;border-radius:6px;background:linear-gradient(90deg,#440154,#3b528b,#21908d,#5dc963,#fde725)}
-  .bar{display:flex;gap:10px;align-items:center;margin-top:11px;flex-wrap:wrap}
-  button.plain{font:inherit;font-weight:600;padding:6px 11px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
-  button.plain:hover{border-color:var(--accent);color:var(--accent)}
-  .ranklist{max-height:600px;overflow:auto}
-  .rk{display:grid;grid-template-columns:22px 1fr auto;gap:6px;align-items:center;padding:3px 2px;font-size:11.5px;cursor:pointer;border-radius:5px}
-  .rk:hover{background:var(--bg)} .rk .dot{width:11px;height:11px;border-radius:3px;justify-self:center}
-  .rk .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .rk .pt{font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted)}
-  .foot{color:var(--muted);font-size:11.5px;margin-top:16px;max-width:92ch}
-  #tt{position:fixed;pointer-events:none;z-index:50;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:225px;max-width:285px;box-shadow:0 8px 30px rgba(0,0,0,.3);font-size:12px;opacity:0;display:none}
-  #tt.on{opacity:1;display:block}
-  #tt .nm{font-size:14px;font-weight:700} #tt .er{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
-  #tt .pv{font-size:18px;font-weight:700;color:var(--accent)}
-  #filterbox{margin-top:18px}
-  #filters{display:grid;gap:2px}
-  .frow{display:grid;grid-template-columns:130px 1fr;gap:12px;align-items:start;padding:7px 0;border-top:1px solid var(--line)}
-  .frow:first-child{border-top:none}
-  .fname{font-weight:600;font-size:12.5px;padding-top:4px;cursor:pointer;user-select:none}
-  .fname:hover{color:var(--accent)}
-  .fchips{display:flex;flex-wrap:wrap;gap:6px}
-  .fchip{border:1px solid var(--accent);background:var(--accent);color:#04130c;font-weight:600;padding:4px 10px;border-radius:999px;cursor:pointer;font-size:12px;user-select:none;transition:.1s}
-  .fchip.off{background:transparent;color:var(--muted);border-color:var(--line);text-decoration:line-through;opacity:.55}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .page{max-width:1160px;margin:0 auto;padding:26px 14px 70px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:10px;flex-wrap:wrap}
+  .topbar a{color:inherit}
+  button.plain{font:inherit;font-weight:600;font-size:12px;padding:4px 10px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+
+  .poster{position:relative;background:var(--pgrad);border:1px solid var(--line);border-radius:18px;padding:44px 30px 30px;overflow:hidden}
+  #lifeline{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+  .poster>header,.era,.pfoot{position:relative;z-index:1}
+
+  .poster>header{text-align:center;margin-bottom:34px}
+  .poster h1{margin:0;font-size:clamp(30px,6vw,62px);font-weight:850;letter-spacing:.045em;line-height:1.02}
+  .poster .sub{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:clamp(14px,2.6vw,26px);letter-spacing:.42em;margin:8px 0 0;font-weight:800;
+    background:linear-gradient(90deg,#6247d6,#8a3fd1,#b535bb,#d63d97,#e8446f);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:glitch 7s infinite}
+  @keyframes glitch{0%,95%,100%{text-shadow:none}96%{text-shadow:-2px 0 rgba(240,60,170,.75),2px 0 rgba(60,200,240,.75)}97.4%{text-shadow:2px 0 rgba(240,60,170,.55),-2px 0 rgba(60,200,240,.55)}}
+  .poster .lede{color:var(--muted);font-size:13px;margin:14px auto 0;max-width:66ch}
+
+  .era{position:relative;display:grid;grid-template-columns:52px 1fr;gap:12px;padding:26px 0 20px;
+    border-top:2px solid var(--line);border-top:2px solid color-mix(in srgb,var(--acc) 55%,transparent)}
+  .era::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .7s;
+    background:radial-gradient(62% 85% at 50% 50%,color-mix(in srgb,var(--acc) 11%,transparent),transparent 72%)}
+  .era.lit::before,.era:hover::before{opacity:1}
+  .sparkles{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .7s;z-index:2}
+  .era.lit .sparkles,.era:hover .sparkles{opacity:1}
+  .sparkles span{position:absolute;line-height:1;text-shadow:0 0 10px currentColor;opacity:0;
+    animation:twk var(--td,2.2s) ease-in-out infinite;animation-delay:var(--dl,0s);will-change:transform,opacity}
+  @keyframes twk{0%,100%{opacity:0;transform:scale(.25) rotate(0deg)}50%{opacity:.95;transform:scale(1) rotate(100deg)}}
+  @media (prefers-reduced-motion:reduce){ .sparkles span{animation:none;opacity:.5} }
+  .rail{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:4px}
+  .ename{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:820;letter-spacing:.2em;font-size:13px;color:var(--acc);text-transform:uppercase;font-style:italic}
+  :root[data-theme="dark"] .ename{color:color-mix(in srgb,var(--acc) 55%,#efe8fb)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .ename{color:color-mix(in srgb,var(--acc) 55%,#efe8fb)} }
+  .eyears{writing-mode:vertical-rl;transform:rotate(180deg);font-size:10.5px;color:var(--muted);letter-spacing:.08em}
+  .ebody{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-start;justify-content:center}
+  .ecard{background:var(--card);color:var(--cardink);border-radius:16px;padding:13px 15px;width:158px;font-size:11px;line-height:1.45;box-shadow:0 8px 26px rgba(10,6,20,.3)}
+  .ecard .et{font-weight:780;font-size:12px;margin-bottom:4px;letter-spacing:.03em;color:var(--cardink);color:color-mix(in srgb,var(--acc) 45%,#ffffff)}
+  .ecard .et::before{content:"✳ ";opacity:.85}
+  .ecard ul{margin:0;padding:0;list-style:none;opacity:.82}
+
+  .mech{display:flex;flex-direction:column;align-items:center;width:126px;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:opacity .3s,filter .3s}
+  .disc{position:relative;overflow:hidden;border-radius:50%;display:grid;place-items:center;
+    --dgA:color-mix(in srgb,var(--pastel) 88%,#ffffff);
+    --dgB:color-mix(in srgb,var(--d0) 38%,#ffffff);
+    border:2px solid color-mix(in srgb,var(--d1) 60%,transparent);
+    background:var(--panel);background:radial-gradient(circle at 32% 26%,var(--dgA),var(--dgB));
+    box-shadow:0 7px 18px color-mix(in srgb,var(--d1) 28%,transparent),inset 0 0 0 1px rgba(255,255,255,.4);
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
+    animation:breathe 7s ease-in-out infinite;animation-delay:var(--bd,0s)}
+  :root[data-theme="dark"] .disc{--dgA:color-mix(in srgb,var(--pastel) 34%,#171028);--dgB:color-mix(in srgb,var(--d0) 36%,#0e0a1c);box-shadow:0 7px 20px color-mix(in srgb,var(--d1) 36%,transparent),inset 0 0 0 1px rgba(255,255,255,.12)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .disc{--dgA:color-mix(in srgb,var(--pastel) 34%,#171028);--dgB:color-mix(in srgb,var(--d0) 36%,#0e0a1c);box-shadow:0 7px 20px color-mix(in srgb,var(--d1) 36%,transparent),inset 0 0 0 1px rgba(255,255,255,.12)} }
+  .disc::after{content:'';position:absolute;left:9%;top:7%;width:46%;height:38%;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(255,255,255,.6),rgba(255,255,255,0));pointer-events:none}
+  :root[data-theme="dark"] .disc::after{background:radial-gradient(closest-side,rgba(255,255,255,.18),rgba(255,255,255,0))}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .disc::after{background:radial-gradient(closest-side,rgba(255,255,255,.18),rgba(255,255,255,0))} }
+  .disc svg{width:78%;height:78%;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  @keyframes breathe{50%{transform:scale(1.025)}}
+  .mech .nm{margin-top:7px;font-size:12px;font-weight:680;text-align:center;line-height:1.25}
+  .mech .pd{font-size:10px;color:var(--muted);text-align:center;line-height:1.3;margin-top:2px;max-width:120px}
+  .mech:hover .disc,.mech:focus-visible .disc,.mech.pinned .disc{transform:scale(1.12);animation-play-state:paused;
+    box-shadow:0 18px 48px color-mix(in srgb,var(--d1) 55%,transparent),0 0 0 3px var(--d1),0 0 26px color-mix(in srgb,var(--d1) 45%,transparent)}
+  .mech:hover .disc svg,.mech:focus-visible .disc svg,.mech.pinned .disc svg{transform:rotate(10deg) scale(1.06)}
+  .ebody:hover .mech:not(:hover):not(.pinned){opacity:.5;filter:saturate(.7)}
+
+  .mech.extra{display:none}
+  .era.xp .mech.extra{display:flex;animation:pop .45s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--pd,0s)}
+  @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.85)}}
+  .mech.extra .disc{border-style:dashed}
+  .mech.unb .disc{border-style:dashed;border-width:2px}
+  .mech.unb .nm::after{content:" ✦";color:var(--acc)}
+  .more{align-self:center;font:inherit;font-size:12px;font-weight:700;padding:9px 16px;border-radius:999px;cursor:pointer;
+    border:1.5px dashed var(--acc);
+    background:var(--panel);background:color-mix(in srgb,var(--acc) 10%,transparent);
+    color:var(--acc);transition:transform .25s,box-shadow .25s;flex-basis:100%;max-width:290px;margin-top:4px}
+  :root[data-theme="dark"] .more{color:color-mix(in srgb,var(--acc) 55%,#efe8fb)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .more{color:color-mix(in srgb,var(--acc) 55%,#efe8fb)} }
+  .more:hover{transform:translateY(-2px);box-shadow:0 10px 26px color-mix(in srgb,var(--acc) 35%,transparent)}
+
+  .pfoot{margin-top:26px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:11.5px}
+  .pfoot a{color:inherit}
+  .pfoot .fright{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+  .pfoot .tbc{color:var(--muted)}
+  .pfoot .da{display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-weight:600}
+  .pfoot .da svg{height:17px;width:auto;display:block;color:var(--ink)}
+  .buy{display:inline-block;font-weight:750;font-size:12px;padding:8px 15px;border-radius:999px;text-decoration:none;
+    color:#fff !important;background:linear-gradient(90deg,#b535bb,#e8446f);
+    box-shadow:0 6px 18px color-mix(in srgb,#e8446f 40%,transparent);transition:transform .25s,box-shadow .25s}
+  .buy:hover{transform:translateY(-2px);box-shadow:0 12px 28px color-mix(in srgb,#e8446f 55%,transparent)}
+  .below{color:var(--muted);font-size:12.5px;max-width:92ch;margin:18px 4px 0}
+  .below a{color:inherit}
+
+  #tt{position:fixed;pointer-events:none;z-index:60;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-left:3px solid var(--acc,#8b7fb8);border-radius:12px;padding:12px 14px;width:300px;box-shadow:0 14px 44px rgba(10,6,20,.4);font-size:12.5px;display:none}
+  #tt.on{display:block}
+  #tt .nm{font-weight:760;font-size:15px;line-height:1.2}
+  #tt .er{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin:2px 0 7px}
+  #tt .er em{color:var(--acc);font-style:normal;font-weight:700}
+  #tt .what{margin:0 0 8px;line-height:1.5}
+  #tt .note{margin:0 0 8px;color:var(--muted);font-style:italic;font-size:11.5px}
+  #tt .gf{display:grid;gap:5px;margin-bottom:8px}
+  #tt .gf div{font-size:11.5px;line-height:1.45;padding:6px 9px;border-radius:8px;background:var(--bg)}
+  #tt .gf .g{background:color-mix(in srgb,#0ca30c 9%,var(--panel))}
+  #tt .gf .b{background:color-mix(in srgb,#d03b3b 8%,var(--panel))}
+  #tt .gf .g b{color:var(--goodt)} #tt .gf .b b{color:var(--badt)}
+  #tt .genes{display:flex;flex-wrap:wrap;gap:4px}
+  #tt .genes span{font-size:10px;border:1px solid var(--line);border-radius:999px;padding:2px 7px;color:var(--muted)}
+  #tt .genes span b{color:var(--ink);font-weight:650}
+  #tt .hintline{margin-top:8px;color:var(--muted);font-size:10px;border-top:1px solid var(--line);padding-top:6px}
+
+  @media(max-width:720px){
+    .poster{padding:30px 12px 20px}
+    .era{grid-template-columns:1fr;gap:6px}
+    .rail{flex-direction:row;justify-content:flex-start;gap:8px;padding:0 4px}
+    .ename,.eyears{writing-mode:horizontal-tb;transform:none}
+    .mech{width:104px}
+    .ecard{width:47%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .disc{animation:none}
+    .poster .sub{animation:none}
+    .era.xp .mech.extra{animation:none}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>capital allocation design space — faceted 3d explorer</h1>
-  <p class="sub">the ~50 real allocation mechanisms plotted in 3d. pick 3 parameters for the X / Y / Z axes and a 4th to <b>facet by</b> — the 4th dimension becomes a row of small 3d graphs, one per value, all sharing one camera. compare panels side by side instead of cramming a 4th axis into one cube. color = potential. drag any panel to rotate them all, scroll to zoom, click a point for details.</p>
-
-  <div class="layout">
-    <div class="panel">
-      <h2>axes</h2>
-      <div class="axpick"><label>X <span class="xC">■</span></label><select id="axX"></select></div>
-      <div class="axpick"><label>Y <span class="yC">■</span></label><select id="axY"></select></div>
-      <div class="axpick"><label>Z <span class="zC">■</span></label><select id="axZ"></select></div>
-      <div class="axpick facet"><label>facet by · the 4th dimension</label><select id="facet"></select></div>
-      <h2 style="margin-top:16px">display</h2>
-      <label class="opt"><input type="checkbox" id="bg"> background cloud (per panel)</label>
-      <label class="opt"><input type="checkbox" id="lbl"> label mechanisms</label>
-      <label class="opt"><input type="checkbox" id="spin"> auto-rotate</label>
-      <div class="bar"><button class="plain" id="reset">reset view</button><button class="plain" id="theme">light / dark</button></div>
-      <div class="legend"><span>low</span><div class="ramp"></div><span>high potential</span></div>
-    </div>
-
-    <div>
-      <div class="stagewrap"><div id="facets"></div><button class="fsbtn" id="fs">⛶ full screen</button><div class="card" id="card"></div></div>
-      <p class="foot"><b>reading it.</b> every point is a real mechanism; position uses the 3 axis params, and which <b>panel</b> it's in = its value on the faceted 4th param. so you can scan across panels to see how a slice of the space changes as the 4th dimension steps (e.g. facet by <b>timing</b> → preemptive vs ongoing vs retroactive, side by side). color = the same heuristic potential (weighted value-scores × coherence penalty); the remaining 6 params still shape color and show on click. panels share one camera, so rotating one rotates all — clusters stay comparable.</p>
-    </div>
-
-    <div class="panel">
-      <h2>by potential</h2>
-      <div class="ranklist" id="rank"></div>
-    </div>
+<div class="page">
+  <div class="topbar" style="justify-content:flex-end">
+    <button class="plain" id="theme">light / dark</button>
   </div>
 
-  <div class="panel" id="filterbox">
-    <h2>axis values — click a chip to enable / disable it in the graphs above (click a param name to toggle its whole row)</h2>
-    <div id="filters"></div>
+  <div class="poster" id="poster">
+    <svg id="lifeline" aria-hidden="true"></svg>
+    <header>
+      <h1>RESOURCE&nbsp;ALLOCATION</h1>
+      <div class="sub">THROUGH HISTORY</div>
+      <p class="lede">every era invented its own answer to the same question: who gets what, and why. hover anything to see what it's good for, and what it isn't. a pulse of livelihood runs through all of it.</p>
+    </header>
+    <div id="eras"></div>
+    <footer class="pfoot">
+      <span><a class="buy" href="https://store.gitcoin.co/products/resource-allocation-history-framed-photo-paper-poster" target="_blank" rel="noopener">buy the physical poster ↗</a></span>
+      <span class="fright"><span class="da">designed at
+        <svg width="118" height="21" viewBox="0 0 118 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="gitcoin" role="img">
+          <path d="M36.3638 20.6505V4.97402H31.9259V0.376668H45.7788V4.97511H41.3408V20.6516H36.3649L36.3638 20.6505Z" fill="currentColor"/>
+          <path d="M0 10.5947C0 4.30233 4.81475 0 10.8939 0C14.5521 0 17.8606 1.47838 19.9854 4.65179L15.6008 6.93686C14.417 5.32348 12.8836 4.46345 10.9473 4.46345C7.53087 4.46345 5.13711 7.12519 5.13711 10.6208C5.13711 14.1165 7.74651 16.7249 10.7861 16.7249C13.2877 16.7249 15.0901 15.2193 15.4124 13.2292V13.202H11.1629V9.38414H20.9808V10.2442C20.9808 16.8588 17.0264 21 10.7327 21C4.78752 21 0 16.7249 0 10.5947Z" fill="currentColor"/>
+          <path d="M24.3939 20.6505V0.376668H29.3699V20.6505H24.3939Z" fill="currentColor"/>
+          <path d="M89.6375 20.6505V0.376668H94.6135V20.6505H89.6375Z" fill="currentColor"/>
+          <path d="M113.131 0.376668H118V20.6505H113.965L103.798 7.87853L103.878 20.6505H98.9828V0.376668H103.126L113.293 13.0681L113.132 0.376668H113.131Z" fill="currentColor"/>
+          <path d="M57.8347 16.4026C54.7418 16.4026 52.1324 13.9826 52.1324 10.5142C52.1324 7.23406 54.634 4.62566 57.8892 4.62566C59.4923 4.62566 60.8917 5.23204 61.91 6.23577C62.4011 4.66812 63.1657 3.20171 64.1818 1.89098C62.4022 0.703266 60.2372 0.0272162 57.9153 0.0272162C51.944 0.0272162 46.9942 4.49067 46.9942 10.4869C46.9942 16.7793 51.9701 21 57.8347 21C60.1762 21 62.3576 20.3446 64.1469 19.1798C63.1428 17.8701 62.3859 16.395 61.9013 14.8078C60.8678 15.8072 59.4476 16.4026 57.8347 16.4026Z" fill="currentColor"/>
+          <path d="M75.6714 0.0272162C71.9239 0.0272162 68.5794 1.78538 66.6071 4.57667C65.4375 6.23359 64.7503 8.25412 64.7503 10.4869C64.7503 12.7198 65.4353 14.8687 66.5962 16.5235C68.5642 19.3289 71.9022 21 75.5908 21C81.5894 21 86.5392 16.6977 86.5392 10.5403C86.5392 4.38289 81.6166 0.0272162 75.6714 0.0272162ZM75.5908 16.4026C72.4979 16.4026 69.8885 13.9826 69.8885 10.5142C69.8885 7.23406 72.3901 4.62566 75.6453 4.62566C78.9005 4.62566 81.402 7.20684 81.402 10.5414C81.402 13.8759 78.9005 16.4026 75.5919 16.4026H75.5908Z" fill="currentColor"/>
+        </svg>
+      </span><span class="tbc">to be continued …</span></span>
+    </footer>
   </div>
 </div>
 <div id="tt"></div>
 
 <script>
-const PARAMS = [
- {key:'purpose',     label:'purpose',     w:0.05, vals:[['transformation',.75],['frontier',.70],['resilience',.60],['systemic-solidarity',.65]]},
- {key:'source',      label:'source pool', w:0.05, vals:[['matched pool',.80],['treasury',.70],['protocol emissions',.75],['external donor',.60],['commons surplus',.50],['member dues',.45]]},
- {key:'eligibility', label:'eligibility', w:0.06, vals:[['open-permissionless',.75],['stake-gated',.70],['reputation-gated',.65],['membership-gated',.55],['need-qualified',.50]]},
- {key:'scale',       label:'scale',       w:0.10, vals:[['global-network',.95],['nation',.80],['city',.65],['community',.50],['band',.35]]},
- {key:'enforcement', label:'enforcement', w:0.10, vals:[['smart-contract code',.95],['platform-ToS',.70],['law+contract',.60],['ritual+custom',.40],['kinship+peer',.35]]},
- {key:'medium',      label:'medium',      w:0.10, vals:[['token',.85],['matching-pool',.80],['money',.70],['attention/reputation',.60],['land & use-rights',.45],['labor-time',.40],['in-kind goods',.30]]},
- {key:'allocator',   label:'allocator',   w:0.16, vals:[['solo steward',.30],['committee/institution',.45],['crowd-vote',.60],['fixed algorithm',.70],['hybrid',.80],['market',.85],['autonomous agent/swarm',.95]]},
- {key:'signal',      label:'signal',      w:0.16, vals:[['need',.40],['kinship/membership',.30],['reputation',.60],['vote',.55],['price',.85],['impact-attestation',.90],['external-condition',.70],['seasonal',.35]]},
- {key:'timing',      label:'timing',      w:0.12, vals:[['preemptive',.50],['ongoing',.80],['retroactive',.90]]},
- {key:'flow',        label:'flow',        w:0.10, vals:[['lump-sum',.45],['streaming',.80],['circular-reinvestment',.85],['redistribution',.55]]},
+// design-space genomes, derived from the 3d explorer's PARAMS/MECH (2026-07-09)
+const STATS={"Zakat":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"redistribution"},"Stokvels":{"allocator":"crowd-vote","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Ubuntu":{"allocator":"crowd-vote","signal":"need","timing":"ongoing","flow":"redistribution"},"Kula Ring":{"allocator":"solo steward","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Seasonal Resource Sharing":{"allocator":"crowd-vote","signal":"seasonal","timing":"ongoing","flow":"redistribution"},"Gift Circles":{"allocator":"crowd-vote","signal":"reputation","timing":"ongoing","flow":"redistribution"},"Redistribution Feasts":{"allocator":"solo steward","signal":"need","timing":"ongoing","flow":"redistribution"},"Potlatch":{"allocator":"solo steward","signal":"reputation","timing":"ongoing","flow":"redistribution"},"Gifts of Subsistence":{"allocator":"solo steward","signal":"need","timing":"ongoing","flow":"redistribution"},"Mutual Aid Networks":{"allocator":"crowd-vote","signal":"need","timing":"ongoing","flow":"redistribution"},"Terracing":{"allocator":"committee/institution","signal":"need","timing":"preemptive","flow":"lump-sum"},"Water Irrigation Collectives":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"streaming"},"Crop Rotation Agreements":{"allocator":"committee/institution","signal":"external-condition","timing":"preemptive","flow":"streaming"},"Granary Deposits":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"redistribution"},"Ceremonial Harvest Redistribution":{"allocator":"solo steward","signal":"need","timing":"ongoing","flow":"redistribution"},"Collective Fishing Rights":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"streaming"},"Pasture Commons":{"allocator":"committee/institution","signal":"kinship/membership","timing":"ongoing","flow":"streaming"},"Rotational Labor":{"allocator":"committee/institution","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Susu and Tontines":{"allocator":"crowd-vote","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"ROSCA":{"allocator":"crowd-vote","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Workers' Unions":{"allocator":"committee/institution","signal":"reputation","timing":"ongoing","flow":"redistribution"},"Guild Systems":{"allocator":"committee/institution","signal":"reputation","timing":"ongoing","flow":"circular-reinvestment"},"Lotteries":{"allocator":"fixed algorithm","signal":"external-condition","timing":"preemptive","flow":"lump-sum"},"Micro-lending Platforms":{"allocator":"committee/institution","signal":"reputation","timing":"preemptive","flow":"streaming"},"Community Currencies":{"allocator":"fixed algorithm","signal":"price","timing":"ongoing","flow":"circular-reinvestment"},"Universal Basic Income":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"streaming"},"Assurance Contracts":{"allocator":"fixed algorithm","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Direct Grants":{"allocator":"committee/institution","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Venture Capital":{"allocator":"solo steward","signal":"price","timing":"preemptive","flow":"lump-sum"},"Request for Proposal":{"allocator":"committee/institution","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Participatory Budgeting":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Fraternal Societies":{"allocator":"committee/institution","signal":"kinship/membership","timing":"ongoing","flow":"redistribution"},"Ranked Choice Voting":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Decentralized Cloud Storage":{"allocator":"market","signal":"price","timing":"ongoing","flow":"streaming"},"Social Impact Bonds":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Crowdsourcing":{"allocator":"crowd-vote","signal":"reputation","timing":"preemptive","flow":"lump-sum"},"Crowdfunding for Social Causes":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Angel Investment":{"allocator":"solo steward","signal":"price","timing":"preemptive","flow":"lump-sum"},"Bounties & Hackathons":{"allocator":"committee/institution","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Smart Contract Escrows":{"allocator":"fixed algorithm","signal":"external-condition","timing":"retroactive","flow":"lump-sum"},"Online Knowledge Sharing":{"allocator":"crowd-vote","signal":"reputation","timing":"ongoing","flow":"circular-reinvestment"},"Token-based Incentives (ICO)":{"allocator":"market","signal":"price","timing":"preemptive","flow":"lump-sum"},"Sequencer Fees + EIP-6969":{"allocator":"fixed algorithm","signal":"external-condition","timing":"ongoing","flow":"streaming"},"Quadratic Funding":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"DAOs":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Bonding Curves":{"allocator":"fixed algorithm","signal":"price","timing":"ongoing","flow":"circular-reinvestment"},"Retro Funding":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Impact Attestations":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Impact Metrics (OP R4)":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Futarchy":{"allocator":"market","signal":"price","timing":"preemptive","flow":"lump-sum"},"Cookie Jar":{"allocator":"fixed algorithm","signal":"reputation","timing":"ongoing","flow":"streaming"}};
+
+// core poster mech: m(name, statsKey(0=name), what, good, not, posterNote)
+const m=(name,key,what,good,not,note)=>({name,key:key||name,what,good,not,note});
+// extra (see-more) mech: x(name, what, good, not, unbuilt?)
+const x=(name,what,good,not,unb)=>({name,key:name,what,good,not,extra:true,unb});
+const ERAS=[
+{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#6247d6',
+ currency:['barter system','primitive currency'],group:['bands (20-50 people)','tribes (50-150 people)'],
+ mechs:[
+  m('Zakat',0,"islam's wealth transfer: a fixed share (typically 2.5%) of held wealth, owed each year directly to those in need. one of the oldest continuously running redistribution protocols on earth.",
+    "a predictable baseline for the poorest, at civilizational scale","funding new ventures or public goods; it targets need, not upside"),
+  m('Stokvels',0,"south african rotating savings clubs: members pay in on schedule, each takes the whole pot in turn. trust is the collateral.",
+    "savings discipline and lump sums without banks","outsiders; and capital doesn't grow, it just rotates"),
+  m('Ubuntu',0,"'i am because we are.' an ethic where surplus flows toward whoever needs it, enforced by kinship and reputation rather than contract.","making sure nobody falls through the cracks","scaling past the circle of people who know each other","southern africa"),
+  m('Kula Ring',0,"ceremonial exchange loop across the trobriand islands: shell valuables circulate island to island for prestige, building the trust that ordinary trade rides on.",
+    "building trust networks across distance","allocating actual subsistence; the shells are the social layer","ceremonial exchange network in the trobriand islands"),
+  m('Seasonal Resource Sharing',0,"bands share hunting and foraging grounds on nature's calendar. the allocation signal is the season itself.",
+    "smoothing scarcity across the year","anything beyond the band's territory or timescale","sharing resources based on seasonal availability"),
+  m('Gift Circles',0,"give with no ledger and no due date. safety and status accrue to the generous, and the web of soft debts holds the group together.",
+    "strengthening bonds; generosity as savings account","strangers, ledgers, or anything needing precision"),
+  m('Redistribution Feasts',0,"communal gatherings where accumulated wealth gets eaten, gifted, or given away. leveling by celebration.",
+    "preventing runaway wealth concentration","capital formation; the surplus gets consumed","communal gatherings where wealth is redistributed"),
+  m('Potlatch',0,"pacific northwest gifting ritual where leaders compete by giving the most away. status equals what you can afford to lose.",
+    "converting surplus into status and cohesion","accumulating capital for investment; that's the point","indigenous pacific northwest gifting ritual"),
+  m('Gifts of Subsistence',0,"provisioning those who can't provision themselves, as a standing obligation. need is the only eligibility test.",
+    "immediate need with zero bureaucracy","durable funding; it lasts as long as the giver's surplus","indigenous north america"),
+  m('Mutual Aid Networks',0,"members pool dues and labor against each other's bad days. insurance before insurance existed.",
+    "pooled resilience against personal shocks","big infrastructure or long-horizon bets"),
+  x('Meat Sharing Norms',"strict customary rules for dividing large kills across the whole band, regardless of who made the kill.",
+    "variance insurance; a hunter eats even on unlucky weeks","storable wealth; meat spoils, so the rule is share it"),
+  x('Silent Trade',"goods left at agreed boundary spots and exchanged without the two groups ever meeting.",
+    "trade across distrust and language barriers","complex goods, haggling, or anything on credit"),
+  x('Bride Wealth & Dowry',"resource transfers binding two families at marriage.",
+    "alliance formation between kin groups","the individuals being priced; it allocates people too"),
+  x('Barter',"direct swap of goods, no money in between.",
+    "simple bilateral trades","the double coincidence of wants; you need what i have, and vice versa, at once"),
+ ]},
+{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#8a3fd1',
+ currency:['commodities','metal coins','labor'],group:['villages','cities','city-states','empires','civilizations'],
+ mechs:[
+  m('Terracing',0,"villages reshape whole hillsides for farming none could do alone. lump-sum infrastructure, paid for in coordinated labor.",
+    "shared infrastructure nobody could build alone","fast decisions; the payback is generational","community-driven land modification for farming"),
+  m('Water Irrigation Collectives',0,"shared canals with committee-run water rights. elinor ostrom's canonical example of a commons that doesn't collapse.",
+    "governing a shared flow fairly for centuries","rapid reallocation when conditions change","shared water management systems"),
+  m('Crop Rotation Agreements',0,"communities coordinate what gets planted where and when, so the soil (a shared asset) survives everyone using it.",
+    "sustaining a shared resource long-term","individual experimentation; deviation breaks the schedule","communities coordinating crop planting schedules"),
+  m('Granary Deposits',0,"store the surplus centrally, release it in famine. a smoothing function for harvest volatility.",
+    "famine insurance and shock smoothing","growth; grain rots and gatekeepers accrete power","community granaries for storing surplus grains"),
+  m('Ceremonial Harvest Redistribution',0,"the harvest festival as allocation event: surplus from lucky fields flows to unlucky ones, with ritual as the enforcement layer.",
+    "leveling luck between fields and families","scale beyond the village that shares the ritual","redistribution of surplus from harvest festivals"),
+  m('Collective Fishing Rights',0,"shared access to fishing waters, gated by membership and managed by custom so the stock regenerates.",
+    "keeping the fishery alive across generations","newcomers; the gate is the mechanism","shared access to fishing waters"),
+  m('Pasture Commons',0,"shared grazing land governed by custom. the actual commons behind 'the tragedy of the commons', which mostly wasn't tragic, because it was governed.",
+    "proof that commons can be self-governed","absorbing outsiders or scaling fast","shared grazing lands for livestock"),
+  m('Rotational Labor',0,"everyone builds everyone's barn in turn. labor is the medium and the roster is the algorithm.",
+    "big jobs with zero money changing hands","specialized skills or unequal effort; the roster assumes symmetry"),
+  m('Susu and Tontines',0,"west african rotating credit: fixed contributions, rotating payout. banking without banks.",
+    "credit for people banks won't touch","large or long-duration capital","west africa"),
+  m('Rotating Savings & Credit (ROSCA)','ROSCA',"the general form of the rotating pool: a group saves together and takes turns receiving the pot. exists on every continent under a different name.",
+    "forced savings plus interest-free credit","strangers; one default breaks the loop"),
+  x('Tithes',"a fixed share of harvest or income owed to the temple or church.",
+    "durable institutional funding across centuries","consent; it's compulsory and the institution grades its own impact"),
+  x('Waqf Endowments',"islamic charitable endowments that lock an asset's yield to a public purpose, forever.",
+    "schools, wells and hospitals that outlive their founders","repurposing; forever is rigid when needs change"),
+  x('Corvée Labor',"labor owed to the state instead of taxes. built pyramids, roads, and canals.",
+    "megaprojects in economies without money","the laborers; it's coercion with a ledger"),
+  x('Feudal Land Grants',"land granted downward in exchange for loyalty and military service.",
+    "stable defense hierarchies from scarce capital","mobility; it hardcodes class into geography"),
+  x('Tribute Systems',"subordinate polities paying regular flows upward to an imperial center.",
+    "funding imperial coordination and infrastructure","the periphery it extracts from; resentment compounds"),
+ ]},
+{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#b535bb',
+ currency:['metal coins','paper money','banknotes','checks','bonds'],group:['cities','nations','global empires'],
+ mechs:[
+  m("Workers' Unions",0,"labor pools its bargaining power and its strike funds. dues in, protection out.",
+    "bargaining power and strike insurance","non-members; and it moves slower than the industries it bargains with","labor organizations for mutual aid and bargaining"),
+  m('Guild Systems',0,"trade associations that gate who may practice a craft and fund apprenticeship and mutual aid from member fees.",
+    "quality control and skill transmission","innovation; gatekeeping calcifies into protectionism","trade-based associations for skill and knowledge sharing"),
+  m('Lotteries',0,"everyone pays a little; a draw picks who gets a lot. randomness as the allocator, often taxed to fund public works.",
+    "raising large sums painlessly from many","fair outcomes; in practice it's a regressive tax on hope"),
+  m('Micro-lending Platforms',0,"small loans to people banks ignore, underwritten by reputation and repayment circles (grameen, kiva).",
+    "credit where banks won't go","cheap capital; rates can be brutal at the margin","peer-to-peer lending through online platforms"),
+  m('Community Currencies',0,"local money that only spends locally, keeping purchasing power circulating inside a community instead of leaking out.",
+    "keeping value cycling locally","trade with the outside world; that's the tradeoff"),
+  m('Universal Basic Income',0,"a check to everyone, unconditionally. need is assumed rather than means-tested; agency stays with the recipient.",
+    "an unconditional floor with zero paperwork","purpose and belonging; a check isn't a livelihood"),
+  m('Assurance Contracts',0,"pledges that only execute if enough others pledge too. kickstarter's grandfather; a fix for the free-rider problem.",
+    "threshold goods; nobody pays unless it happens","continuous funding after the launch moment"),
+  m('Direct Grants',0,"a treasury gives money to a proposal it believes in. the default mechanism of governments and foundations.",
+    "legible, accountable, targeted funding","speed and surprise; committees fund the fundable"),
+  m('Venture Capital',0,"concentrated early bets hunting power-law outcomes. a solo allocator reading price signals from the future.",
+    "frontier bets with power-law upside","public goods; no exit, no check"),
+  m('Request for Proposal',0,"the buyer publishes what it wants; suppliers compete to provide it. procurement as allocation.",
+    "buying known things competitively","discovering unknown things; you must spec it first"),
+  m('Participatory Budgeting',0,"residents vote directly on how a slice of the public budget gets spent. started in porto alegre, 1989.",
+    "legitimacy and civic muscle","technical tradeoffs; and it usually touches a tiny % of the budget"),
+  m('Fraternal Societies',0,"lodge-based membership groups providing sickness and burial benefits from dues, decades before the welfare state.",
+    "member welfare before the welfare state","outsiders; exclusivity was the underwriting model","membership-based support for social welfare"),
+  x('Cooperatives',"member-owned firms, one member one vote. the rochdale pioneers set the template in 1844.",
+    "aligning ownership with the people who use the thing","raising fast outside capital; investors want more than one vote"),
+  x('Credit Unions',"member-owned banks that lend members' savings back to members.",
+    "cheap credit with aligned incentives","high-risk, high-growth lending; conservatism is structural"),
+  x('Joint-Stock Companies',"divisible, tradable ownership shares pooling capital for ventures too big for any one fortune.",
+    "aggregating huge capital for huge risk","externalities; profit is the only native signal"),
+  x('Philanthropic Foundations',"endowed institutions granting in perpetuity (carnegie, rockefeller).",
+    "patient capital for unpopular causes","accountability; dead donors don't update their priors"),
+  x('War Bonds',"citizens lending to the state for wars and megaprojects.",
+    "mobilizing a whole society's savings fast","peacetime; the urgency is the product"),
+  x('Welfare State Programs',"taxation-funded social insurance at national scale: pensions, unemployment, health.",
+    "universal floors at nation scale","adaptability; bureaucracy compounds faster than it reforms"),
+ ]},
+{name:'Information era',years:'late 20th century - present',acc:'#d63d97',
+ currency:['fiat money','digital payments','cryptocurrencies'],group:['towns','cities','megacities','nations','supranational orgs','global networks'],
+ mechs:[
+  m('Ranked Choice Voting',0,"voters rank instead of pick; instant runoffs surface the consensus choice. applied to budgets, it reorders what gets funded.",
+    "surfacing consensus and killing spoilers","allocating money directly; it ranks, it doesn't fund","with STAR voting being a potential improvement"),
+  m('Decentralized Cloud Storage',0,"spare hard drives rented into a global market (filecoin, storj). price allocates the bytes.",
+    "price-discovering idle capacity worldwide","things without a market price","resource-sharing for data storage"),
+  m('Social Impact Bonds',0,"investors front the money for a social program; government repays with interest only if measured outcomes land. retro funding wearing a suit.",
+    "shifting outcome-risk onto investors","cheap experiments; measurement and legal overhead eat the returns"),
+  m('Crowdsourcing',0,"throw the problem to the crowd and reward what comes back (wikipedia, kaggle, open source bounty boards).",
+    "parallel search across many minds","paying fairly; winner-take-most burns the rest","soliciting contributions from a large group for solutions"),
+  m('Crowdfunding for Social Causes',0,"many small donors, one visible goal, a public thermometer (gofundme, donorschoose).",
+    "stories that travel; emotional bandwidth as capital","unsexy but critical work; drama outcompetes drainage","raising funds for charitable initiatives online"),
+  m('Angel Investment',0,"individuals writing early checks on conviction and relationships, before institutions will touch it.",
+    "the earliest conviction capital","anyone outside the network; warm intros are the gate"),
+  m('Bounties & Hackathons',0,"post the prize, pay whoever ships it. purely retroactive: work first, reward after.",
+    "crisp, well-specified tasks","maintenance and ongoing care; nobody bounties the boring"),
+  m('Smart Contract Escrows',0,"code holds the money and releases it when conditions verify onchain. the trusted third party is a program.",
+    "trustless conditional release","judging fuzzy outcomes; oracles are the hard part","automated contracts managing funds"),
+  m('Online Knowledge Sharing','Online Knowledge Sharing',"stack overflow, wikipedia: reputation and attention flow to whoever answers well. knowledge allocated by upvote.",
+    "knowledge compounding at zero price","paying the contributors; the surplus goes everywhere but to them","free exchange of information and expertise"),
+  x('Open Source Licensing',"a legal hack that turns code into a commons anyone can use and build on.",
+    "infinite reuse at zero marginal cost","paying maintainers; that gap is why gitcoin exists"),
+  x('Prize Competitions',"publicly posted rewards for solved problems, from the longitude prize to xprize.",
+    "audacious, well-specified goals","the losers' costs; ten teams spend, one gets paid"),
+  x('Donor-Advised Funds',"tax-advantaged holding pens for charitable capital, granted out whenever the donor decides.",
+    "flexible timing for big donors","urgency; billions sit parked inside indefinitely"),
+  x('Direct Cash Transfers',"just send money, no strings (givedirectly). among the best-evidenced interventions in development.",
+    "respecting that recipients know their own needs","collective problems no household can buy its way out of"),
+  x('Patronage Subscriptions',"recurring small payments from fans to creators (patreon, substack).",
+    "steady income from a true-fan base","discovery; the long tail starves politely"),
+  x('Impact Investing',"return-seeking capital with a measured social mandate attached.",
+    "pulling markets toward good on the margin","goods with no revenue model at all; concessionary isn't free"),
+ ]},
+{name:'Onchain era',years:'emerging (21st century)',acc:'#e8446f',
+ currency:['cryptocurrencies','tokenized assets','governance tokens','nfts'],group:['daos','blockchain networks','virtual communities','bioregional coordination'],
+ mechs:[
+  m('Token-based Incentives','Token-based Incentives (ICO)',"mint a token, sell or grant it to whoever bootstraps the network. 2017's cambrian explosion, scams included.",
+    "bootstrapping networks from nothing","long-term alignment; mercenary capital leaves at the top","blockchain tokens as rewards for participation. icos = a prominent example."),
+  m('Sequencer Fees + EIP 6969','Sequencer Fees + EIP-6969',"a share of l2 sequencer revenue routed automatically to the contracts that generate it. infrastructure that funds its own maintenance.",
+    "self-funding infrastructure, forever","anything off the revenue path; no fees, no flow"),
+  m('Quadratic Funding',0,"a matching pool amplifies many-small-donations over few-large-ones (square root math). gitcoin's grants rounds have routed $60m+, most of it via qf.",
+    "reading community breadth democratically","sybil resistance; identity is the load-bearing wall"),
+  m('DAOs','DAOs',"internet-native organizations where token holders vote treasuries toward proposals. the org chart lives in a smart contract.",
+    "global treasuries with no headquarters","speed; voter apathy is the default state","daos managing resources collectively"),
+  m('Bonding Curves',0,"a contract that always quotes a buy and sell price from a formula on supply. liquidity and allocation with zero meetings.",
+    "continuous liquidity with no counterparty","unpriceable goods; it only allocates what trades"),
+  m('Retro Funding',0,"fund what already worked, judged on evidence of impact. optimism's flagship experiment. it's easier to agree on the past than the future.",
+    "paying for provable results","newcomers who can't float the upfront risk"),
+  m('Impact Attestations',0,"signed, verifiable onchain claims about who did what. the data layer that retro funding decides on.",
+    "making impact legible and portable","meaning by itself; data still needs judgment"),
+  m('Impact Metrics (OP R4)','Impact Metrics (OP R4)',"retro funding with the judgment moved into metrics: measure usage onchain, pay proportionally.",
+    "scaling retro judgment beyond human reviewers","what the metrics miss; goodhart collects his fee","variant of retro funding"),
+  m('Futarchy',0,"vote on goals, bet on outcomes: prediction markets pick the policy. governance by whoever is right about the future.",
+    "harvesting honest forecasts","values questions; and thin markets are cheap to game"),
+  m('Cookie Jar',0,"a shared jar members can dip into up to a limit, every dip logged onchain. trust made legible, bureaucracy deleted.",
+    "small trusted spend without votes","large allocations; trust has a ceiling"),
+  x('Conviction Voting',"votes gain weight the longer they're held on a proposal (commons stack, 1hive).",
+    "surfacing sustained preference over flash mobs","urgent decisions; conviction takes time to accrue"),
+  x('Ragequit',"dissenting members exit with their pro-rata share of the treasury (molochdao).",
+    "minority protection; exit as a governance right","illiquid treasuries; you can't ragequit a building"),
+  x('Harberger Taxes',"self-assess your asset's price, pay tax on it, anyone can buy it at that price.",
+    "keeping assets in their highest-value use","anything you need security of tenure over"),
+  x('Hypercerts',"tokenized claims on slices of impact, fundable and tradable after the fact.",
+    "building retro markets in impact","valuation; pricing impact is still folk art"),
+  x('Money Streaming',"continuous per-second payment flows (sablier, superfluid).",
+    "aligning pay with ongoing work; cancel anytime","lump-sum needs; rent is due on the 1st, not per-second"),
+  x('Protocol Guild & Drips',"dependency-weighted funding flowing automatically to the maintainers everything relies on.",
+    "the unglamorous load-bearing layer","judging quality; dependency weight isn't worth"),
+  x('Deep Funding',"ai-assisted dependency graphs allocating value to what the ecosystem measurably relies on.",
+    "scale and objectivity in dependency funding","work that doesn't show up in the graph"),
+  x('retroQF',"qf's matching math applied retroactively to attested impact instead of promises. from the design-space explorers: 3 cell-edits from vanilla qf.",
+    "crowd wisdom pointed at proven work","builders who can't self-fund the upfront risk",true),
+  x('Impact Curve',"a bonding curve whose price reads attested impact instead of market demand. the highest-scoring genome in the design space, and nobody has built it.",
+    "continuously repricing impact and recycling capital through it","existing; this one is a spec waiting for a builder",true),
+ ]},
 ];
-// era: axis/facet-only pseudo-param (chronological; excluded from potential scoring)
-const ERA={key:'era', label:'era', vals:[['Hunter-Gatherer',0],['Agricultural',0],['Industrial',0],['Information',0],['Onchain',0]]};
-const AXPARAMS=[...PARAMS, ERA];
-const P = Object.fromEntries(AXPARAMS.map(p=>[p.key,p]));
-const scoreOfVal=(k,name)=>{const v=P[k].vals.find(x=>x[0]===name);return v?v[1]:0;};
-const idxOfVal=(k,name)=>P[k].vals.findIndex(x=>x[0]===name);
-function coherence(g){ let m=1;
-  if(g.allocator==='market'&&g.signal!=='price')m*=0.7;
-  if((g.allocator==='fixed algorithm'||g.allocator==='autonomous agent/swarm')&&!['price','impact-attestation','external-condition','reputation'].includes(g.signal))m*=0.8;
-  if(g.enforcement==='smart-contract code'&&['band','community'].includes(g.scale))m*=0.7;
-  if(g.enforcement==='kinship+peer'&&['nation','global-network'].includes(g.scale))m*=0.6;
-  if(g.medium==='token'&&!['smart-contract code','platform-ToS'].includes(g.enforcement))m*=0.8;
-  if(g.timing==='retroactive'&&!['impact-attestation','reputation','external-condition'].includes(g.signal))m*=0.8;
-  return m; }
-function potential(g){ let s=0; for(const p of PARAMS) s+=p.w*scoreOfVal(p.key,g[p.key]); return Math.round(100*s*coherence(g)); }
 
-const ORDER=['purpose','source','eligibility','scale','enforcement','medium','allocator','signal','timing','flow'];
-function M(name,era,a){ const g={}; ORDER.forEach((k,i)=>g[k]=a[i]); g.era=era; return {name,era,g,pot:potential(g)}; }
-const MECH=[
- M('Zakat','Hunter-Gatherer',['systemic-solidarity','member dues','need-qualified','community','ritual+custom','money','committee/institution','need','ongoing','redistribution']),
- M('Stokvels','Hunter-Gatherer',['resilience','member dues','membership-gated','community','kinship+peer','money','crowd-vote','kinship/membership','ongoing','circular-reinvestment']),
- M('Ubuntu','Hunter-Gatherer',['systemic-solidarity','commons surplus','membership-gated','community','kinship+peer','in-kind goods','crowd-vote','need','ongoing','redistribution']),
- M('Kula Ring','Hunter-Gatherer',['systemic-solidarity','commons surplus','membership-gated','community','ritual+custom','in-kind goods','solo steward','kinship/membership','ongoing','circular-reinvestment']),
- M('Seasonal Resource Sharing','Hunter-Gatherer',['resilience','commons surplus','membership-gated','band','kinship+peer','in-kind goods','crowd-vote','seasonal','ongoing','redistribution']),
- M('Gift Circles','Hunter-Gatherer',['systemic-solidarity','commons surplus','membership-gated','community','kinship+peer','in-kind goods','crowd-vote','reputation','ongoing','redistribution']),
- M('Redistribution Feasts','Hunter-Gatherer',['systemic-solidarity','commons surplus','membership-gated','community','ritual+custom','in-kind goods','solo steward','need','ongoing','redistribution']),
- M('Potlatch','Hunter-Gatherer',['systemic-solidarity','commons surplus','membership-gated','community','ritual+custom','in-kind goods','solo steward','reputation','ongoing','redistribution']),
- M('Gifts of Subsistence','Hunter-Gatherer',['systemic-solidarity','commons surplus','need-qualified','band','kinship+peer','in-kind goods','solo steward','need','ongoing','redistribution']),
- M('Mutual Aid Networks','Hunter-Gatherer',['systemic-solidarity','member dues','membership-gated','community','kinship+peer','in-kind goods','crowd-vote','need','ongoing','redistribution']),
- M('Terracing','Agricultural',['resilience','commons surplus','membership-gated','community','ritual+custom','labor-time','committee/institution','need','preemptive','lump-sum']),
- M('Water Irrigation Collectives','Agricultural',['resilience','commons surplus','membership-gated','community','law+contract','land & use-rights','committee/institution','need','ongoing','streaming']),
- M('Crop Rotation Agreements','Agricultural',['resilience','commons surplus','membership-gated','community','law+contract','land & use-rights','committee/institution','external-condition','preemptive','streaming']),
- M('Granary Deposits','Agricultural',['resilience','commons surplus','membership-gated','city','law+contract','in-kind goods','committee/institution','need','ongoing','redistribution']),
- M('Ceremonial Harvest Redistribution','Agricultural',['systemic-solidarity','commons surplus','membership-gated','community','ritual+custom','in-kind goods','solo steward','need','ongoing','redistribution']),
- M('Collective Fishing Rights','Agricultural',['resilience','commons surplus','membership-gated','community','law+contract','land & use-rights','committee/institution','need','ongoing','streaming']),
- M('Pasture Commons','Agricultural',['resilience','commons surplus','membership-gated','community','ritual+custom','land & use-rights','committee/institution','kinship/membership','ongoing','streaming']),
- M('Rotational Labor','Agricultural',['resilience','member dues','membership-gated','community','ritual+custom','labor-time','committee/institution','kinship/membership','ongoing','circular-reinvestment']),
- M('Susu and Tontines','Agricultural',['resilience','member dues','membership-gated','community','kinship+peer','money','crowd-vote','kinship/membership','ongoing','circular-reinvestment']),
- M('ROSCA','Agricultural',['resilience','member dues','membership-gated','community','law+contract','money','crowd-vote','kinship/membership','ongoing','circular-reinvestment']),
- M("Workers' Unions",'Industrial',['systemic-solidarity','member dues','membership-gated','nation','law+contract','money','committee/institution','reputation','ongoing','redistribution']),
- M('Guild Systems','Industrial',['resilience','member dues','membership-gated','city','law+contract','labor-time','committee/institution','reputation','ongoing','circular-reinvestment']),
- M('Lotteries','Industrial',['resilience','member dues','open-permissionless','nation','law+contract','money','fixed algorithm','external-condition','preemptive','lump-sum']),
- M('Micro-lending Platforms','Industrial',['transformation','external donor','reputation-gated','nation','law+contract','money','committee/institution','reputation','preemptive','streaming']),
- M('Community Currencies','Industrial',['resilience','commons surplus','membership-gated','community','law+contract','money','fixed algorithm','price','ongoing','circular-reinvestment']),
- M('Universal Basic Income','Industrial',['systemic-solidarity','treasury','open-permissionless','nation','law+contract','money','committee/institution','need','ongoing','streaming']),
- M('Assurance Contracts','Industrial',['transformation','member dues','open-permissionless','community','law+contract','money','fixed algorithm','vote','preemptive','lump-sum']),
- M('Direct Grants','Industrial',['transformation','treasury','open-permissionless','nation','law+contract','money','committee/institution','vote','preemptive','lump-sum']),
- M('Venture Capital','Industrial',['frontier','external donor','reputation-gated','nation','law+contract','money','solo steward','price','preemptive','lump-sum']),
- M('Request for Proposal','Industrial',['transformation','treasury','open-permissionless','nation','law+contract','money','committee/institution','vote','preemptive','lump-sum']),
- M('Participatory Budgeting','Industrial',['systemic-solidarity','treasury','open-permissionless','city','law+contract','money','crowd-vote','vote','preemptive','lump-sum']),
- M('Fraternal Societies','Industrial',['systemic-solidarity','member dues','membership-gated','city','law+contract','money','committee/institution','kinship/membership','ongoing','redistribution']),
- M('Ranked Choice Voting','Information',['systemic-solidarity','treasury','open-permissionless','nation','law+contract','money','crowd-vote','vote','preemptive','lump-sum']),
- M('Decentralized Cloud Storage','Information',['transformation','external donor','open-permissionless','global-network','platform-ToS','token','market','price','ongoing','streaming']),
- M('Social Impact Bonds','Information',['transformation','external donor','reputation-gated','nation','law+contract','money','hybrid','impact-attestation','retroactive','lump-sum']),
- M('Crowdsourcing','Information',['frontier','external donor','open-permissionless','global-network','platform-ToS','attention/reputation','crowd-vote','reputation','preemptive','lump-sum']),
- M('Crowdfunding for Social Causes','Information',['systemic-solidarity','external donor','open-permissionless','global-network','platform-ToS','money','crowd-vote','vote','preemptive','lump-sum']),
- M('Angel Investment','Information',['frontier','external donor','reputation-gated','global-network','law+contract','money','solo steward','price','preemptive','lump-sum']),
- M('Bounties & Hackathons','Information',['transformation','treasury','open-permissionless','global-network','platform-ToS','money','committee/institution','impact-attestation','retroactive','lump-sum']),
- M('Smart Contract Escrows','Information',['transformation','treasury','open-permissionless','global-network','smart-contract code','token','fixed algorithm','external-condition','retroactive','lump-sum']),
- M('Online Knowledge Sharing','Information',['transformation','commons surplus','open-permissionless','global-network','platform-ToS','attention/reputation','crowd-vote','reputation','ongoing','circular-reinvestment']),
- M('Token-based Incentives (ICO)','Onchain',['frontier','protocol emissions','open-permissionless','global-network','smart-contract code','token','market','price','preemptive','lump-sum']),
- M('Sequencer Fees + EIP-6969','Onchain',['transformation','protocol emissions','open-permissionless','global-network','smart-contract code','token','fixed algorithm','external-condition','ongoing','streaming']),
- M('Quadratic Funding','Onchain',['transformation','matched pool','open-permissionless','global-network','smart-contract code','matching-pool','crowd-vote','vote','preemptive','lump-sum']),
- M('DAOs','Onchain',['transformation','treasury','stake-gated','global-network','smart-contract code','token','crowd-vote','vote','preemptive','lump-sum']),
- M('Bonding Curves','Onchain',['frontier','protocol emissions','open-permissionless','global-network','smart-contract code','token','fixed algorithm','price','ongoing','circular-reinvestment']),
- M('Retro Funding','Onchain',['transformation','treasury','open-permissionless','global-network','smart-contract code','token','hybrid','impact-attestation','retroactive','lump-sum']),
- M('Impact Attestations','Onchain',['transformation','treasury','open-permissionless','global-network','smart-contract code','token','hybrid','impact-attestation','retroactive','lump-sum']),
- M('Impact Metrics (OP R4)','Onchain',['transformation','treasury','reputation-gated','global-network','smart-contract code','token','hybrid','impact-attestation','retroactive','lump-sum']),
- M('Futarchy','Onchain',['frontier','treasury','open-permissionless','global-network','smart-contract code','token','market','price','preemptive','lump-sum']),
- M('Cookie Jar','Onchain',['transformation','treasury','stake-gated','global-network','smart-contract code','token','fixed algorithm','reputation','ongoing','streaming']),
-];
-
-const VIR=[[68,1,84],[59,82,139],[33,144,140],[93,201,99],[253,231,37]];
-function viridis(t){ t=t<0?0:t>1?1:t; const x=t*4,i=Math.floor(x),f=x-i,a=VIR[i],b=VIR[Math.min(i+1,4)];
-  return `rgb(${Math.round(a[0]+(b[0]-a[0])*f)},${Math.round(a[1]+(b[1]-a[1])*f)},${Math.round(a[2]+(b[2]-a[2])*f)})`; }
-const potMin=Math.min(...MECH.map(m=>m.pot)), potMax=Math.max(...MECH.map(m=>m.pot));
-const potColor=v=>viridis((v-potMin)/((potMax-potMin)||1));
-
-// ---- state ----
-let axis={x:'allocator',y:'signal',z:'scale'}, facetKey='timing';
-// restore persisted axis + facet picks
-const LSAX='ca3d_axes';
-try{ const sv=JSON.parse(localStorage.getItem(LSAX)||'{}');
-  ['x','y','z'].forEach(a=>{ if(sv.axis && Object.hasOwn(P,sv.axis[a])) axis[a]=sv.axis[a]; });
-  if(sv.facetKey&&(sv.facetKey==='none'||Object.hasOwn(P,sv.facetKey))) facetKey=sv.facetKey;
-}catch(e){}
-function persistAxes(){ try{ localStorage.setItem(LSAX,JSON.stringify({axis,facetKey})); }catch(e){} }
-let rx=-0.5, ry=0.7, zoom=1, spin=false, showBg=false, showLbl=false, selected=null;
-let panels=[], DPR=Math.min(2,window.devicePixelRatio||1);
-const D3=3.2;
-function coord(k,name){ const n=P[k].vals.length, i=idxOfVal(k,name); return n>1?(i/(n-1))*2-1:0; }
-function jit(s,seed){ let x=Math.sin(seed*99.7)*43758.5453; return (x-Math.floor(x)-0.5)*s; }
-function rotate(p){ const cy=Math.cos(ry),sy=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx);
-  let x1=p.x*cy-p.z*sy, z1=p.x*sy+p.z*cy, y1=p.y; let y2=y1*cx-z1*sx, z2=y1*sx+z1*cx; return {x:x1,y:y2,z:z2}; }
-function project(p,Wd,Hd){ const r=rotate(p); const s=(Hd*0.42)*zoom/(r.z+D3);
-  return {sx:Wd/2+r.x*s, sy:Hd/2 - r.y*s, depth:r.z, scale:D3/(r.z+D3)}; }
-
-const stage=document.querySelector('.stagewrap'), container=document.getElementById('facets'), card=document.getElementById('card'), tt=document.getElementById('tt');
-
-// value filters: enabled[param][value] = bool — persisted across pageloads
-const LSKEY='ca3d_value_filters';
-const enabled={}; AXPARAMS.forEach(p=>{ enabled[p.key]={}; p.vals.forEach(v=>enabled[p.key][v[0]]=true); });
-try{ const saved=JSON.parse(localStorage.getItem(LSKEY)||'{}');
-  for(const k in saved) if(enabled[k]) for(const v in saved[k]) if(Object.hasOwn(enabled[k],v)) enabled[k][v]=!!saved[k][v];
-}catch(e){}
-function persistFilters(){ try{ localStorage.setItem(LSKEY,JSON.stringify(enabled)); }catch(e){} }
-function isEnabled(g){ return AXPARAMS.every(p=>enabled[p.key][g[p.key]]); }
-
-function facetValues(){ return facetKey==='none'?['(all)']:P[facetKey].vals.map(v=>v[0]); }
-
-function buildPanels(){
-  container.innerHTML=''; panels=[];
-  const vals=facetValues().filter(v=> facetKey==='none' || enabled[facetKey][v]);
-  const n=vals.length, cols=n<=1?1:n<=4?2:3;
-  container.style.gridTemplateColumns=`repeat(${Math.max(1,cols)},minmax(0,1fr))`;
-  if(n===0){ container.innerHTML='<div style="color:#7d8b99;padding:30px;text-align:center">all values of the faceted param are disabled — re-enable one below.</div>'; return; }
-  vals.forEach(v=>{
-    const subset = (facetKey==='none'?MECH:MECH.filter(m=>m.g[facetKey]===v)).filter(m=>isEnabled(m.g));
-    const wrap=document.createElement('div'); wrap.className='p3';
-    const title=document.createElement('div'); title.className='ptitle';
-    title.innerHTML=`<b>${facetKey==='none'?'all mechanisms':v}</b><span>${subset.length}</span>`;
-    const cvs=document.createElement('canvas');
-    wrap.appendChild(title); wrap.appendChild(cvs); container.appendChild(wrap);
-    const pan={v,cvs,ctx:cvs.getContext('2d'),subset,screenMech:[],bgRaw:null,W:0,H:0};
-    attachPointer(pan); panels.push(pan);
-  });
-  if(showBg) computeBg();
-  resize();
-}
-function computeBg(){
-  for(const pan of panels){
-    pan.bgRaw=[];
-    for(let i=0;i<900;i++){ const g={};
-      for(const p of AXPARAMS) g[p.key]=p.vals[Math.floor(Math.random()*p.vals.length)][0];
-      if(facetKey!=='none') g[facetKey]=pan.v;
-      if(isEnabled(g)) pan.bgRaw.push({g,c:potential(g)});
+// ---------- generative line-botany, seeded by name ----------
+function hashName(n){ let h=2166136261; for(const c of n){ h^=c.charCodeAt(0); h=Math.imul(h,16777619); } return (h>>>0)||1; }
+function sr(seed){ let s=seed%2147483647; if(s<=0)s+=2147483646; return ()=>{ s=s*16807%2147483647; return (s-1)/2147483646; }; }
+function markSVG(name,duo){
+  const R=sr(hashName(name)), type=Math.floor(R()*5), P=[];
+  const L=(x1,y1,x2,y2)=>P.push(`M${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}`);
+  const O=(cx,cy,r)=>P.push(`M${(cx+r).toFixed(1)} ${cy.toFixed(1)}A${r.toFixed(1)} ${r.toFixed(1)} 0 1 0 ${(cx-r).toFixed(1)} ${cy.toFixed(1)}A${r.toFixed(1)} ${r.toFixed(1)} 0 1 0 ${(cx+r).toFixed(1)} ${cy.toFixed(1)}`);
+  if(type===0){ // radial burst with twigs
+    const n=12+Math.floor(R()*10);
+    for(let i=0;i<n;i++){ const a=i/n*6.283+R()*.12, r0=3+R()*4, r1=24+R()*16;
+      const x0=Math.cos(a)*r0,y0=Math.sin(a)*r0,x1=Math.cos(a)*r1,y1=Math.sin(a)*r1;
+      L(x0,y0,x1,y1);
+      const tm=.55+R()*.3, tx=x0+(x1-x0)*tm, ty=y0+(y1-y0)*tm, ta=a+(R()<.5?-.5:.5), tl=4+R()*6;
+      L(tx,ty,tx+Math.cos(ta)*tl,ty+Math.sin(ta)*tl);
+      if(R()<.5) O(x1,y1,1.3);
     }
+  } else if(type===1){ // concentric petal mandala
+    const rings=3+Math.floor(R()*2);
+    for(let g=1;g<=rings;g++){ const r=g*(34/rings)*(.8+R()*.2), k=5+g*3;
+      for(let i=0;i<k;i++){ const a=i/k*6.283+g*.3;
+        const px=Math.cos(a)*r, py=Math.sin(a)*r;
+        L(Math.cos(a)*(r-5),Math.sin(a)*(r-5),px,py); O(px,py,1.4+R());
+      } }
+    O(0,0,2.4);
+  } else if(type===2){ // fern
+    L(0,32,0,-30);
+    for(let y=26;y>-26;y-=5.5){ const side=(y/5.5)%2<1?1:-1, len=(30-Math.abs(y))*.55+3, a=-.9;
+      const bx=side*Math.cos(a)*len, by=y+Math.sin(a)*len;
+      L(0,y,bx,by);
+      L(bx*.55,y+(by-y)*.55,bx*.55+side*4,y+(by-y)*.55-4);
+      if(R()<.35) O(bx,by,1.1);
+    }
+  } else if(type===3){ // spiral
+    let first=true; const turns=(3+R()*2.4)*6.283, step=.28, kr=1.35+R()*.5;
+    let d='';
+    for(let t=0;t<turns;t+=step){ const r=kr*t*.9, px=Math.cos(t)*r, py=Math.sin(t)*r;
+      if(first){ d=`M${px.toFixed(1)} ${py.toFixed(1)}`; first=false; } else d+=`L${px.toFixed(1)} ${py.toFixed(1)}`;
+      if(t%(step*9)<step) O(px,py,1.2);
+    }
+    P.push(d);
+  } else { // woven lattice clipped to circle
+    const s=7.5+R()*2, useX=R()<.5;
+    for(let y=-32;y<=32;y+=s){ for(let px=-32+((y/s)%2?s/2:0);px<=32;px+=s){
+      if(px*px+y*y>30*30) continue;
+      const h=s*.32;
+      if(useX){ L(px-h,y-h,px+h,y+h); L(px-h,y+h,px+h,y-h); }
+      else { L(px,y-h,px+h,y); L(px+h,y,px,y+h); L(px,y+h,px-h,y); L(px-h,y,px,y-h); }
+    } }
   }
-}
-function resize(){
-  DPR=Math.min(2,window.devicePixelRatio||1);
-  const fs=document.fullscreenElement===stage;
-  for(const pan of panels){
-    const w=pan.cvs.clientWidth||300, h=fs?Math.max(220,Math.round((window.innerHeight-70)/(panels.length<=3?1:2))):Math.round(w*0.92);
-    pan.cvs.style.height=h+'px'; pan.cvs.width=w*DPR; pan.cvs.height=h*DPR; pan.ctx.setTransform(DPR,0,0,DPR,0,0); pan.W=w; pan.H=h;
+  // layered art: soft aura underlayer, gradient main strokes, seeded jewel + spark dots
+  const uid='g'+hashName(name).toString(36);
+  const d=P.join('');
+  let dots='';
+  const DR=sr(hashName(name+'dots'));
+  for(let i=0;i<7;i++){
+    const a=DR()*6.283, r=16+DR()*24, cx=(Math.cos(a)*r).toFixed(1), cy=(Math.sin(a)*r).toFixed(1);
+    const big=DR()<.4;
+    dots+=`<circle cx="${cx}" cy="${cy}" r="${(big?1.6:0.9)+DR()*.6}" fill="${i%2?'#ffffff':duo[1]}" opacity="${big?.95:.8}"/>`;
   }
-  drawAll();
+  return `<svg viewBox="-50 -50 100 100" aria-hidden="true">
+    <defs><linearGradient id="${uid}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${duo[0]}"/><stop offset="1" stop-color="${duo[1]}"/>
+    </linearGradient></defs>
+    <g fill="none" stroke="${duo[1]}" stroke-width="3.6" stroke-linecap="round" opacity=".18" transform="scale(1.03)"><path d="${d}"/></g>
+    <g fill="none" stroke="url(#${uid})" stroke-width="1.9" stroke-linecap="round" opacity=".96"><path d="${d}"/></g>
+    ${dots}
+  </svg>`;
 }
-function drawAll(){ for(const pan of panels) drawPanel(pan); }
+const DUOS=[['#ff8a5c','#e8446f'],['#7c5cff','#3fa9f5'],['#ffb84d','#ff5c8a'],['#34d0a6','#2b7de0'],['#c85cff','#6247d6'],['#ffd23f','#ff7a3d'],['#4dd0e1','#7c5cff'],['#ff6f91','#b535bb']];
 
-function drawAxes(pan){
-  const ctx=pan.ctx, O={x:-1,y:-1,z:-1}, ends={x:{x:1,y:-1,z:-1},y:{x:-1,y:1,z:-1},z:{x:-1,y:-1,z:1}}, cols={x:'#f2707a',y:'#5dc963',z:'#5aa9ff'};
-  const o=project(O,pan.W,pan.H);
-  for(const k of ['x','y','z']){
-    const e=project(ends[k],pan.W,pan.H); ctx.strokeStyle=cols[k]; ctx.lineWidth=1.4;
-    ctx.beginPath(); ctx.moveTo(o.sx,o.sy); ctx.lineTo(e.sx,e.sy); ctx.stroke();
-    ctx.fillStyle=cols[k]; ctx.font='bold 10px -apple-system,Segoe UI,sans-serif'; ctx.textAlign='center';
-    ctx.fillText(axis[k].toUpperCase(), e.sx, e.sy+(k==='y'?-8:14));
+// ---------- build the poster ----------
+const PASTELS=['#c8f2b0','#bcd9ff','#ffdfa8','#fdf49b','#ffc7e6','#aeeee2','#dcc9ff','#ffd4bd'];
+const erasEl=document.getElementById('eras');
+for(const era of ERAS){
+  const sec=document.createElement('section'); sec.className='era'; sec.style.setProperty('--acc',era.acc);
+  const cards=`
+    <div class="ecard"><div class="et">currency</div><ul>${era.currency.map(c=>`<li>${c}</li>`).join('')}</ul></div>
+    <div class="ecard"><div class="et">group size</div><ul>${era.group.map(c=>`<li>${c}</li>`).join('')}</ul></div>`;
+  let xi=0;
+  const mechs=era.mechs.map(mm=>{
+    const R=sr(hashName(mm.name+'sz')); const d=Math.round((mm.extra?76:84)+R()*(mm.extra?22:30));
+    const pastel=PASTELS[hashName(mm.name)%PASTELS.length];
+    const duo=DUOS[hashName(mm.name+'c')%DUOS.length];
+    const delay=(R()*6).toFixed(2);
+    const pd=mm.extra?(xi++*0.05).toFixed(2):'0';
+    return `<div class="mech${mm.extra?' extra':''}${mm.unb?' unb':''}" tabindex="0" role="button" aria-label="${mm.name}" data-key="${mm.key}" data-era="${era.name} · ${era.years}"
+      style="--pastel:${pastel};--acc:${era.acc};--d0:${duo[0]};--d1:${duo[1]};--pd:${pd}s">
+      <div class="disc" style="width:${d}px;height:${d}px;--bd:-${delay}s">${markSVG(mm.name,duo)}</div>
+      <div class="nm">${mm.name}</div>
+      ${mm.note?`<div class="pd">${mm.note}</div>`:''}
+    </div>`;
+  }).join('');
+  const nx=era.mechs.filter(mm=>mm.extra).length;
+  sec.innerHTML=`<div class="rail"><div class="ename">${era.name}</div><div class="eyears">${era.years}</div></div>
+    <div class="ebody">${cards}${mechs}<button class="more" data-n="${nx}">+ ${nx} more invented in this era</button></div>`;
+  // sparkle layer: lights up when this era is hovered or centered in the viewport
+  const sp=document.createElement('div'); sp.className='sparkles';
+  const SR=sr(hashName(era.name+'spark')), chars=['✦','✧','✹','＊','✺'];
+  let sh='';
+  for(let i=0;i<18;i++){
+    const px=(3+SR()*94).toFixed(1), py=(6+SR()*88).toFixed(1);
+    const col=[era.acc,'#ffd23f','#ffffff'][Math.floor(SR()*3)];
+    sh+=`<span style="left:${px}%;top:${py}%;color:${col};font-size:${(9+SR()*11).toFixed(0)}px;--td:${(1.6+SR()*2).toFixed(2)}s;--dl:${(SR()*3).toFixed(2)}s">${chars[Math.floor(SR()*chars.length)]}</span>`;
   }
+  sp.innerHTML=sh; sec.appendChild(sp);
+  erasEl.appendChild(sec);
 }
-function drawPanel(pan){
-  const ctx=pan.ctx; ctx.clearRect(0,0,pan.W,pan.H);
-  drawAxes(pan);
-  if(showBg&&pan.bgRaw){
-    const pts=pan.bgRaw.map((b,i)=>({...project({x:coord(axis.x,b.g[axis.x])+jit(.12,i),y:coord(axis.y,b.g[axis.y])+jit(.12,i+7),z:coord(axis.z,b.g[axis.z])+jit(.12,i+13)},pan.W,pan.H),c:b.c})).sort((a,b)=>a.depth-b.depth);
-    ctx.globalAlpha=0.25; for(const q of pts){ ctx.fillStyle=potColor(q.c); ctx.beginPath(); ctx.arc(q.sx,q.sy,1.5,0,7); ctx.fill(); } ctx.globalAlpha=1;
+// light up the era nearest the viewport center as you scroll
+function litCheck(){
+  const mid=innerHeight*0.45; let best=null,bd=1e9;
+  document.querySelectorAll('.era').forEach(el=>{ const r=el.getBoundingClientRect();
+    if(r.bottom<0||r.top>innerHeight) return;
+    const c=r.top+r.height/2, dd=Math.abs(c-mid); if(dd<bd){bd=dd;best=el;} });
+  document.querySelectorAll('.era').forEach(el=>el.classList.toggle('lit',el===best));
+}
+let lraf=null;
+window.addEventListener('scroll',()=>{ if(lraf)return; lraf=requestAnimationFrame(()=>{lraf=null;litCheck();}); },{passive:true});
+litCheck();
+const WHAT={}; ERAS.forEach(e=>e.mechs.forEach(mm=>WHAT[mm.key]=mm));
+
+// see more / show less
+document.querySelectorAll('.more').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    const era=btn.closest('.era'); era.classList.toggle('xp');
+    btn.textContent=era.classList.contains('xp')?'− show fewer':'+ '+btn.dataset.n+' more invented in this era';
+    setTimeout(buildLifeline,500);
+  });
+});
+
+// ---------- click zazz: chime + compounding snow-globe sparkle burst ----------
+let AC=null, combo=1, lastClick=0;
+function bumpCombo(){
+  const now=performance.now();
+  combo = (now-lastClick<2800) ? Math.min(10,combo+1) : 1;
+  lastClick=now;
+  return combo;
+}
+function zing(seed,k){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==='suspended') AC.resume();
+    const R=sr(seed);
+    // per-mechanism base pitch, rising ~1.5 semitones per combo level
+    const base=(420+R()*300)*Math.pow(2,((k||1)-1)*1.5/12), t0=AC.currentTime;
+    [0,7,12].forEach((st,i)=>{
+      const o=AC.createOscillator(), g=AC.createGain();
+      o.type='sine'; o.frequency.value=base*Math.pow(2,st/12);
+      const ts=t0+i*0.055;
+      g.gain.setValueAtTime(0,ts);
+      g.gain.linearRampToValueAtTime(0.055+0.004*(k||1),ts+0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001,ts+0.5);
+      o.connect(g).connect(AC.destination); o.start(ts); o.stop(ts+0.55);
+    });
+    // glittery noise shimmer on top
+    const len=Math.floor(AC.sampleRate*0.22), buf=AC.createBuffer(1,len,AC.sampleRate), ch=buf.getChannelData(0);
+    for(let i=0;i<len;i++) ch[i]=(Math.random()*2-1)*(1-i/len);
+    const src=AC.createBufferSource(); src.buffer=buf;
+    const hp=AC.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=6500;
+    const ng=AC.createGain(); ng.gain.setValueAtTime(0.035,t0); ng.gain.exponentialRampToValueAtTime(0.0001,t0+0.22);
+    src.connect(hp).connect(ng).connect(AC.destination); src.start(t0);
+  }catch(e){}
+}
+function burst(el,k){
+  if(reduced) return;
+  k=k||1;
+  const disc=el.querySelector('.disc'), r=disc.getBoundingClientRect();
+  const cx=r.left+r.width/2, cy=r.top+r.height/2, rad=r.width/2;
+  const d0=el.style.getPropertyValue('--d0')||'#fff', d1=el.style.getPropertyValue('--d1')||'#ffd23f';
+  const chars=['✦','✧','✹','•','＊','❄'];
+  const n=Math.min(110, 10+(k-1)*11); // compounds: 10 → 109 sparkles at 10x
+  for(let i=0;i<n;i++){
+    const s=document.createElement('span');
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    const col=[d0,d1,'#ffd23f','#ffffff'][Math.floor(Math.random()*4)];
+    // spawn from the disc's rim, like shaken snow
+    const sa=Math.random()*6.283, sx=cx+Math.cos(sa)*rad*0.7, sy=cy+Math.sin(sa)*rad*0.7;
+    s.style.cssText=`position:fixed;left:${sx.toFixed(0)}px;top:${sy.toFixed(0)}px;color:${col};font-size:${7+Math.random()*10}px;line-height:1;pointer-events:none;z-index:70;text-shadow:0 0 9px currentColor;will-change:transform,opacity`;
+    document.body.appendChild(s);
+    // slow snow-globe physics: gentle rise, sideways sway, slow settle
+    const a=Math.random()*6.283, sp=(24+Math.random()*46)*(1+k*0.12);
+    const dx=Math.cos(a)*sp;
+    const up=-(30+Math.random()*60)*(1+k*0.06);
+    const settle=up+90+Math.random()*120;
+    const sway=(Math.random()<.5?-1:1)*(8+Math.random()*14);
+    const rot=Math.random()*300-150;
+    const dur=2400+Math.random()*2200; // slow, floaty
+    s.animate([
+      {transform:'translate(-50%,-50%) translate(0,0) scale(.25) rotate(0deg)',opacity:0},
+      {transform:`translate(-50%,-50%) translate(${(dx*.45).toFixed(0)}px,${(up*.75).toFixed(0)}px) scale(1) rotate(${(rot*.3).toFixed(0)}deg)`,opacity:1,offset:.22},
+      {transform:`translate(-50%,-50%) translate(${(dx*.8+sway).toFixed(0)}px,${up.toFixed(0)}px) scale(.95) rotate(${(rot*.55).toFixed(0)}deg)`,opacity:.95,offset:.48},
+      {transform:`translate(-50%,-50%) translate(${(dx-sway).toFixed(0)}px,${(up+(settle-up)*.55).toFixed(0)}px) scale(.8) rotate(${(rot*.8).toFixed(0)}deg)`,opacity:.8,offset:.75},
+      {transform:`translate(-50%,-50%) translate(${(dx+sway*.5).toFixed(0)}px,${settle.toFixed(0)}px) scale(.35) rotate(${rot.toFixed(0)}deg)`,opacity:0}
+    ],{duration:dur,easing:'ease-in-out'}).onfinish=()=>s.remove();
   }
-  pan.screenMech=[];
-  const mp=pan.subset.map(m=>{ const gi=MECH.indexOf(m); const pr=project({x:coord(axis.x,m.g[axis.x])+jit(.10,gi),y:coord(axis.y,m.g[axis.y])+jit(.10,gi+31),z:coord(axis.z,m.g[axis.z])+jit(.10,gi+61)},pan.W,pan.H); return {m,pr}; }).sort((a,b)=>a.pr.depth-b.pr.depth);
-  for(const {m,pr} of mp){
-    const r=Math.max(3.0,5*pr.scale);
-    ctx.fillStyle=potColor(m.pot); ctx.strokeStyle='rgba(0,0,0,.35)'; ctx.lineWidth=1;
-    ctx.beginPath(); ctx.arc(pr.sx,pr.sy,r,0,7); ctx.fill(); ctx.stroke();
-    pan.screenMech.push({m,x:pr.sx,y:pr.sy,r});
-    if(showLbl&&pr.scale>1.12){ ctx.fillStyle='rgba(255,255,255,.72)'; ctx.font='9px -apple-system,Segoe UI,sans-serif'; ctx.textAlign='left'; ctx.fillText(m.name,pr.sx+r+2,pr.sy+3); }
+  const ring=document.createElement('span');
+  ring.style.cssText=`position:fixed;left:${cx}px;top:${cy}px;width:${r.width}px;height:${r.width}px;border:2.5px solid ${d1};border-radius:50%;pointer-events:none;z-index:69;transform:translate(-50%,-50%)`;
+  document.body.appendChild(ring);
+  ring.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:.9},{transform:`translate(-50%,-50%) scale(${(1.8+k*0.15).toFixed(2)})`,opacity:0}],
+    {duration:800+k*60,easing:'ease-out'}).onfinish=()=>ring.remove();
+  // at high combo, give the disc itself a little snow-globe shake
+  if(k>=3) disc.animate(
+    [{transform:'rotate(0deg)'},{transform:`rotate(${2+k}deg)`},{transform:`rotate(-${2+k}deg)`},{transform:'rotate(0deg)'}],
+    {duration:420,easing:'ease-in-out'});
+}
+
+// ---------- tooltip ----------
+const tt=document.getElementById('tt');
+let pinned=null;
+function fillTip(el){
+  const key=el.dataset.key, s=STATS[key], w=WHAT[key], acc=el.style.getPropertyValue('--acc');
+  tt.style.setProperty('--acc',acc);
+  tt.innerHTML=`<div class="nm">${w.name}</div>
+    <div class="er">${el.dataset.era}${w.unb?' · <em>unbuilt ✦</em>':''}${w.extra&&!w.unb?' · extended set':''}</div>
+    <p class="what">${w.what}</p>
+    ${w.note?`<p class="note">poster: ${w.note}</p>`:''}
+    <div class="gf">
+      <div class="g"><b>good for</b> · ${w.good}</div>
+      <div class="b"><b>not for</b> · ${w.not}</div>
+    </div>
+    ${s?`<div class="genes">
+      <span>allocator · <b>${s.allocator}</b></span><span>signal · <b>${s.signal}</b></span>
+      <span>timing · <b>${s.timing}</b></span><span>flow · <b>${s.flow}</b></span>
+    </div>`:''}
+    <div class="hintline">click to pin · esc to close</div>`;
+}
+function placeTip(px,py){
+  const w=tt.offsetWidth||300, h=tt.offsetHeight||190, pad=16;
+  let ox=px+pad, oy=py+pad;
+  if(ox+w>innerWidth-8) ox=px-w-pad;
+  if(ox<8) ox=8;
+  if(oy+h>innerHeight-8) oy=Math.max(8,py-h-pad);
+  tt.style.left=ox+'px'; tt.style.top=oy+'px';
+}
+document.querySelectorAll('.mech').forEach(el=>{
+  el.addEventListener('pointerenter',e=>{ if(pinned)return; fillTip(el); tt.classList.add('on'); placeTip(e.clientX,e.clientY); });
+  el.addEventListener('pointermove',e=>{ if(pinned)return; placeTip(e.clientX,e.clientY); });
+  el.addEventListener('pointerleave',()=>{ if(pinned)return; tt.classList.remove('on'); });
+  el.addEventListener('focus',()=>{ if(pinned)return; const r=el.getBoundingClientRect(); fillTip(el); tt.classList.add('on'); placeTip(r.right,r.top); });
+  el.addEventListener('blur',()=>{ if(pinned)return; tt.classList.remove('on'); });
+  el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); el.click(); } });
+  el.addEventListener('click',e=>{
+    e.stopPropagation();
+    const k=bumpCombo();
+    burst(el,k); zing(hashName(el.dataset.key),k);
+    if(pinned===el){ pinned=null; el.classList.remove('pinned'); tt.classList.remove('on'); return; }
+    if(pinned) pinned.classList.remove('pinned');
+    pinned=el; el.classList.add('pinned');
+    fillTip(el); tt.classList.add('on');
+    const r=el.getBoundingClientRect();
+    placeTip(e.clientX||r.right, e.clientY||r.top);
+  });
+});
+document.addEventListener('click',()=>{ if(pinned){ pinned.classList.remove('pinned'); pinned=null; tt.classList.remove('on'); } });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&pinned){ pinned.classList.remove('pinned'); pinned=null; tt.classList.remove('on'); } });
+
+// ---------- the pulsing lifeline ----------
+const poster=document.getElementById('poster'), lsvg=document.getElementById('lifeline');
+const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function buildLifeline(){
+  const w=poster.clientWidth, h=poster.scrollHeight;
+  lsvg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  const eras=[...document.querySelectorAll('.era')];
+  const pts=[{x:w*0.5,y:8}];
+  eras.forEach((el,i)=>{ pts.push({x:w*(i%2?0.86:0.14), y:el.offsetTop+el.offsetHeight/2}); });
+  pts.push({x:w*0.5,y:h-6});
+  let d=`M${pts[0].x} ${pts[0].y}`;
+  for(let i=0;i<pts.length-1;i++){
+    const p0=pts[Math.max(0,i-1)], p1=pts[i], p2=pts[i+1], p3=pts[Math.min(pts.length-1,i+2)];
+    const c1x=p1.x+(p2.x-p0.x)/6, c1y=p1.y+(p2.y-p0.y)/6;
+    const c2x=p2.x-(p3.x-p1.x)/6, c2y=p2.y-(p3.y-p1.y)/6;
+    d+=`C${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
   }
-  if(selected){ const se=pan.screenMech.find(s=>s.m===selected); if(se){
-    ctx.strokeStyle='#fff'; ctx.lineWidth=2.5; ctx.beginPath(); ctx.arc(se.x,se.y,se.r+5,0,7); ctx.stroke();
-    ctx.strokeStyle='rgba(255,255,255,.45)'; ctx.lineWidth=1; ctx.beginPath();
-    ctx.moveTo(se.x-15,se.y);ctx.lineTo(se.x-se.r-6,se.y);ctx.moveTo(se.x+se.r+6,se.y);ctx.lineTo(se.x+15,se.y);
-    ctx.moveTo(se.x,se.y-15);ctx.lineTo(se.x,se.y-se.r-6);ctx.moveTo(se.x,se.y+se.r+6);ctx.lineTo(se.x,se.y+15); ctx.stroke(); } }
+  const accs=ERAS.map(e=>e.acc);
+  lsvg.innerHTML=`
+   <defs>
+     <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+       ${accs.map((a,i)=>`<stop offset="${(i/(accs.length-1)*100).toFixed(0)}%" stop-color="${a}"/>`).join('')}
+     </linearGradient>
+     <filter id="blur"><feGaussianBlur stdDeviation="5"/></filter>
+   </defs>
+   <path d="${d}" fill="none" stroke="url(#lg)" stroke-width="9" opacity=".3" filter="url(#blur)"/>
+   <path id="lpath" d="${d}" fill="none" stroke="url(#lg)" stroke-width="2.4" opacity=".72"
+     stroke-dasharray="7 9" ${reduced?'':'class="flow"'}/>
+   ${reduced?'':`
+   <circle r="10" fill="url(#lg)" opacity=".35" filter="url(#blur)">
+     <animateMotion dur="16s" repeatCount="indefinite" rotate="none"><mpath href="#lpath"/></animateMotion>
+   </circle>
+   <circle r="4" fill="#fff" opacity=".95">
+     <animateMotion dur="16s" repeatCount="indefinite" rotate="none"><mpath href="#lpath"/></animateMotion>
+   </circle>`}`;
 }
+const flowStyle=document.createElement('style');
+flowStyle.textContent='@keyframes lflow{to{stroke-dashoffset:-160}} #lifeline .flow{animation:lflow 9s linear infinite}';
+document.head.appendChild(flowStyle);
+buildLifeline();
+let rto; window.addEventListener('resize',()=>{ clearTimeout(rto); rto=setTimeout(buildLifeline,200); });
 
-// ---- interaction ----
-function attachPointer(pan){
-  const cvs=pan.cvs; let drag=false,lx=0,ly=0,downX=0,downY=0,moved=false;
-  cvs.addEventListener('pointerdown',e=>{ drag=true;moved=false;lx=downX=e.clientX;ly=downY=e.clientY;cvs.setPointerCapture(e.pointerId); });
-  cvs.addEventListener('pointerup',e=>{ drag=false; if(!moved){ const hit=hitTest(e,pan); if(hit)selectMech(hit); else deselect(); } });
-  cvs.addEventListener('pointermove',e=>{ if(drag){ if(Math.abs(e.clientX-downX)>3||Math.abs(e.clientY-downY)>3)moved=true; ry+=(e.clientX-lx)*0.01; rx+=(e.clientY-ly)*0.01; rx=Math.max(-1.5,Math.min(1.5,rx)); lx=e.clientX;ly=e.clientY; drawAll(); } else hover(e,pan); });
-  cvs.addEventListener('wheel',e=>{ e.preventDefault(); zoom*=e.deltaY<0?1.08:0.93; zoom=Math.max(0.4,Math.min(4,zoom)); drawAll(); },{passive:false});
-}
-function hitTest(e,pan){ const rect=pan.cvs.getBoundingClientRect(), mx=e.clientX-rect.left, my=e.clientY-rect.top; let hit=null,best=1e9;
-  for(const s of pan.screenMech){ const d=(s.x-mx)**2+(s.y-my)**2; if(d<Math.max(100,(s.r+4)**2)&&d<best){best=d;hit=s.m;} } return hit; }
-function hover(e,pan){ const hit=hitTest(e,pan); if(!hit){ tt.classList.remove('on'); return; } showTip(e,hit); }
-function showTip(e,m){ tt.innerHTML=`<div class="nm">${m.name}</div><div class="er">${m.era} · potential <span class="pv">${m.pot}</span>/100</div>`;
-  tt.classList.add('on'); const w=tt.offsetWidth||220,h=tt.offsetHeight||60,pad=14; let px=e.clientX+pad,py=e.clientY+pad;
-  if(px+w>innerWidth)px=e.clientX-w-pad; if(py+h>innerHeight)py=Math.max(8,innerHeight-h-8); tt.style.left=px+'px'; tt.style.top=py+'px'; }
-function selectMech(m){ selected=m; tt.classList.remove('on'); drawAll(); showCard(m); }
-function deselect(){ selected=null; card.style.display='none'; drawAll(); }
-function showCard(m){
-  const rows=AXPARAMS.map(p=>{ const cl=[axis.x,axis.y,axis.z].includes(p.key)?'ax':(p.key===facetKey?'fk':''); return `<tr class="${cl}"><td class="k">${p.label}${p.key===facetKey?' ·facet':''}</td><td class="v">${m.g[p.key]}</td></tr>`; }).join('');
-  card.innerHTML=`<span class="x" id="cardx">×</span><div class="nm">${m.name}</div><div class="er">${m.era} · potential <span class="pv">${m.pot}</span>/100</div><table>${rows}</table>`;
-  card.style.display='block'; document.getElementById('cardx').onclick=deselect;
-}
-
-// fullscreen
-document.getElementById('fs').onclick=()=>{ if(document.fullscreenElement===stage) document.exitFullscreen(); else stage.requestFullscreen?.(); };
-document.addEventListener('fullscreenchange',()=>{ document.getElementById('fs').textContent=document.fullscreenElement===stage?'⛶ exit full screen':'⛶ full screen'; resize(); });
-
-// controls
-function fillSelects(){
-  for(const [id,ax] of [['axX','x'],['axY','y'],['axZ','z']]){
-    const sel=document.getElementById(id); sel.innerHTML='';
-    AXPARAMS.forEach(p=>{ const o=document.createElement('option'); o.value=p.key; o.textContent=p.label; if(axis[ax]===p.key)o.selected=true; sel.appendChild(o); });
-    sel.onchange=()=>{ axis[ax]=sel.value; persistAxes(); if(showBg)computeBg(); drawAll(); };
-  }
-  const f=document.getElementById('facet'); f.innerHTML='';
-  const none=document.createElement('option'); none.value='none'; none.textContent='none (single graph)'; f.appendChild(none);
-  AXPARAMS.forEach(p=>{ const o=document.createElement('option'); o.value=p.key; o.textContent=p.label+' ('+p.vals.length+')'; if(facetKey===p.key)o.selected=true; f.appendChild(o); });
-  f.onchange=()=>{ facetKey=f.value; persistAxes(); buildPanels(); };
-}
-document.getElementById('bg').onchange=e=>{ showBg=e.target.checked; if(showBg)computeBg(); drawAll(); };
-document.getElementById('lbl').onchange=e=>{ showLbl=e.target.checked; drawAll(); };
-document.getElementById('spin').onchange=e=>{ spin=e.target.checked; if(spin)loop(); };
-document.getElementById('reset').onclick=()=>{ rx=-0.5;ry=0.7;zoom=1; drawAll(); };
-document.getElementById('theme').onclick=()=>{ const r=document.documentElement; const cur=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'); r.setAttribute('data-theme',cur==='dark'?'light':'dark'); drawAll(); };
-function loop(){ if(!spin)return; ry+=0.006; drawAll(); requestAnimationFrame(loop); }
-
-function buildRank(){
-  const box=document.getElementById('rank'); box.innerHTML='';
-  [...MECH].sort((a,b)=>b.pot-a.pot).forEach(m=>{ const row=document.createElement('div'); row.className='rk';
-    row.innerHTML=`<span class="dot" style="background:${potColor(m.pot)}"></span><span class="nm">${m.name}</span><span class="pt">${m.pot}</span>`;
-    row.onmouseenter=e=>showTip(e,m); row.onmousemove=e=>showTip(e,m); row.onmouseleave=()=>tt.classList.remove('on');
-    row.onclick=()=>{ tt.classList.remove('on'); selectMech(m); }; box.appendChild(row); });
-}
-
-function refilter(){ persistFilters(); if(selected && !isEnabled(selected.g)) deselect(); buildPanels(); }
-function buildFilters(){
-  const box=document.getElementById('filters'); box.innerHTML='';
-  for(const p of AXPARAMS){
-    const row=document.createElement('div'); row.className='frow';
-    const name=document.createElement('div'); name.className='fname'; name.textContent=p.label; name.title='toggle all in this row';
-    name.onclick=()=>{ const anyOn=p.vals.some(v=>enabled[p.key][v[0]]); p.vals.forEach(v=>enabled[p.key][v[0]]=!anyOn); buildFilters(); refilter(); };
-    const chips=document.createElement('div'); chips.className='fchips';
-    p.vals.forEach(v=>{ const c=document.createElement('div'); c.className='fchip'+(enabled[p.key][v[0]]?'':' off'); c.textContent=v[0];
-      c.onclick=()=>{ enabled[p.key][v[0]]=!enabled[p.key][v[0]]; c.classList.toggle('off'); refilter(); };
-      chips.appendChild(c); });
-    row.appendChild(name); row.appendChild(chips); box.appendChild(row);
-  }
-}
-
-fillSelects(); buildRank(); buildFilters(); buildPanels();
-window.addEventListener('resize',resize);
+document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
+  const c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+  r.setAttribute('data-theme',c==='dark'?'light':'dark'); };
 </script>
 </body>
 </html>
