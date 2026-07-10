@@ -6,16 +6,16 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
 <title>resource allocation through history · living poster</title>
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://resource.gitcoin.co/">
+<meta property="og:url" content="https://resource-allocation-history.surge.sh/">
 <meta property="og:title" content="resource allocation through history">
 <meta property="og:description" content="12,000 years of deciding who gets what: 81 allocation mechanisms as living art, potlatch to quadratic funding. what each is good for, what it's not, and the unbuilt ones nobody has shipped yet. click around, it sparkles.">
-<meta property="og:image" content="https://resource.gitcoin.co/og.png">
+<meta property="og:image" content="https://resource-allocation-history.surge.sh/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="resource allocation through history">
 <meta name="twitter:description" content="12,000 years of deciding who gets what. 81 allocation mechanisms as living art, every one explained. click around, it sparkles.">
-<meta name="twitter:image" content="https://resource.gitcoin.co/og.png">
+<meta name="twitter:image" content="https://resource-allocation-history.surge.sh/og.png">
 <meta name="description" content="an interactive remake of the gitcoin 'resource allocation through history' poster. 81 mechanisms across 5 eras, each explained: what it's good for, what it's not.">
 <style>
   :root{
@@ -61,6 +61,12 @@
     animation:glitch 7s infinite}
   @keyframes glitch{0%,95%,100%{text-shadow:none}96%{text-shadow:-2px 0 rgba(240,60,170,.75),2px 0 rgba(60,200,240,.75)}97.4%{text-shadow:2px 0 rgba(240,60,170,.55),-2px 0 rgba(60,200,240,.55)}}
   .poster .lede{color:var(--muted);font-size:13px;margin:14px auto 0;max-width:66ch}
+  .playbtn{font:inherit;font-weight:800;font-size:13px;margin-top:16px;padding:10px 22px;border-radius:999px;cursor:pointer;border:none;color:#fff;
+    background:linear-gradient(90deg,#6247d6,#b535bb,#e8446f);box-shadow:0 8px 26px rgba(181,53,187,.45);transition:transform .25s,box-shadow .25s}
+  .playbtn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(181,53,187,.6)}
+  .era.playpulse .mech .disc{animation:ppop .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--pi,0)*0.045s)}
+  @keyframes ppop{0%{transform:scale(1)}45%{transform:scale(1.14)}100%{transform:scale(1)}}
+  @media (prefers-reduced-motion:reduce){ .era.playpulse .mech .disc{animation:none} }
 
   .era{position:relative;display:grid;grid-template-columns:52px 1fr;gap:12px;padding:26px 0 20px;
     border-top:2px solid var(--line);border-top:2px solid color-mix(in srgb,var(--acc) 55%,transparent)}
@@ -179,6 +185,7 @@
       <h1>RESOURCE&nbsp;ALLOCATION</h1>
       <div class="sub">THROUGH HISTORY</div>
       <p class="lede">every era invented its own answer to the same question: who gets what, and why. hover anything to see what it's good for, and what it isn't. a pulse of livelihood runs through all of it.</p>
+      <button class="playbtn" id="play">▶ play 12,000 years</button>
     </header>
     <div id="eras"></div>
     <footer class="pfoot">
@@ -470,14 +477,14 @@ for(const era of ERAS){
     <div class="ecard"><div class="et">currency</div><ul>${era.currency.map(c=>`<li>${c}</li>`).join('')}</ul></div>
     <div class="ecard"><div class="et">group size</div><ul>${era.group.map(c=>`<li>${c}</li>`).join('')}</ul></div>`;
   let xi=0;
-  const mechs=era.mechs.map(mm=>{
+  const mechs=era.mechs.map((mm,mi)=>{
     const R=sr(hashName(mm.name+'sz')); const d=Math.round((mm.extra?76:84)+R()*(mm.extra?22:30));
     const pastel=PASTELS[hashName(mm.name)%PASTELS.length];
     const duo=DUOS[hashName(mm.name+'c')%DUOS.length];
     const delay=(R()*6).toFixed(2);
     const pd=mm.extra?(xi++*0.05).toFixed(2):'0';
     return `<div class="mech${mm.extra?' extra':''}${mm.unb?' unb':''}" tabindex="0" role="button" aria-label="${mm.name}" data-key="${mm.key}" data-era="${era.name} · ${era.years}"
-      style="--pastel:${pastel};--acc:${era.acc};--d0:${duo[0]};--d1:${duo[1]};--pd:${pd}s">
+      style="--pastel:${pastel};--acc:${era.acc};--d0:${duo[0]};--d1:${duo[1]};--pd:${pd}s;--pi:${mi}">
       <div class="disc" style="width:${d}px;height:${d}px;--bd:-${delay}s">${markSVG(mm.name,duo)}</div>
       <div class="nm">${mm.name}</div>
       ${mm.note?`<div class="pd">${mm.note}</div>`:''}
@@ -636,16 +643,75 @@ document.querySelectorAll('.mech').forEach(el=>{
     e.stopPropagation();
     const k=bumpCombo();
     burst(el,k); zing(hashName(el.dataset.key),k);
-    if(pinned===el){ pinned=null; el.classList.remove('pinned'); tt.classList.remove('on'); return; }
-    if(pinned) pinned.classList.remove('pinned');
-    pinned=el; el.classList.add('pinned');
-    fillTip(el); tt.classList.add('on');
-    const r=el.getBoundingClientRect();
-    placeTip(e.clientX||r.right, e.clientY||r.top);
+    if(pinned===el){ unpin(); return; }
+    pinEl(el, e.clientX, e.clientY);
   });
 });
-document.addEventListener('click',()=>{ if(pinned){ pinned.classList.remove('pinned'); pinned=null; tt.classList.remove('on'); } });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&pinned){ pinned.classList.remove('pinned'); pinned=null; tt.classList.remove('on'); } });
+const slugOf=k=>k.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+const BYSLUG={}; document.querySelectorAll('.mech').forEach(el=>BYSLUG[slugOf(el.dataset.key)]=el);
+function pinEl(el,px,py){
+  if(pinned) pinned.classList.remove('pinned');
+  pinned=el; el.classList.add('pinned');
+  fillTip(el); tt.classList.add('on');
+  const r=el.getBoundingClientRect();
+  placeTip(px||r.right, py||r.top);
+  history.replaceState(null,'','#'+slugOf(el.dataset.key));
+}
+function unpin(){
+  if(!pinned) return;
+  pinned.classList.remove('pinned'); pinned=null; tt.classList.remove('on');
+  history.replaceState(null,'',location.pathname+location.search);
+}
+function expandEra(era){
+  if(era.classList.contains('xp')) return;
+  era.classList.add('xp');
+  const b=era.querySelector('.more'); if(b) b.textContent='− show fewer';
+  setTimeout(buildLifeline,500);
+}
+function openFromHash(){
+  const slug=decodeURIComponent(location.hash.slice(1)); if(!slug) return;
+  const el=BYSLUG[slug]; if(!el) return;
+  if(el.classList.contains('extra')) expandEra(el.closest('.era'));
+  setTimeout(()=>{
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(()=>{ pinEl(el); burst(el,2); }, 900);
+  }, 60);
+}
+window.addEventListener('hashchange',openFromHash);
+openFromHash();
+document.addEventListener('click',unpin);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') unpin(); });
+
+// ---------- play: walk the 12,000 years ----------
+let playing=false, playTimers=[];
+function stopPlay(){
+  playing=false; playTimers.forEach(clearTimeout); playTimers=[];
+  const b=document.getElementById('play'); b.textContent='▶ play 12,000 years';
+  document.querySelectorAll('.era.playpulse').forEach(el=>el.classList.remove('playpulse'));
+}
+document.getElementById('play').addEventListener('click',e=>{
+  e.stopPropagation();
+  if(playing){ stopPlay(); return; }
+  playing=true; e.target.textContent='■ stop';
+  const eras=[...document.querySelectorAll('.era')];
+  eras.forEach((el,i)=>{
+    playTimers.push(setTimeout(()=>{
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.classList.add('playpulse');
+      zing(hashName(el.querySelector('.ename').textContent), 1+i*2);
+      playTimers.push(setTimeout(()=>el.classList.remove('playpulse'),1700));
+    }, i*2400));
+  });
+  // finale: the corner nobody has built yet
+  playTimers.push(setTimeout(()=>{
+    expandEra(eras[eras.length-1]);
+    const el=BYSLUG['impact-curve'];
+    if(el){ el.scrollIntoView({behavior:'smooth',block:'center'});
+      playTimers.push(setTimeout(()=>{ burst(el,6); zing(hashName('Impact Curve'),9); pinEl(el); stopPlay(); },900));
+    } else stopPlay();
+  }, eras.length*2400+500));
+});
+window.addEventListener('wheel',()=>{ if(playing) stopPlay(); },{passive:true});
 
 // ---------- the pulsing lifeline ----------
 const poster=document.getElementById('poster'), lsvg=document.getElementById('lifeline');
