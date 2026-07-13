@@ -6,16 +6,16 @@
 <link id="fav" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
 <title>resource allocation through history · living poster</title>
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://resource-allocation-history.surge.sh/">
+<meta property="og:url" content="https://resource.gitcoin.co/">
 <meta property="og:title" content="resource allocation through history">
 <meta property="og:description" content="12,000 years of deciding who gets what, who decides, and how you eat: 81 allocation mechanisms + 80 power structures + 77 livelihoods as living art, potlatch to quadratic funding, chiefdoms to forkable states, foraging to agent fleets. three tabs, every one explained. click around, it sparkles.">
-<meta property="og:image" content="https://resource-allocation-history.surge.sh/og.png">
+<meta property="og:image" content="https://resource.gitcoin.co/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="resource allocation through history">
 <meta name="twitter:description" content="12,000 years of deciding who gets what, who decides, and how you eat. 238 mechanisms as living art across three tabs, every one explained. click around, it sparkles.">
-<meta name="twitter:image" content="https://resource-allocation-history.surge.sh/og.png">
+<meta name="twitter:image" content="https://resource.gitcoin.co/og.png">
 <meta name="description" content="an interactive remake of the gitcoin 'resource allocation through history' poster, with two sibling tabs: power structures and livelihood. 238 mechanisms across 5 eras, each explained.">
 <style>
   :root{
@@ -1334,12 +1334,12 @@ document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
   r.setAttribute('data-theme',c==='dark'?'light':'dark'); };
 
 // ---------- tabs + hash routing ----------
-// on http(s) the power tab lives at the crawlable /power url (power.html carries its unfurl metadata);
-// live has no stub page yet so it stays hash-routed; on file:// there are no clean urls, so everything is hash-only
+// on http(s) the power + live tabs live at crawlable /power and /live urls (power.html / live.html carry their unfurl metadata);
+// on file:// there are no clean urls, so everything is hash-only
 const HTTPISH=/^https?:$/.test(location.protocol);
-const BASEPATH=HTTPISH?location.pathname.replace(/(index|power)(\.html)?$/,''):'';
+const BASEPATH=HTTPISH?location.pathname.replace(/(index|power|live)(\.html)?$/,''):'';
 function setURL(mode,slug){
-  if(HTTPISH) history.replaceState(null,'',(mode==='power'?BASEPATH+'power':BASEPATH+location.search)+(mode==='live'?'#live'+(slug?'/'+slug:''):(slug?'#'+slug:'')));
+  if(HTTPISH) history.replaceState(null,'',(mode==='power'?BASEPATH+'power':mode==='live'?BASEPATH+'live':BASEPATH+location.search)+(slug?'#'+slug:''));
   else history.replaceState(null,'',mode==='alloc'?location.pathname+location.search+(slug?'#'+slug:''):'#'+mode+(slug?'/'+slug:''));
 }
 function setMode(mode,user){
