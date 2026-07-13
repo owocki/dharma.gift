@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link id="fav" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
-<title>four questions through history · living poster</title>
+<title>seven questions through history · living poster</title>
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://resource-allocation-history.surge.sh/">
-<meta property="og:title" content="four questions through history">
-<meta property="og:description" content="12,000 years of deciding who gets what, who decides, what is true, and who you are: allocation mechanisms, power structures, truth machines, and identity systems as living art, potlatch to quadratic funding, songlines to zero-knowledge proofs. four tabs, every one explained. click around, it sparkles.">
-<meta property="og:image" content="https://resource-allocation-history.surge.sh/og.png">
+<meta property="og:url" content="https://resource.gitcoin.co/next">
+<meta property="og:title" content="seven questions through history">
+<meta property="og:description" content="12,000 years of civilization's seven questions: who gets what, who decides, what is true, who you are, who you trust, who keeps the record, how you fight. living art across seven tabs, every mechanism explained. click around, it sparkles.">
+<meta property="og:image" content="https://resource.gitcoin.co/og-next.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="four questions through history">
-<meta name="twitter:description" content="12,000 years of deciding who gets what, who decides, what is true, and who you are. living art across four tabs, every mechanism explained. click around, it sparkles.">
-<meta name="twitter:image" content="https://resource-allocation-history.surge.sh/og.png">
-<meta name="description" content="the resource allocation poster with three sibling tabs folded in: power structures, truth, and identity. four questions across 5 eras, each mechanism explained.">
+<meta name="twitter:title" content="seven questions through history">
+<meta name="twitter:description" content="12,000 years of civilization's seven questions, from potlatch to peace bonds. living art across seven tabs, every mechanism explained. click around, it sparkles.">
+<meta name="twitter:image" content="https://resource.gitcoin.co/og-next.png">
+<meta name="description" content="the resource allocation poster grown into seven sibling tabs: power, truth, identity, trust, the record, and conflict. seven questions across 5 eras, each mechanism explained.">
 <style>
   :root{
     --bg:#f1edfa; --ink:#221c30; --muted:#665e78; --panel:#ffffff; --line:#ddd4ec;
@@ -186,6 +186,12 @@
   .buy.powergrad{background:linear-gradient(90deg,#b0561f,#a82a55)}
   .buy.truthgrad{background:linear-gradient(90deg,#2a62c0,#8f3fd1)}
   .buy.identitygrad{background:linear-gradient(90deg,#1f8f4d,#2b6cd0)}
+  .buy.trustgrad{background:linear-gradient(90deg,#d4682b,#a83a9e)}
+  .buy.recordgrad{background:linear-gradient(90deg,#6e7440,#3a5fd0)}
+  .buy.conflictgrad{background:linear-gradient(90deg,#b32626,#4a58d0)}
+  .tab.on.t-trust{background:linear-gradient(90deg,#c9820a,#d94f4f,#a83a9e);box-shadow:0 6px 18px rgba(217,79,79,.4)}
+  .tab.on.t-record{background:linear-gradient(90deg,#8a6a2a,#4a7d63,#3a5fd0);box-shadow:0 6px 18px rgba(74,125,99,.4)}
+  .tab.on.t-conflict{background:linear-gradient(90deg,#b32626,#9c4a63,#4a58d0);box-shadow:0 6px 18px rgba(156,74,99,.4)}
   :root[data-mode="power"]{--pgrad:linear-gradient(175deg,#eed3ae 0%,#eec4b6 52%,#eab7d2 100%)}
   @media (prefers-color-scheme:dark){ :root[data-mode="power"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#331409 0%,#42101c 52%,#33103c 100%)} }
   :root[data-mode="power"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#331409 0%,#42101c 52%,#33103c 100%)}
@@ -205,6 +211,27 @@
   :root[data-mode="identity"] .poster .sub{background:linear-gradient(90deg,#3e8a1f,#1f8f4d,#0e8f7a,#0f85a8,#2b6cd0);-webkit-background-clip:text;background-clip:text}
   :root[data-mode="identity"] .playbtn{background:linear-gradient(90deg,#3e8a1f,#0e8f7a,#2b6cd0);box-shadow:0 8px 26px rgba(14,143,122,.45)}
   :root[data-mode="identity"] .playbtn:hover{box-shadow:0 14px 34px rgba(14,143,122,.6)}
+  :root[data-mode="trust"]{--pgrad:linear-gradient(175deg,#f2ddb4 0%,#f2c9be 52%,#eec2ea 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="trust"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#33220a 0%,#3a1414 52%,#331035 100%)} }
+  :root[data-mode="trust"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#33220a 0%,#3a1414 52%,#331035 100%)}
+  :root[data-mode="trust"][data-theme="light"]{--pgrad:linear-gradient(175deg,#f2ddb4 0%,#f2c9be 52%,#eec2ea 100%)}
+  :root[data-mode="trust"] .poster .sub{background:linear-gradient(90deg,#c9820a,#d4682b,#d94f4f,#c94077,#a83a9e);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="trust"] .playbtn{background:linear-gradient(90deg,#c9820a,#d94f4f,#a83a9e);box-shadow:0 8px 26px rgba(217,79,79,.45)}
+  :root[data-mode="trust"] .playbtn:hover{box-shadow:0 14px 34px rgba(217,79,79,.6)}
+  :root[data-mode="record"]{--pgrad:linear-gradient(175deg,#eaddb8 0%,#cfe0d6 52%,#c4cdf2 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="record"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#2b2110 0%,#122820 52%,#101a3a 100%)} }
+  :root[data-mode="record"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#2b2110 0%,#122820 52%,#101a3a 100%)}
+  :root[data-mode="record"][data-theme="light"]{--pgrad:linear-gradient(175deg,#eaddb8 0%,#cfe0d6 52%,#c4cdf2 100%)}
+  :root[data-mode="record"] .poster .sub{background:linear-gradient(90deg,#8a6a2a,#6e7440,#4a7d63,#2f7f96,#3a5fd0);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="record"] .playbtn{background:linear-gradient(90deg,#8a6a2a,#4a7d63,#3a5fd0);box-shadow:0 8px 26px rgba(74,125,99,.45)}
+  :root[data-mode="record"] .playbtn:hover{box-shadow:0 14px 34px rgba(74,125,99,.6)}
+  :root[data-mode="conflict"]{--pgrad:linear-gradient(175deg,#f2c2c2 0%,#e0c6d8 52%,#c6c9f2 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="conflict"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#330d0d 0%,#261028 52%,#10143a 100%)} }
+  :root[data-mode="conflict"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#330d0d 0%,#261028 52%,#10143a 100%)}
+  :root[data-mode="conflict"][data-theme="light"]{--pgrad:linear-gradient(175deg,#f2c2c2 0%,#e0c6d8 52%,#c6c9f2 100%)}
+  :root[data-mode="conflict"] .poster .sub{background:linear-gradient(90deg,#b32626,#b5403a,#9c4a63,#6f4f9c,#4a58d0);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="conflict"] .playbtn{background:linear-gradient(90deg,#b32626,#9c4a63,#4a58d0);box-shadow:0 8px 26px rgba(156,74,99,.45)}
+  :root[data-mode="conflict"] .playbtn:hover{box-shadow:0 14px 34px rgba(156,74,99,.6)}
   :root[data-mode="power"] .playbtn{background:linear-gradient(90deg,#a06a1f,#b53a35,#8f2f7a);box-shadow:0 8px 26px rgba(168,42,85,.45)}
   :root[data-mode="power"] .playbtn:hover{box-shadow:0 14px 34px rgba(168,42,85,.6)}
   /* ---------- migration-arc strip (power + livelihood tabs) ---------- */
@@ -213,6 +240,9 @@
     background:linear-gradient(90deg,#a06a1f,#b53a35,#8f2f7a);opacity:.75}
   :root[data-mode="truth"] .arc::before{background:linear-gradient(90deg,#146e8f,#4a58d0,#8f3fd1)}
   :root[data-mode="identity"] .arc::before{background:linear-gradient(90deg,#3e8a1f,#0e8f7a,#2b6cd0)}
+  :root[data-mode="trust"] .arc::before{background:linear-gradient(90deg,#c9820a,#d94f4f,#a83a9e)}
+  :root[data-mode="record"] .arc::before{background:linear-gradient(90deg,#8a6a2a,#4a7d63,#3a5fd0)}
+  :root[data-mode="conflict"] .arc::before{background:linear-gradient(90deg,#b32626,#9c4a63,#4a58d0)}
   :root[data-mode="alloc"] .arc::before{background:linear-gradient(90deg,#6247d6,#8a3fd1,#b535bb,#e8446f)}
   .arcstop{position:relative;font:inherit;background:none;border:none;cursor:pointer;flex:1 1 0;padding:0;text-align:center;-webkit-tap-highlight-color:transparent}
   .arcstop .dot{display:block;width:12px;height:12px;margin:1px auto 8px;border-radius:50%;background:var(--ac);
@@ -242,6 +272,9 @@
         <button class="tab t-power" role="tab" data-mode="power"><span class="em">👑</span>who decides</button>
         <button class="tab t-truth" role="tab" data-mode="truth"><span class="em">📖</span>what is true</button>
         <button class="tab t-identity" role="tab" data-mode="identity"><span class="em">🪪</span>who you are</button>
+        <button class="tab t-trust" role="tab" data-mode="trust"><span class="em">🤝</span>who you trust</button>
+        <button class="tab t-record" role="tab" data-mode="record"><span class="em">💾</span>who keeps the record</button>
+        <button class="tab t-conflict" role="tab" data-mode="conflict"><span class="em">⚖️</span>how you fight</button>
       </nav>
       <h1 id="h1">RESOURCE&nbsp;ALLOCATION</h1>
       <div class="sub">THROUGH HISTORY</div>
@@ -1095,6 +1128,556 @@ const IDENTITY_ERAS=[
  ]},
 ];
 
+const TRUST_STATS={
+"Kin Altruism":{"basis":"blood","radius":"the lineage","earned":"born","lost":"almost never"},
+"Gift Debts":{"basis":"reciprocity","radius":"the gift network","earned":"giving first","lost":"a closed loop"},
+"Shared Kills":{"basis":"custom","radius":"the band","earned":"hunting","lost":"hoarding"},
+"Reputation Memory":{"basis":"track record","radius":"everyone you know","earned":"years of showing up","lost":"one scandal"},
+"Ostracism":{"basis":"the threat of exile","radius":"the band","earned":"compliance","lost":"the offense"},
+"Ritual Bonding":{"basis":"shared ordeal","radius":"the initiated","earned":"the ceremony","lost":"skipping it"},
+"Blood Brotherhood":{"basis":"sworn kinship","radius":"the two of you","earned":"the rite","lost":"betrayal (and it is war)"},
+"Silent Trade":{"basis":"ritual convention","radius":"the boundary stone","earned":"fair exchanges","lost":"one theft"},
+"Sacred Oaths":{"basis":"fear of god","radius":"the faithful","earned":"swearing","lost":"perjury (and damnation)"},
+"Hostage Exchange":{"basis":"mutual exposure","radius":"two courts","earned":"handing over your heir","lost":"harming theirs"},
+"Notaries & Witnesses":{"basis":"licensed memory","radius":"the jurisdiction","earned":"the appointment","lost":"a forged seal"},
+"Guild Certification":{"basis":"the guild's mark","radius":"the trade network","earned":"apprenticeship","lost":"shoddy work"},
+"Merchant Networks":{"basis":"community reputation","radius":"the diaspora","earned":"years of fair dealing","lost":"one default, everywhere"},
+"Collateral & Pawn":{"basis":"the pledge","radius":"the loan","earned":"posting it","lost":"defaulting"},
+"Letters of Credit":{"basis":"the banker's name","radius":"the banking network","earned":"correspondent ties","lost":"a dishonored letter"},
+"Hospitality Law":{"basis":"sacred custom","radius":"the road","earned":"being a guest","lost":"violating the roof"},
+"Contract Law":{"basis":"state enforcement","radius":"the jurisdiction","earned":"signing","lost":"breach (see you in court)"},
+"Insurance":{"basis":"pooled premiums","radius":"the policy","earned":"paying in","lost":"the excluded clause"},
+"Banks":{"basis":"the vault + the charter","radius":"national","earned":"deposits","lost":"the run"},
+"Auditors":{"basis":"professional skepticism","radius":"the shareholders","earned":"the engagement","lost":"the restatement"},
+"Fiduciary Duty":{"basis":"legal obligation","radius":"the client","earned":"taking the role","lost":"self-dealing"},
+"Standardization":{"basis":"the spec","radius":"every factory","earned":"conformance","lost":"tolerance drift"},
+"Brands":{"basis":"repeat quality","radius":"the market","earned":"consistency","lost":"one recall"},
+"Regulatory Seals":{"basis":"state inspection","radius":"the rule's border","earned":"passing","lost":"the capture scandal"},
+"Seller Ratings":{"basis":"the score","radius":"the platform","earned":"good transactions","lost":"a bad streak"},
+"The Padlock":{"basis":"certificate authorities","radius":"the browser bar","earned":"buying a cert","lost":"a breached ca"},
+"Platform Escrow":{"basis":"the middleman's hold","radius":"both sides of the deal","earned":"listing","lost":"the chargeback"},
+"Crowd Reviews":{"basis":"strangers' stars","radius":"whoever reads them","earned":"service","lost":"review bombing"},
+"Two-Sided Ratings":{"basis":"mutual hostage scores","radius":"the ride","earned":"five stars both ways","lost":"one three-star"},
+"Web of Trust":{"basis":"key signatures","radius":"the graph","earned":"signing parties","lost":"an unverifiable chain"},
+"Trust & Safety Teams":{"basis":"the platform's police","radius":"the walled garden","earned":"not triggering the model","lost":"a false positive"},
+"Phishing & Social Engineering":{"basis":"your trust shortcuts","radius":"anyone with an inbox","earned":"a convincing costume","lost":"the click"},
+"Trustlessness":{"basis":"verifiable computation","radius":"anyone with a node","earned":"running the code","lost":"a bug"},
+"Staking & Slashing":{"basis":"burnable capital","radius":"the protocol","earned":"bonding","lost":"misbehavior"},
+"Multisig":{"basis":"distributed keys","radius":"the treasury","earned":"the key ceremony","lost":"m-of-n collusion"},
+"Smart Contract Audits":{"basis":"expert review","radius":"the protocol's users","earned":"the engagement","lost":"the exploit the audit missed"},
+"Timelocks & Vesting":{"basis":"enforced patience","radius":"the contract","earned":"deploying it","lost":"nothing; that is the point"},
+"Atomic Swaps":{"basis":"all-or-nothing execution","radius":"the two chains","earned":"the protocol","lost":"nothing; it cannot half-happen"},
+"Transparent Treasuries":{"basis":"public books","radius":"anyone who looks","earned":"being onchain","lost":"offchain deals"},
+"Trust Graphs":{"basis":"signed vouches","radius":"friends-of-friends","earned":"vouching","lost":"a cascade of defaults"}
+};
+const RECORD_STATS={
+"Memory Specialists":{"keeper":"the rememberer","medium":"neurons","lifespan":"one lifetime","erasure":"death"},
+"Mnemonic Devices":{"keeper":"whoever holds it","medium":"knots and notches","lifespan":"generations","erasure":"losing the code"},
+"Tally Marks":{"keeper":"the counter","medium":"bone and stone","lifespan":"20,000 years and counting","erasure":"weathering"},
+"Verse Encoding":{"keeper":"everyone who sings","medium":"rhyme and meter","lifespan":"as long as it is sung","erasure":"silence"},
+"Landscape Mnemonics":{"keeper":"the initiated","medium":"the country itself","lifespan":"tens of millennia","erasure":"losing the land"},
+"Message Sticks":{"keeper":"the messenger","medium":"carved wood","lifespan":"one journey","erasure":"delivery"},
+"Winter Counts":{"keeper":"the keeper's lineage","medium":"painted hide","lifespan":"centuries","erasure":"the hide wearing out"},
+"Cave Archives":{"keeper":"the site's custodians","medium":"ochre on stone","lifespan":"40,000 years","erasure":"darkness (which preserved it)"},
+"Cuneiform Ledgers":{"keeper":"the scribes","medium":"clay","lifespan":"millennia; fired clay is smug","erasure":"shattering"},
+"Quipu":{"keeper":"the khipukamayuq","medium":"knotted cord","lifespan":"centuries","erasure":"forgetting how to read it"},
+"Stone Inscription":{"keeper":"the state","medium":"granite","lifespan":"millennia","erasure":"the next regime's chisel"},
+"Scribes & Chancelleries":{"keeper":"the chancery","medium":"papyrus and parchment","lifespan":"while the kingdom stands","erasure":"fire"},
+"Tally Sticks":{"keeper":"both parties","medium":"split hazel","lifespan":"600 years of treasury","erasure":"the 1834 bonfire"},
+"Land Registers":{"keeper":"the crown","medium":"bound volumes","lifespan":"900 years and still cited","erasure":"conquest"},
+"Double-Entry Bookkeeping":{"keeper":"the firm","medium":"journal and ledger","lifespan":"the firm's life","erasure":"cooked books"},
+"Monastic Chronicles":{"keeper":"the abbey","medium":"vellum","lifespan":"centuries","erasure":"dissolution of the monasteries"},
+"The Filing Cabinet":{"keeper":"the office clerk","medium":"manila and steel","lifespan":"decades","erasure":"the move to the basement"},
+"Civil Registries":{"keeper":"the registrar","medium":"bound certificates","lifespan":"the state's life","erasure":"war and fire"},
+"Newspapers of Record":{"keeper":"the morgue (the archive)","medium":"newsprint","lifespan":"decades, acidly","erasure":"the paper crumbling"},
+"Film Archives":{"keeper":"the vault","medium":"nitrate, then acetate","lifespan":"decades, flammably","erasure":"the vault fire"},
+"Punch Cards":{"keeper":"the tabulating room","medium":"card stock","lifespan":"until the format died","erasure":"the format dying"},
+"Microfilm":{"keeper":"the library basement","medium":"film spools","lifespan":"500 years, claimed","erasure":"the reader breaking"},
+"Carbon Copies":{"keeper":"every recipient","medium":"onionskin","lifespan":"as long as copies scatter","erasure":"collecting them all (impossible)"},
+"Public Libraries":{"keeper":"the commons","medium":"open stacks","lifespan":"generations","erasure":"budget cuts"},
+"Relational Databases":{"keeper":"the dba","medium":"disks","lifespan":"while maintained","erasure":"DROP TABLE"},
+"The Cloud":{"keeper":"the provider","medium":"a data center you will never see","lifespan":"while you pay","erasure":"account closure"},
+"Version Control":{"keeper":"every clone","medium":"the repo","lifespan":"as long as one copy exists","erasure":"force-push (and even then)"},
+"The Wayback Machine":{"keeper":"the internet archive","medium":"crawled snapshots","lifespan":"donation-funded forever","erasure":"robots.txt"},
+"Backups & Redundancy":{"keeper":"the sysadmin","medium":"tape and replicas","lifespan":"the rotation schedule","erasure":"the untested restore"},
+"Metadata & Logs":{"keeper":"the system","medium":"append-only files","lifespan":"the retention policy","erasure":"rotation (or subpoena first)"},
+"Data Breaches":{"keeper":"now everyone","medium":"the dark web","lifespan":"forever, unfortunately","erasure":"none; that is the problem"},
+"Link Rot":{"keeper":"nobody; that is the problem","medium":"urls","lifespan":"median two years","erasure":"the default"},
+"Append-Only Ledgers":{"keeper":"every node","medium":"blockspace","lifespan":"as long as the chain lives","erasure":"practically none"},
+"Permanent Storage":{"keeper":"the endowment","medium":"replicated miners","lifespan":"200-year design","erasure":"none, by design"},
+"Decentralized Archives":{"keeper":"pinning clusters","medium":"content-addressed blocks","lifespan":"while pinned","erasure":"everyone unpinning"},
+"Onchain Provenance":{"keeper":"the contract","medium":"the token's history","lifespan":"the chain's life","erasure":"none; the lineage is the point"},
+"Indexers":{"keeper":"the graph's nodes","medium":"derived tables","lifespan":"while indexed","erasure":"reindexing"},
+"Onchain Publishing":{"keeper":"the ledger itself","medium":"calldata and blobs","lifespan":"the chain's life","erasure":"wishing really hard"},
+"Data DAOs":{"keeper":"the members","medium":"shared storage","lifespan":"while governed","erasure":"a governance vote"}
+};
+const CONFLICT_STATS={
+"Song Duels":{"judge":"the laughing camp","weapon":"wit and meter","stakes":"standing","resolution":"the crowd picks the loser"},
+"Feud & Vendetta":{"judge":"nobody; that is the problem","weapon":"kin obligation","stakes":"blood, compounding","resolution":"exhaustion or wergild"},
+"Blood Money":{"judge":"the two families","weapon":"negotiated tariff","stakes":"the feud's next round","resolution":"payment accepted"},
+"Walking Away":{"judge":"nobody needed","weapon":"distance","stakes":"the relationship","resolution":"the horizon"},
+"Elder Mediation":{"judge":"the grey-haired","weapon":"persuasion","stakes":"face","resolution":"a settlement both can live with"},
+"Ritual Contests":{"judge":"the rules","weapon":"supervised sport","stakes":"bruises, not corpses","resolution":"the pin"},
+"Peace Feasts":{"judge":"the assembled","weapon":"commensality","stakes":"the alliance","resolution":"eating together"},
+"Raiding Rules":{"judge":"custom","weapon":"bounded violence","stakes":"horses and honor","resolution":"the raid ends at dawn"},
+"Trial by Combat":{"judge":"god (allegedly)","weapon":"champions","stakes":"the verdict","resolution":"first blood or last breath"},
+"Wergild":{"judge":"the tariff schedule","weapon":"rank-priced compensation","stakes":"the feud resuming","resolution":"payment in full"},
+"King's Courts":{"judge":"the crown's judge","weapon":"writs and fees","stakes":"land and neck","resolution":"the king's peace"},
+"Religious Arbitration":{"judge":"the qadi or bishop","weapon":"scripture","stakes":"salvation-adjacent","resolution":"the ruling"},
+"Duels of Honor":{"judge":"the code duello","weapon":"pistols at dawn","stakes":"reputation and life","resolution":"satisfaction"},
+"Ransom Conventions":{"judge":"the market","weapon":"capture","stakes":"a king's ransom, literally","resolution":"the invoice paid"},
+"Truces of God":{"judge":"the church","weapon":"interdiction","stakes":"your soul's schedule","resolution":"the holy day passing"},
+"Outlawry":{"judge":"the assembly","weapon":"withdrawal of law","stakes":"everything; anyone may harm you","resolution":"restoration or death"},
+"Courts & Due Process":{"judge":"judge and jury","weapon":"procedure","stakes":"liberty and property","resolution":"verdict, then appeal"},
+"Police & Prisons":{"judge":"the state","weapon":"monopolized force","stakes":"years of a life","resolution":"the sentence"},
+"Strikes & Bargaining":{"judge":"the negotiating table","weapon":"withheld labor","stakes":"wages and the firm","resolution":"the contract"},
+"International Treaties":{"judge":"the signatories","weapon":"diplomacy","stakes":"borders","resolution":"ratification (until denounced)"},
+"Geneva Conventions":{"judge":"the signatories, in theory","weapon":"rules inside war","stakes":"the wounded and captured","resolution":"rarely; that is the critique"},
+"Arbitration Clauses":{"judge":"the hired arbiter","weapon":"private procedure","stakes":"the dispute, quietly","resolution":"binding award"},
+"Deterrence Doctrine":{"judge":"nobody; that is the design","weapon":"promised annihilation","stakes":"everything","resolution":"never firing"},
+"Diplomacy Corps":{"judge":"the back-channel","weapon":"cables and dinners","stakes":"escalation avoided","resolution":"the communiqué"},
+"Content Moderation":{"judge":"the queue","weapon":"flags and takedowns","stakes":"the post, the account","resolution":"the ticket closes"},
+"Deplatforming":{"judge":"the platform","weapon":"account deletion","stakes":"a decade of standing","resolution":"rarely appealed successfully"},
+"Flame Wars":{"judge":"the audience","weapon":"the quote-tweet","stakes":"status","resolution":"the feed moves on"},
+"Cancel Campaigns":{"judge":"the crowd","weapon":"coordinated outrage","stakes":"employment and standing","resolution":"attention decay"},
+"Online Dispute Resolution":{"judge":"the form","weapon":"four dropdown options","stakes":"the refund","resolution":"auto-resolution"},
+"Cyberwarfare":{"judge":"attribution (contested)","weapon":"exploits","stakes":"grids and elections","resolution":"rarely acknowledged"},
+"Information Operations":{"judge":"the feed","weapon":"botnets and narratives","stakes":"consensus reality","resolution":"exposure (sometimes)"},
+"SLAPP Suits":{"judge":"the docket","weapon":"legal fees","stakes":"the critic's savings","resolution":"anti-slapp dismissal (where it exists)"},
+"Staked Juries":{"judge":"drawn jurors","weapon":"staked votes","stakes":"the jurors' deposits","resolution":"majority convergence"},
+"Chain Splits":{"judge":"the market","weapon":"a full copy of the state","stakes":"the network effect, halved","resolution":"both chains live with it"},
+"Escalation Games":{"judge":"the final round","weapon":"doubled stakes","stakes":"the whole bond","resolution":"someone folds"},
+"Exit Over Voice":{"judge":"the member","weapon":"ragequit","stakes":"your share, taken with you","resolution":"the treasury shrinks"},
+"Governance Wars":{"judge":"token weight","weapon":"proposals and bribes","stakes":"the treasury","resolution":"the whales decide"},
+"Whitehat Truces":{"judge":"the negotiation","weapon":"the exploit, returned","stakes":"nine figures","resolution":"the bounty invoice"},
+"MEV Wars":{"judge":"the block builder","weapon":"priority fees","stakes":"your slippage","resolution":"the next block"},
+"Social Rollbacks":{"judge":"rough consensus","weapon":"a hard fork","stakes":"the meaning of immutability","resolution":"the community votes reality"}
+};
+const TRUST_ERAS=[
+{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#c9820a',
+ currency:['kinship','reciprocity','memory'],group:['the band','the ancestors'],
+ mechs:[
+  m('Kin Altruism',0,"trust by blood: shared genes underwrite shared food. the family is the first insurance pool.",
+    "unconditional backing at small radius","strangers; the circle ends where the blood does"),
+  m('Gift Debts',0,"every gift opens a loop that must someday close. the outstanding debts are the social fabric.",
+    "binding people across time","settling up; a closed loop is a dead relationship"),
+  m('Shared Kills',0,"trust materialized as meat: today's surplus shared against tomorrow's empty-handed hunt.",
+    "variance insurance among hunters","hoarders; the norm has teeth"),
+  m('Reputation Memory',0,"the ledger in everyone's head: who shared, who shirked, who repaid. no writing required.",
+    "cheap enforcement with total coverage","newcomers; the ledger has no page for them"),
+  m('Ostracism',0,"the trust system's delete button: cheat enough and the web simply closes around you.",
+    "existential deterrence without violence","reintegration; the door barely reopens"),
+  m('Ritual Bonding',0,"dance, ordeal, feast: synchronized experience as trust-glue between people who share no blood.",
+    "welding strangers into a unit, fast","scale; the ritual fits around one fire"),
+  m('Blood Brotherhood',0,"trust manufactured: two strangers made kin by ceremony. the alliance gets a body.",
+    "bonds beyond the bloodline","mass production; it is one bond at a time"),
+  m('Silent Trade',0,"exchange without contact: goods left at the boundary, counter-offer or walk away. trust in the ritual instead of the trader.",
+    "trade across total distrust","complex deals; the boundary stone cannot haggle"),
+  x('Marriage Alliances',"two families pooling risk through a wedding: the treaty sleeps under one roof.",
+    "durable peace between groups","the individuals collateralized into it"),
+  x('Totemic Kinship',"strangers who share your totem are instant kin: trust bootstrapped from a symbol.",
+    "a trust network wider than acquaintance","verification; anyone can claim the crow"),
+  x('Campfire Vetting',"the long night of stories as due diligence: you trust who you have heard, at length.",
+    "slow, deep credential checks","speed; the vetting takes all winter"),
+  x('Taboo Guarantees',"promises staked on supernatural payback: breach and the spirits collect.",
+    "enforcement with no enforcer","the skeptical; the collateral is belief"),
+ ]},
+{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#d4682b',
+ currency:['oaths','seals','collateral'],group:['god','the guild','the lord'],
+ mechs:[
+  m('Sacred Oaths',0,"promise-keeping outsourced to heaven: swear before god, and perjury risks the soul. contracts before contract law.",
+    "binding deals wherever belief runs","the unbelieving; the collateral is imaginary"),
+  m('Hostage Exchange',0,"royal children swapped as living collateral: harm the treaty and you harm your heir's host.",
+    "incentive alignment at sovereign scale","the children; diplomacy's smallest line items"),
+  m('Notaries & Witnesses',0,"a licensed third party remembers the deal for you, in ink, with a seal.",
+    "durable agreements between strangers","speed; everything needs an appointment"),
+  m('Guild Certification',0,"the guild's mark vouches for the member's work: trust bought wholesale instead of retail.",
+    "quality assurance across distances","outsiders; the mark is a members-only asset"),
+  m('Merchant Networks',0,"maghribi traders, hanseatic kontors: long-distance trade riding on community reputation. cheat once in genoa, starve in cairo.",
+    "enforcement without a shared sovereign","entry; membership travels by birth and faith"),
+  m('Collateral & Pawn',0,"trust replaced by deposit: default and lose the pledge. character judgment optional.",
+    "lending without acquaintance","those with nothing to pledge"),
+  m('Letters of Credit',0,"paper trust: a banker's promise honored by a stranger banker a continent away (templars, medici, hawala).",
+    "moving value without moving gold","anyone outside the correspondent network"),
+  m('Hospitality Law',0,"the guest is sacred: travelers and hosts protected by divine rule. violation is the darkest crime in half the world's epics.",
+    "safe passage across a lawless map","enforcement past the reach of belief"),
+  x('Caravan Protocols',"strangers pooling security for the road: trust in numbers and shared fate.",
+    "surviving the route together","the destination; the caravan disbands"),
+  x('Hawala',"value transfer on pure trust: no documents a court could read, and it has worked for a millennium.",
+    "remittances across borders and wars","outsiders; the network is the collateral"),
+  x('Compurgation',"trial by character reference: twelve oath-helpers swear to your honesty, and the count is the verdict.",
+    "mobilizing social capital as legal defense","strangers and the friendless"),
+  x('Guest Tokens',"an object split in two, halves matched years later: trust with a physical checksum (symbolon).",
+    "authenticating a stranger who arrives vouched","scale; every bond needs its own token"),
+ ]},
+{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#d94f4f',
+ currency:['contracts','law','audits'],group:['courts','insurers','the state'],
+ mechs:[
+  m('Contract Law',0,"trust nationalized: break a promise and the state collects. strangers can now deal at scale.",
+    "cooperation without acquaintance","what cannot be written down"),
+  m('Insurance',0,"trust pooled and priced: lloyd's coffeehouse turns maritime dread into premiums.",
+    "surviving catastrophes by sharing them","moral hazard; the insured relax"),
+  m('Banks',0,"trust warehouses: deposits guarded, payments cleared, strangers intermediated nightly.",
+    "money moving without meeting","panics; trust in the warehouse is itself a run risk"),
+  m('Auditors',0,"professional skeptics certifying the books: trust, verified annually, for a fee paid by the audited.",
+    "outside eyes on inside numbers","catching what the client pays to hide (see: enron)"),
+  m('Fiduciary Duty',0,"the law's highest trust setting: some professions must put your interest first, enforceably.",
+    "advice you can act on","everything outside the fiduciary perimeter, which is most things"),
+  m('Standardization',0,"trust in things replaces trust in people: interchangeable parts, weights and measures, iso. any bolt fits any nut, sight unseen.",
+    "coordination between strangers' factories","the artisanal; the standard flattens"),
+  m('Brands',0,"reputation industrialized: the mark on the box promises the same soap in every town, every time.",
+    "repeat-purchase trust at national scale","truth in advertising; the promise is the product"),
+  m('Regulatory Seals',0,"the state pre-trusts on your behalf: fda approval, building codes, the health inspector's grade in the window.",
+    "not personally auditing your own food","capture; the seal can be quietly bought"),
+  x('The Handshake Deal',"pre-contract trust surviving industrialization: your word, in a small market with a long memory.",
+    "speed among repeat players","courts; there is nothing to enforce"),
+  x('Escrow Agents',"a neutral third party holds the money until both sides perform.",
+    "one-shot deals between strangers","cost; neutrality bills hourly"),
+  x('Warranties',"the seller posts a bond on quality: return it if it breaks.",
+    "shifting quality risk to whoever knows the product","the fine print; exclusions are the business model"),
+  x('Better Business Bureaus',"merchants policing merchants: keeping the town's trust wholesale, before regulators scaled.",
+    "cheap reputational enforcement","the merchant who owns the bureau"),
+ ]},
+{name:'Information era',years:'late 20th century - present',acc:'#c94077',
+ currency:['ratings','reviews','the padlock'],group:['platforms','certificate authorities'],
+ mechs:[
+  m('Seller Ratings',0,"ebay's move: the first mass stranger-trust machine. millions of one-shot deals made repeatable by a score.",
+    "commerce between anonymous strangers","nuance; and retaliation ratings poisoned the well"),
+  m('The Padlock',0,"trust delegated to certificate authorities: the browser vouches so you do not have to.",
+    "encrypting the whole web's commerce","meaning; the padlock says private, not honest"),
+  m('Platform Escrow',0,"uber, airbnb, amazon: the platform holds the money, mediates the disputes, takes its cut. trust as a service.",
+    "instant trust between total strangers","independence; the middleman owns both sides"),
+  m('Crowd Reviews',0,"strangers' experiences pooled into your buying decision: the restaurant lives and dies by its average.",
+    "distributed diligence on everything","manipulation; the stars are for sale"),
+  m('Two-Sided Ratings',0,"you rate the driver, the driver rates you: mutual hostage-taking by score.",
+    "civility on both sides of the deal","honesty; everyone inflates to five stars"),
+  m('Web of Trust',0,"pgp key-signing: trust as a graph of people vouching for keys, no central authority anywhere.",
+    "decentralized identity assurance","usability; the party was the security model"),
+  m('Trust & Safety Teams',0,"the platform's private police: fraud models, moderation queues, account recovery.",
+    "policing at software scale","appeal; the police report to the shareholder"),
+  m('Phishing & Social Engineering',0,"the adversary: every trust shortcut, weaponized. the con artist, industrialized.",
+    "attackers; the inbox is the perimeter","everyone else; hence the training videos"),
+  x('Karma Systems',"reddit and its cousins: accumulated community trust as a number by your name.",
+    "cheap standing for consistent contributors","portability; the karma stays home"),
+  x('Verified Checkmarks',"platform-vouched authenticity, until the vouch went on sale.",
+    "knowing the celebrity is the celebrity","meaning; the badge became a product"),
+  x('Bug Bounties',"paying hackers to break in politely: adversaries converted into auditors.",
+    "finding holes before enemies do","zero-days worth more elsewhere"),
+  x('Terms of Service',"the contract nobody reads: trust by resignation, agreed at a scroll.",
+    "legal cover at planetary scale","informed consent; 'i agree' is a reflex"),
+ ]},
+{name:'Onchain era',years:'emerging (21st century)',acc:'#a83a9e',
+ currency:['code','stake','transparency'],group:['consensus','slashing'],
+ mechs:[
+  m('Trustlessness',0,"the founding move: replace the trusted middleman with verifiable computation. don't trust, verify.",
+    "cooperation with zero acquaintance, globally","everything offchain; trust minimized is not trust eliminated"),
+  m('Staking & Slashing',0,"trust collateralized: validators post capital that misbehavior destroys automatically.",
+    "honesty made economically rational","the poor; trust now has a minimum balance"),
+  m('Multisig',0,"shared custody: no single keyholder can betray alone. the safe needs several hands.",
+    "distributing betrayal risk","speed; and the keyholders can still collude"),
+  m('Smart Contract Audits',0,"professional skeptics for code: the audit report as the protocol's trust signal.",
+    "catching exploits before deployment","guarantees; audited protocols still die"),
+  m('Timelocks & Vesting',0,"trust in future behavior enforced by code: the team cannot dump, the upgrade cannot rush.",
+    "credible commitments without character judgment","agility; the lock binds the honest too"),
+  m('Atomic Swaps',0,"trades where neither side can cheat: both legs execute or neither does.",
+    "exchange with no escrow at all","complexity beyond the swap"),
+  m('Transparent Treasuries',0,"the books are the blockchain: anyone can audit anytime, no subpoena required.",
+    "embezzlement-resistant by default","privacy; the payroll is public too"),
+  m('Trust Graphs',0,"onchain vouching networks: credit and identity extended along signed edges (circles, union, goldfinch).",
+    "the kin-circle model, back at internet scale","cascade risk; a betrayal propagates down the graph"),
+  x('Rug Pulls',"the adversary: trustlessness's confidence trick. the code was fine; the team was not.",
+    "reminding everyone what trustless does not cover","the holders"),
+  x('Formal Verification',"proving the code does what the spec says, mathematically.",
+    "eliminating whole classes of bugs","the spec; garbage in, proven garbage out"),
+  x('Optimistic Trust',"assume valid, allow challenges: trust as a default with a dispute window (optimistic rollups).",
+    "cheap happy paths","latency; the window is the wait"),
+  x('Trust Routing',"pathfinding across the global trust graph: how much to trust this stranger, computed hop by hop through everyone you both know, privately.",
+    "kin-grade trust at internet scale","existing; this one is a spec waiting for a builder",true),
+ ]},
+];
+const RECORD_ERAS=[
+{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#8a6a2a',
+ currency:['memory specialists','song','custom'],group:['minds','bone','stone'],
+ mechs:[
+  m('Memory Specialists',0,"designated rememberers: the genealogist, the song keeper, the one who knows the treaties. the archive has a job title.",
+    "deep records with zero infrastructure","succession; each death is a fire in the library"),
+  m('Mnemonic Devices',0,"knots, notches, beads, strings: physical hooks for mental records. hardware assist for the oral database.",
+    "boosting memory past its natural capacity","strangers; the object is useless without its keeper's code"),
+  m('Tally Marks',0,"the oldest data on earth: counts notched on bone, twenty thousand years before writing (ishango bone).",
+    "arithmetic before literacy","context; the count survived, the counted did not"),
+  m('Verse Encoding',0,"rhyme and meter as error-correction: corrupt one word and the line audibly breaks. the poem is a checksum.",
+    "integrity across generations of retelling","prose facts; not everything fits the meter"),
+  m('Landscape Mnemonics',0,"the country as filing system: each hill holds a story, each waterhole a law. the method of loci at continental scale.",
+    "filing tens of millennia of records in place","portability; exile is data loss","the songline substrate"),
+  m('Message Sticks',0,"carved tokens carrying a message and authenticating its bearer across territories.",
+    "credentials and content in one object","bandwidth; the stick is a header, the messenger is the body","australia"),
+  m('Winter Counts',0,"a century on one buffalo hide: each year condensed to a single painted image, keeper appointed per generation.",
+    "a community's timeline at a glance","detail; a year is one picture","lakota"),
+  m('Cave Archives',0,"painted galleries used and repainted across forty millennia: the site itself is the record.",
+    "the longest-lived archives our species has","access; the archive has one reading room"),
+  x('Knotted Cords',"counts and accounts tied into string: the quipu's deep ancestor.",
+    "portable numbers before numerals","narrative; string holds sums, not stories"),
+  x('Ochre Crayons',"the first durable marks, seventy thousand years back (blombos cave).",
+    "proof that recording is older than history","legibility; we still cannot read them"),
+  x('Oral Epics',"history compressed into story cycles: troy was a real fire once.",
+    "carrying events across dark centuries","fidelity; the epic optimizes for memorable, not accurate"),
+  x('Seasonal Calendars',"solstice stones and moon-notch bones: the first records of time itself.",
+    "planting and hunting on schedule","precision below the month"),
+ ]},
+{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#6e7440',
+ currency:['scribes','temples','notaries'],group:['clay','papyrus','parchment'],
+ mechs:[
+  m('Cuneiform Ledgers',0,"writing invented to track grain and sheep: the receipt came before the poem.",
+    "civilization's first database","the illiterate; scribes were the one percent"),
+  m('Quipu',0,"the inka empire administered by knotted cord: census, tax, and logistics in string, no writing anywhere.",
+    "an imperial database with no alphabet","us; we lost how to read most of it","andes"),
+  m('Stone Inscription',0,"law carved where it cannot be quietly edited: hammurabi's stele, the rosetta stone.",
+    "permanence and publicity in one object","revision; amendments need a new rock"),
+  m('Scribes & Chancelleries',0,"a professional class whose entire job is the state's memory: charters, treaties, tax rolls.",
+    "administration at kingdom scale","transparency; the scribe's monopoly is power"),
+  m('Tally Sticks',0,"split wood as double-entry: two halves that must match, forgery visible in the grain. england ran its treasury on them for six centuries.",
+    "unforgeable receipts for the illiterate","fire; parliament burned down disposing of them (1834)"),
+  m('Land Registers',0,"domesday book: who holds what, written once, cited for nine hundred years.",
+    "property disputes settled by lookup","the unrecorded; off the book, off the map"),
+  m('Double-Entry Bookkeeping',0,"every transaction written twice, and the books check themselves. venice's quiet superpower.",
+    "errors and fraud surfacing in the totals","what is kept off the books entirely"),
+  m('Monastic Chronicles',0,"monks logging each year's events, one line at a time: the era's newswire, kept for centuries.",
+    "continuous history through dark centuries","neutrality; the abbey had opinions"),
+  x('Boundary Stones',"property lines in granite, inscribed with curses against whoever moves them.",
+    "records that double as their own enforcement","subtlety; the curse is the api"),
+  x('Wax Tablets',"the erasable notebook: records designed to be temporary.",
+    "drafts and lessons, cheaply","posterity; erasure was the feature"),
+  x('The Genizah',"documents too sacred to destroy, piled in a cairo synagogue attic for a millennium: the accidental archive of everything.",
+    "preserving the ordinary that formal archives ignore","order; a thousand years of unsorted"),
+  x('Notarial Archives',"every contract copied into the notary's own register: the deal's third copy outlives both parties.",
+    "continuity of private records","privacy; the notary reads everything"),
+ ]},
+{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#4a7d63',
+ currency:['clerks','registries','archives'],group:['paper','film','punch cards'],
+ mechs:[
+  m('The Filing Cabinet',0,"the office's database: alphabetized folders, manila at scale. retrieval without remembering.",
+    "any document findable by any clerk","cross-referencing; one file lives in one drawer"),
+  m('Civil Registries',0,"birth, marriage, death, deed: the state's master tables, kept in bound volumes.",
+    "a continuous record of everyone","those the registry ignores; and fires"),
+  m('Newspapers of Record',0,"the archive edition: what the times printed is what happened, citable forever.",
+    "a shared, citable past","corrections; the error is archived too"),
+  m('Film Archives',0,"light stored: the past becomes replayable. the newsreel is the century's memory.",
+    "unstaged evidence of how it actually looked","decay; nitrate burns and acetate sours"),
+  m('Punch Cards',0,"records a machine can read: hollerith tabulates the 1890 census in months instead of years.",
+    "counting at superhuman speed","nuance; reality gets eighty columns"),
+  m('Microfilm',0,"libraries shrunk to spools: centuries of newsprint in a drawer.",
+    "density and portability for archives","browsing; and the reader machine is the gatekeeper"),
+  m('Carbon Copies',0,"redundancy as office routine: every letter typed in triplicate. cc lives on in your email header.",
+    "cheap copies against loss","secrecy; every copy is a leak in waiting"),
+  m('Public Libraries',0,"the commons of record: any book findable by any citizen, free, by design.",
+    "public memory as public infrastructure","what the catalog never deemed a book"),
+  x('Magnetic Tape',"data on ribbons: the first rewritable mass memory.",
+    "cheap bulk storage for decades","random access; the answer is at the far end of the reel"),
+  x('Ticker Tape',"markets recorded in real time, one price at a time.",
+    "a live pulse of the economy","context; the tape says what, never why"),
+  x('Stenography',"speech captured verbatim at speaking speed: parliaments and courts get transcripts.",
+    "the exact words, preserved","tone; the transcript has no eyebrows"),
+  x('Paper Shredders',"the anti-record: destruction as information policy (watergate, enron).",
+    "deniability, briefly","history; and the shreds have been reassembled"),
+ ]},
+{name:'Information era',years:'late 20th century - present',acc:'#2f7f96',
+ currency:['databases','platforms','clouds'],group:['disks','tape',"someone else's servers"],
+ mechs:[
+  m('Relational Databases',0,"records that answer questions: sql turns the archive into an oracle.",
+    "any question the schema anticipated","the ones it did not; the schema is destiny"),
+  m('The Cloud',0,"everyone's records on someone else's computer: infinitely available, invisibly located.",
+    "never losing your photos to a house fire","sovereignty; the landlord sets the terms"),
+  m('Version Control',0,"git: every change kept, every author attributed, everything branchable. the record learns to remember its own edits.",
+    "perfect history for code, and increasingly everything","secrets; some things should not be forever"),
+  m('The Wayback Machine',0,"the internet archive: snapshots of a web that deletes itself daily.",
+    "receipts for a medium built on 404s","completeness; robots.txt is a memory hole"),
+  m('Backups & Redundancy',0,"raid, replicas, 3-2-1: loss reframed as negligence.",
+    "surviving disk death as routine","what was never backed up; the default is still loss"),
+  m('Metadata & Logs',0,"records about records: who accessed what, when, from where. the surveillance exhaust.",
+    "forensics and accountability","privacy; the log outlives the intent"),
+  m('Data Breaches',0,"the anti-record event: everyone's records, exfiltrated and sold by the million rows.",
+    "attackers; the archive is the loot","everyone in the database; you cannot rotate your history"),
+  m('Link Rot',0,"the quiet catastrophe: the average webpage dies in a couple of years, and the citations point at ghosts.",
+    "reminding archivists that digital is not durable","the digital dark age; ours may be the least-remembered century"),
+  x('Wikipedia Edit Histories',"every article's full provenance, public: who changed what, when, and the argument about it.",
+    "transparency down to the comma","readability; the history is a hedge maze"),
+  x('Email Archives',"discovery's goldmine: the corporation's candid subconscious, subpoenaable.",
+    "accountability after the fact","the candid; write every email for the deposition"),
+  x('Screenshots',"the folk notary: the ephemeral, frozen as evidence. and trivially faked.",
+    "receipts at the speed of a thumb","authenticity; pixels have no chain of custody"),
+  x('GDPR Erasure',"the right to be forgotten: law forcing records to die on request.",
+    "the subject regaining some control","the copies already everywhere"),
+ ]},
+{name:'Onchain era',years:'emerging (21st century)',acc:'#3a5fd0',
+ currency:['every node','pinning clusters'],group:['blockspace','content hashes'],
+ mechs:[
+  m('Append-Only Ledgers',0,"the blockchain as pure record: write once, edit never, everyone holds a copy.",
+    "history that cannot be quietly revised","mistakes; the typo is also forever"),
+  m('Permanent Storage',0,"arweave's bet: pay once, stored forever, an endowment covers the rest.",
+    "records that outlive their keepers","takedowns; forever includes the regrettable"),
+  m('Decentralized Archives',0,"ipfs pinning clusters and filecoin deals: the archive with no landlord.",
+    "hosting that survives any single host","guarantees; pinning is a promise, not a law"),
+  m('Onchain Provenance',0,"nft lineage: who made it, who held it, unbroken since mint.",
+    "chain of custody for digital artifacts","the artifact itself; the jpeg often lives elsewhere"),
+  m('Indexers',0,"the graph: raw chain history distilled into queryable memory.",
+    "asking the ledger real questions","trust; the indexer can still fib"),
+  m('Onchain Publishing',0,"writing published straight to the ledger: essays with block numbers (mirror).",
+    "censorship-resistant publication","editing; the draft is forever too"),
+  m('Data DAOs',0,"communities owning datasets together: the archive as a co-op.",
+    "collective custody of shared memory","governance; deciding what is kept is politics again"),
+  x('Reorgs',"history's probation period: the newest blocks can still be unwritten. finality is a countdown.",
+    "understanding when history hardens","instant certainty; wait for confirmations"),
+  x('Blockspace Scarcity',"the archive with rent: every byte bids for inclusion.",
+    "spam resistance by pricing","cheap memories; not everything merits a fee market"),
+  x('Dead Man Switches',"records that publish themselves if you stop checking in.",
+    "insurance for whistleblowers","false alarms; the switch cannot read intent"),
+  x('Backup Civilization',"a full, verifiable snapshot of the cultural record — laws, science, art, code — replicated so widely no fire, flood, or regime can unwrite it.",
+    "civilizational continuity as an engineering problem","existing; this one is a spec waiting for a builder",true),
+ ]},
+];
+const CONFLICT_ERAS=[
+{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#b32626',
+ currency:['ridicule','feud','exile'],group:['laughter','compensation','distance'],
+ mechs:[
+  m('Song Duels',0,"rivals settle claims by public contest of mockery: the camp's laughter is the verdict.",
+    "settling conflict without blood","survival-stakes disputes; some things are not funny","inuit"),
+  m('Feud & Vendetta',0,"the decentralized deterrent: harm my kin and mine harm yours, forever.",
+    "deterrence without government","ending; the ledger of blood never balances"),
+  m('Blood Money',0,"a life priced in goods to stop the spiral: the feud's off-ramp, negotiated between families.",
+    "exits from vendetta","the grief; payment closes the account, not the wound"),
+  m('Walking Away',0,"the forager's veto: bands split rather than fight. exit as conflict resolution.",
+    "cheap peace while land is open","farmers; fields cannot walk"),
+  m('Elder Mediation',0,"the grey-haired go-betweens: no power to impose, all the standing to persuade.",
+    "face-saving settlements","the intransigent; persuasion has a floor"),
+  m('Ritual Contests',0,"grievances settled by supervised sport: the fight, ritualized down to a game.",
+    "venting without corpses","justice for the physically weaker party"),
+  m('Peace Feasts',0,"former enemies eating together: commensality as treaty, witnessed by everyone.",
+    "making peace legible to the whole group","enforcement; the feast has no clause"),
+  m('Raiding Rules',0,"even violence had protocol: raids for horses or honor, with norms capping escalation.",
+    "bounded conflict","the bounds; they broke under pressure"),
+  x('Mock Battles',"ritualized warfare with the lethality dialed down: honors satisfied at low body count.",
+    "the display without the funeral","actual conquest; nothing changes hands"),
+  x('Peace Chiefs',"separate leaders for war and peace: the diplomat is never the warrior.",
+    "de-escalation with dedicated staffing","unified command","cheyenne"),
+  x('Joking Relationships',"designated kin licensed to defuse tension by mockery: the pressure valve is a person.",
+    "conflict vented before it hardens","formal disputes; the joke has jurisdiction limits"),
+  x('Trade Truces',"markets as neutral ground: even enemies suspend the feud at the exchange site.",
+    "commerce surviving conflict","anywhere off the market ground"),
+ ]},
+{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#b5403a',
+ currency:['oaths','champions','sieges'],group:["god's verdict",'wergild',"the king's peace"],
+ mechs:[
+  m('Trial by Combat',0,"god referees a duel: whoever wins was right. justice with a sword's error bars.",
+    "definite ends to disputes","justice; the better swordsman is just better at swords"),
+  m('Wergild',0,"every person has a listed price: a killing settled by tariff instead of vendetta, rank included.",
+    "replacing feud with an invoice","equality; the tariff knew your station"),
+  m("King's Courts",0,"disputes pulled upward: the crown's peace, the crown's judges, the crown's fees.",
+    "one referee above the feuding lords","the crown's own disputes; nobody referees the referee"),
+  m('Religious Arbitration',0,"the bishop or qadi as judge, scripture as procedure: courts wherever the faith reaches.",
+    "law across borders that share a god","litigants of the other faith"),
+  m('Duels of Honor',0,"insults settled at dawn under the code duello: reputation defended by ritual risk.",
+    "capping escalation at two participants","sense; pistols are a bad epistemology"),
+  m('Ransom Conventions',0,"war with billing: nobles captured, priced, and returned. survivable defeat, for members.",
+    "de-lethalizing elite warfare","the peasants; the convention was a members' club"),
+  m('Truces of God',0,"the church imposes off-days on war: no fighting on holy days, protected classes ring-fenced.",
+    "throttling violence by calendar","compliance; god's timeout got ignored"),
+  m('Outlawry',0,"the community's nuclear option: placed outside the law, where anyone may harm you freely.",
+    "enforcement without prisons","proportion; it is death on an installment plan"),
+  x('Sanctuary',"the fugitive safe at the altar: the church as pause button on hot pursuit.",
+    "cooling-off before vengeance","resolution; sanctuary expires"),
+  x('Feuding Codes',"vendetta with a rulebook: the kanun and its cousins regulate who, when, and how.",
+    "keeping the feud survivable","ending it; regulated feud is still feud"),
+  x('Champions for Hire',"the litigant too weak to fight rents a fist: trial by combat's loophole economy.",
+    "outsourcing the ordeal","the poor; the best champions bill accordingly"),
+  x('The Interdict',"the pope's collective punishment: a whole realm's sacraments suspended until the king folds.",
+    "leverage over the crowned","the parish; the innocent are the ammunition"),
+ ]},
+{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#9c4a63',
+ currency:['writs','strikes','armies'],group:['verdicts','treaties','deterrence'],
+ mechs:[
+  m('Courts & Due Process',0,"conflict routed through procedure: pleadings, evidence, appeal. slow on purpose.",
+    "verdicts that lose gracefully; the loser gets a process to blame","speed and the poor; procedure bills by the hour"),
+  m('Police & Prisons',0,"the state monopolizes revenge: private violence criminalized, public violence salaried.",
+    "suppressing the feud at scale","the policed; the monopoly has a bias problem"),
+  m('Strikes & Bargaining',0,"industrial conflict ritualized: withdraw labor, negotiate, return. class war with rules and endings.",
+    "channeling class conflict into contracts","those outside the union hall"),
+  m('International Treaties',0,"wars ended in writing: westphalia to versailles. the settlement is a document.",
+    "durable-ish peace between sovereigns","enforcement; the treaty has no bailiff"),
+  m('Geneva Conventions',0,"war itself gets a rulebook: the wounded, prisoners, and civilians ring-fenced by signature.",
+    "floors under hell","enforcement against winners"),
+  m('Arbitration Clauses',0,"courts opted out by contract: private judges, faster and quieter.",
+    "speed and expertise","precedent and the little guy; the repeat player picks the referee"),
+  m('Deterrence Doctrine',0,"conflict prevented by promised annihilation: mutually assured destruction as peacekeeping.",
+    "no great-power war since 1945","near-misses; we survived on luck as much as design"),
+  m('Diplomacy Corps',0,"professional conflict-avoiders: embassies as standing back-channels between rivals.",
+    "talking before shooting","the fait accompli; the cable arrives after the tanks"),
+  x('Duels Outlawed',"the state confiscates honor: dueling criminalized, defamation courts inherit the caseload.",
+    "fewer dawn funerals","satisfaction; the lawsuit lacks drama"),
+  x('Truth Commissions',"post-conflict accounting: amnesty traded for testimony (south africa).",
+    "ending cycles without victor's justice","the victims' full measure"),
+  x('Peace Congresses',"vienna, versailles: the map redrawn at the winners' table.",
+    "continental settlements in one room","the unrepresented; they appear only as territory"),
+  x('The Hague',"permanent courts for states: justice between sovereigns, attendance optional.",
+    "a venue that outlives any one war","jurisdiction; the powerful rsvp their regrets"),
+ ]},
+{name:'Information era',years:'late 20th century - present',acc:'#6f4f9c',
+ currency:['flags','ratios','lawsuits'],group:['bans','settlements','exhaustion'],
+ mechs:[
+  m('Content Moderation',0,"the platform as judge: report, review, remove, appeal (maybe). conflict processing at billions-scale.",
+    "handling disputes at software speed","context; the queue flattens every war to a ticket"),
+  m('Deplatforming',0,"exile, softwareized: the account, and its decade of standing, gone at a keystroke.",
+    "fast ejection of the worst","process; the ban has no docket"),
+  m('Flame Wars',0,"status conflict as public spectacle: the quote-tweet duel, scored by the audience.",
+    "airing disputes where everyone can see","minds changing; the audience is the point"),
+  m('Cancel Campaigns',0,"distributed enforcement: the crowd as prosecutor, the employer as executioner.",
+    "consequences where courts do not reach","proportionality or appeal; the mob keeps no docket either"),
+  m('Online Dispute Resolution',0,"ebay and paypal settle more disputes per year than most court systems, without one courtroom.",
+    "small conflicts settled at software cost","nuance; the form has four options"),
+  m('Cyberwarfare',0,"conflict below the threshold: grids probed, elections nudged, ransoms paid.",
+    "coercion without declarations (for states)","attribution; the return address is forged"),
+  m('Information Operations',0,"the feed as battlefield: botnets, leaks, and narratives deployed like artillery.",
+    "shaping consensus without firing a shot","trust in anything afterward; the fog is the product"),
+  m('SLAPP Suits',0,"litigation as a weapon: the process is the punishment, and discovery is the siege.",
+    "silencing critics (for the deep-pocketed)","speech; hence anti-slapp laws"),
+  x('Block Buttons',"the personal exile: conflict resolved by never seeing them again.",
+    "peace at the individual scale","the disagreement; it continues without you"),
+  x('Community Guidelines',"each platform's private penal code, versioned quietly and enforced unevenly.",
+    "legible-ish rules at scale","consistency; every fief drifts"),
+  x('Review Bombing',"the crowd weaponizes the stars: ratings as siege engine.",
+    "collective punishment at zero cost","the bystanders; the restaurant did nothing"),
+  x('De-escalation Design',"reply delays, are-you-sure prompts, hidden like counts: friction as peacekeeping.",
+    "cooling the medium itself","determined combatants; friction only slows"),
+ ]},
+{name:'Onchain era',years:'emerging (21st century)',acc:'#4a58d0',
+ currency:['stakes','votes','forks'],group:['slashing','juries','exit'],
+ mechs:[
+  m('Staked Juries',0,"jurors drawn by lot, paid to converge, slashed for deviance (kleros, uma). arbitration as a coordination game.",
+    "cheap, fast, borderless dispute resolution","nuance; schelling points reward the obvious"),
+  m('Chain Splits',0,"irreconcilable differences resolved by copy: both sides keep the code and the history, the market picks (eth/etc, hive/steem).",
+    "divorce without a courtroom","network effects; the split halves them"),
+  m('Escalation Games',0,"disputes resolved by raising stakes round by round until one side folds (rollup challenges, kleros appeals).",
+    "truth surfacing through brinkmanship","the out-bankrolled; conviction is not collateral"),
+  m('Exit Over Voice',0,"the minority leaves with its share instead of fighting: ragequit as the peace treaty.",
+    "conflicts dissolved instead of won","illiquid stakes; you cannot ragequit a building"),
+  m('Governance Wars',0,"whales, bribes, and vote markets: the dao's civil war, fought in proposals (the curve wars).",
+    "conflict without bullets","legitimacy; the treasury goes to the deepest pockets"),
+  m('Whitehat Truces',0,"hacker conventions, onchain: exploiters negotiated into returning funds for a bounty.",
+    "recovering nine figures politely","precedent; the thief sets the fee"),
+  m('MEV Wars',0,"bots dueling in the mempool for extraction priority: conflict at millisecond scale.",
+    "price discovery of blockspace privilege","users; the war's ammunition is your slippage"),
+  m('Social Rollbacks',0,"when code fails catastrophically, the community votes reality: the dao hack, unwound by fork.",
+    "a human backstop under 'code is law'","neutrality; the precedent is a loaded gun"),
+  x('Multisig Standoffs',"keyholders deadlocked: the treasury as hostage negotiation.",
+    "forcing genuine consensus","urgency; the funds wait out the feud"),
+  x('Protocol Sanctions',"front-ends geoblocking, addresses blacklisted: the state re-enters the chat (tornado cash).",
+    "compliance leverage over neutral code","neutrality; the base layer feels it too"),
+  x('Circuit Breakers',"automated conflict detection pausing the protocol mid-exploit.",
+    "catching attacks at machine speed","credible neutrality; the pause button has owners"),
+  x('Peace Bonds',"adversaries escrow stakes that burn on defection: the ceasefire as a smart contract, monitored by attested sensors. war made mechanically more expensive than peace.",
+    "credible commitments between parties who share no court","existing; this one is a spec waiting for a builder",true),
+ ]},
+];
+
 // ---------- generative line-botany, seeded by name ----------
 function hashName(n){ let h=2166136261; for(const c of n){ h^=c.charCodeAt(0); h=Math.imul(h,16777619); } return (h>>>0)||1; }
 function sr(seed){ let s=seed%2147483647; if(s<=0)s+=2147483646; return ()=>{ s=s*16807%2147483647; return (s-1)/2147483646; }; }
@@ -1180,7 +1763,7 @@ const MODES={
    {t:'mechanism',s:'math moves the money',c:'#e8446f',eras:[4]}
   ],
   arcnote:'the allocator migrates: kin → custom → price → code',
-  foot:'<a class="buy" href="https://store.gitcoin.co/products/resource-allocation-history-framed-photo-paper-poster" target="_blank" rel="noopener">buy the physical poster ↗</a><a class="buy powergrad" href="#power">who decides → power structures</a><a class="buy truthgrad" href="#truth">what is true → truth</a><a class="buy identitygrad" href="#identity">who you are → identity</a>'},
+  foot:'<a class="buy" href="https://store.gitcoin.co/products/resource-allocation-history-framed-photo-paper-poster" target="_blank" rel="noopener">buy the physical poster ↗</a><a class="buy powergrad" href="#power">next: who decides →</a>'},
  power:{stats:POWER_STATS,eras:POWER_ERAS,fav:'👑',
   h1:'POWER&nbsp;STRUCTURES',
   title:'power structures through history · living poster',
@@ -1193,7 +1776,7 @@ const MODES={
    {t:'cryptography',s:'stake, code, exit',c:'#8f2f7a',eras:[4]}
   ],
   arcnote:'the substrate of enforcement migrates: bodies → minds → math',
-  foot:'<a class="buy" href="#alloc">who gets what → resource allocation</a><a class="buy truthgrad" href="#truth">what is true → truth</a><a class="buy identitygrad" href="#identity">who you are → identity</a>'},
+  foot:'<a class="buy truthgrad" href="#truth">next: what is true →</a>'},
  truth:{stats:TRUTH_STATS,eras:TRUTH_ERAS,fav:'📖',
   h1:'TRUTH',
   title:'truth through history · living poster',
@@ -1208,7 +1791,7 @@ const MODES={
    {t:'proof',s:'stake and cryptography',c:'#8f3fd1',eras:[4]}
   ],
   arcnote:'the arbiter migrates: elders → canon → evidence → algorithms → proofs',
-  foot:'<a class="buy" href="#alloc">who gets what → resource allocation</a><a class="buy powergrad" href="#power">who decides → power structures</a><a class="buy identitygrad" href="#identity">who you are → identity</a>'},
+  foot:'<a class="buy identitygrad" href="#identity">next: who you are →</a>'},
  identity:{stats:IDENTITY_STATS,eras:IDENTITY_ERAS,fav:'🪪',
   h1:'IDENTITY',
   title:'identity through history · living poster',
@@ -1223,13 +1806,72 @@ const MODES={
    {t:'sovereign',s:'the key is you',c:'#2b6cd0',eras:[4]}
   ],
   arcnote:'who vouches migrates: kin → church → state → platform → keypair',
-  foot:'<a class="buy" href="#alloc">who gets what → resource allocation</a><a class="buy powergrad" href="#power">who decides → power structures</a><a class="buy truthgrad" href="#truth">what is true → truth</a>'}
+  foot:'<a class="buy trustgrad" href="#trust">next: who you trust →</a>'},
+ trust:{stats:TRUST_STATS,eras:TRUST_ERAS,fav:'🤝',
+  h1:'TRUST',
+  title:'trust through history · living poster',
+  lede:"the invisible infrastructure: every trade, promise, and login runs on it. hover anything to see what it secures, and what it betrays. a pulse of confidence runs through all of it.",
+  cards:['trust rests on','backed by'],
+  finale:'trust-routing',
+  arc:[
+   {t:'kin',s:'blood and gift debts',c:'#c9820a',eras:[0]},
+   {t:'oath',s:'sworn before god',c:'#d4682b',eras:[1]},
+   {t:'institution',s:'contracts and courts',c:'#d94f4f',eras:[2]},
+   {t:'brand',s:'ratings and platforms',c:'#c94077',eras:[3]},
+   {t:'protocol',s:'trustless by design',c:'#a83a9e',eras:[4]}
+  ],
+  arcnote:'the guarantor migrates: kin → god → state → platform → code',
+  foot:'<a class="buy recordgrad" href="#record">next: who keeps the record →</a>'},
+ record:{stats:RECORD_STATS,eras:RECORD_ERAS,fav:'💾',
+  h1:'THE&nbsp;RECORD',
+  title:'the record through history · living poster',
+  lede:"civilization is what it writes down: property, debts, history, you. hover anything to see what it preserves, and what it loses. a pulse of memory runs through all of it.",
+  cards:['kept by','written on'],
+  finale:'backup-civilization',
+  arc:[
+   {t:'memory',s:'minds hold it',c:'#8a6a2a',eras:[0]},
+   {t:'inscription',s:'clay, stone, parchment',c:'#6e7440',eras:[1]},
+   {t:'the file',s:'paper bureaucracy',c:'#4a7d63',eras:[2]},
+   {t:'the database',s:'the server owns it',c:'#2f7f96',eras:[3]},
+   {t:'the ledger',s:'everyone holds a copy',c:'#3a5fd0',eras:[4]}
+  ],
+  arcnote:'the keeper migrates: elders → scribes → clerks → platforms → everyone',
+  foot:'<a class="buy conflictgrad" href="#conflict">next: how you fight →</a>'},
+ conflict:{stats:CONFLICT_STATS,eras:CONFLICT_ERAS,fav:'⚖️',
+  h1:'CONFLICT',
+  title:'conflict through history · living poster',
+  lede:"the question nobody wants: when we disagree, what happens next. hover anything to see what it settles, and what it costs. a pulse of grievance runs through all of it.",
+  cards:['fought with','ended by'],
+  finale:'peace-bonds',
+  arc:[
+   {t:'honor',s:'feud and duel',c:'#b32626',eras:[0]},
+   {t:'ordeal',s:'god picks the winner',c:'#b5403a',eras:[1]},
+   {t:'procedure',s:'courts and treaties',c:'#9c4a63',eras:[2]},
+   {t:'moderation',s:'flags and bans',c:'#6f4f9c',eras:[3]},
+   {t:'arbitration',s:'staked juries and forks',c:'#4a58d0',eras:[4]}
+  ],
+  arcnote:'the referee migrates: the crowd → god → the state → the platform → the protocol',
+  foot:'<a class="buy" href="#alloc">back to the start: who gets what →</a>'}
 };
 const slugOf=k=>k.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 const SLUGS={alloc:new Set(ALLOC_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
              power:new Set(POWER_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
              truth:new Set(TRUTH_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
-             identity:new Set(IDENTITY_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key))))};
+             identity:new Set(IDENTITY_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
+             trust:new Set(TRUST_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
+             record:new Set(RECORD_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
+             conflict:new Set(CONFLICT_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key))))};
+
+// url writing: tabs with a crawlable stub page (truth.html, identity.html, …) get their
+// clean path in the address bar so copied links unfurl with tab-specific og meta;
+// everything else stays hash-routed on this file. stubs redirect back to /next#<mode>.
+const HTTPISH=/^https?:$/.test(location.protocol);
+const BASE=location.pathname+location.search;
+const STUBBED={truth:1,identity:1,trust:1,record:1,conflict:1};
+function setURL(mode,slug){
+  if(HTTPISH&&STUBBED[mode]){ history.replaceState(null,'','/'+mode+(slug?'#'+slug:'')); return; }
+  history.replaceState(null,'',mode==='alloc'?BASE+(slug?'#'+slug:''):BASE+'#'+mode+(slug?'/'+slug:''));
+}
 
 let MODE=null, STATS={}, ERAS=[], WHAT={}, BYSLUG={}, pinned=null;
 const erasEl=document.getElementById('eras');
@@ -1450,12 +2092,12 @@ function pinEl(el,px,py){
   fillTip(el); tt.classList.add('on');
   const r=el.getBoundingClientRect();
   placeTip(px||r.right, py||r.top);
-  history.replaceState(null,'',(MODE==='alloc'?'#':'#'+MODE+'/')+slugOf(el.dataset.key));
+  setURL(MODE,slugOf(el.dataset.key));
 }
 function unpin(){
   if(!pinned) return;
   pinned.classList.remove('pinned'); pinned=null; tt.classList.remove('on');
-  history.replaceState(null,'',MODE==='alloc'?location.pathname+location.search:'#'+MODE);
+  setURL(MODE,null);
 }
 function expandEra(era){
   if(era.classList.contains('xp')) return;
@@ -1558,7 +2200,7 @@ function setMode(mode,user){
   renderEras(M); bindPoster(); renderArc(M);
   litCheck(); buildLifeline();
   if(user){
-    history.replaceState(null,'',mode==='alloc'?location.pathname+location.search:'#'+mode);
+    setURL(mode,null);
     window.scrollTo({top:0,behavior:'smooth'});
   }
 }
@@ -1568,9 +2210,9 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setM
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'alloc',slug:null};
-  const mm=h.match(/^(alloc|power|truth|identity)(?:\/(.*))?$/);
+  const mm=h.match(/^(alloc|power|truth|identity|trust|record|conflict)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
-  for(const k of ['alloc','power','truth','identity']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
+  for(const k of ['alloc','power','truth','identity','trust','record','conflict']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
   return {mode:'alloc',slug:h};
 }
 function applyHash(){
