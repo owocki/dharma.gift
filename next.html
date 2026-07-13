@@ -1,0 +1,1397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link id="fav" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<title>four questions through history · living poster</title>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://resource-allocation-history.surge.sh/">
+<meta property="og:title" content="four questions through history">
+<meta property="og:description" content="12,000 years of deciding who gets what, who decides, what is true, and who you are: allocation mechanisms, power structures, truth machines, and identity systems as living art, potlatch to quadratic funding, songlines to zero-knowledge proofs. four tabs, every one explained. click around, it sparkles.">
+<meta property="og:image" content="https://resource-allocation-history.surge.sh/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="four questions through history">
+<meta name="twitter:description" content="12,000 years of deciding who gets what, who decides, what is true, and who you are. living art across four tabs, every mechanism explained. click around, it sparkles.">
+<meta name="twitter:image" content="https://resource-allocation-history.surge.sh/og.png">
+<meta name="description" content="the resource allocation poster with three sibling tabs folded in: power structures, truth, and identity. four questions across 5 eras, each mechanism explained.">
+<style>
+  :root{
+    --bg:#f1edfa; --ink:#221c30; --muted:#665e78; --panel:#ffffff; --line:#ddd4ec;
+    --pgrad:linear-gradient(175deg,#c3b0f2 0%,#e2c4f0 52%,#fbc6e3 100%);
+    --disc-mix:#ffffff; --pmix:76%; --card:#14101c; --cardink:#f4effc;
+    --goodt:#0a7d0a; --badt:#b32626;
+  }
+  @media (prefers-color-scheme:dark){ :root{
+    --bg:#0d0a16; --ink:#e6dff2; --muted:#a095b5; --panel:#191225; --line:#2e2440;
+    --pgrad:linear-gradient(175deg,#221448 0%,#331754 52%,#43164a 100%);
+    --disc-mix:#150f24; --pmix:38%; --card:#0b0813; --cardink:#f1eafc;
+    --goodt:#5ad07d; --badt:#ff8080;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0d0a16; --ink:#e6dff2; --muted:#a095b5; --panel:#191225; --line:#2e2440;
+    --pgrad:linear-gradient(175deg,#221448 0%,#331754 52%,#43164a 100%);
+    --disc-mix:#150f24; --pmix:38%; --card:#0b0813; --cardink:#f1eafc;
+    --goodt:#5ad07d; --badt:#ff8080;
+  }
+  :root[data-theme="light"]{
+    --bg:#f1edfa; --ink:#221c30; --muted:#665e78; --panel:#ffffff; --line:#ddd4ec;
+    --pgrad:linear-gradient(175deg,#c3b0f2 0%,#e2c4f0 52%,#fbc6e3 100%);
+    --disc-mix:#ffffff; --pmix:76%; --card:#14101c; --cardink:#f4effc;
+    --goodt:#0a7d0a; --badt:#b32626;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .page{max-width:1160px;margin:0 auto;padding:26px 14px 70px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:10px;flex-wrap:wrap}
+  .topbar a{color:inherit}
+  button.plain{font:inherit;font-weight:600;font-size:12px;padding:4px 10px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+
+  .poster{position:relative;background:var(--pgrad);border:1px solid var(--line);border-radius:18px;padding:44px 30px 30px;overflow:hidden}
+  #lifeline{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+  .poster>header,.era,.pfoot{position:relative;z-index:1}
+
+  .poster>header{text-align:center;margin-bottom:34px}
+  .poster h1{margin:0;font-size:clamp(30px,6vw,62px);font-weight:850;letter-spacing:.045em;line-height:1.02}
+  .poster .sub{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:clamp(14px,2.6vw,26px);letter-spacing:.42em;margin:8px 0 0;font-weight:800;
+    background:linear-gradient(90deg,#6247d6,#8a3fd1,#b535bb,#d63d97,#e8446f);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:glitch 7s infinite}
+  @keyframes glitch{0%,95%,100%{text-shadow:none}96%{text-shadow:-2px 0 rgba(240,60,170,.75),2px 0 rgba(60,200,240,.75)}97.4%{text-shadow:2px 0 rgba(240,60,170,.55),-2px 0 rgba(60,200,240,.55)}}
+  .poster .lede{color:var(--muted);font-size:13px;margin:14px auto 0;max-width:66ch}
+  .playbtn{font:inherit;font-weight:800;font-size:13px;margin-top:16px;padding:10px 22px;border-radius:999px;cursor:pointer;border:none;color:#fff;
+    background:linear-gradient(90deg,#6247d6,#b535bb,#e8446f);box-shadow:0 8px 26px rgba(181,53,187,.45);transition:transform .25s,box-shadow .25s}
+  .playbtn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(181,53,187,.6)}
+  .era.playpulse .mech .disc{animation:ppop .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--pi,0)*0.045s)}
+  @keyframes ppop{0%{transform:scale(1)}45%{transform:scale(1.14)}100%{transform:scale(1)}}
+  @media (prefers-reduced-motion:reduce){ .era.playpulse .mech .disc{animation:none} }
+
+  .era{position:relative;display:grid;grid-template-columns:52px 1fr;gap:12px;padding:26px 0 20px;
+    border-top:2px solid var(--line);border-top:2px solid color-mix(in srgb,var(--acc) 55%,transparent)}
+  .era::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .7s;
+    background:radial-gradient(62% 85% at 50% 50%,color-mix(in srgb,var(--acc) 11%,transparent),transparent 72%)}
+  .era.lit::before,.era:hover::before{opacity:1}
+  .sparkles{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .7s;z-index:2}
+  .era.lit .sparkles,.era:hover .sparkles{opacity:1}
+  .sparkles span{position:absolute;line-height:1;text-shadow:0 0 10px currentColor;opacity:0;
+    animation:twk var(--td,2.2s) ease-in-out infinite;animation-delay:var(--dl,0s);will-change:transform,opacity}
+  @keyframes twk{0%,100%{opacity:0;transform:scale(.25) rotate(0deg)}50%{opacity:.95;transform:scale(1) rotate(100deg)}}
+  @media (prefers-reduced-motion:reduce){ .sparkles span{animation:none;opacity:.5} }
+  .rail{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:4px}
+  .ename{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:820;letter-spacing:.2em;font-size:13px;color:var(--acc);text-transform:uppercase;font-style:italic}
+  :root[data-theme="dark"] .ename{color:color-mix(in srgb,var(--acc) 55%,#efe8fb)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .ename{color:color-mix(in srgb,var(--acc) 55%,#efe8fb)} }
+  .eyears{writing-mode:vertical-rl;transform:rotate(180deg);font-size:10.5px;color:var(--muted);letter-spacing:.08em}
+  .ebody{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-start;justify-content:center}
+  .ecard{background:var(--card);color:var(--cardink);border-radius:16px;padding:13px 15px;width:158px;font-size:11px;line-height:1.45;box-shadow:0 8px 26px rgba(10,6,20,.3)}
+  .ecard .et{font-weight:780;font-size:12px;margin-bottom:4px;letter-spacing:.03em;color:var(--cardink);color:color-mix(in srgb,var(--acc) 45%,#ffffff)}
+  .ecard .et::before{content:"✳ ";opacity:.85}
+  .ecard ul{margin:0;padding:0;list-style:none;opacity:.82}
+
+  .mech{display:flex;flex-direction:column;align-items:center;width:126px;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:opacity .3s,filter .3s}
+  .disc{position:relative;overflow:hidden;border-radius:50%;display:grid;place-items:center;
+    --dgA:color-mix(in srgb,var(--pastel) 88%,#ffffff);
+    --dgB:color-mix(in srgb,var(--d0) 38%,#ffffff);
+    border:2px solid color-mix(in srgb,var(--d1) 60%,transparent);
+    background:var(--panel);background:radial-gradient(circle at 32% 26%,var(--dgA),var(--dgB));
+    box-shadow:0 7px 18px color-mix(in srgb,var(--d1) 28%,transparent),inset 0 0 0 1px rgba(255,255,255,.4);
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
+    animation:breathe 7s ease-in-out infinite;animation-delay:var(--bd,0s)}
+  :root[data-theme="dark"] .disc{--dgA:color-mix(in srgb,var(--pastel) 34%,#171028);--dgB:color-mix(in srgb,var(--d0) 36%,#0e0a1c);box-shadow:0 7px 20px color-mix(in srgb,var(--d1) 36%,transparent),inset 0 0 0 1px rgba(255,255,255,.12)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .disc{--dgA:color-mix(in srgb,var(--pastel) 34%,#171028);--dgB:color-mix(in srgb,var(--d0) 36%,#0e0a1c);box-shadow:0 7px 20px color-mix(in srgb,var(--d1) 36%,transparent),inset 0 0 0 1px rgba(255,255,255,.12)} }
+  .disc::after{content:'';position:absolute;left:9%;top:7%;width:46%;height:38%;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(255,255,255,.6),rgba(255,255,255,0));pointer-events:none}
+  :root[data-theme="dark"] .disc::after{background:radial-gradient(closest-side,rgba(255,255,255,.18),rgba(255,255,255,0))}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .disc::after{background:radial-gradient(closest-side,rgba(255,255,255,.18),rgba(255,255,255,0))} }
+  .disc svg{width:78%;height:78%;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  @keyframes breathe{50%{transform:scale(1.025)}}
+  .mech .nm{margin-top:7px;font-size:12px;font-weight:680;text-align:center;line-height:1.25}
+  .mech .pd{font-size:10px;color:var(--muted);text-align:center;line-height:1.3;margin-top:2px;max-width:120px}
+  .mech:hover .disc,.mech:focus-visible .disc,.mech.pinned .disc{transform:scale(1.12);animation-play-state:paused;
+    box-shadow:0 18px 48px color-mix(in srgb,var(--d1) 55%,transparent),0 0 0 3px var(--d1),0 0 26px color-mix(in srgb,var(--d1) 45%,transparent)}
+  .mech:hover .disc svg,.mech:focus-visible .disc svg,.mech.pinned .disc svg{transform:rotate(10deg) scale(1.06)}
+  .ebody:hover .mech:not(:hover):not(.pinned){opacity:.5;filter:saturate(.7)}
+
+  .mech.extra{display:none}
+  .era.xp .mech.extra{display:flex;animation:pop .45s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--pd,0s)}
+  @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.85)}}
+  .mech.extra .disc{border-style:dashed}
+  .mech.unb .disc{border-style:dashed;border-width:2px}
+  .mech.unb .nm::after{content:" ✦";color:var(--acc)}
+  .more{align-self:center;font:inherit;font-size:12px;font-weight:700;padding:9px 16px;border-radius:999px;cursor:pointer;
+    border:1.5px dashed var(--acc);
+    background:var(--panel);background:color-mix(in srgb,var(--acc) 10%,transparent);
+    color:var(--acc);transition:transform .25s,box-shadow .25s;flex-basis:100%;max-width:290px;margin-top:4px}
+  :root[data-theme="dark"] .more{color:color-mix(in srgb,var(--acc) 55%,#efe8fb)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .more{color:color-mix(in srgb,var(--acc) 55%,#efe8fb)} }
+  .more:hover{transform:translateY(-2px);box-shadow:0 10px 26px color-mix(in srgb,var(--acc) 35%,transparent)}
+
+  .pfoot{margin-top:26px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:11.5px}
+  .pfoot a{color:inherit}
+  .pfoot .fright{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+  .pfoot .tbc{color:var(--muted)}
+  .pfoot .da{display:inline-flex;align-items:center;gap:9px;color:var(--ink);font-weight:600}
+  .pfoot .da svg{height:17px;width:auto;display:block;color:var(--ink)}
+  .buy{display:inline-block;font-weight:750;font-size:12px;padding:8px 15px;border-radius:999px;text-decoration:none;
+    color:#fff !important;background:linear-gradient(90deg,#b535bb,#e8446f);
+    box-shadow:0 6px 18px color-mix(in srgb,#e8446f 40%,transparent);transition:transform .25s,box-shadow .25s}
+  .buy:hover{transform:translateY(-2px);box-shadow:0 12px 28px color-mix(in srgb,#e8446f 55%,transparent)}
+  .below{color:var(--muted);font-size:12.5px;max-width:92ch;margin:18px 4px 0}
+  .below a{color:inherit}
+
+  #tt{position:fixed;pointer-events:none;z-index:60;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-left:3px solid var(--acc,#8b7fb8);border-radius:12px;padding:12px 14px;width:300px;box-shadow:0 14px 44px rgba(10,6,20,.4);font-size:12.5px;display:none}
+  #tt.on{display:block}
+  #tt .nm{font-weight:760;font-size:15px;line-height:1.2}
+  #tt .er{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin:2px 0 7px}
+  #tt .er em{color:var(--acc);font-style:normal;font-weight:700}
+  #tt .what{margin:0 0 8px;line-height:1.5}
+  #tt .note{margin:0 0 8px;color:var(--muted);font-style:italic;font-size:11.5px}
+  #tt .gf{display:grid;gap:5px;margin-bottom:8px}
+  #tt .gf div{font-size:11.5px;line-height:1.45;padding:6px 9px;border-radius:8px;background:var(--bg)}
+  #tt .gf .g{background:color-mix(in srgb,#0ca30c 9%,var(--panel))}
+  #tt .gf .b{background:color-mix(in srgb,#d03b3b 8%,var(--panel))}
+  #tt .gf .g b{color:var(--goodt)} #tt .gf .b b{color:var(--badt)}
+  #tt .genes{display:flex;flex-wrap:wrap;gap:4px}
+  #tt .genes span{font-size:10px;border:1px solid var(--line);border-radius:999px;padding:2px 7px;color:var(--muted)}
+  #tt .genes span b{color:var(--ink);font-weight:650}
+  #tt .hintline{margin-top:8px;color:var(--muted);font-size:10px;border-top:1px solid var(--line);padding-top:6px}
+
+  @media(max-width:720px){
+    .poster{padding:30px 12px 20px}
+    .era{grid-template-columns:1fr;gap:6px}
+    .rail{flex-direction:row;justify-content:flex-start;gap:8px;padding:0 4px}
+    .ename,.eyears{writing-mode:horizontal-tb;transform:none}
+    .mech{width:104px}
+    .ecard{width:47%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .disc{animation:none}
+    .poster .sub{animation:none}
+    .era.xp .mech.extra{animation:none}
+  }
+
+  /* ---------- tabs + power-mode palette ---------- */
+  .tabs{display:flex;justify-content:center;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+  .tab{font:inherit;font-weight:800;font-size:12.5px;letter-spacing:.04em;padding:8px 18px;border-radius:999px;cursor:pointer;
+    border:1.5px solid var(--line);background:var(--panel);color:var(--muted);transition:transform .25s,box-shadow .25s,color .25s}
+  .tab:hover{transform:translateY(-1px)}
+  .tab .em{margin-right:7px}
+  .tab.on{color:#fff;border-color:transparent}
+  .tab.on.t-alloc{background:linear-gradient(90deg,#6247d6,#b535bb,#e8446f);box-shadow:0 6px 18px rgba(181,53,187,.4)}
+  .tab.on.t-power{background:linear-gradient(90deg,#a06a1f,#b53a35,#8f2f7a);box-shadow:0 6px 18px rgba(168,42,85,.4)}
+  .tab.on.t-truth{background:linear-gradient(90deg,#2a62c0,#6b46d6,#8f3fd1);box-shadow:0 6px 18px rgba(107,70,214,.4)}
+  .tab.on.t-identity{background:linear-gradient(90deg,#3e8a1f,#0e8f7a,#2b6cd0);box-shadow:0 6px 18px rgba(14,143,122,.4)}
+  .buy.powergrad{background:linear-gradient(90deg,#b0561f,#a82a55)}
+  .buy.truthgrad{background:linear-gradient(90deg,#2a62c0,#8f3fd1)}
+  .buy.identitygrad{background:linear-gradient(90deg,#1f8f4d,#2b6cd0)}
+  :root[data-mode="power"]{--pgrad:linear-gradient(175deg,#eed3ae 0%,#eec4b6 52%,#eab7d2 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="power"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#331409 0%,#42101c 52%,#33103c 100%)} }
+  :root[data-mode="power"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#331409 0%,#42101c 52%,#33103c 100%)}
+  :root[data-mode="power"][data-theme="light"]{--pgrad:linear-gradient(175deg,#eed3ae 0%,#eec4b6 52%,#eab7d2 100%)}
+  :root[data-mode="power"] .poster .sub{background:linear-gradient(90deg,#a06a1f,#b0561f,#b53a35,#a82a55,#8f2f7a);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="truth"]{--pgrad:linear-gradient(175deg,#bdd7f2 0%,#c8c6f4 52%,#dcc4f2 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="truth"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#0a1c33 0%,#161040 52%,#26103e 100%)} }
+  :root[data-mode="truth"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#0a1c33 0%,#161040 52%,#26103e 100%)}
+  :root[data-mode="truth"][data-theme="light"]{--pgrad:linear-gradient(175deg,#bdd7f2 0%,#c8c6f4 52%,#dcc4f2 100%)}
+  :root[data-mode="truth"] .poster .sub{background:linear-gradient(90deg,#146e8f,#2a62c0,#4a58d0,#6b46d6,#8f3fd1);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="truth"] .playbtn{background:linear-gradient(90deg,#2a62c0,#6b46d6,#8f3fd1);box-shadow:0 8px 26px rgba(107,70,214,.45)}
+  :root[data-mode="truth"] .playbtn:hover{box-shadow:0 14px 34px rgba(107,70,214,.6)}
+  :root[data-mode="identity"]{--pgrad:linear-gradient(175deg,#c9ecb8 0%,#b8e8d6 52%,#bcd7f2 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="identity"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#12290a 0%,#08291f 52%,#0a1c33 100%)} }
+  :root[data-mode="identity"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#12290a 0%,#08291f 52%,#0a1c33 100%)}
+  :root[data-mode="identity"][data-theme="light"]{--pgrad:linear-gradient(175deg,#c9ecb8 0%,#b8e8d6 52%,#bcd7f2 100%)}
+  :root[data-mode="identity"] .poster .sub{background:linear-gradient(90deg,#3e8a1f,#1f8f4d,#0e8f7a,#0f85a8,#2b6cd0);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="identity"] .playbtn{background:linear-gradient(90deg,#3e8a1f,#0e8f7a,#2b6cd0);box-shadow:0 8px 26px rgba(14,143,122,.45)}
+  :root[data-mode="identity"] .playbtn:hover{box-shadow:0 14px 34px rgba(14,143,122,.6)}
+  :root[data-mode="power"] .playbtn{background:linear-gradient(90deg,#a06a1f,#b53a35,#8f2f7a);box-shadow:0 8px 26px rgba(168,42,85,.45)}
+  :root[data-mode="power"] .playbtn:hover{box-shadow:0 14px 34px rgba(168,42,85,.6)}
+  /* ---------- migration-arc strip (power + livelihood tabs) ---------- */
+  .arc{position:relative;display:flex;justify-content:space-between;max-width:560px;margin:20px auto 0;padding:0 8px}
+  .arc::before{content:'';position:absolute;left:9%;right:9%;top:7px;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,#a06a1f,#b53a35,#8f2f7a);opacity:.75}
+  :root[data-mode="truth"] .arc::before{background:linear-gradient(90deg,#146e8f,#4a58d0,#8f3fd1)}
+  :root[data-mode="identity"] .arc::before{background:linear-gradient(90deg,#3e8a1f,#0e8f7a,#2b6cd0)}
+  :root[data-mode="alloc"] .arc::before{background:linear-gradient(90deg,#6247d6,#8a3fd1,#b535bb,#e8446f)}
+  .arcstop{position:relative;font:inherit;background:none;border:none;cursor:pointer;flex:1 1 0;padding:0;text-align:center;-webkit-tap-highlight-color:transparent}
+  .arcstop .dot{display:block;width:12px;height:12px;margin:1px auto 8px;border-radius:50%;background:var(--ac);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 25%,transparent),0 0 12px var(--ac);transition:transform .25s,box-shadow .25s}
+  .arcstop .at{display:block;font-weight:820;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
+  :root[data-theme="dark"] .arcstop .at{color:color-mix(in srgb,var(--ac) 60%,#f4e9dc)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .arcstop .at{color:color-mix(in srgb,var(--ac) 60%,#f4e9dc)} }
+  .arcstop .as{display:block;font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3}
+  .arcstop:hover .dot,.arcstop:focus-visible .dot{transform:scale(1.35);box-shadow:0 0 0 4px color-mix(in srgb,var(--ac) 35%,transparent),0 0 20px var(--ac)}
+  .arcnote{font-size:11px;color:var(--muted);margin:10px auto 0;font-style:italic}
+  .era.arclit::before{opacity:1}
+  .era.arclit .sparkles{opacity:1}
+  @media(max-width:480px){ .arcstop .as{display:none} }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar" style="justify-content:flex-end">
+    <button class="plain" id="theme">light / dark</button>
+  </div>
+
+  <div class="poster" id="poster">
+    <svg id="lifeline" aria-hidden="true"></svg>
+    <header>
+      <nav class="tabs" role="tablist" aria-label="poster">
+        <button class="tab t-alloc" role="tab" data-mode="alloc"><span class="em">✨</span>who gets what</button>
+        <button class="tab t-power" role="tab" data-mode="power"><span class="em">👑</span>who decides</button>
+        <button class="tab t-truth" role="tab" data-mode="truth"><span class="em">📖</span>what is true</button>
+        <button class="tab t-identity" role="tab" data-mode="identity"><span class="em">🪪</span>who you are</button>
+      </nav>
+      <h1 id="h1">RESOURCE&nbsp;ALLOCATION</h1>
+      <div class="sub">THROUGH HISTORY</div>
+      <p class="lede" id="lede"></p>
+      <div id="arcwrap"></div>
+      <button class="playbtn" id="play">▶ play 12,000 years</button>
+    </header>
+    <div id="eras"></div>
+    <footer class="pfoot">
+      <span id="footleft" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></span>
+      <span class="fright"><span class="da">designed at
+        <svg width="118" height="21" viewBox="0 0 118 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="gitcoin" role="img">
+          <path d="M36.3638 20.6505V4.97402H31.9259V0.376668H45.7788V4.97511H41.3408V20.6516H36.3649L36.3638 20.6505Z" fill="currentColor"/>
+          <path d="M0 10.5947C0 4.30233 4.81475 0 10.8939 0C14.5521 0 17.8606 1.47838 19.9854 4.65179L15.6008 6.93686C14.417 5.32348 12.8836 4.46345 10.9473 4.46345C7.53087 4.46345 5.13711 7.12519 5.13711 10.6208C5.13711 14.1165 7.74651 16.7249 10.7861 16.7249C13.2877 16.7249 15.0901 15.2193 15.4124 13.2292V13.202H11.1629V9.38414H20.9808V10.2442C20.9808 16.8588 17.0264 21 10.7327 21C4.78752 21 0 16.7249 0 10.5947Z" fill="currentColor"/>
+          <path d="M24.3939 20.6505V0.376668H29.3699V20.6505H24.3939Z" fill="currentColor"/>
+          <path d="M89.6375 20.6505V0.376668H94.6135V20.6505H89.6375Z" fill="currentColor"/>
+          <path d="M113.131 0.376668H118V20.6505H113.965L103.798 7.87853L103.878 20.6505H98.9828V0.376668H103.126L113.293 13.0681L113.132 0.376668H113.131Z" fill="currentColor"/>
+          <path d="M57.8347 16.4026C54.7418 16.4026 52.1324 13.9826 52.1324 10.5142C52.1324 7.23406 54.634 4.62566 57.8892 4.62566C59.4923 4.62566 60.8917 5.23204 61.91 6.23577C62.4011 4.66812 63.1657 3.20171 64.1818 1.89098C62.4022 0.703266 60.2372 0.0272162 57.9153 0.0272162C51.944 0.0272162 46.9942 4.49067 46.9942 10.4869C46.9942 16.7793 51.9701 21 57.8347 21C60.1762 21 62.3576 20.3446 64.1469 19.1798C63.1428 17.8701 62.3859 16.395 61.9013 14.8078C60.8678 15.8072 59.4476 16.4026 57.8347 16.4026Z" fill="currentColor"/>
+          <path d="M75.6714 0.0272162C71.9239 0.0272162 68.5794 1.78538 66.6071 4.57667C65.4375 6.23359 64.7503 8.25412 64.7503 10.4869C64.7503 12.7198 65.4353 14.8687 66.5962 16.5235C68.5642 19.3289 71.9022 21 75.5908 21C81.5894 21 86.5392 16.6977 86.5392 10.5403C86.5392 4.38289 81.6166 0.0272162 75.6714 0.0272162ZM75.5908 16.4026C72.4979 16.4026 69.8885 13.9826 69.8885 10.5142C69.8885 7.23406 72.3901 4.62566 75.6453 4.62566C78.9005 4.62566 81.402 7.20684 81.402 10.5414C81.402 13.8759 78.9005 16.4026 75.5919 16.4026H75.5908Z" fill="currentColor"/>
+        </svg>
+      </span><span class="tbc">to be continued …</span><a href="https://github.com/owocki/resourceallo" target="_blank" rel="noopener" style="color:var(--muted);font-size:11px;text-decoration:none">github ↗</a></span>
+    </footer>
+  </div>
+</div>
+<div id="tt"></div>
+<script>
+// ---------- data: two posters, one engine ----------
+const ALLOC_STATS={"Zakat":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"redistribution"},"Stokvels":{"allocator":"crowd-vote","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Ubuntu":{"allocator":"crowd-vote","signal":"need","timing":"ongoing","flow":"redistribution"},"Kula Ring":{"allocator":"solo steward","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Seasonal Resource Sharing":{"allocator":"crowd-vote","signal":"seasonal","timing":"ongoing","flow":"redistribution"},"Gift Circles":{"allocator":"crowd-vote","signal":"reputation","timing":"ongoing","flow":"redistribution"},"Redistribution Feasts":{"allocator":"solo steward","signal":"need","timing":"ongoing","flow":"redistribution"},"Potlatch":{"allocator":"solo steward","signal":"reputation","timing":"ongoing","flow":"redistribution"},"Gifts of Subsistence":{"allocator":"solo steward","signal":"need","timing":"ongoing","flow":"redistribution"},"Mutual Aid Networks":{"allocator":"crowd-vote","signal":"need","timing":"ongoing","flow":"redistribution"},"Terracing":{"allocator":"committee/institution","signal":"need","timing":"preemptive","flow":"lump-sum"},"Water Irrigation Collectives":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"streaming"},"Crop Rotation Agreements":{"allocator":"committee/institution","signal":"external-condition","timing":"preemptive","flow":"streaming"},"Granary Deposits":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"redistribution"},"Ceremonial Harvest Redistribution":{"allocator":"solo steward","signal":"need","timing":"ongoing","flow":"redistribution"},"Collective Fishing Rights":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"streaming"},"Pasture Commons":{"allocator":"committee/institution","signal":"kinship/membership","timing":"ongoing","flow":"streaming"},"Rotational Labor":{"allocator":"committee/institution","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Susu and Tontines":{"allocator":"crowd-vote","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"ROSCA":{"allocator":"crowd-vote","signal":"kinship/membership","timing":"ongoing","flow":"circular-reinvestment"},"Workers' Unions":{"allocator":"committee/institution","signal":"reputation","timing":"ongoing","flow":"redistribution"},"Guild Systems":{"allocator":"committee/institution","signal":"reputation","timing":"ongoing","flow":"circular-reinvestment"},"Lotteries":{"allocator":"fixed algorithm","signal":"external-condition","timing":"preemptive","flow":"lump-sum"},"Micro-lending Platforms":{"allocator":"committee/institution","signal":"reputation","timing":"preemptive","flow":"streaming"},"Community Currencies":{"allocator":"fixed algorithm","signal":"price","timing":"ongoing","flow":"circular-reinvestment"},"Universal Basic Income":{"allocator":"committee/institution","signal":"need","timing":"ongoing","flow":"streaming"},"Assurance Contracts":{"allocator":"fixed algorithm","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Direct Grants":{"allocator":"committee/institution","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Venture Capital":{"allocator":"solo steward","signal":"price","timing":"preemptive","flow":"lump-sum"},"Request for Proposal":{"allocator":"committee/institution","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Participatory Budgeting":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Fraternal Societies":{"allocator":"committee/institution","signal":"kinship/membership","timing":"ongoing","flow":"redistribution"},"Ranked Choice Voting":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Decentralized Cloud Storage":{"allocator":"market","signal":"price","timing":"ongoing","flow":"streaming"},"Social Impact Bonds":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Crowdsourcing":{"allocator":"crowd-vote","signal":"reputation","timing":"preemptive","flow":"lump-sum"},"Crowdfunding for Social Causes":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Angel Investment":{"allocator":"solo steward","signal":"price","timing":"preemptive","flow":"lump-sum"},"Bounties & Hackathons":{"allocator":"committee/institution","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Smart Contract Escrows":{"allocator":"fixed algorithm","signal":"external-condition","timing":"retroactive","flow":"lump-sum"},"Online Knowledge Sharing":{"allocator":"crowd-vote","signal":"reputation","timing":"ongoing","flow":"circular-reinvestment"},"Token-based Incentives (ICO)":{"allocator":"market","signal":"price","timing":"preemptive","flow":"lump-sum"},"Sequencer Fees + EIP-6969":{"allocator":"fixed algorithm","signal":"external-condition","timing":"ongoing","flow":"streaming"},"Quadratic Funding":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"DAOs":{"allocator":"crowd-vote","signal":"vote","timing":"preemptive","flow":"lump-sum"},"Bonding Curves":{"allocator":"fixed algorithm","signal":"price","timing":"ongoing","flow":"circular-reinvestment"},"Retro Funding":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Impact Attestations":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Impact Metrics (OP R4)":{"allocator":"hybrid","signal":"impact-attestation","timing":"retroactive","flow":"lump-sum"},"Futarchy":{"allocator":"market","signal":"price","timing":"preemptive","flow":"lump-sum"},"Cookie Jar":{"allocator":"fixed algorithm","signal":"reputation","timing":"ongoing","flow":"streaming"}};
+const POWER_STATS={
+"Egalitarian Bands":{"decides":"consensus of all","legitimacy":"consent","entry":"membership","exit":"ridicule & exile"},
+"Reverse Dominance Coalitions":{"decides":"the many, against the top","legitimacy":"custom","entry":"membership","exit":"ridicule & exile"},
+"Big Man Systems":{"decides":"one (informal)","legitimacy":"generosity","entry":"contribution","exit":"stop giving, lose it"},
+"Gerontocracy":{"decides":"few (elders)","legitimacy":"age & custom","entry":"seniority","exit":"death"},
+"Shamanic Authority":{"decides":"one (spiritual)","legitimacy":"divine","entry":"calling & initiation","exit":"lost credibility"},
+"Kin-Based Councils":{"decides":"few (family heads)","legitimacy":"kinship","entry":"birth","exit":"death"},
+"Temporary War Chiefs":{"decides":"one (scoped)","legitimacy":"demonstrated skill","entry":"acclamation","exit":"end of the raid"},
+"Dispute Contests":{"decides":"the audience","legitimacy":"custom","entry":"being wronged","exit":"losing the laugh"},
+"Age-Grade Systems":{"decides":"few (senior grade)","legitimacy":"age & custom","entry":"birth cohort","exit":"aging through"},
+"Moiety Balance":{"decides":"both halves together","legitimacy":"sacred custom","entry":"birth","exit":"none; the split is permanent"},
+"Chiefdoms":{"decides":"one","legitimacy":"heredity + custom","entry":"birth","exit":"death or coup"},
+"Sacred Kingship":{"decides":"one","legitimacy":"divine","entry":"birth","exit":"death (or dynastic collapse)"},
+"Theocracy":{"decides":"few (priesthood)","legitimacy":"divine","entry":"ordination","exit":"death or heresy"},
+"Tributary Empire":{"decides":"one, via governors","legitimacy":"conquest","entry":"conquest","exit":"succession war"},
+"Athenian Sortition":{"decides":"many (citizens)","legitimacy":"lottery + law","entry":"lottery","exit":"one-year term + audit"},
+"Roman Republic":{"decides":"senate + assemblies","legitimacy":"mixed constitution","entry":"election","exit":"term limits + veto"},
+"Feudalism":{"decides":"nested lords","legitimacy":"oath + land","entry":"birth or oath","exit":"death or broken oath"},
+"Venetian Doge Selection":{"decides":"one, hobbled","legitimacy":"the lottery-election maze","entry":"ten alternating rounds","exit":"death (but boxed in)"},
+"Mandate of Heaven":{"decides":"one","legitimacy":"divine, revocable","entry":"birth or conquest","exit":"rebellion, legalized by disaster"},
+"Iroquois Confederacy":{"decides":"council of nations","legitimacy":"consent + kinship","entry":"appointed by clan mothers","exit":"removed by clan mothers"},
+"Absolute Monarchy":{"decides":"one","legitimacy":"divine + force","entry":"birth","exit":"death or revolution"},
+"Constitutional Monarchy":{"decides":"one, under law","legitimacy":"law + heredity","entry":"birth","exit":"abdication; powers to parliament"},
+"Parliamentary Democracy":{"decides":"many, via parties","legitimacy":"election","entry":"election","exit":"confidence vote"},
+"Presidential Republic":{"decides":"one + two chambers","legitimacy":"election + constitution","entry":"election","exit":"fixed term or impeachment"},
+"Federalism":{"decides":"many levels","legitimacy":"constitution","entry":"layered elections","exit":"layered elections"},
+"Party-State":{"decides":"few (politburo)","legitimacy":"ideology + party","entry":"climbing party ranks","exit":"purge"},
+"Joint-Stock Corporation":{"decides":"board, elected by shares","legitimacy":"ownership","entry":"purchase","exit":"shareholder vote or takeover"},
+"Central Banks":{"decides":"few (technocrats)","legitimacy":"statute + expertise","entry":"appointment","exit":"long insulated terms"},
+"Colonial Administration":{"decides":"few, from the metropole","legitimacy":"force + charter","entry":"appointment","exit":"revolt or independence"},
+"Nation-State":{"decides":"the sovereign (varies)","legitimacy":"territorial monopoly on force","entry":"recognition by peers","exit":"war or collapse"},
+"Bureaucracy":{"decides":"office-holders","legitimacy":"procedure","entry":"exam or appointment","exit":"retirement (almost never fired)"},
+"Separation of Powers":{"decides":"three branches","legitimacy":"constitution","entry":"election + appointment","exit":"checked by the other two"},
+"Supranational Unions":{"decides":"member states + commission","legitimacy":"treaty","entry":"accession criteria","exit":"exit clause (see: brexit)"},
+"UN Security Council":{"decides":"five, with vetoes","legitimacy":"the 1945 snapshot","entry":"winning ww2","exit":"none; that's the problem"},
+"Platform Governance":{"decides":"one company","legitimacy":"terms of service","entry":"building the platform","exit":"user exodus or regulation"},
+"Open Source BDFL":{"decides":"one","legitimacy":"earned trust","entry":"founding the project","exit":"fork or burnout"},
+"Committer Meritocracy":{"decides":"few (maintainers)","legitimacy":"contribution","entry":"earned commit rights","exit":"inactivity or fork"},
+"Regulatory Agencies":{"decides":"few (experts)","legitimacy":"statute","entry":"appointment","exit":"budget cuts or capture"},
+"Multistakeholder Bodies":{"decides":"rough consensus","legitimacy":"running code","entry":"showing up","exit":"losing the room"},
+"Index Fund Proxy Power":{"decides":"few (asset managers)","legitimacy":"aggregated shares","entry":"managing the index","exit":"redemptions"},
+"Algorithmic Feeds":{"decides":"code, tuned by one firm","legitimacy":"engagement","entry":"deploying the model","exit":"being retrained"},
+"Token-Weighted Voting":{"decides":"token holders","legitimacy":"stake","entry":"purchase","exit":"sell and leave"},
+"Multisig Councils":{"decides":"n of m keyholders","legitimacy":"appointment + code","entry":"key ceremony","exit":"key rotation"},
+"Ragequit DAOs":{"decides":"members, with exit","legitimacy":"consent + code","entry":"staked admission","exit":"ragequit with your share"},
+"Liquid Democracy":{"decides":"anyone, via delegates","legitimacy":"revocable delegation","entry":"delegation","exit":"instant re-delegation"},
+"Optimistic Governance":{"decides":"proposers, unless vetoed","legitimacy":"code + veto rights","entry":"making a proposal","exit":"getting vetoed"},
+"Futarchy":{"decides":"markets","legitimacy":"being right","entry":"placing a bet","exit":"losing money"},
+"Bicameral DAOs":{"decides":"two chambers","legitimacy":"stake + personhood","entry":"tokens or citizenship","exit":"checked by the other house"},
+"Forkability":{"decides":"whoever leaves","legitimacy":"exit","entry":"copying the state","exit":"exit is the mechanism"},
+"Quadratic Voting":{"decides":"everyone, with intensity","legitimacy":"voice credits","entry":"verified identity","exit":"spending your credits"},
+"Kleros Juries":{"decides":"staked jurors, by lot","legitimacy":"schelling incentives","entry":"staking","exit":"losing your stake"}
+};
+const m=(name,key,what,good,not,note)=>({name,key:key||name,what,good,not,note});
+const x=(name,what,good,not,unb)=>({name,key:name,what,good,not,extra:true,unb});
+const ALLOC_ERAS=[
+{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#6247d6',
+ currency:['barter system','primitive currency'],group:['bands (20-50 people)','tribes (50-150 people)'],
+ mechs:[
+  m('Zakat',0,"islam's wealth transfer: a fixed share (typically 2.5%) of held wealth, owed each year directly to those in need. one of the oldest continuously running redistribution protocols on earth.",
+    "a predictable baseline for the poorest, at civilizational scale","funding new ventures or public goods; it targets need, not upside"),
+  m('Stokvels',0,"south african rotating savings clubs: members pay in on schedule, each takes the whole pot in turn. trust is the collateral.",
+    "savings discipline and lump sums without banks","outsiders; and capital doesn't grow, it just rotates"),
+  m('Ubuntu',0,"'i am because we are.' an ethic where surplus flows toward whoever needs it, enforced by kinship and reputation rather than contract.","making sure nobody falls through the cracks","scaling past the circle of people who know each other","southern africa"),
+  m('Kula Ring',0,"ceremonial exchange loop across the trobriand islands: shell valuables circulate island to island for prestige, building the trust that ordinary trade rides on.",
+    "building trust networks across distance","allocating actual subsistence; the shells are the social layer","ceremonial exchange network in the trobriand islands"),
+  m('Seasonal Resource Sharing',0,"bands share hunting and foraging grounds on nature's calendar. the allocation signal is the season itself.",
+    "smoothing scarcity across the year","anything beyond the band's territory or timescale","sharing resources based on seasonal availability"),
+  m('Gift Circles',0,"give with no ledger and no due date. safety and status accrue to the generous, and the web of soft debts holds the group together.",
+    "strengthening bonds; generosity as savings account","strangers, ledgers, or anything needing precision"),
+  m('Redistribution Feasts',0,"communal gatherings where accumulated wealth gets eaten, gifted, or given away. leveling by celebration.",
+    "preventing runaway wealth concentration","capital formation; the surplus gets consumed","communal gatherings where wealth is redistributed"),
+  m('Potlatch',0,"pacific northwest gifting ritual where leaders compete by giving the most away. status equals what you can afford to lose.",
+    "converting surplus into status and cohesion","accumulating capital for investment; that's the point","indigenous pacific northwest gifting ritual"),
+  m('Gifts of Subsistence',0,"provisioning those who can't provision themselves, as a standing obligation. need is the only eligibility test.",
+    "immediate need with zero bureaucracy","durable funding; it lasts as long as the giver's surplus","indigenous north america"),
+  m('Mutual Aid Networks',0,"members pool dues and labor against each other's bad days. insurance before insurance existed.",
+    "pooled resilience against personal shocks","big infrastructure or long-horizon bets"),
+  x('Meat Sharing Norms',"strict customary rules for dividing large kills across the whole band, regardless of who made the kill.",
+    "variance insurance; a hunter eats even on unlucky weeks","storable wealth; meat spoils, so the rule is share it"),
+  x('Silent Trade',"goods left at agreed boundary spots and exchanged without the two groups ever meeting.",
+    "trade across distrust and language barriers","complex goods, haggling, or anything on credit"),
+  x('Bride Wealth & Dowry',"resource transfers binding two families at marriage.",
+    "alliance formation between kin groups","the individuals being priced; it allocates people too"),
+  x('Barter',"direct swap of goods, no money in between.",
+    "simple bilateral trades","the double coincidence of wants; you need what i have, and vice versa, at once"),
+ ]},
+{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#8a3fd1',
+ currency:['commodities','metal coins','labor'],group:['villages','cities','city-states','empires','civilizations'],
+ mechs:[
+  m('Terracing',0,"villages reshape whole hillsides for farming none could do alone. lump-sum infrastructure, paid for in coordinated labor.",
+    "shared infrastructure nobody could build alone","fast decisions; the payback is generational","community-driven land modification for farming"),
+  m('Water Irrigation Collectives',0,"shared canals with committee-run water rights. elinor ostrom's canonical example of a commons that doesn't collapse.",
+    "governing a shared flow fairly for centuries","rapid reallocation when conditions change","shared water management systems"),
+  m('Crop Rotation Agreements',0,"communities coordinate what gets planted where and when, so the soil (a shared asset) survives everyone using it.",
+    "sustaining a shared resource long-term","individual experimentation; deviation breaks the schedule","communities coordinating crop planting schedules"),
+  m('Granary Deposits',0,"store the surplus centrally, release it in famine. a smoothing function for harvest volatility.",
+    "famine insurance and shock smoothing","growth; grain rots and gatekeepers accrete power","community granaries for storing surplus grains"),
+  m('Ceremonial Harvest Redistribution',0,"the harvest festival as allocation event: surplus from lucky fields flows to unlucky ones, with ritual as the enforcement layer.",
+    "leveling luck between fields and families","scale beyond the village that shares the ritual","redistribution of surplus from harvest festivals"),
+  m('Collective Fishing Rights',0,"shared access to fishing waters, gated by membership and managed by custom so the stock regenerates.",
+    "keeping the fishery alive across generations","newcomers; the gate is the mechanism","shared access to fishing waters"),
+  m('Pasture Commons',0,"shared grazing land governed by custom. the actual commons behind 'the tragedy of the commons', which mostly wasn't tragic, because it was governed.",
+    "proof that commons can be self-governed","absorbing outsiders or scaling fast","shared grazing lands for livestock"),
+  m('Rotational Labor',0,"everyone builds everyone's barn in turn. labor is the medium and the roster is the algorithm.",
+    "big jobs with zero money changing hands","specialized skills or unequal effort; the roster assumes symmetry"),
+  m('Susu and Tontines',0,"west african rotating credit: fixed contributions, rotating payout. banking without banks.",
+    "credit for people banks won't touch","large or long-duration capital","west africa"),
+  m('Rotating Savings & Credit (ROSCA)','ROSCA',"the general form of the rotating pool: a group saves together and takes turns receiving the pot. exists on every continent under a different name.",
+    "forced savings plus interest-free credit","strangers; one default breaks the loop"),
+  x('Tithes',"a fixed share of harvest or income owed to the temple or church.",
+    "durable institutional funding across centuries","consent; it's compulsory and the institution grades its own impact"),
+  x('Waqf Endowments',"islamic charitable endowments that lock an asset's yield to a public purpose, forever.",
+    "schools, wells and hospitals that outlive their founders","repurposing; forever is rigid when needs change"),
+  x('Corvée Labor',"labor owed to the state instead of taxes. built pyramids, roads, and canals.",
+    "megaprojects in economies without money","the laborers; it's coercion with a ledger"),
+  x('Feudal Land Grants',"land granted downward in exchange for loyalty and military service.",
+    "stable defense hierarchies from scarce capital","mobility; it hardcodes class into geography"),
+  x('Tribute Systems',"subordinate polities paying regular flows upward to an imperial center.",
+    "funding imperial coordination and infrastructure","the periphery it extracts from; resentment compounds"),
+ ]},
+{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#b535bb',
+ currency:['metal coins','paper money','banknotes','checks','bonds'],group:['cities','nations','global empires'],
+ mechs:[
+  m("Workers' Unions",0,"labor pools its bargaining power and its strike funds. dues in, protection out.",
+    "bargaining power and strike insurance","non-members; and it moves slower than the industries it bargains with","labor organizations for mutual aid and bargaining"),
+  m('Guild Systems',0,"trade associations that gate who may practice a craft and fund apprenticeship and mutual aid from member fees.",
+    "quality control and skill transmission","innovation; gatekeeping calcifies into protectionism","trade-based associations for skill and knowledge sharing"),
+  m('Lotteries',0,"everyone pays a little; a draw picks who gets a lot. randomness as the allocator, often taxed to fund public works.",
+    "raising large sums painlessly from many","fair outcomes; in practice it's a regressive tax on hope"),
+  m('Micro-lending Platforms',0,"small loans to people banks ignore, underwritten by reputation and repayment circles (grameen, kiva).",
+    "credit where banks won't go","cheap capital; rates can be brutal at the margin","peer-to-peer lending through online platforms"),
+  m('Community Currencies',0,"local money that only spends locally, keeping purchasing power circulating inside a community instead of leaking out.",
+    "keeping value cycling locally","trade with the outside world; that's the tradeoff"),
+  m('Universal Basic Income',0,"a check to everyone, unconditionally. need is assumed rather than means-tested; agency stays with the recipient.",
+    "an unconditional floor with zero paperwork","purpose and belonging; a check isn't a livelihood"),
+  m('Assurance Contracts',0,"pledges that only execute if enough others pledge too. kickstarter's grandfather; a fix for the free-rider problem.",
+    "threshold goods; nobody pays unless it happens","continuous funding after the launch moment"),
+  m('Direct Grants',0,"a treasury gives money to a proposal it believes in. the default mechanism of governments and foundations.",
+    "legible, accountable, targeted funding","speed and surprise; committees fund the fundable"),
+  m('Venture Capital',0,"concentrated early bets hunting power-law outcomes. a solo allocator reading price signals from the future.",
+    "frontier bets with power-law upside","public goods; no exit, no check"),
+  m('Request for Proposal',0,"the buyer publishes what it wants; suppliers compete to provide it. procurement as allocation.",
+    "buying known things competitively","discovering unknown things; you must spec it first"),
+  m('Participatory Budgeting',0,"residents vote directly on how a slice of the public budget gets spent. started in porto alegre, 1989.",
+    "legitimacy and civic muscle","technical tradeoffs; and it usually touches a tiny % of the budget"),
+  m('Fraternal Societies',0,"lodge-based membership groups providing sickness and burial benefits from dues, decades before the welfare state.",
+    "member welfare before the welfare state","outsiders; exclusivity was the underwriting model","membership-based support for social welfare"),
+  x('Cooperatives',"member-owned firms, one member one vote. the rochdale pioneers set the template in 1844.",
+    "aligning ownership with the people who use the thing","raising fast outside capital; investors want more than one vote"),
+  x('Credit Unions',"member-owned banks that lend members' savings back to members.",
+    "cheap credit with aligned incentives","high-risk, high-growth lending; conservatism is structural"),
+  x('Joint-Stock Companies',"divisible, tradable ownership shares pooling capital for ventures too big for any one fortune.",
+    "aggregating huge capital for huge risk","externalities; profit is the only native signal"),
+  x('Philanthropic Foundations',"endowed institutions granting in perpetuity (carnegie, rockefeller).",
+    "patient capital for unpopular causes","accountability; dead donors don't update their priors"),
+  x('War Bonds',"citizens lending to the state for wars and megaprojects.",
+    "mobilizing a whole society's savings fast","peacetime; the urgency is the product"),
+  x('Welfare State Programs',"taxation-funded social insurance at national scale: pensions, unemployment, health.",
+    "universal floors at nation scale","adaptability; bureaucracy compounds faster than it reforms"),
+ ]},
+{name:'Information era',years:'late 20th century - present',acc:'#d63d97',
+ currency:['fiat money','digital payments','cryptocurrencies'],group:['towns','cities','megacities','nations','supranational orgs','global networks'],
+ mechs:[
+  m('Ranked Choice Voting',0,"voters rank instead of pick; instant runoffs surface the consensus choice. applied to budgets, it reorders what gets funded.",
+    "surfacing consensus and killing spoilers","allocating money directly; it ranks, it doesn't fund","with STAR voting being a potential improvement"),
+  m('Decentralized Cloud Storage',0,"spare hard drives rented into a global market (filecoin, storj). price allocates the bytes.",
+    "price-discovering idle capacity worldwide","things without a market price","resource-sharing for data storage"),
+  m('Social Impact Bonds',0,"investors front the money for a social program; government repays with interest only if measured outcomes land. retro funding wearing a suit.",
+    "shifting outcome-risk onto investors","cheap experiments; measurement and legal overhead eat the returns"),
+  m('Crowdsourcing',0,"throw the problem to the crowd and reward what comes back (wikipedia, kaggle, open source bounty boards).",
+    "parallel search across many minds","paying fairly; winner-take-most burns the rest","soliciting contributions from a large group for solutions"),
+  m('Crowdfunding for Social Causes',0,"many small donors, one visible goal, a public thermometer (gofundme, donorschoose).",
+    "stories that travel; emotional bandwidth as capital","unsexy but critical work; drama outcompetes drainage","raising funds for charitable initiatives online"),
+  m('Angel Investment',0,"individuals writing early checks on conviction and relationships, before institutions will touch it.",
+    "the earliest conviction capital","anyone outside the network; warm intros are the gate"),
+  m('Bounties & Hackathons',0,"post the prize, pay whoever ships it. purely retroactive: work first, reward after.",
+    "crisp, well-specified tasks","maintenance and ongoing care; nobody bounties the boring"),
+  m('Smart Contract Escrows',0,"code holds the money and releases it when conditions verify onchain. the trusted third party is a program.",
+    "trustless conditional release","judging fuzzy outcomes; oracles are the hard part","automated contracts managing funds"),
+  m('Online Knowledge Sharing','Online Knowledge Sharing',"stack overflow, wikipedia: reputation and attention flow to whoever answers well. knowledge allocated by upvote.",
+    "knowledge compounding at zero price","paying the contributors; the surplus goes everywhere but to them","free exchange of information and expertise"),
+  x('Open Source Licensing',"a legal hack that turns code into a commons anyone can use and build on.",
+    "infinite reuse at zero marginal cost","paying maintainers; that gap is why gitcoin exists"),
+  x('Prize Competitions',"publicly posted rewards for solved problems, from the longitude prize to xprize.",
+    "audacious, well-specified goals","the losers' costs; ten teams spend, one gets paid"),
+  x('Donor-Advised Funds',"tax-advantaged holding pens for charitable capital, granted out whenever the donor decides.",
+    "flexible timing for big donors","urgency; billions sit parked inside indefinitely"),
+  x('Direct Cash Transfers',"just send money, no strings (givedirectly). among the best-evidenced interventions in development.",
+    "respecting that recipients know their own needs","collective problems no household can buy its way out of"),
+  x('Patronage Subscriptions',"recurring small payments from fans to creators (patreon, substack).",
+    "steady income from a true-fan base","discovery; the long tail starves politely"),
+  x('Impact Investing',"return-seeking capital with a measured social mandate attached.",
+    "pulling markets toward good on the margin","goods with no revenue model at all; concessionary isn't free"),
+ ]},
+{name:'Onchain era',years:'emerging (21st century)',acc:'#e8446f',
+ currency:['cryptocurrencies','tokenized assets','governance tokens','nfts'],group:['daos','blockchain networks','virtual communities','bioregional coordination'],
+ mechs:[
+  m('Token-based Incentives','Token-based Incentives (ICO)',"mint a token, sell or grant it to whoever bootstraps the network. 2017's cambrian explosion, scams included.",
+    "bootstrapping networks from nothing","long-term alignment; mercenary capital leaves at the top","blockchain tokens as rewards for participation. icos = a prominent example."),
+  m('Sequencer Fees + EIP 6969','Sequencer Fees + EIP-6969',"a share of l2 sequencer revenue routed automatically to the contracts that generate it. infrastructure that funds its own maintenance.",
+    "self-funding infrastructure, forever","anything off the revenue path; no fees, no flow"),
+  m('Quadratic Funding',0,"a matching pool amplifies many-small-donations over few-large-ones (square root math). gitcoin's grants rounds have routed $60m+, most of it via qf.",
+    "reading community breadth democratically","sybil resistance; identity is the load-bearing wall"),
+  m('DAOs','DAOs',"internet-native organizations where token holders vote treasuries toward proposals. the org chart lives in a smart contract.",
+    "global treasuries with no headquarters","speed; voter apathy is the default state","daos managing resources collectively"),
+  m('Bonding Curves',0,"a contract that always quotes a buy and sell price from a formula on supply. liquidity and allocation with zero meetings.",
+    "continuous liquidity with no counterparty","unpriceable goods; it only allocates what trades"),
+  m('Retro Funding',0,"fund what already worked, judged on evidence of impact. optimism's flagship experiment. it's easier to agree on the past than the future.",
+    "paying for provable results","newcomers who can't float the upfront risk"),
+  m('Impact Attestations',0,"signed, verifiable onchain claims about who did what. the data layer that retro funding decides on.",
+    "making impact legible and portable","meaning by itself; data still needs judgment"),
+  m('Impact Metrics (OP R4)','Impact Metrics (OP R4)',"retro funding with the judgment moved into metrics: measure usage onchain, pay proportionally.",
+    "scaling retro judgment beyond human reviewers","what the metrics miss; goodhart collects his fee","variant of retro funding"),
+  m('Futarchy',0,"vote on goals, bet on outcomes: prediction markets pick the policy. governance by whoever is right about the future.",
+    "harvesting honest forecasts","values questions; and thin markets are cheap to game"),
+  m('Cookie Jar',0,"a shared jar members can dip into up to a limit, every dip logged onchain. trust made legible, bureaucracy deleted.",
+    "small trusted spend without votes","large allocations; trust has a ceiling"),
+  x('Conviction Voting',"votes gain weight the longer they're held on a proposal (commons stack, 1hive).",
+    "surfacing sustained preference over flash mobs","urgent decisions; conviction takes time to accrue"),
+  x('Ragequit',"dissenting members exit with their pro-rata share of the treasury (molochdao).",
+    "minority protection; exit as a governance right","illiquid treasuries; you can't ragequit a building"),
+  x('Harberger Taxes',"self-assess your asset's price, pay tax on it, anyone can buy it at that price.",
+    "keeping assets in their highest-value use","anything you need security of tenure over"),
+  x('Hypercerts',"tokenized claims on slices of impact, fundable and tradable after the fact.",
+    "building retro markets in impact","valuation; pricing impact is still folk art"),
+  x('Money Streaming',"continuous per-second payment flows (sablier, superfluid).",
+    "aligning pay with ongoing work; cancel anytime","lump-sum needs; rent is due on the 1st, not per-second"),
+  x('Protocol Guild & Drips',"dependency-weighted funding flowing automatically to the maintainers everything relies on.",
+    "the unglamorous load-bearing layer","judging quality; dependency weight isn't worth"),
+  x('Deep Funding',"ai-assisted dependency graphs allocating value to what the ecosystem measurably relies on.",
+    "scale and objectivity in dependency funding","work that doesn't show up in the graph"),
+  x('retroQF',"qf's matching math applied retroactively to attested impact instead of promises. from the design-space explorers: 3 cell-edits from vanilla qf.",
+    "crowd wisdom pointed at proven work","builders who can't self-fund the upfront risk",true),
+  x('Impact Curve',"a bonding curve whose price reads attested impact instead of market demand. the highest-scoring genome in the design space, and nobody has built it.",
+    "continuously repricing impact and recycling capital through it","existing; this one is a spec waiting for a builder",true),
+ ]},
+];
+const POWER_ERAS=[
+{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#a06a1f',
+ currency:['consent','custom','demonstrated skill'],group:['bands (20-50 people)','tribes (50-150 people)'],
+ mechs:[
+  m('Egalitarian Bands',0,"most of human history: groups of a few dozen with no boss. decisions by talk, status by skill, and hard norms against anyone rising too high.",
+    "keeping anyone from dominating; information flows freely","speed or scale; consensus maxes out around the campfire"),
+  m('Reverse Dominance Coalitions',0,"the many gang up on would-be alphas: ridicule, shunning, exile. an upside-down hierarchy where the group polices the top (boehm's term).",
+    "tyranny prevention with zero institutions","defense against organized outside force"),
+  m('Big Man Systems',0,"influence earned by generosity and feast-throwing, never held as office. the moment the giving stops, the following evaporates.",
+    "tying status directly to contribution","continuity; the structure dies with the big man","melanesia"),
+  m('Gerontocracy',0,"the elders rule, because they've seen the droughts before. age is the qualification and the term limit.",
+    "preserving hard-won knowledge across generations","adapting when the world changes faster than elders do"),
+  m('Shamanic Authority',0,"spiritual specialists hold decision power over the uncertain: when to move, when to plant, when to fight. the gods speak through one throat.",
+    "legitimacy for hard calls under deep uncertainty","falsifiability; the gods rarely dissent"),
+  m('Kin-Based Councils',0,"heads of families decide together. representation flows through blood, and every lineage has a seat.",
+    "everyone represented through kin","outsiders, and feuds between clans"),
+  m('Temporary War Chiefs',0,"authority granted for the raid, dissolved after. apache and comanche war chiefs commanded the war party, never the camp.",
+    "crisis speed without permanent hierarchy","peacetime; granted power wants to linger","plains & southwest nations"),
+  m('Dispute Contests',0,"rivals settle claims by public contest: inuit song duels mock each other until the camp laughs one side out of its claim.",
+    "settling conflict without blood","survival-stakes disputes; some things aren't funny","inuit song duels"),
+  m('Age-Grade Systems',0,"whole birth cohorts move through ranked life stages together: warrior, elder, retired elder. succession is a calendar, not a fight.",
+    "predictable succession; no succession wars","merit; your rank is your birthday","east africa"),
+  m('Moiety Balance',0,"society split into two halves that must marry across, bury each other's dead, and ratify each other's decisions.",
+    "forcing interdependence into the social fabric","unified action; deadlock is built in","australia, americas"),
+  x('Taboo Law',"rule by sacred prohibition: some acts, places, and people are simply untouchable. enforcement is belief itself.",
+    "cheap enforcement; the police live in your head","revision; taboos don't take amendments"),
+  x('Rotating Camp Leadership',"different specialists lead in different seasons: the best hunter on the hunt, the best navigator on the move.",
+    "matching authority to context","anything needing one accountable voice"),
+  x('Marriage Alliances',"power built by weaving families together across bands. the treaty is a wedding.",
+    "durable peace between groups","the individuals being traded into it"),
+  x("Elder Women's Councils","in many matrilineal societies, senior women controlled food stores, lineage membership, and vetoes over war.",
+    "checks on young men's wars","visibility; colonial observers wrote them out of the record"),
+ ]},
+{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#b0561f',
+ currency:['divine right','heredity','conquest','custom'],group:['chiefdoms','city-states','kingdoms','empires'],
+ mechs:[
+  m('Chiefdoms',0,"the first standing hierarchy: hereditary rank, tribute flowing up, redistribution flowing down. the big man's job becomes a bloodline.",
+    "coordinating thousands; storing surplus","the commoners funding the rank above them"),
+  m('Sacred Kingship',0,"the ruler is a god or a god's descendant. pharaohs, incan sapa, japanese emperors: obedience becomes worship.",
+    "legitimacy so total it needs no police","dissent; heresy and treason become the same crime"),
+  m('Theocracy',0,"the priesthood rules directly: temple economies, religious law, scripture as constitution.",
+    "moral coherence across a society","pluralism; one truth means one party"),
+  m('Tributary Empire',0,"conquer, tax, delegate to governors, repeat. rome and persia ran continents on this loop for centuries.",
+    "scale; peace inside the borders (pax)","the periphery; loyalty lasts exactly as long as the legions"),
+  m('Athenian Sortition',0,"most offices filled by lottery among citizens, one-year terms, audits at exit. election was considered oligarchic.",
+    "corruption resistance; representation by average","expertise; and 'citizen' excluded women, slaves, foreigners","athens, ~5th century bce"),
+  m('Roman Republic',0,"a machine of counterweights: two consuls, a senate, popular assemblies, tribunes with vetoes. the founders' favorite mixtape.",
+    "checking ambition with ambition","scale; the machine broke when the empire outgrew it"),
+  m('Feudalism',0,"nested oaths: peasant to lord, lord to king, land down and service up. sovereignty in fragments.",
+    "stability with no central state","mobility; the org chart is hereditary"),
+  m('Venetian Doge Selection',0,"ten alternating rounds of lottery and election to pick one ruler. so faction-proof it ran a merchant empire for 500+ years.",
+    "making the top job impossible to capture","legibility; nobody could explain it, which was the point","venice, 1268-1797"),
+  m('Mandate of Heaven',0,"the emperor rules by heaven's mandate, and heaven revokes: floods, famine, and lost battles are constitutional evidence. rebellion becomes legal retroactively.",
+    "a built-in legitimacy check on absolute power","early warning; the check fires only after the collapse","china, ~1046 bce onward"),
+  m('Iroquois Confederacy',0,"five (later six) nations under a great law: federated councils, unanimity between nations, and clan mothers who appoint and remove the chiefs.",
+    "federation with removal power held by women","speed; unanimity across nations is slow by design","haudenosaunee"),
+  x('Kurultai',"steppe confederacies elected the khan in a general assembly of chiefs. genghis was chosen, not just born.",
+    "legitimacy among armed equals","succession; every khan's death risked civil war"),
+  x('Papal Conclave',"cardinals locked in until they choose. two-thirds to win since 1179; the locked door since 1274.",
+    "forcing a decision among rivals","transparency; white smoke is the whole disclosure"),
+  x('Imperial Examinations',"chinese offices filled by competitive exam for 1,300 years. the world's first credentialed bureaucracy.",
+    "entry by merit instead of birth","what the exam doesn't measure; the syllabus becomes the state"),
+  x('Hanseatic League',"a federation of merchant cities with no capital, no king, and no standing army; war fleets raised only when needed. governance by assembly and boycott.",
+    "trade coordination without sovereignty","enforcement; boycott only scares members"),
+  x('Florentine Guild Republic',"office restricted to guild members, chosen partly by lot from leather bags (the tratte).",
+    "spreading office across the merchant class","the unguilded majority; and the medici gamed the bags"),
+ ]},
+{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#b53a35',
+ currency:['constitutions','elections','law','force'],group:['nations','empires','corporations'],
+ mechs:[
+  m('Absolute Monarchy',0,"the state is me: one court, one army, one administration, all pointing at one person. louis xiv perfected it; 1789 priced it.",
+    "decisive mobilization of a whole kingdom","error correction; the king is the single point of failure"),
+  m('Constitutional Monarchy',0,"the crown stays, the power moves: monarch as symbol, parliament as engine.",
+    "continuity through transitions; a head of state above politics","clarity; reserve powers are ambiguity in a robe"),
+  m('Parliamentary Democracy',0,"the majority in the chamber is the government. lose the chamber's confidence, lose the job, any day of the year.",
+    "accountability with a hair trigger","long-term bets; the horizon is the next confidence vote"),
+  m('Presidential Republic',0,"separated powers, fixed terms, an executive elected on its own mandate. designed 1787, forked everywhere since.",
+    "stability and hard checks","gridlock; two mandates can stare at each other for years"),
+  m('Federalism',0,"power split vertically: states and center each sovereign in their lane, courts refereeing the lane lines.",
+    "laboratories of policy; local fit","uniformity; fifty answers to one question"),
+  m('Party-State',0,"one party owns the state: democratic centralism, nomenklatura, and the purge as career management.",
+    "mobilization and message discipline","truth reaching the top; bad news is a career risk"),
+  m('Joint-Stock Corporation',0,"one share one vote, board hires management, shareholders bear the residual. the most-copied constitution of the modern world.",
+    "aggregating capital under accountable command","everyone who isn't a shareholder"),
+  m('Central Banks',0,"unelected technocrats with statutory control over money itself. the economy's thermostat, deliberately out of voters' reach.",
+    "long horizons insulated from election cycles","accountability; nobody voted for the interest rate"),
+  m('Colonial Administration',0,"rule of the many by the distant few, through local intermediaries and extraction charters.",
+    "extraction at scale (for the metropole)","the governed; extraction is the design goal"),
+  m('Nation-State',0,"westphalia's deal: inside these borders, this sovereign, and nobody else's business. the operating system of the last 400 years.",
+    "clear jurisdiction; wars end in treaties","problems that ignore borders: climate, capital, code"),
+  m('Bureaucracy',0,"rule by office, not person: files, procedures, exams, careers. weber called it the iron cage and meant it as a compliment.",
+    "consistency and corruption-resistance at scale","adaptation; procedure outlives purpose"),
+  m('Separation of Powers',0,"legislative writes, executive acts, judiciary judges, and each can block the others. ambition made to counteract ambition.",
+    "making tyranny structurally expensive","speed; the brakes are the feature"),
+  x('Judicial Review',"courts strike down laws that violate the constitution. a handful of unelected judges as the final word (marbury, 1803).",
+    "protecting rights from majorities","legitimacy under strain; the robe is load-bearing"),
+  x('Military Junta',"the army as government: coup, decree, curfew. the most common regime type of the 20th century's worst decades.",
+    "seizing power; that's the whole skillset","running an economy; tanks don't do logistics curves"),
+  x('Revolutionary Vanguard',"a small disciplined party claims to act for a class that hasn't voted for it yet.",
+    "overthrowing the old order","handing power back; vanguards calcify"),
+  x('Cooperative Governance',"one member one vote regardless of capital, rochdale 1844. the corporation's egalitarian twin.",
+    "aligning control with use, not wealth","raising outside capital; investors want votes"),
+  x('Electoral College',"an 18th-century buffer between voters and the presidency that survived its own obsolescence.",
+    "(originally) filtering demagogues","matching the popular vote; twice this century it hasn't"),
+  x('Urban Political Machines',"tammany hall: votes traded for jobs, favors, and turkey at christmas. corrupt, and startlingly responsive.",
+    "immigrant onboarding; services with a face","clean government; the favor is the invoice"),
+ ]},
+{name:'Information era',years:'late 20th century - present',acc:'#a82a55',
+ currency:['expertise','treaties','terms of service','attention'],group:['supranational blocs','platforms (billions)','global networks'],
+ mechs:[
+  m('Supranational Unions',0,"nations pooling sovereignty by treaty: one market, one court, 27 vetoes. the eu is the biggest governance experiment since 1787.",
+    "peace by entanglement; scale without empire","democratic feel; brussels is nobody's hometown"),
+  m('UN Security Council',0,"five permanent members, each with a veto, frozen in the 1945 org chart.",
+    "keeping great powers at one table","action when a veto-holder is the problem"),
+  m('Platform Governance',0,"terms of service as private law for billions. moderation queues as courts, deplatforming as exile.",
+    "rule enforcement at software speed and scale","appeal; the judge owns the courtroom"),
+  m('Open Source BDFL',0,"benevolent dictator for life: linus, guido. total authority over the code, checked only by the right to fork.",
+    "coherent vision; decisions actually get made","succession; the project is a person"),
+  m('Committer Meritocracy',0,"commit rights earned by contribution, apache-style. the constitution is the git log.",
+    "power tracking demonstrated work","newcomers; whoever arrived first governs"),
+  m('Regulatory Agencies',0,"the administrative state: fda, fcc, epa. congress writes a sentence, the agency writes ten thousand pages.",
+    "expertise on domains too complex for legislatures","democratic feedback; capture creeps in quietly"),
+  m('Multistakeholder Bodies',0,"the internet's governance: ietf, icann, w3c. 'rough consensus and running code', no membership card required.",
+    "no single owner of the commons","teeth; consensus can't sanction anyone"),
+  m('Index Fund Proxy Power',0,"three asset managers vote a fifth of corporate america on behalf of index holders who've never read a proxy.",
+    "coordinating dispersed ownership","the actual owners; proxy power pools silently"),
+  m('Algorithmic Feeds',0,"the ranking model decides what billions see, believe, and buy. governance by gradient descent on engagement.",
+    "allocating attention at infinite scale","legitimacy; nobody elected the feed"),
+  x('Meta Oversight Board',"a private supreme court for one company's speech decisions, funded by the defendant.",
+    "precedent and process for platform speech","independence optics; the court's budget has one donor"),
+  x('Wikipedia Consensus',"anyone edits, admins close discussions by 'rough consensus', and the whole thing somehow holds.",
+    "an encyclopedia nobody owns","speed; the talk page is eternal"),
+  x('Subreddit Moderation',"volunteer fiefdoms inside a private platform: each community writes its own law, mods enforce it free.",
+    "self-rule at zero cost to the platform","consistency; every fief is a different country"),
+  x('Standards Bodies',"iso, ieee, w3c: the quiet legislatures of the physical and digital world. whoever writes the standard rules the market.",
+    "coordination nobody else can supply","visibility; power without an address"),
+  x('Credit Rating Agencies',"three private firms grade the debt of nations. a downgrade is a policy instruction with no election attached.",
+    "pricing risk across borders","accountability; see 2008"),
+  x('The Fourth Estate',"press and leaks as an unofficial branch of government: exposure as the sanction.",
+    "checking power with information","due process; the front page has no appeals court"),
+ ]},
+{name:'Onchain era',years:'emerging (21st century)',acc:'#8f2f7a',
+ currency:['stake','code','contribution','exit rights'],group:['daos','protocols','network states'],
+ mechs:[
+  m('Token-Weighted Voting',0,"one token, one vote. the default dao constitution: transparent, global, and exactly as plutocratic as the token distribution.",
+    "aligning voice with skin in the game","equality; it's shareholder governance with extra steps"),
+  m('Multisig Councils',0,"n-of-m keyholders control the treasury. the dao world's cabinet: small, fast, and very findable.",
+    "speed with tamper-evidence","decentralization theater; count the keys"),
+  m('Ragequit DAOs',0,"molochdao's move: any member who dissents exits instantly with their pro-rata share. the minority is never trapped.",
+    "making majorities behave; exit as a right","illiquid ventures; you can't ragequit a building"),
+  m('Liquid Democracy',0,"delegate your vote to anyone, revoke it anytime, re-delegate per topic. representation with a resignation letter attached.",
+    "expertise routing with an instant leash","legibility; delegation chains pool power invisibly"),
+  m('Optimistic Governance',0,"proposals execute by default unless someone vetoes within the window. governance that assumes good faith and verifies it.",
+    "throughput; the happy path is fast","catching subtle harm; the veto window is short"),
+  m('Futarchy',0,"vote on goals, bet on outcomes: prediction markets choose the policy. rule by whoever is actually right.",
+    "harvesting honest forecasts","values disputes; and thin markets are cheap to game"),
+  m('Bicameral DAOs',0,"optimism's design: a token house (capital) and a citizens' house (people), each checking the other.",
+    "balancing plutocracy against personhood","simplicity; two houses, twice the politics"),
+  m('Forkability',0,"the ultimate check: copy the entire state and leave, ethereum/etc, steem/hive. tyranny becomes a going-out-of-business sale.",
+    "making capture unprofitable","network effects; a fork splits them in half"),
+  m('Quadratic Voting',0,"voice credits, spent quadratically: your tenth vote on one issue costs 100x your first. intensity becomes expressible.",
+    "letting minorities signal how much they care","sybils; fake people get cheap intensity"),
+  m('Kleros Juries',0,"staked jurors drawn by lot decide disputes; vote with the majority and earn, against it and lose stake.",
+    "cheap, fast, global arbitration","nuance; schelling points reward conformity, not truth"),
+  x('Network States',"start as an online community, acquire land, negotiate recognition. the nation-state's startup fork (balaji's framing).",
+    "opt-in citizenship; alignment before geography","the hard part; westphalia doesn't take pull requests"),
+  x('ZK Private Voting',"zero-knowledge proofs let you prove you voted correctly without revealing how. secret ballots, onchain.",
+    "coercion resistance in transparent systems","simplicity; the cryptography is the constitution"),
+  x('AI Delegates',"an llm agent that votes your stated values across every proposal you'd never read.",
+    "participation without attention","drift; who audits what your agent learned to want"),
+  x('Proof-of-Personhood Democracy',"one verified human, one vote, onchain: worldcoin, brightid, passport. the sybil problem's would-be endgame.",
+    "restoring equality to onchain governance","privacy, and the verifier's power; someone owns the door"),
+  x('Guardian Councils',"emergency multisigs that can pause the protocol: training wheels that admit the code isn't sovereign yet.",
+    "catching exploits at 3am","credible neutrality; the pause button has owners"),
+  x('Citizens Assemblies',"randomly selected residents deliberate for weeks, then recommend policy. sortition's modern comeback (ireland used it for abortion and climate).",
+    "considered judgment beyond party lines","binding power; most are advisory by design"),
+  x('AI-Mediated Consensus',"continuously aggregate every member's actual preferences, surface the overlap, draft what the group already agrees on. governance as inference.",
+    "consensus at scales talk can't reach","existing; this one is a spec waiting for a builder",true),
+  x('Cryptographic Constitutions',"rights enforced by math instead of courts: unstoppable exit, uncensorable speech, unfreezable assets, by construction.",
+    "guarantees that don't depend on judges","amendment; ossification is the failure mode",true),
+ ]},
+];
+const LIVE_STATS={
+"Foraging":{"sells":"knowledge of the land","paid in":"the meal itself","safety net":"the band","boss":"nobody"},
+"Big-Game Hunting":{"sells":"muscle & nerve","paid in":"meat & standing","safety net":"sharing norms","boss":"nobody"},
+"Healing & Shamanic Practice":{"sells":"judgment under uncertainty","paid in":"kind & awe","safety net":"reputation","boss":"the spirits (nominally)"},
+"Toolmaking":{"sells":"craft","paid in":"kind & trade","safety net":"the band","boss":"nobody"},
+"Storytelling & Memory Keeping":{"sells":"trained memory","paid in":"standing & meals","safety net":"the band","boss":"the elders"},
+"Tracking & Scouting":{"sells":"information","paid in":"kind & standing","safety net":"the band","boss":"nobody"},
+"Midwifery & Care Work":{"sells":"care","paid in":"obligation","safety net":"kin","boss":"nobody"},
+"Trade Running":{"sells":"distance & trust","paid in":"a cut of the goods","safety net":"the network","boss":"nobody"},
+"Subsistence Farming":{"sells":"the harvest","paid in":"kind","safety net":"the village","boss":"the seasons"},
+"Serfdom":{"sells":"labor owed","paid in":"protection & a plot","safety net":"the manor","boss":"the lord"},
+"Guild Apprenticeship":{"sells":"craft","paid in":"wages & mastery","safety net":"the guild","boss":"the master"},
+"Pastoral Herding":{"sells":"the herd's yield","paid in":"kind & coin","safety net":"the herd itself","boss":"nobody"},
+"Priesthood & Monastic Labor":{"sells":"literacy & ritual","paid in":"the tithe","safety net":"the order","boss":"the church"},
+"Soldiering & Mercenary Work":{"sells":"violence","paid in":"wages & loot","safety net":"none","boss":"the contract"},
+"Domestic Service":{"sells":"labor & discretion","paid in":"room, board, wages","safety net":"the household","boss":"the household"},
+"Market Trading & Peddling":{"sells":"the margin","paid in":"coin","safety net":"inventory","boss":"nobody"},
+"Scribing & Clerkship":{"sells":"literacy","paid in":"fees & office","safety net":"the office","boss":"the state"},
+"Sharecropping & Tenancy":{"sells":"labor for land access","paid in":"a share of the crop","safety net":"none","boss":"the landlord"},
+"Factory Wage Labor":{"sells":"hours","paid in":"wages","safety net":"none, then unions","boss":"the factory"},
+"The Career":{"sells":"loyalty & tenure","paid in":"salary & pension","safety net":"the firm","boss":"the firm"},
+"Union Labor":{"sells":"hours, collectively priced","paid in":"negotiated wage","safety net":"the union","boss":"the firm (checked)"},
+"Licensed Professions":{"sells":"certified judgment","paid in":"fees","safety net":"the association","boss":"clients (nominally)"},
+"Clerical Work":{"sells":"paperwork","paid in":"wages","safety net":"the firm","boss":"the office"},
+"Civil Service":{"sells":"administration","paid in":"salary & pension","safety net":"the state","boss":"the state"},
+"Shopkeeping":{"sells":"goods & trust","paid in":"the till","safety net":"the family","boss":"yourself"},
+"Homesteading":{"sells":"improvement of land","paid in":"the deed","safety net":"the harvest","boss":"yourself"},
+"Commission Sales":{"sells":"persuasion","paid in":"a cut","safety net":"none","boss":"the quota"},
+"Paid Domestic & Care Work":{"sells":"care","paid in":"wages, low ones","safety net":"none","boss":"the household"},
+"Knowledge Work":{"sells":"judgment","paid in":"salary","safety net":"the firm (thinning)","boss":"the org chart"},
+"Software Engineering":{"sells":"code","paid in":"salary & equity","safety net":"the market","boss":"the firm"},
+"Freelancing & Consulting":{"sells":"expertise by the project","paid in":"invoices","safety net":"savings","boss":"clients"},
+"Gig Platform Work":{"sells":"hours on demand","paid in":"per-task fees","safety net":"none","boss":"the algorithm"},
+"Creator Economy":{"sells":"attention & trust","paid in":"subs & ads","safety net":"the audience","boss":"the algorithm (again)"},
+"Equity Compensation":{"sells":"work for upside","paid in":"options & rsus","safety net":"the base salary","boss":"the vesting schedule"},
+"Remote Work":{"sells":"output, not presence","paid in":"salary","safety net":"the firm","boss":"the firm, from afar"},
+"Service Economy Work":{"sells":"hours & patience","paid in":"hourly wages","safety net":"thin","boss":"the schedule"},
+"Personal Branding":{"sells":"the self","paid in":"opportunities","safety net":"reputation","boss":"the feed"},
+"Retail Trading":{"sells":"risk appetite","paid in":"pnl","safety net":"none","boss":"the market"},
+"Agent Operation":{"sells":"direction & taste","paid in":"tbd","safety net":"savings","boss":"yourself"},
+"AI-Augmented Craft":{"sells":"judgment + leverage","paid in":"salary or fees","safety net":"the skill delta","boss":"varies"},
+"Data & Feedback Labor":{"sells":"human judgment, piecemeal","paid in":"per-task fees","safety net":"none","boss":"the pipeline"},
+"Human-Premium Work":{"sells":"presence","paid in":"fees","safety net":"demand for the human","boss":"clients"},
+"Compute & Capital Ownership":{"sells":"nothing; it owns","paid in":"yield","safety net":"the portfolio","boss":"nobody"},
+"Platform Cooperativism":{"sells":"the same gig, owned","paid in":"fees + patronage share","safety net":"the co-op","boss":"the members"},
+"Protocol Work":{"sells":"contribution","paid in":"tokens & grants","safety net":"the community","boss":"the protocol"},
+"UBI Pilots":{"sells":"nothing","paid in":"the check","safety net":"the check","boss":"nobody"},
+"Solo Founding at AI Speed":{"sells":"the product","paid in":"revenue, eventually","safety net":"savings","boss":"yourself + agents"}};
+const LIVE_ERAS=[
+{name:'Hunter-Gatherer era',years:'before 10,000 bce',acc:'#3c7d2a',
+ currency:['muscle & skill','knowledge','care'],group:['nobody','the band'],
+ mechs:[
+  m('Foraging',0,"the baseline economy of the species: gathered plants, tubers, shellfish. in most bands the gatherers, mostly women, brought in the majority of the calories.",
+    "reliable calories with low variance","surplus; you eat what you find, then go find more"),
+  m('Big-Game Hunting',0,"high-risk, high-status provisioning. most hunts fail, which is exactly why the meat gets shared by strict rules the moment one succeeds.",
+    "protein windfalls and prestige","feeding a family alone; the variance is brutal, so sharing is the tech"),
+  m('Healing & Shamanic Practice',0,"the first knowledge worker: healing, divination, weather calls. paid in food, gifts, and a healthy amount of fear.",
+    "a living made entirely of knowledge","competition; the band supports one shaman, and doubt is fatal"),
+  m('Toolmaking',0,"knappers turning stone into blades: the first craft specialization. a good point traveled hundreds of miles through trade.",
+    "skill compounding into trade goods","going full-time; everyone still forages between commissions"),
+  m('Storytelling & Memory Keeping',0,"the band's law, maps, and history lived in trained memory. songlines encoded navigable routes across an entire continent.",
+    "knowledge transmission as a respected living","export; the asset is locked to the language and the land"),
+  m('Tracking & Scouting',0,"selling information: where the herds moved, where the water is, who crossed the ridge last night. the original intelligence work.",
+    "turning pure observation into standing","bad seasons; when the herds vanish, so does the role"),
+  m('Midwifery & Care Work',0,"the oldest care economy: births, elders, the sick. paid in kin obligation rather than coin, which made it invisible to every ledger since.",
+    "the work that holds the band together","recognition; unpaid then, underpaid now"),
+  m('Trade Running',0,"carrying obsidian, shells, and ochre between bands across hundreds of miles. the first logistics professionals, moving trust as much as goods.",
+    "access; the runner knows everyone","volume; what your back carries is what you trade"),
+  x('Fish Weir Tending',"permanent traps needing seasonal maintenance: the first infrastructure job, held by the families who built them.",
+    "steady protein from a fixed asset","mobility; the weir doesn't move with you"),
+  x('Camp Provisioning',"firewood, water, hide-scraping: the unglamorous work traded informally inside the band.",
+    "always being in demand","status; essential and invisible is a very old combination"),
+  x('Initiation Teaching',"elders selling the curriculum of adulthood: rites, law, ecology. paid in lifelong obligation from the initiated.",
+    "binding the generations together","speed; the degree takes a decade"),
+  x('Feast Labor',"working another family's potlatch or harvest feast for meals and favor. the gig economy, paleolithic edition.",
+    "converting spare time into social credit","saving; favor spoils slower than meat, but it spoils"),
+ ]},
+{name:'Agricultural era',years:'~10,000 bce - 1700 ce',acc:'#1f8a5c',
+ currency:['harvest & craft','labor owed upward','literacy'],group:['the household','the lord','the temple','the guild'],
+ mechs:[
+  m('Subsistence Farming',0,"the household plot: 9 in 10 humans for ten thousand years. the family as firm, the harvest as payroll.",
+    "autonomy on your own dirt","drought; one bad year eats three good ones"),
+  m('Serfdom',0,"bound to the land, owing labor and shares upward, protected (nominally) in return. you couldn't be fired, and you couldn't leave.",
+    "security of tenure in a violent world","exit; the job is hereditary and so is the boss"),
+  m('Guild Apprenticeship',0,"seven years sweeping the workshop for the mystery of the craft: apprentice, journeyman, master. career ladder, cartel, and welfare fund in one.",
+    "skill transmission with a guaranteed market","outsiders and innovators; the ladder is also a wall"),
+  m('Pastoral Herding',0,"wealth on four legs. the herd is income, savings account, and status, and it walks itself to market.",
+    "capital that reproduces itself","theft and winter; the savings account can die"),
+  m('Priesthood & Monastic Labor',0,"the church as employer: literacy, ritual, land management. the monastery ran on ora et labora and became europe's first corporation.",
+    "a career open to talent (and second sons)","families; the job is the family"),
+  m('Soldiering & Mercenary Work',0,"selling violence by contract: condottieri, landsknechts, samurai between wars. steady pay, terminal downside.",
+    "wages far above the field","longevity; the pension plan is loot or death"),
+  m('Domestic Service',0,"the largest urban employer for most of recorded history: cooks, maids, grooms. room and board plus proximity to power.",
+    "a foothold in the city","independence; you live inside the job"),
+  m('Market Trading & Peddling',0,"itinerant commerce: buy where it's cheap, walk, sell where it's dear. the margin is the road itself.",
+    "independence on low capital","scale; your inventory is what your back carries"),
+  m('Scribing & Clerkship',0,"literacy as scarce skill: contracts, taxes, letters. in china the exam turned it into the world's first credentialed career track.",
+    "selling a rare skill to everyone","disruption; printing did to scribes what ai is doing to clerks","china, mesopotamia, everywhere"),
+  m('Sharecropping & Tenancy',0,"farm another's land for a share of the crop. flexible in theory; in practice the ledger at the landlord's store kept you exactly one season behind.",
+    "land access without capital","getting ahead; the split is set by the landless side's desperation"),
+  x('Enslaved Labor',"livelihood's negation, run at civilizational scale: the labor extracted, the person owned. included because honest history requires it.",
+    "the owners, never the enslaved","everything; it is the theft of livelihood itself"),
+  x('Wet Nursing',"selling nourishment itself; for centuries one of the few paid trades open to poor women.",
+    "real wages for real work","the nurse's own child; the math is grim"),
+  x('Fishing Crews on Shares',"each hand paid a fraction of the catch instead of a wage. profit-sharing centuries before the mba.",
+    "aligned incentives on a dangerous boat","bad seasons; no catch, no pay"),
+  x('Mining Camps',"following the vein: silver, tin, salt. dangerous, well-paid by era standards, and the first industrial-style labor discipline.",
+    "wages without land or lineage","lungs and lifespan"),
+  x('Court Patronage',"artists, scholars, and engineers living on a prince's favor. da vinci was a defense contractor.",
+    "funding work with no market yet","stability; taste changes when the patron dies"),
+  x('Caravan Trade Work',"the silk road as employer: drivers, guards, brokers, innkeepers. a livelihood ecosystem strung along a route.",
+    "whole towns fed by through-traffic","the route moving; when the sea path opened, the towns starved"),
+ ]},
+{name:'Industrial era',years:'~1700 ce - late 20th century',acc:'#0e8189',
+ currency:['hours','judgment (licensed)','loyalty'],group:['the factory','the firm','the state'],
+ mechs:[
+  m('Factory Wage Labor',0,"the invention of the job: sell hours, take wages, clock in. livelihood detaches from land and craft and attaches to the machine's schedule.",
+    "cash income at mass scale","autonomy; the whistle owns the day"),
+  m('The Career',0,"one firm, forty years, a gold watch: the organization man's bargain. loyalty up, security down, identity included.",
+    "predictability you could mortgage a house on","agency; the org chart becomes the map of your life"),
+  m('Union Labor',0,"the wage relationship, renegotiated collectively: seniority, safety, the weekend. dues in, a floor under everyone.",
+    "a floor no individual could bargain alone","flexibility; the seniority list is the org chart"),
+  m('Licensed Professions',0,"doctor, lawyer, engineer: judgment sold under a state-granted monopoly. the guild reborn with a diploma.",
+    "high trust, high fees, high floor","access; the license is also a moat around the incumbents"),
+  m('Clerical Work',0,"the paper economy: typists, bookkeepers, switchboard operators. the mass entry of women into wage work, and the layer automation ate first.",
+    "respectable wages without heavy machinery","durability; every generation's clerk is the next generation's software"),
+  m('Civil Service',0,"exam-gated state employment: the iron rice bowl. weber's bureaucracy, experienced from the inside as a livelihood.",
+    "stability that outlasts governments","upside; the pay ceiling is part of the deal"),
+  m('Shopkeeping',0,"main street proprietorship: the family store, the counter, the ledger. the middle class's default path to ownership.",
+    "being your own boss at human scale","chains and platforms; walmart then amazon priced out the counter"),
+  m('Homesteading',0,"livelihood as land policy: 160 acres free if you work it five years. the state manufacturing smallholders (on land taken from someone else).",
+    "capital formation for the landless","the displaced; the land wasn't empty"),
+  m('Commission Sales',0,"pay tied to persuasion: drummers, agents, door-to-door. the first performance-pay economy.",
+    "upside without ownership","floors; a bad quarter eats the mortgage"),
+  m('Paid Domestic & Care Work',0,"care moves from kin obligation to wages, without ever quite getting the wages right.",
+    "making the invisible economy visible","parity; the pay still lags every comparable trade"),
+  x('Company Towns',"the firm as landlord, grocer, and government, wages paid in scrip that spends only at the company store.",
+    "total employment, literally","exit; you owe your soul to the company store"),
+  x('Piecework & Sweatshops',"paid per unit, not per hour: the needle trades. speed is the wage and exhaustion is the ceiling.",
+    "converting desperation into income","safety; the triangle fire wrote the labor code in blood"),
+  x('Pensions',"the invention of retirement: deferred wages banked against old age. livelihood extended past the working body.",
+    "dignity after the job ends","portability; leave the firm early, lose the promise"),
+  x('Military Careers',"the state as employer of first and last resort: pay, pension, gi bill. the biggest job-training program in history.",
+    "mobility for those with no other ladder","the wars themselves"),
+  x('Mass Entertainment & Sport',"radio and film mint the first winner-take-all careers: a thousand local acts collapse into one national star.",
+    "astronomical top prizes","the median performer; the long tail starved early"),
+  x('Two-Income Household',"the quiet mechanism under everything after 1970: one wage stopped covering a family, so the household doubled its labor supply.",
+    "keeping the middle class nominally middle","slack; there is no third earner to add"),
+ ]},
+{name:'Information era',years:'late 20th century - present',acc:'#2b6cb0',
+ currency:['knowledge & code','attention','flexibility'],group:['the firm (remotely)','the platform','clients','an audience'],
+ mechs:[
+  m('Knowledge Work',0,"drucker's term for selling judgment inside a firm: analysis, management, design. the cubicle as habitat, the deck as deliverable.",
+    "comfortable wages for portable skills","meaning; the deliverable is a slide"),
+  m('Software Engineering',0,"write once, run everywhere: the highest-leverage wage work ever invented. salaries plus equity plus a labor market that spent two decades begging.",
+    "leverage and pay without credentials","stability lately; the begging stopped"),
+  m('Freelancing & Consulting',0,"the firm unbundles: same work, no badge. you are the ceo, sales team, and hr department of a company of one.",
+    "autonomy and rate-setting","the off weeks; the pipeline is the job"),
+  m('Gig Platform Work',0,"uber, doordash, taskrabbit: the algorithm as dispatcher, the app as boss. flexibility priced in, floor priced out.",
+    "instant liquidity for spare hours","the floor; the platform sets the price and rewrites the rules"),
+  m('Creator Economy',0,"audience as asset: youtube, substack, patreon. a million true fans funding a hundred thousand middle-class creators, power-law distributed.",
+    "direct income from a true-fan base","the median; the long tail starves politely"),
+  m('Equity Compensation',0,"getting paid in upside: options and rsus. the mechanism that turned employees into occasional millionaires and usual lottery-ticket holders.",
+    "alignment with the outcome","liquidity; you can't eat vested options"),
+  m('Remote Work',0,"geography unbundles from income: san francisco wages, lisbon rent. the pandemic made it default; the return-to-office wars made it contested.",
+    "arbitrage and autonomy","presence; the office was also where sponsorship happened"),
+  m('Service Economy Work',0,"the actual majority: retail, food, logistics, care. the jobs that can't be offshored, holding the wages the economy calls flexible.",
+    "always hiring","compounding; year ten pays like year one"),
+  m('Personal Branding',0,"the self as product: portfolio careers, reputation as resume. everyone their own pr firm, like it or not.",
+    "discoverability without gatekeepers","privacy; the brand never clocks out"),
+  m('Retail Trading',0,"robinhood, crypto, wallstreetbets: markets as would-be livelihood. a few genuine wins narrating everyone else's losses.",
+    "liquidity and access","expectancy; the house still wins on volume"),
+  x('Outsourcing & BPO',"livelihood arbitrage across borders: bangalore call centers, manila back offices. the wage gap as business model.",
+    "middle-class formation in the global south","security; the arbitrage that brought the job can move it again"),
+  x('Open Source Sponsorship',"github sponsors, tips, foundations: passion work subsidized after the fact. the maintainer economy, running on guilt and goodwill.",
+    "funding the load-bearing hobbyist","rent; sponsorship is a tip jar, not a salary"),
+  x('Adjunctification',"the professions gig-ify: adjunct professors, locum doctors, contract lawyers. the credential held, the security gone.",
+    "institutional flexibility","the credentialed; the ladder got pulled up behind the tenured"),
+  x('Dropshipping & Micro-Commerce',"shopify + fulfillment + aliexpress: a store with no warehouse, run from a laptop. the mail-order empire, democratized and saturated.",
+    "zero-capital entry into commerce","margins; everyone found the same suppliers"),
+  x('Parasocial Work',"onlyfans, twitch, cameo: intimacy and presence, priced and streamed. among the fastest-growing livelihoods of the era.",
+    "direct monetization with no taste-gate","boundaries; the product is the self"),
+  x('Geoarbitrage & Nomadism',"earn in dollars, live in baht: the visa-run laptop class. livelihood as jurisdiction shopping.",
+    "stretching one wage into three","roots; community doesn't compound on a 90-day visa"),
+ ]},
+{name:'AI era',years:'emerging (21st century)',acc:'#6247d6',
+ currency:['judgment & taste','presence','ownership'],group:['yourself + agents','the protocol','the community'],
+ mechs:[
+  m('Agent Operation',0,"directing fleets of ai agents: one person shipping what took a team. productivity up 100x, apps ripped daily, revenue still mostly theoretical.",
+    "output per person beyond any precedent","income, so far; the productivity arrived before the business model"),
+  m('AI-Augmented Craft',0,"centaur work: human judgment steering machine leverage. the radiologist reading with the model, the lawyer drafting with one.",
+    "staying priced above the model","the middle; pure execution work gets eaten first"),
+  m('Data & Feedback Labor',0,"the hidden human layer: rlhf raters, labelers, red-teamers. the machines learn from hands they will never credit.",
+    "wages from inside the training pipeline","durability; the job trains its own replacement, literally"),
+  m('Human-Premium Work',0,"care, coaching, ritual, sport, live performance: work valued because a human does it. the premium is the presence.",
+    "immunity to the model; the humanity is the product","scale; presence doesn't stream"),
+  m('Compute & Capital Ownership',0,"income from owning the machines that work: gpus, model equity, index funds. big tech's $725b capex year was a balance-sheet reallocation from labor to compute; this is joining it instead of fighting it.",
+    "income that doesn't need your hours","the 90% who own no meaningful capital; that is the problem to solve"),
+  m('Platform Cooperativism',0,"drivers owning the algorithm: worker-owned platforms where the gig economy's margin flows back to the hands doing the work.",
+    "aligned platforms at human scale","network effects; the vc-funded rival subsidizes rides you can't"),
+  m('Protocol Work',0,"dao contributions, bounties, retro funding, grants: income streams native to the other two posters. livelihood paid by mechanism instead of manager.",
+    "permissionless entry from anywhere on earth","stability; the treasury's mood is the business cycle"),
+  m('UBI Pilots',0,"stockton, givedirectly, kenya: the floor, tested. the checks work; the livelihood question stays open, because a check is income without agency or purpose.",
+    "proving the floor is affordable","the whole answer; ubi is not post-ai livelihood"),
+  m('Solo Founding at AI Speed',0,"the one-person company, actually possible now: build, market, support, all agent-assisted. a thousand flowers, most still pre-revenue.",
+    "trying ideas at the cost of a weekend","distribution; building got easy, being found didn't"),
+  x('Displacement Severance',"coinbase 700, cloudflare 1100, meta 8000: the layoff wave's exit package. a check, a linkedin post, and good luck out there.",
+    "cushioning the fall for a quarter or two","what comes after; severance is a bridge to nowhere in particular"),
+  x('Reskilling Programs',"the official answer: retrain for the ai economy. dead loop; ai roles change faster than humans can certify into them.",
+    "bootcamp operators","the retrained; the destination skill keeps moving"),
+  x('Sovereign Creator Stacks',"own the audience, own the rails, own the models: creators exiting every platform that taxed them.",
+    "keeping the whole margin","reach; the platform tax was buying distribution"),
+  x('Local Livelihood Networks',"third spaces, local funds, skill-shares, mutual aid with a ledger: livelihood re-rooting in geography. what boulder is prototyping right now.",
+    "community that catches you when the api key gets revoked","scale; and that might be fine"),
+  x('Impact Income',"getting paid for attested impact: retro funding, hypercerts, impact metrics. work first, evidence second, income third.",
+    "funding the work markets can't price","cash flow; retro pays late by definition"),
+  x('Care Economy Formalization',"the demographic certainty: elders multiplying, care work the one labor market ai augments but cannot replace. the era's biggest hiring wave, still underpaid.",
+    "guaranteed demand for decades","wages, still; the oldest problem in the book"),
+  x('AI Dividend',"a universal share of ai productivity: the alaska fund model pointed at compute. proposed everywhere, built nowhere.",
+    "tying the floor to the boom itself","existing; every version is still a white paper",true),
+  x('Livelihood Protocol',"the unbuilt stack: capital you own + communities that have your back + work ai can't price, composed into one legible path. income, agency, and purpose bundled.",
+    "the 48-point gap between expert optimism and public dread","existing; this is the spec rebuild.how is trying to write",true),
+ ]},
+];
+
+// ---------- generative line-botany, seeded by name ----------
+function hashName(n){ let h=2166136261; for(const c of n){ h^=c.charCodeAt(0); h=Math.imul(h,16777619); } return (h>>>0)||1; }
+function sr(seed){ let s=seed%2147483647; if(s<=0)s+=2147483646; return ()=>{ s=s*16807%2147483647; return (s-1)/2147483646; }; }
+function markSVG(name,duo){
+  const R=sr(hashName(name)), type=Math.floor(R()*5), P=[];
+  const L=(x1,y1,x2,y2)=>P.push(`M${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}`);
+  const O=(cx,cy,r)=>P.push(`M${(cx+r).toFixed(1)} ${cy.toFixed(1)}A${r.toFixed(1)} ${r.toFixed(1)} 0 1 0 ${(cx-r).toFixed(1)} ${cy.toFixed(1)}A${r.toFixed(1)} ${r.toFixed(1)} 0 1 0 ${(cx+r).toFixed(1)} ${cy.toFixed(1)}`);
+  if(type===0){ // radial burst with twigs
+    const n=12+Math.floor(R()*10);
+    for(let i=0;i<n;i++){ const a=i/n*6.283+R()*.12, r0=3+R()*4, r1=24+R()*16;
+      const x0=Math.cos(a)*r0,y0=Math.sin(a)*r0,x1=Math.cos(a)*r1,y1=Math.sin(a)*r1;
+      L(x0,y0,x1,y1);
+      const tm=.55+R()*.3, tx=x0+(x1-x0)*tm, ty=y0+(y1-y0)*tm, ta=a+(R()<.5?-.5:.5), tl=4+R()*6;
+      L(tx,ty,tx+Math.cos(ta)*tl,ty+Math.sin(ta)*tl);
+      if(R()<.5) O(x1,y1,1.3);
+    }
+  } else if(type===1){ // concentric petal mandala
+    const rings=3+Math.floor(R()*2);
+    for(let g=1;g<=rings;g++){ const r=g*(34/rings)*(.8+R()*.2), k=5+g*3;
+      for(let i=0;i<k;i++){ const a=i/k*6.283+g*.3;
+        const px=Math.cos(a)*r, py=Math.sin(a)*r;
+        L(Math.cos(a)*(r-5),Math.sin(a)*(r-5),px,py); O(px,py,1.4+R());
+      } }
+    O(0,0,2.4);
+  } else if(type===2){ // fern
+    L(0,32,0,-30);
+    for(let y=26;y>-26;y-=5.5){ const side=(y/5.5)%2<1?1:-1, len=(30-Math.abs(y))*.55+3, a=-.9;
+      const bx=side*Math.cos(a)*len, by=y+Math.sin(a)*len;
+      L(0,y,bx,by);
+      L(bx*.55,y+(by-y)*.55,bx*.55+side*4,y+(by-y)*.55-4);
+      if(R()<.35) O(bx,by,1.1);
+    }
+  } else if(type===3){ // spiral
+    let first=true; const turns=(3+R()*2.4)*6.283, step=.28, kr=1.35+R()*.5;
+    let d='';
+    for(let t=0;t<turns;t+=step){ const r=kr*t*.9, px=Math.cos(t)*r, py=Math.sin(t)*r;
+      if(first){ d=`M${px.toFixed(1)} ${py.toFixed(1)}`; first=false; } else d+=`L${px.toFixed(1)} ${py.toFixed(1)}`;
+      if(t%(step*9)<step) O(px,py,1.2);
+    }
+    P.push(d);
+  } else { // woven lattice clipped to circle
+    const s=7.5+R()*2, useX=R()<.5;
+    for(let y=-32;y<=32;y+=s){ for(let px=-32+((y/s)%2?s/2:0);px<=32;px+=s){
+      if(px*px+y*y>30*30) continue;
+      const h=s*.32;
+      if(useX){ L(px-h,y-h,px+h,y+h); L(px-h,y+h,px+h,y-h); }
+      else { L(px,y-h,px+h,y); L(px+h,y,px,y+h); L(px,y+h,px-h,y); L(px-h,y,px,y-h); }
+    } }
+  }
+  // layered art: soft aura underlayer, gradient main strokes, seeded jewel + spark dots
+  const uid='g'+hashName(name).toString(36);
+  const d=P.join('');
+  let dots='';
+  const DR=sr(hashName(name+'dots'));
+  for(let i=0;i<7;i++){
+    const a=DR()*6.283, r=16+DR()*24, cx=(Math.cos(a)*r).toFixed(1), cy=(Math.sin(a)*r).toFixed(1);
+    const big=DR()<.4;
+    dots+=`<circle cx="${cx}" cy="${cy}" r="${(big?1.6:0.9)+DR()*.6}" fill="${i%2?'#ffffff':duo[1]}" opacity="${big?.95:.8}"/>`;
+  }
+  return `<svg viewBox="-50 -50 100 100" aria-hidden="true">
+    <defs><linearGradient id="${uid}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${duo[0]}"/><stop offset="1" stop-color="${duo[1]}"/>
+    </linearGradient></defs>
+    <g fill="none" stroke="${duo[1]}" stroke-width="3.6" stroke-linecap="round" opacity=".18" transform="scale(1.03)"><path d="${d}"/></g>
+    <g fill="none" stroke="url(#${uid})" stroke-width="1.9" stroke-linecap="round" opacity=".96"><path d="${d}"/></g>
+    ${dots}
+  </svg>`;
+}
+const DUOS=[['#ff8a5c','#e8446f'],['#7c5cff','#3fa9f5'],['#ffb84d','#ff5c8a'],['#34d0a6','#2b7de0'],['#c85cff','#6247d6'],['#ffd23f','#ff7a3d'],['#4dd0e1','#7c5cff'],['#ff6f91','#b535bb']];
+
+// ---------- mode registry ----------
+const MODES={
+ alloc:{stats:ALLOC_STATS,eras:ALLOC_ERAS,fav:'✨',
+  h1:'RESOURCE&nbsp;ALLOCATION',
+  title:'resource allocation through history · living poster',
+  lede:"every era invented its own answer to the same question: who gets what, and why. hover anything to see what it's good for, and what it isn't. a pulse of livelihood runs through all of it.",
+  cards:['currency','group size'],
+  finale:'impact-curve',
+  arc:[
+   {t:'gift',s:'reciprocity & kinship',c:'#6247d6',eras:[0]},
+   {t:'commons',s:'custom governs the shared',c:'#8a3fd1',eras:[1]},
+   {t:'market',s:'price finds the target',c:'#b535bb',eras:[2,3]},
+   {t:'mechanism',s:'math moves the money',c:'#e8446f',eras:[4]}
+  ],
+  arcnote:'the allocator migrates: kin → custom → price → code',
+  foot:'<a class="buy" href="https://store.gitcoin.co/products/resource-allocation-history-framed-photo-paper-poster" target="_blank" rel="noopener">buy the physical poster ↗</a><a class="buy powergrad" href="#power">who decides → power structures</a><a class="buy livegrad" href="#live">how you eat → livelihood</a>'},
+ power:{stats:POWER_STATS,eras:POWER_ERAS,fav:'👑',
+  h1:'POWER&nbsp;STRUCTURES',
+  title:'power structures through history · living poster',
+  lede:"the other half of the machine: not who gets what, but who decides. hover anything to see what it holds together, and what it crushes. a pulse of sovereignty runs through all of it.",
+  cards:['power flows from','scale'],
+  finale:'ai-mediated-consensus',
+  arc:[
+   {t:'coercion',s:'force, exile, conquest',c:'#b0561f',eras:[0,1]},
+   {t:'cognition',s:'law, belief, attention',c:'#b53a35',eras:[2,3]},
+   {t:'cryptography',s:'stake, code, exit',c:'#8f2f7a',eras:[4]}
+  ],
+  arcnote:'the substrate of enforcement migrates: bodies → minds → math',
+  foot:'<a class="buy" href="#alloc">who gets what → resource allocation</a><a class="buy livegrad" href="#live">how you eat → livelihood</a>'},
+ live:{stats:LIVE_STATS,eras:LIVE_ERAS,fav:'🌾',
+  h1:'LIVELIHOOD',
+  title:'livelihood through history · living poster',
+  lede:"the third question: how a person turns their days into a living. hover anything to see what it fed, and what it starved. a pulse of purpose runs through all of it.",
+  cards:['what you sold','who you worked for'],
+  finale:'livelihood-protocol',
+  arc:[
+   {t:'muscle',s:'the body does the work',c:'#3c7d2a',eras:[0,1]},
+   {t:'hours',s:'time sold to the firm',c:'#0e8189',eras:[2]},
+   {t:'attention',s:'the self as product',c:'#2b6cb0',eras:[3]},
+   {t:'ownership',s:'assets do the work',c:'#6247d6',eras:[4]}
+  ],
+  arcnote:'what you sell migrates: body → time → self → assets',
+  foot:'<a class="buy" href="#alloc">who gets what → resource allocation</a><a class="buy powergrad" href="#power">who decides → power structures</a>'}
+};
+const slugOf=k=>k.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+const SLUGS={alloc:new Set(ALLOC_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
+             power:new Set(POWER_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key)))),
+             live:new Set(LIVE_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key))))};
+
+let MODE=null, STATS={}, ERAS=[], WHAT={}, BYSLUG={}, pinned=null;
+const erasEl=document.getElementById('eras');
+const h1El=document.getElementById('h1'), ledeEl=document.getElementById('lede');
+const footL=document.getElementById('footleft'), favEl=document.getElementById('fav');
+const PASTELS=['#c8f2b0','#bcd9ff','#ffdfa8','#fdf49b','#ffc7e6','#aeeee2','#dcc9ff','#ffd4bd'];
+const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+// ---------- build the current tab's poster ----------
+function renderEras(M){
+  erasEl.innerHTML='';
+  for(const era of ERAS){
+    const sec=document.createElement('section'); sec.className='era'; sec.style.setProperty('--acc',era.acc);
+    const cards=`
+      <div class="ecard"><div class="et">${M.cards[0]}</div><ul>${era.currency.map(c=>`<li>${c}</li>`).join('')}</ul></div>
+      <div class="ecard"><div class="et">${M.cards[1]}</div><ul>${era.group.map(c=>`<li>${c}</li>`).join('')}</ul></div>`;
+    let xi=0;
+    const mechs=era.mechs.map((mm,mi)=>{
+      const R=sr(hashName(mm.name+'sz')); const d=Math.round((mm.extra?76:84)+R()*(mm.extra?22:30));
+      const pastel=PASTELS[hashName(mm.name)%PASTELS.length];
+      const duo=DUOS[hashName(mm.name+'c')%DUOS.length];
+      const delay=(R()*6).toFixed(2);
+      const pd=mm.extra?(xi++*0.05).toFixed(2):'0';
+      return `<div class="mech${mm.extra?' extra':''}${mm.unb?' unb':''}" tabindex="0" role="button" aria-label="${mm.name}" data-key="${mm.key}" data-era="${era.name} · ${era.years}"
+        style="--pastel:${pastel};--acc:${era.acc};--d0:${duo[0]};--d1:${duo[1]};--pd:${pd}s;--pi:${mi}">
+        <div class="disc" style="width:${d}px;height:${d}px;--bd:-${delay}s">${markSVG(mm.name,duo)}</div>
+        <div class="nm">${mm.name}</div>
+        ${mm.note?`<div class="pd">${mm.note}</div>`:''}
+      </div>`;
+    }).join('');
+    const nx=era.mechs.filter(mm=>mm.extra).length;
+    sec.innerHTML=`<div class="rail"><div class="ename">${era.name}</div><div class="eyears">${era.years}</div></div>
+      <div class="ebody">${cards}${mechs}<button class="more" data-n="${nx}">+ ${nx} more invented in this era</button></div>`;
+    // sparkle layer: lights up when this era is hovered or centered in the viewport
+    const sp=document.createElement('div'); sp.className='sparkles';
+    const SR=sr(hashName(era.name+'spark')), chars=['✦','✧','✹','＊','✺'];
+    let sh='';
+    for(let i=0;i<18;i++){
+      const px=(3+SR()*94).toFixed(1), py=(6+SR()*88).toFixed(1);
+      const col=[era.acc,'#ffd23f','#ffffff'][Math.floor(SR()*3)];
+      sh+=`<span style="left:${px}%;top:${py}%;color:${col};font-size:${(9+SR()*11).toFixed(0)}px;--td:${(1.6+SR()*2).toFixed(2)}s;--dl:${(SR()*3).toFixed(2)}s">${chars[Math.floor(SR()*chars.length)]}</span>`;
+    }
+    sp.innerHTML=sh; sec.appendChild(sp);
+    erasEl.appendChild(sec);
+  }
+}
+
+// the coercion → cognition → cryptography strip (power tab only)
+const arcWrap=document.getElementById('arcwrap');
+function renderArc(M){
+  if(!M.arc){ arcWrap.innerHTML=''; return; }
+  arcWrap.innerHTML=`<div class="arc" role="group" aria-label="how the rules get enforced">${M.arc.map((a,i)=>`
+    <button class="arcstop" data-i="${i}" style="--ac:${a.c}">
+      <span class="dot"></span><span class="at">${a.t}</span><span class="as">${a.s}</span>
+    </button>`).join('')}</div>
+    <p class="arcnote">${M.arcnote}</p>`;
+  const eras=()=>[...document.querySelectorAll('.era')];
+  const off=()=>document.querySelectorAll('.era.arclit').forEach(el=>el.classList.remove('arclit'));
+  arcWrap.querySelectorAll('.arcstop').forEach(btn=>{
+    const a=M.arc[+btn.dataset.i];
+    const on=()=>a.eras.forEach(i=>eras()[i]?.classList.add('arclit'));
+    btn.addEventListener('pointerenter',on);
+    btn.addEventListener('pointerleave',off);
+    btn.addEventListener('focus',on);
+    btn.addEventListener('blur',off);
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const first=eras()[a.eras[0]]; if(!first) return;
+      first.scrollIntoView({behavior:'smooth',block:'start'});
+      a.eras.forEach(i=>{ const el=eras()[i]; el.classList.add('playpulse'); setTimeout(()=>el.classList.remove('playpulse'),1700); });
+      zing(hashName(a.t),3);
+    });
+  });
+}
+
+function bindPoster(){
+  WHAT={}; ERAS.forEach(e=>e.mechs.forEach(mm=>WHAT[mm.key]=mm));
+  BYSLUG={}; document.querySelectorAll('.mech').forEach(el=>BYSLUG[slugOf(el.dataset.key)]=el);
+  document.querySelectorAll('.more').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const era=btn.closest('.era'); era.classList.toggle('xp');
+      btn.textContent=era.classList.contains('xp')?'− show fewer':'+ '+btn.dataset.n+' more invented in this era';
+      setTimeout(buildLifeline,500);
+    });
+  });
+  document.querySelectorAll('.mech').forEach(el=>{
+    el.addEventListener('pointerenter',e=>{ if(pinned)return; fillTip(el); tt.classList.add('on'); placeTip(e.clientX,e.clientY); });
+    el.addEventListener('pointermove',e=>{ if(pinned)return; placeTip(e.clientX,e.clientY); });
+    el.addEventListener('pointerleave',()=>{ if(pinned)return; tt.classList.remove('on'); });
+    el.addEventListener('focus',()=>{ if(pinned)return; const r=el.getBoundingClientRect(); fillTip(el); tt.classList.add('on'); placeTip(r.right,r.top); });
+    el.addEventListener('blur',()=>{ if(pinned)return; tt.classList.remove('on'); });
+    el.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); el.click(); } });
+    el.addEventListener('click',e=>{
+      e.stopPropagation();
+      const k=bumpCombo();
+      burst(el,k); zing(hashName(el.dataset.key),k);
+      if(pinned===el){ unpin(); return; }
+      pinEl(el, e.clientX, e.clientY);
+    });
+  });
+}
+
+// light up the era nearest the viewport center as you scroll
+function litCheck(){
+  const mid=innerHeight*0.45; let best=null,bd=1e9;
+  document.querySelectorAll('.era').forEach(el=>{ const r=el.getBoundingClientRect();
+    if(r.bottom<0||r.top>innerHeight) return;
+    const c=r.top+r.height/2, dd=Math.abs(c-mid); if(dd<bd){bd=dd;best=el;} });
+  document.querySelectorAll('.era').forEach(el=>el.classList.toggle('lit',el===best));
+}
+let lraf=null;
+window.addEventListener('scroll',()=>{ if(lraf)return; lraf=requestAnimationFrame(()=>{lraf=null;litCheck();}); },{passive:true});
+
+// ---------- click zazz: chime + compounding snow-globe sparkle burst ----------
+let AC=null, combo=1, lastClick=0;
+function bumpCombo(){
+  const now=performance.now();
+  combo = (now-lastClick<2800) ? Math.min(10,combo+1) : 1;
+  lastClick=now;
+  return combo;
+}
+function zing(seed,k){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==='suspended') AC.resume();
+    const R=sr(seed);
+    // per-mechanism base pitch, rising ~1.5 semitones per combo level
+    const base=(420+R()*300)*Math.pow(2,((k||1)-1)*1.5/12), t0=AC.currentTime;
+    [0,7,12].forEach((st,i)=>{
+      const o=AC.createOscillator(), g=AC.createGain();
+      o.type='sine'; o.frequency.value=base*Math.pow(2,st/12);
+      const ts=t0+i*0.055;
+      g.gain.setValueAtTime(0,ts);
+      g.gain.linearRampToValueAtTime(0.055+0.004*(k||1),ts+0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001,ts+0.5);
+      o.connect(g).connect(AC.destination); o.start(ts); o.stop(ts+0.55);
+    });
+    // glittery noise shimmer on top
+    const len=Math.floor(AC.sampleRate*0.22), buf=AC.createBuffer(1,len,AC.sampleRate), ch=buf.getChannelData(0);
+    for(let i=0;i<len;i++) ch[i]=(Math.random()*2-1)*(1-i/len);
+    const src=AC.createBufferSource(); src.buffer=buf;
+    const hp=AC.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=6500;
+    const ng=AC.createGain(); ng.gain.setValueAtTime(0.035,t0); ng.gain.exponentialRampToValueAtTime(0.0001,t0+0.22);
+    src.connect(hp).connect(ng).connect(AC.destination); src.start(t0);
+  }catch(e){}
+}
+function burst(el,k){
+  if(reduced) return;
+  k=k||1;
+  const disc=el.querySelector('.disc'), r=disc.getBoundingClientRect();
+  const cx=r.left+r.width/2, cy=r.top+r.height/2, rad=r.width/2;
+  const d0=el.style.getPropertyValue('--d0')||'#fff', d1=el.style.getPropertyValue('--d1')||'#ffd23f';
+  const chars=['✦','✧','✹','•','＊','❄'];
+  const n=Math.min(110, 10+(k-1)*11); // compounds: 10 → 109 sparkles at 10x
+  for(let i=0;i<n;i++){
+    const s=document.createElement('span');
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    const col=[d0,d1,'#ffd23f','#ffffff'][Math.floor(Math.random()*4)];
+    // spawn from the disc's rim, like shaken snow
+    const sa=Math.random()*6.283, sx=cx+Math.cos(sa)*rad*0.7, sy=cy+Math.sin(sa)*rad*0.7;
+    s.style.cssText=`position:fixed;left:${sx.toFixed(0)}px;top:${sy.toFixed(0)}px;color:${col};font-size:${7+Math.random()*10}px;line-height:1;pointer-events:none;z-index:70;text-shadow:0 0 9px currentColor;will-change:transform,opacity`;
+    document.body.appendChild(s);
+    // slow snow-globe physics: gentle rise, sideways sway, slow settle
+    const a=Math.random()*6.283, sp=(24+Math.random()*46)*(1+k*0.12);
+    const dx=Math.cos(a)*sp;
+    const up=-(30+Math.random()*60)*(1+k*0.06);
+    const settle=up+90+Math.random()*120;
+    const sway=(Math.random()<.5?-1:1)*(8+Math.random()*14);
+    const rot=Math.random()*300-150;
+    const dur=2400+Math.random()*2200; // slow, floaty
+    s.animate([
+      {transform:'translate(-50%,-50%) translate(0,0) scale(.25) rotate(0deg)',opacity:0},
+      {transform:`translate(-50%,-50%) translate(${(dx*.45).toFixed(0)}px,${(up*.75).toFixed(0)}px) scale(1) rotate(${(rot*.3).toFixed(0)}deg)`,opacity:1,offset:.22},
+      {transform:`translate(-50%,-50%) translate(${(dx*.8+sway).toFixed(0)}px,${up.toFixed(0)}px) scale(.95) rotate(${(rot*.55).toFixed(0)}deg)`,opacity:.95,offset:.48},
+      {transform:`translate(-50%,-50%) translate(${(dx-sway).toFixed(0)}px,${(up+(settle-up)*.55).toFixed(0)}px) scale(.8) rotate(${(rot*.8).toFixed(0)}deg)`,opacity:.8,offset:.75},
+      {transform:`translate(-50%,-50%) translate(${(dx+sway*.5).toFixed(0)}px,${settle.toFixed(0)}px) scale(.35) rotate(${rot.toFixed(0)}deg)`,opacity:0}
+    ],{duration:dur,easing:'ease-in-out'}).onfinish=()=>s.remove();
+  }
+  const ring=document.createElement('span');
+  ring.style.cssText=`position:fixed;left:${cx}px;top:${cy}px;width:${r.width}px;height:${r.width}px;border:2.5px solid ${d1};border-radius:50%;pointer-events:none;z-index:69;transform:translate(-50%,-50%)`;
+  document.body.appendChild(ring);
+  ring.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:.9},{transform:`translate(-50%,-50%) scale(${(1.8+k*0.15).toFixed(2)})`,opacity:0}],
+    {duration:800+k*60,easing:'ease-out'}).onfinish=()=>ring.remove();
+  // at high combo, give the disc itself a little snow-globe shake
+  if(k>=3) disc.animate(
+    [{transform:'rotate(0deg)'},{transform:`rotate(${2+k}deg)`},{transform:`rotate(-${2+k}deg)`},{transform:'rotate(0deg)'}],
+    {duration:420,easing:'ease-in-out'});
+}
+
+// ---------- tooltip ----------
+const tt=document.getElementById('tt');
+function fillTip(el){
+  const key=el.dataset.key, s=STATS[key], w=WHAT[key], acc=el.style.getPropertyValue('--acc');
+  tt.style.setProperty('--acc',acc);
+  tt.innerHTML=`<div class="nm">${w.name}</div>
+    <div class="er">${el.dataset.era}${w.unb?' · <em>unbuilt ✦</em>':''}${w.extra&&!w.unb?' · extended set':''}</div>
+    <p class="what">${w.what}</p>
+    ${w.note?`<p class="note">poster: ${w.note}</p>`:''}
+    <div class="gf">
+      <div class="g"><b>good for</b> · ${w.good}</div>
+      <div class="b"><b>not for</b> · ${w.not}</div>
+    </div>
+    ${s?`<div class="genes">${Object.entries(s).map(([gk,gv])=>`<span>${gk} · <b>${gv}</b></span>`).join('')}</div>`:''}
+    <div class="hintline">click to pin · esc to close</div>`;
+}
+function placeTip(px,py){
+  const w=tt.offsetWidth||300, h=tt.offsetHeight||190, pad=16;
+  let ox=px+pad, oy=py+pad;
+  if(ox+w>innerWidth-8) ox=px-w-pad;
+  if(ox<8) ox=8;
+  if(oy+h>innerHeight-8) oy=Math.max(8,py-h-pad);
+  tt.style.left=ox+'px'; tt.style.top=oy+'px';
+}
+function pinEl(el,px,py){
+  if(pinned) pinned.classList.remove('pinned');
+  pinned=el; el.classList.add('pinned');
+  fillTip(el); tt.classList.add('on');
+  const r=el.getBoundingClientRect();
+  placeTip(px||r.right, py||r.top);
+  history.replaceState(null,'',(MODE==='alloc'?'#':'#'+MODE+'/')+slugOf(el.dataset.key));
+}
+function unpin(){
+  if(!pinned) return;
+  pinned.classList.remove('pinned'); pinned=null; tt.classList.remove('on');
+  history.replaceState(null,'',MODE==='alloc'?location.pathname+location.search:'#'+MODE);
+}
+function expandEra(era){
+  if(era.classList.contains('xp')) return;
+  era.classList.add('xp');
+  const b=era.querySelector('.more'); if(b) b.textContent='− show fewer';
+  setTimeout(buildLifeline,500);
+}
+document.addEventListener('click',unpin);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') unpin(); });
+
+// ---------- play: walk the 12,000 years ----------
+let playing=false, playTimers=[];
+function stopPlay(){
+  playing=false; playTimers.forEach(clearTimeout); playTimers=[];
+  const b=document.getElementById('play'); b.textContent='▶ play 12,000 years';
+  document.querySelectorAll('.era.playpulse').forEach(el=>el.classList.remove('playpulse'));
+}
+document.getElementById('play').addEventListener('click',e=>{
+  e.stopPropagation();
+  if(playing){ stopPlay(); return; }
+  playing=true; e.target.textContent='■ stop';
+  const eras=[...document.querySelectorAll('.era')];
+  eras.forEach((el,i)=>{
+    playTimers.push(setTimeout(()=>{
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.classList.add('playpulse');
+      zing(hashName(el.querySelector('.ename').textContent), 1+i*2);
+      playTimers.push(setTimeout(()=>el.classList.remove('playpulse'),1700));
+    }, i*2400));
+  });
+  // finale: the corner nobody has built yet (per tab)
+  playTimers.push(setTimeout(()=>{
+    expandEra(eras[eras.length-1]);
+    const fin=MODES[MODE].finale, el=BYSLUG[fin];
+    if(el){ el.scrollIntoView({behavior:'smooth',block:'center'});
+      playTimers.push(setTimeout(()=>{ burst(el,6); zing(hashName(fin),9); pinEl(el); stopPlay(); },900));
+    } else stopPlay();
+  }, eras.length*2400+500));
+});
+window.addEventListener('wheel',()=>{ if(playing) stopPlay(); },{passive:true});
+
+// ---------- the pulsing lifeline ----------
+const poster=document.getElementById('poster'), lsvg=document.getElementById('lifeline');
+function buildLifeline(){
+  const w=poster.clientWidth, h=poster.scrollHeight;
+  lsvg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  const eras=[...document.querySelectorAll('.era')];
+  const pts=[{x:w*0.5,y:8}];
+  eras.forEach((el,i)=>{ pts.push({x:w*(i%2?0.86:0.14), y:el.offsetTop+el.offsetHeight/2}); });
+  pts.push({x:w*0.5,y:h-6});
+  let d=`M${pts[0].x} ${pts[0].y}`;
+  for(let i=0;i<pts.length-1;i++){
+    const p0=pts[Math.max(0,i-1)], p1=pts[i], p2=pts[i+1], p3=pts[Math.min(pts.length-1,i+2)];
+    const c1x=p1.x+(p2.x-p0.x)/6, c1y=p1.y+(p2.y-p0.y)/6;
+    const c2x=p2.x-(p3.x-p1.x)/6, c2y=p2.y-(p3.y-p1.y)/6;
+    d+=`C${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
+  }
+  const accs=ERAS.map(e=>e.acc);
+  lsvg.innerHTML=`
+   <defs>
+     <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+       ${accs.map((a,i)=>`<stop offset="${(i/(accs.length-1)*100).toFixed(0)}%" stop-color="${a}"/>`).join('')}
+     </linearGradient>
+     <filter id="blur"><feGaussianBlur stdDeviation="5"/></filter>
+   </defs>
+   <path d="${d}" fill="none" stroke="url(#lg)" stroke-width="9" opacity=".3" filter="url(#blur)"/>
+   <path id="lpath" d="${d}" fill="none" stroke="url(#lg)" stroke-width="2.4" opacity=".72"
+     stroke-dasharray="7 9" ${reduced?'':'class="flow"'}/>
+   ${reduced?'':`
+   <circle r="10" fill="url(#lg)" opacity=".35" filter="url(#blur)">
+     <animateMotion dur="16s" repeatCount="indefinite" rotate="none"><mpath href="#lpath"/></animateMotion>
+   </circle>
+   <circle r="4" fill="#fff" opacity=".95">
+     <animateMotion dur="16s" repeatCount="indefinite" rotate="none"><mpath href="#lpath"/></animateMotion>
+   </circle>`}`;
+}
+const flowStyle=document.createElement('style');
+flowStyle.textContent='@keyframes lflow{to{stroke-dashoffset:-160}} #lifeline .flow{animation:lflow 9s linear infinite}';
+document.head.appendChild(flowStyle);
+let rto; window.addEventListener('resize',()=>{ clearTimeout(rto); rto=setTimeout(buildLifeline,200); });
+
+document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
+  const c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+  r.setAttribute('data-theme',c==='dark'?'light':'dark'); };
+
+// ---------- tabs + hash routing ----------
+function setMode(mode,user){
+  if(MODE===mode) return;
+  stopPlay();
+  if(pinned){ pinned.classList.remove('pinned'); pinned=null; tt.classList.remove('on'); }
+  MODE=mode; const M=MODES[mode];
+  STATS=M.stats; ERAS=M.eras;
+  document.documentElement.setAttribute('data-mode',mode);
+  document.title=M.title;
+  favEl.setAttribute('href',"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>"+M.fav+"</text></svg>");
+  h1El.innerHTML=M.h1;
+  ledeEl.textContent=M.lede;
+  footL.innerHTML=M.foot;
+  document.querySelectorAll('.tab').forEach(b=>{ const on=b.dataset.mode===mode; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); });
+  renderEras(M); bindPoster(); renderArc(M);
+  litCheck(); buildLifeline();
+  if(user){
+    history.replaceState(null,'',mode==='alloc'?location.pathname+location.search:'#'+mode);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode,true)));
+
+// hash grammar: #power · #power/<slug> · #alloc/<slug> · bare #<slug> (legacy links from both old sites)
+function parseHash(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  if(!h) return {mode:'alloc',slug:null};
+  const mm=h.match(/^(alloc|power|live)(?:\/(.*))?$/);
+  if(mm) return {mode:mm[1],slug:mm[2]||null};
+  return {mode:SLUGS.alloc.has(h)?'alloc':(SLUGS.power.has(h)?'power':(SLUGS.live.has(h)?'live':'alloc')), slug:h};
+}
+function applyHash(){
+  const {mode,slug}=parseHash();
+  const first=(MODE===null), switched=(mode!==MODE);
+  if(switched) setMode(mode,false);
+  if(slug){
+    const el=BYSLUG[slug]; if(!el) return;
+    if(el.classList.contains('extra')) expandEra(el.closest('.era'));
+    setTimeout(()=>{
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      setTimeout(()=>{ pinEl(el); burst(el,2); }, 900);
+    }, 60);
+  } else if(switched&&!first){
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+window.addEventListener('hashchange',applyHash);
+applyHash();
+</script>
+</body>
+</html>
