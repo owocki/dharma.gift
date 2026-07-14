@@ -179,6 +179,7 @@
   .tab:hover{transform:translateY(-1px)}
   .tab .em{margin-right:7px}
   .tab.on{color:#fff;border-color:transparent}
+  .tab.on.t-spiral{background:linear-gradient(90deg,#2f9e44,#e03131,#b535bb,#1c7ed6);box-shadow:0 6px 18px rgba(124,92,255,.4)}
   .tab.on.t-alloc{background:linear-gradient(90deg,#6247d6,#b535bb,#e8446f);box-shadow:0 6px 18px rgba(181,53,187,.4)}
   .tab.on.t-power{background:linear-gradient(90deg,#a06a1f,#b53a35,#8f2f7a);box-shadow:0 6px 18px rgba(168,42,85,.4)}
   .tab.on.t-live{background:linear-gradient(90deg,#3c7d2a,#0e8189,#6247d6);box-shadow:0 6px 18px rgba(14,129,137,.4)}
@@ -266,6 +267,54 @@
   .era.arclit::before{opacity:1}
   .era.arclit .sparkles{opacity:1}
   @media(max-width:480px){ .arcstop .as{display:none} }
+
+  /* ---------- 🧬 the spiral: the eight lineages, one turn ---------- */
+  :root[data-mode="spiral"]{--pgrad:linear-gradient(175deg,#e7e2f7 0%,#efe1f3 52%,#dfe6f8 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="spiral"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#120a24 0%,#1c1030 52%,#0b1130 100%)} }
+  :root[data-mode="spiral"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#120a24 0%,#1c1030 52%,#0b1130 100%)}
+  :root[data-mode="spiral"][data-theme="light"]{--pgrad:linear-gradient(175deg,#e7e2f7 0%,#efe1f3 52%,#dfe6f8 100%)}
+  :root[data-mode="spiral"] .poster .sub{background:linear-gradient(90deg,#2f9e44,#a17a00,#e03131,#b535bb,#1c7ed6);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="spiral"] .playbtn{background:linear-gradient(90deg,#2f9e44,#b535bb,#1c7ed6);box-shadow:0 8px 26px rgba(181,53,187,.4)}
+  :root[data-mode="spiral"] .playbtn:hover{box-shadow:0 14px 34px rgba(181,53,187,.55)}
+  :root[data-mode="spiral"] #eras{display:none}
+
+  #spiralwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:940px}
+  :root[data-mode="spiral"] #spiralwrap{display:block}
+  #spiralwrap svg{width:100%;height:auto;display:block;overflow:visible}
+  /* the coil climbs out of 10,000 bce. it fails visible: if the animation never runs
+     (reduced motion, no support), the un-clipped default is the finished picture. */
+  @keyframes spwipe{from{clip-path:inset(100% 0 0 0)} to{clip-path:inset(0 0 0 0)}}
+  #spiralsvg .reveal{animation:spwipe 2.4s cubic-bezier(.2,.7,.2,1) .1s both}
+  @media (prefers-reduced-motion:reduce){ #spiralsvg .reveal{animation:none} }
+  /* structure: one guide ellipse per turn, the five phases of the loop, the labels */
+  .sp-guide{fill:none;stroke:var(--ink);stroke-width:1;opacity:.10}
+  .sp-guide.ghost{stroke-dasharray:3 8;opacity:.22}
+  .sp-spoke{stroke:var(--ink);stroke-width:1;opacity:.13;stroke-dasharray:2 4}
+  .sp-phase{font:800 12.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.13em;text-transform:uppercase;fill:var(--ink);opacity:.72}
+  .sp-phasesub{font:500 10px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  .sp-eralab{font:800 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink);letter-spacing:.03em}
+  .sp-erasub{font:500 10px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  .sp-core{font:800 11px/1 -apple-system,sans-serif;fill:var(--muted);letter-spacing:.05em}
+  /* the eight strands */
+  .strand{cursor:pointer;transition:opacity .22s}
+  .strand .rope{fill:var(--sc)}
+  .strand .rope path{stroke:none}
+  .strand .node{fill:var(--sc);stroke:var(--panel);stroke-width:1.5;transition:transform .18s;transform-box:fill-box;transform-origin:center}
+  .strand .node:hover{transform:scale(1.5)}
+  .strand .ghostnode{fill:none;stroke:var(--sc);stroke-width:2;stroke-dasharray:3 4;opacity:.6}
+  #spiralsvg.focusing .strand{opacity:.14}
+  #spiralsvg.focusing .strand.foc{opacity:1}
+  #spiralsvg.focusing .strand.foc .rope{opacity:1}
+  /* legend: identity is never color-alone — every strand carries its emoji + name */
+  .splegend{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;max-width:860px;margin:18px auto 0}
+  .spchip{display:flex;align-items:center;gap:6px;font:inherit;font-size:12px;font-weight:650;color:var(--ink);
+    background:color-mix(in srgb,var(--panel) 62%,transparent);border:1px solid var(--line);border-radius:999px;
+    padding:5px 11px 5px 7px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .18s,box-shadow .18s}
+  .spchip .swatch{width:11px;height:11px;border-radius:3px;background:var(--sc);flex:none}
+  .spchip:hover,.spchip:focus-visible{transform:translateY(-2px);box-shadow:0 6px 18px color-mix(in srgb,var(--sc) 35%,transparent)}
+  .spchip .word{color:var(--muted);font-weight:500}
+  .spnote{font-size:11.5px;color:var(--muted);font-style:italic;text-align:center;margin:16px auto 0;max-width:620px;line-height:1.6}
+  @media(max-width:640px){ .sp-statsub,.sp-scale,.sp-eralab,.sp-herelab{display:none} .sp-stat{font-size:19px} }
 </style>
 </head>
 <body>
@@ -278,6 +327,7 @@
     <svg id="lifeline" aria-hidden="true"></svg>
     <header>
       <nav class="tabs" role="tablist" aria-label="poster">
+        <button class="tab t-spiral" role="tab" data-mode="spiral"><span class="em">🧬</span>the spiral</button>
         <button class="tab t-alloc" role="tab" data-mode="alloc"><span class="em">✨</span>who gets what</button>
         <button class="tab t-power" role="tab" data-mode="power"><span class="em">👑</span>who decides</button>
         <button class="tab t-live" role="tab" data-mode="live"><span class="em">🌾</span>how you eat</button>
@@ -293,6 +343,7 @@
       <div id="arcwrap"></div>
       <button class="playbtn" id="play">▶ play 12,000 years</button>
     </header>
+    <div id="spiralwrap"></div>
     <div id="eras"></div>
     <footer class="pfoot">
       <span id="footleft" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></span>
@@ -1984,8 +2035,211 @@ function markSVG(name,duo){
 }
 const DUOS=[['#ff8a5c','#e8446f'],['#7c5cff','#3fa9f5'],['#ffb84d','#ff5c8a'],['#34d0a6','#2b7de0'],['#c85cff','#6247d6'],['#ffd23f','#ff7a3d'],['#4dd0e1','#7c5cff'],['#ff6f91','#b535bb']];
 
+// ---------- 🧬 the spiral ----------
+// the thesis, as a table.
+//
+// two claims, and the geometry is the argument for both:
+//
+// 1. THE CYCLE (the angle). every era, every lineage runs the same loop: something new gets
+//    adopted while it is still cheap to leave → it gets formalized → it scales and wins →
+//    the gatekeepers arrive and exit gets expensive → someone forks, revolts, or the whole
+//    thing collapses. then the loop starts again on top of the wreckage. one turn per era.
+// 2. THE CLIMB (the radius + the rise). each turn ends higher and wider than it began,
+//    because the range keeps growing: ~150 people, then a million, then a nation, then a
+//    billion. that is the upward spiral. it is not a circle, because you never land where
+//    you started; it is not a line, because you keep passing the same five places.
+//
+// the enforcer you lean on labels each TURN — kin, then god, then the state, then the
+// platform, then the protocol — and the fifth is the first one again, five rings up:
+// the band's properties (transparent, peer-to-peer, leave whenever you like) at planetary
+// scale. that return is the whole point.
+const PHASES=[
+  {t:'adopt',     s:'new, open, cheap to leave'},
+  {t:'formalize', s:'it gets rules and roles'},
+  {t:'scale',     s:'it wins; the range explodes'},
+  {t:'capture',   s:'gatekeepers; exit gets dear'},
+  {t:'fork',      s:'exit, revolt, or collapse'}
+];
+// the cost of walking away, sampled around one turn. this is why the rope BREATHES: it
+// swells where you are trapped and thins where you are free — once per era, five times over.
+// the downward spiral is not a separate shape. it is the fat part of every turn.
+const EXIT=[0.16,0.42,0.66,1.0,0.34];
+// each turn of the coil: the era, and who was doing the enforcing by the end of it.
+const TURNS=[
+  {era:'hunter-gatherer', years:'before 10,000 bce',        lean:'kin',          scale:'~150 people'},
+  {era:'agricultural',    years:'~10,000 bce – 1700 ce',    lean:'god',          scale:'~10⁶'},
+  {era:'industrial',      years:'~1700 – late 20th c.',     lean:'the state',    scale:'~10⁸'},
+  {era:'information',     years:'late 20th c. – present',   lean:'the platform', scale:'~10⁹'},
+  {era:'onchain',         years:'emerging',                 lean:'the protocol', scale:'permissionless'}
+];
+// light-mode hue, dark-mode hue. both palettes validated: lightness band, chroma floor,
+// CVD separation (worst adjacent ΔE 13.6 protan), contrast vs surface. every strand also
+// carries an emoji and a name in the legend, so identity is never color-alone.
+const STRANDS=[
+ {mode:'alloc',   em:'✨', label:'who gets what',       c:'#b535bb', d:'#cc5cd0', w:['kin','custom','price','platform','code']},
+ {mode:'power',   em:'👑', label:'who decides',         c:'#b0561f', d:'#c9702f', w:['bodies','bodies','law','attention','math']},
+ {mode:'live',    em:'🌾', label:'how you eat',         c:'#2f9e44', d:'#3aad4f', w:['body','body','hours','the self','assets']},
+ {mode:'truth',   em:'📖', label:'what is true',        c:'#1c7ed6', d:'#3d92d8', w:['elders','canon','evidence','ranking','proofs']},
+ {mode:'identity',em:'🪪', label:'who you are',         c:'#0ca678', d:'#17ab86', w:['kin','church','state','platform','keypair']},
+ {mode:'trust',   em:'🤝', label:'who you trust',       c:'#a17a00', d:'#ab8412', w:['kin','god','state','platform','code']},
+ {mode:'record',  em:'💾', label:'who keeps the record',c:'#7048e8', d:'#8464e6', w:['elders','scribes','clerks','platforms','everyone']},
+ {mode:'conflict',em:'⚖️', label:'how you fight',       c:'#e03131', d:'#e05252', w:['the crowd','god','the state','the platform','the protocol']}
+];
+
+// ---- the coil ----
+// a helix seen at a low angle: the turn is an ellipse (squashed by SQ), and the whole thing
+// climbs as it goes. u is the continuous turn index — u=0 is 10,000 bce at the bottom, u=5
+// is now, u=6 is the turn nobody has taken yet.
+const SPC={cx:520, ybot:1068};
+const SQ=0.34;                                          // how flat the coil lies. 1 = looking straight down
+const spR=u=>186*Math.pow(1.10,u);                      // range grows ~an order of magnitude a turn
+const spClimb=u=>136*u;                                 // and every turn ends higher than it started.
+                                                        // climb < the ellipse's own height, so the turns
+                                                        // nest into each other the way a spring does
+const spTh=u=>u*2*Math.PI;
+// the sag: right before the fork, things fall apart. the coil dips — the downward part of
+// the upward spiral. it is a real feature of the curve, not a decoration.
+const spSag=u=>{ const p=(u%1+1)%1, k=(p-0.86)/0.10; return 15*Math.exp(-k*k); };
+function spPt(u,off){
+  const th=spTh(u), r=spR(u)+off;
+  return [SPC.cx + r*Math.cos(th), SPC.ybot - spClimb(u) + r*SQ*Math.sin(th) + spSag(u)];
+}
+const spDepth=u=>0.5+0.5*Math.sin(spTh(u));             // 1 = nearest the viewer, 0 = round the back
+const spExit=u=>{ const p=((u%1)+1)%1*5, i=Math.floor(p), f=p-i;
+  return EXIT[i%5]+(EXIT[(i+1)%5]-EXIT[i%5])*f; };
+const spW=u=>2.2+spExit(u)*7.0;                         // exit cost → how fat the rope is
+const spOff=i=>(i-3.5)*7.2;                             // eight filaments, laid up into a rope
+const spDark=()=>{const t=document.documentElement.getAttribute('data-theme');
+  return t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches;};
+
+function renderSpiral(){
+  const dark=spDark(), wrap=document.getElementById('spiralwrap');
+  const col=s=>dark?s.d:s.c;
+  const STEP=0.018;                                     // ~56 samples a turn
+  let frame='', rope='', beads='', lab='';
+
+  // ---- the frame: one faint guide ellipse per era, and the five phases of the loop ----
+  for(let u=0;u<=5;u++){
+    let d='';
+    for(let k=0;k<=64;k++){ const uu=u+k/64, [x,y]=spPt(uu,0);
+      d+=(k?'L':'M')+x.toFixed(1)+' '+y.toFixed(1); }
+    frame+=`<path class="sp-guide${u===5?' ghost':''}" d="${d}"/>`;
+  }
+  // the five phases label the turn nobody has taken yet, up top and clear of the rope —
+  // they are the same five places on every turn, so naming them once is enough
+  PHASES.forEach((p,j)=>{
+    const u=5+j/5, [x,y]=spPt(u,0), [x2,y2]=spPt(u,74);
+    const c=Math.cos(spTh(u)), anch=c>0.2?'start':c<-0.2?'end':'middle';
+    frame+=`<line class="sp-spoke" x1="${x.toFixed(1)}" y1="${y.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
+    lab+=`<text class="sp-phase" x="${x2.toFixed(1)}" y="${y2.toFixed(1)}" text-anchor="${anch}">${p.t}</text>
+          <text class="sp-phasesub" x="${x2.toFixed(1)}" y="${(y2+13).toFixed(1)}" text-anchor="${anch}">${p.s}</text>`;
+  });
+
+  const halo='paint-order:stroke;stroke:var(--panel);stroke-width:3.5px;stroke-linejoin:round';
+  // era labels sit off the left flank of each turn, clear of the rope's full width
+  TURNS.forEach((T,u)=>{
+    const [x,y]=spPt(u+0.5,52);
+    lab+=`<text class="sp-eralab" x="${x.toFixed(1)}" y="${(y-2).toFixed(1)}" text-anchor="end" style="${halo}">${T.era}</text>
+          <text class="sp-erasub" x="${x.toFixed(1)}" y="${(y+12).toFixed(1)}" text-anchor="end" style="${halo}">${T.scale} · leans on ${T.lean}</text>`;
+  });
+  const [gx,gy]=spPt(5.5,52);
+  lab+=`<text class="sp-erasub" x="${gx.toFixed(1)}" y="${gy.toFixed(1)}" text-anchor="end" style="${halo}">the turn nobody has taken yet</text>`;
+  lab+=`<text class="sp-core" x="${SPC.cx.toFixed(1)}" y="${(SPC.ybot+52).toFixed(1)}" text-anchor="middle" style="${halo}">10,000 bce · the band · you could always just leave</text>`;
+
+  // ---- the eight strands ----
+  // each is drawn as a chain of short ribbon quads: width tracks the cost of leaving, and
+  // opacity tracks depth, so the coil reads as something you can see the far side of.
+  STRANDS.forEach((s,i)=>{
+    const M=MODES[s.mode], off=spOff(i);
+    let segs='';
+    for(let u=0;u<6-STEP/2;u+=STEP){
+      const u2=Math.min(u+STEP,6), fut=u>=5;
+      const w1=spW(u)/2, w2=spW(u2)/2;
+      const [ax,ay]=spPt(u,off-w1), [bx2,by2]=spPt(u,off+w1);
+      const [cx2,cy2]=spPt(u2,off+w2), [dx,dy]=spPt(u2,off-w2);
+      const op=(0.30+0.70*spDepth(u+STEP/2))*(fut?0.28:1);
+      segs+=`<path d="M${ax.toFixed(1)} ${ay.toFixed(1)}L${bx2.toFixed(1)} ${by2.toFixed(1)}L${cx2.toFixed(1)} ${cy2.toFixed(1)}L${dx.toFixed(1)} ${dy.toFixed(1)}Z" opacity="${op.toFixed(2)}"/>`;
+    }
+    // a bead where each era's loop begins, sized by how many mechanisms that era holds
+    let bd='';
+    TURNS.forEach((T,u)=>{
+      const n=M.eras[u].mechs.length, [x,y]=spPt(u,off);
+      bd+=`<circle class="node" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(2.8+Math.sqrt(n)*0.62).toFixed(1)}"
+        data-s="${i}" data-e="${u}" tabindex="0" role="button" aria-label="${s.label} in the ${T.era} era: ${s.w[u]}"/>`;
+    });
+    const [fx,fy]=spPt(6,off);
+    bd+=`<circle class="ghostnode" cx="${fx.toFixed(1)}" cy="${fy.toFixed(1)}" r="4.5"/>`;
+    rope+=`<g class="strand" data-s="${i}" data-mode="${s.mode}" style="--sc:${col(s)}"><g class="rope">${segs}</g>${bd}</g>`;
+  });
+
+  wrap.innerHTML=`<svg id="spiralsvg" viewBox="0 0 1040 1200" role="img"
+      aria-label="eight lineages of history coiling upward through five eras: adopt, formalize, scale, capture, fork — once per era, each turn wider than the last">
+      <g class="reveal">${frame}${rope}${lab}</g>
+    </svg>
+    <div class="splegend">${STRANDS.map((s,i)=>`
+      <button class="spchip" data-s="${i}" style="--sc:${col(s)}"><span class="swatch"></span>${s.em} ${s.label} <span class="word">· ${s.w[4]}</span></button>`).join('')}</div>
+    <p class="spnote">one turn per era. every turn runs the same loop — adopt, formalize, scale, capture, fork — and every turn
+      ends wider and higher than it began, because the range keeps growing. the rope fattens where leaving is expensive and thins
+      where you are free, so it breathes once an era. the coil sags just before each fork: that is the downward part, and it is
+      built into the upward one. hover a strand to follow it; click a bead to open that era.</p>`;
+
+  const svg=document.getElementById('spiralsvg');
+  const focus=i=>{ svg.classList.add('focusing');
+    svg.querySelectorAll('.strand').forEach(el=>el.classList.toggle('foc',+el.dataset.s===i)); };
+  const blur=()=>{ svg.classList.remove('focusing');
+    svg.querySelectorAll('.strand.foc').forEach(el=>el.classList.remove('foc')); };
+
+  svg.querySelectorAll('.strand').forEach(el=>{
+    el.addEventListener('pointerenter',()=>focus(+el.dataset.s));
+    el.addEventListener('pointerleave',blur);
+  });
+  wrap.querySelectorAll('.spchip').forEach(b=>{
+    const i=+b.dataset.s;
+    b.addEventListener('pointerenter',()=>focus(i));
+    b.addEventListener('pointerleave',blur);
+    b.addEventListener('focus',()=>focus(i));
+    b.addEventListener('blur',blur);
+    b.addEventListener('click',e=>{ e.stopPropagation(); zing(hashName(STRANDS[i].mode),3); setMode(STRANDS[i].mode,true); });
+  });
+  svg.querySelectorAll('.node').forEach(el=>{
+    const s=STRANDS[+el.dataset.s], e=+el.dataset.e;
+    const show=(px,py)=>{ fillSpiralTip(s,e); tt.classList.add('on'); placeTip(px,py); };
+    el.addEventListener('pointerenter',ev=>show(ev.clientX,ev.clientY));
+    el.addEventListener('pointermove',ev=>placeTip(ev.clientX,ev.clientY));
+    el.addEventListener('pointerleave',()=>tt.classList.remove('on'));
+    el.addEventListener('focus',()=>{ const r=el.getBoundingClientRect(); show(r.right,r.top); });
+    el.addEventListener('blur',()=>tt.classList.remove('on'));
+    el.addEventListener('click',ev=>{
+      ev.stopPropagation(); burst(el,bumpCombo()); zing(hashName(s.mode+e),3);
+      setMode(s.mode,true);
+      setTimeout(()=>document.querySelectorAll('.era')[e]?.scrollIntoView({behavior:'smooth',block:'center'}),260);
+    });
+  });
+}
+
+function fillSpiralTip(s,e){
+  const T=TURNS[e], M=MODES[s.mode], era=M.eras[e], dark=spDark();
+  const names=era.mechs.slice(0,3).map(mm=>mm.name).join(' · ');
+  tt.style.setProperty('--acc',dark?s.d:s.c);
+  tt.innerHTML=`<div class="nm">${s.em} ${s.label}</div>
+    <div class="er">turn ${e+1} of 5 · ${era.name} · ${era.years}</div>
+    <p class="what">this era, the answer leaned on <b>${s.w[e]}</b>. the loop ran once more — adopt, formalize, scale, capture, fork —
+      and came out the far side holding about <b>${T.scale}</b> together.</p>
+    <div class="gf">
+      <div class="g"><b>range won</b> · ${T.scale}</div>
+      <div class="b"><b>what it cost</b> · ${['nothing yet — you could still walk','the shunning','the state','you cannot leave','fork it and go'][e]}</div>
+    </div>
+    <p class="note">${era.mechs.length} mechanisms in this era — ${names} …</p>
+    <div class="hintline">click to open the ${s.label} tab at this era</div>`;
+}
+
 // ---------- mode registry ----------
 const MODES={
+ spiral:{spiral:true,stats:{},eras:[],fav:'🧬',
+  h1:'THE&nbsp;SPIRAL',
+  title:'the spiral · eight lineages through history · living poster',
+  lede:"eight questions civilization keeps re-asking, and the one shape they all trace. every era runs the same loop — something new gets adopted while it's still cheap to leave, then formalized, then it scales and wins, then the gatekeepers arrive and exit gets expensive, then someone forks. and then it starts again, one turn higher, holding ten times as many people. five turns so far. we are most of the way around the fifth.",
+  foot:'<a class="buy" href="#alloc">✨ who gets what</a><a class="buy powergrad" href="#power">👑 who decides</a><a class="buy livegrad" href="#live">🌾 how you eat</a>'},
  alloc:{stats:ALLOC_STATS,eras:ALLOC_ERAS,fav:'✨',
   h1:'RESOURCE&nbsp;ALLOCATION',
   title:'resource allocation through history · living poster',
@@ -1998,7 +2252,7 @@ const MODES={
    {t:'market',s:'price finds the target',c:'#b535bb',eras:[2,3]},
    {t:'mechanism',s:'math moves the money',c:'#e8446f',eras:[4]}
   ],
-  arcnote:'the allocator migrates: kin → custom → price → code',
+  arcnote:'the allocator migrates: kin → custom → price → code. the old ones only move inward: price between firms, command inside them, the gift inside the home, where nobody dares to quote a number.',
   foot:'<a class="buy powergrad" href="#power">who decides → power structures</a><a class="buy livegrad" href="#live">how you eat → livelihood</a>'},
  power:{stats:POWER_STATS,eras:POWER_ERAS,fav:'👑',
   h1:'POWER&nbsp;STRUCTURES',
@@ -2011,7 +2265,7 @@ const MODES={
    {t:'cognition',s:'law, belief, attention',c:'#b53a35',eras:[2,3]},
    {t:'cryptography',s:'stake, code, exit',c:'#8f2f7a',eras:[4]}
   ],
-  arcnote:'the substrate of enforcement migrates: bodies → minds → math',
+  arcnote:'the substrate of enforcement migrates: bodies → minds → math. none of them retires force; they only economize on it. under the law there is still a bailiff, and under the key a wrench.',
   foot:'<a class="buy" href="#alloc">who gets what → resource allocation</a><a class="buy livegrad" href="#live">how you eat → livelihood</a>'},
  live:{stats:LIVE_STATS,eras:LIVE_ERAS,fav:'🌾',
   h1:'LIVELIHOOD',
@@ -2025,7 +2279,7 @@ const MODES={
    {t:'attention',s:'the self as product',c:'#2b6cb0',eras:[3]},
    {t:'ownership',s:'assets do the work',c:'#6247d6',eras:[4]}
   ],
-  arcnote:'what you sell migrates: body → time → self → assets',
+  arcnote:'what you sell migrates: body → time → self → assets. but all four markets are open right now, and which one you sell in was mostly settled at birth.',
   foot:'<a class="buy" href="#alloc">who gets what → resource allocation</a><a class="buy powergrad" href="#power">who decides → power structures</a><a class="buy truthgrad" href="#truth">what is true → the five questions</a>'},
  truth:{stats:TRUTH_STATS,eras:TRUTH_ERAS,fav:'📖',
   h1:'TRUTH',
@@ -2040,7 +2294,7 @@ const MODES={
    {t:'ranking',s:'the algorithm sorts it',c:'#6b46d6',eras:[3]},
    {t:'proof',s:'stake and cryptography',c:'#8f3fd1',eras:[4]}
   ],
-  arcnote:'the arbiter migrates: elders → canon → evidence → algorithms → proofs',
+  arcnote:'the arbiter migrates: elders → canon → evidence → algorithms → proofs. but nobody verifies more than a sliver; the rest is hearsay you happen to trust. the elder never left, he just got a podcast.',
   foot:'<a class="buy identitygrad" href="#identity">next: who you are →</a>'},
  identity:{stats:IDENTITY_STATS,eras:IDENTITY_ERAS,fav:'🪪',
   h1:'IDENTITY',
@@ -2055,7 +2309,7 @@ const MODES={
    {t:'profiled',s:'the platform owns you',c:'#0f85a8',eras:[3]},
    {t:'sovereign',s:'the key is you',c:'#2b6cd0',eras:[4]}
   ],
-  arcnote:'who vouches migrates: kin → church → state → platform → keypair',
+  arcnote:'who vouches migrates: kin → church → state → platform → keypair. each layer is bootstrapped off the one beneath: a key proves control, never personhood. upstream of every credential is still a face that somebody recognized.',
   foot:'<a class="buy trustgrad" href="#trust">next: who you trust →</a>'},
  trust:{stats:TRUST_STATS,eras:TRUST_ERAS,fav:'🤝',
   h1:'TRUST',
@@ -2070,7 +2324,7 @@ const MODES={
    {t:'brand',s:'ratings and platforms',c:'#c94077',eras:[3]},
    {t:'protocol',s:'trustless by design',c:'#a83a9e',eras:[4]}
   ],
-  arcnote:'the guarantor migrates: kin → god → state → platform → code',
+  arcnote:'the guarantor migrates: kin → god → state → platform → code. trustless relocates trust, it never removes it: you still trust the compiler, the oracle, and the four people holding keys.',
   foot:'<a class="buy recordgrad" href="#record">next: who keeps the record →</a>'},
  record:{stats:RECORD_STATS,eras:RECORD_ERAS,fav:'💾',
   h1:'THE&nbsp;RECORD',
@@ -2085,7 +2339,7 @@ const MODES={
    {t:'the database',s:'the server owns it',c:'#2f7f96',eras:[3]},
    {t:'the ledger',s:'everyone holds a copy',c:'#3a5fd0',eras:[4]}
   ],
-  arcnote:'the keeper migrates: elders → scribes → clerks → platforms → everyone',
+  arcnote:'the keeper migrates: elders → scribes → clerks → platforms → everyone. every keeper secures the copy, never the claim: someone still has to say what happened, and the ledger makes that word permanent.',
   foot:'<a class="buy conflictgrad" href="#conflict">next: how you fight →</a>'},
  conflict:{stats:CONFLICT_STATS,eras:CONFLICT_ERAS,fav:'⚖️',
   h1:'CONFLICT',
@@ -2116,7 +2370,7 @@ const SLUGS={alloc:new Set(ALLOC_ERAS.flatMap(e=>e.mechs.map(mm=>slugOf(mm.key))
 let MODE=null, STATS={}, ERAS=[], WHAT={}, BYSLUG={}, pinned=null;
 const erasEl=document.getElementById('eras');
 const h1El=document.getElementById('h1'), ledeEl=document.getElementById('lede');
-const footL=document.getElementById('footleft'), favEl=document.getElementById('fav');
+const footL=document.getElementById('footleft'), favEl=document.getElementById('fav'), playBtn=document.getElementById('play');
 const PASTELS=['#c8f2b0','#bcd9ff','#ffdfa8','#fdf49b','#ffc7e6','#aeeee2','#dcc9ff','#ffd4bd'];
 const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
@@ -2357,6 +2611,7 @@ function stopPlay(){
 }
 document.getElementById('play').addEventListener('click',e=>{
   e.stopPropagation();
+  if(MODE==='spiral'){ renderSpiral(); zing(hashName('spiral'),4); return; }   // re-runs the reveal animation
   if(playing){ stopPlay(); return; }
   playing=true; e.target.textContent='■ stop';
   const eras=[...document.querySelectorAll('.era')];
@@ -2382,6 +2637,7 @@ window.addEventListener('wheel',()=>{ if(playing) stopPlay(); },{passive:true});
 // ---------- the pulsing lifeline ----------
 const poster=document.getElementById('poster'), lsvg=document.getElementById('lifeline');
 function buildLifeline(){
+  if(MODE==='spiral'){ lsvg.innerHTML=''; return; }
   const w=poster.clientWidth, h=poster.scrollHeight;
   lsvg.setAttribute('viewBox',`0 0 ${w} ${h}`);
   const eras=[...document.querySelectorAll('.era')];
@@ -2427,11 +2683,11 @@ document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
 // on http(s) the power + live tabs live at crawlable /power and /live urls (power.html / live.html carry their unfurl metadata);
 // on file:// there are no clean urls, so everything is hash-only
 const HTTPISH=/^https?:$/.test(location.protocol);
-const BASEPATH=HTTPISH?location.pathname.replace(/(index|power|live|next|truth|identity|trust|record|conflict)(\.html)?$/,''):'';
-const STUBBED={power:1,live:1,truth:1,identity:1,trust:1,record:1,conflict:1};
+const BASEPATH=HTTPISH?location.pathname.replace(/(index|alloc|power|live|next|truth|identity|trust|record|conflict)(\.html)?$/,''):'';
+// the spiral is the front door: it lives at the bare root. every lineage has a crawlable stub.
 function setURL(mode,slug){
-  if(HTTPISH) history.replaceState(null,'',(STUBBED[mode]?BASEPATH+mode:BASEPATH+location.search)+(slug?'#'+slug:''));
-  else history.replaceState(null,'',mode==='alloc'?location.pathname+location.search+(slug?'#'+slug:''):'#'+mode+(slug?'/'+slug:''));
+  if(HTTPISH) history.replaceState(null,'',(mode==='spiral'?BASEPATH+location.search:BASEPATH+mode)+(slug?'#'+slug:''));
+  else history.replaceState(null,'',mode==='spiral'?location.pathname+location.search:'#'+mode+(slug?'/'+slug:''));
 }
 function setMode(mode,user){
   if(MODE===mode) return;
@@ -2446,8 +2702,15 @@ function setMode(mode,user){
   ledeEl.textContent=M.lede;
   footL.innerHTML=M.foot;
   document.querySelectorAll('.tab').forEach(b=>{ const on=b.dataset.mode===mode; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); });
-  renderEras(M); bindPoster(); renderArc(M);
-  litCheck(); buildLifeline();
+  playBtn.textContent=M.spiral?'▶ draw the spiral':'▶ play 12,000 years';
+  if(M.spiral){
+    WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML=''; lsvg.innerHTML='';
+    renderSpiral();
+  } else {
+    document.getElementById('spiralwrap').innerHTML='';
+    renderEras(M); bindPoster(); renderArc(M);
+    litCheck(); buildLifeline();
+  }
   if(user){
     setURL(mode,null);
     window.scrollTo({top:0,behavior:'smooth'});
@@ -2458,8 +2721,8 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setM
 // hash grammar: #power · #power/<slug> · #alloc/<slug> · bare #<slug> (legacy links from both old sites)
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
-  if(!h) return {mode:'alloc',slug:null};
-  const mm=h.match(/^(alloc|power|live|truth|identity|trust|record|conflict)(?:\/(.*))?$/);
+  if(!h) return {mode:'spiral',slug:null};
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
