@@ -206,7 +206,7 @@
 
   /* ---------- tabs + power-mode palette ---------- */
   /* off the print, below the mount — apparatus, not artwork */
-  .navlab{text-align:center;margin:26px auto 12px;font-size:11px;font-weight:800;letter-spacing:.14em;
+  .navlab{text-align:center;margin:26px auto 12px;font-size:22px;font-weight:800;letter-spacing:.14em;
     text-transform:uppercase;color:var(--muted)}
   /* the two-click rule is not discoverable on its own — say it, right where the clicking happens */
   .navlab em{display:block;margin-top:5px;font-style:normal;font-weight:500;font-size:11px;
@@ -539,9 +539,24 @@
   .rk-gq{font:850 22px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
   .rk-ghost{stroke:var(--muted);stroke-width:2.5;stroke-dasharray:4 7;opacity:.6}
   .rk-hit{fill:transparent}
+  /* the two bets, past the smoke: extropy climbs, syntropy loops. dashed = hypothesis. */
+  .rk-fut{cursor:pointer;outline:none}
+  .rk-futpath{fill:none;stroke-width:3;stroke-dasharray:6 8;opacity:.75}
+  .rk-futpath.kard{stroke:#e8446f}
+  .rk-futpath.gaia{stroke:#12a37b}
+  .rk-futend.kard{fill:#e8446f}
+  .rk-futring.gaia{fill:none;stroke:#12a37b;stroke-width:3;stroke-dasharray:6 8;opacity:.85}
+  .rk-futname{font:800 15px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .rk-futname.kard{fill:#e8446f}
+  .rk-futname.gaia{fill:#12a37b}
+  .rk-futsub{font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
+    paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .rk-fut:hover .rk-futpath,.rk-fut:focus-visible .rk-futpath,
+  .rk-fut:hover .rk-futring,.rk-fut:focus-visible .rk-futring{opacity:1;stroke-width:4}
   .rkintro{max-width:820px;margin:4px auto 2px;text-align:center;font-size:13.5px;color:var(--muted);line-height:1.65}
   .rkintro b{color:var(--ink);font-size:15px;display:block;margin-bottom:4px}
-  .rkintro em{display:block;font-style:normal;font-size:12px;margin-top:5px;opacity:.85}
+  .rkintro.rkoutro{margin:18px auto 6px}
   .rkgates{max-width:980px;margin:6px auto 0}
   .rgate{border:1.5px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--panel) 74%,transparent);padding:16px 18px 13px;margin:12px 0}
   .rgate header{display:flex;gap:12px;align-items:flex-start;margin-bottom:11px}
@@ -1003,26 +1018,41 @@
   /* ---- where we're headed: the fog at the top, and the two ways out of it ---- */
   .sp-mist{fill:var(--ink);opacity:.05;filter:blur(26px);pointer-events:none}
   .sp-fork{fill:none;stroke-linecap:round;pointer-events:none}
+  /* THE BUTTONS PICK A FUTURE. the two forks are drawn with equal confidence — until somebody
+     touches the coil. build (--g) swells the one that keeps going and starves the one that comes
+     apart; status quo (--d) does exactly the reverse. both ride the same cooling variables the
+     rope already breathes with, so the preference fades in ~7s and the honest fifty-fifty comes
+     back on its own. nobody gets to keep the future they clicked. */
   /* the one that comes apart: thinning, greying, dashed out of existence */
-  .sp-fork.dead{stroke:var(--muted);stroke-width:3.4;opacity:.55;stroke-dasharray:7 10}
+  .sp-fork.dead{stroke:var(--muted);stroke-width:calc(3.4px + var(--d)*3px);stroke-dasharray:7 10;
+    opacity:calc(.55 - var(--g)*.45 + var(--d)*.35)}
   /* the one that keeps going: full colour, still breathing */
-  .sp-fork.live{stroke:#b535bb;stroke-width:5;opacity:.72;
+  .sp-fork.live{stroke:#b535bb;stroke-width:calc(5px + var(--g)*4.5px - var(--d)*2.6px);
+    opacity:calc(.72 + var(--g)*.28 - var(--d)*.58);
     filter:drop-shadow(0 0 7px rgba(181,53,187,.55));animation:forkpulse 3.4s ease-in-out infinite}
-  @keyframes forkpulse{50%{opacity:1;stroke-width:6.4}}
+  /* the pulse breathes the GLOW only — opacity and width now belong to the buttons, and a
+     keyframe that set them absolutely would snap the fade back to full once a cycle */
+  @keyframes forkpulse{50%{filter:drop-shadow(0 0 15px rgba(181,53,187,.95))}}
   .sp-forkend{pointer-events:none}
-  .sp-forkend.dead{fill:none;stroke:var(--muted);stroke-width:2;opacity:.4;stroke-dasharray:2 3}
-  .sp-forkend.live{fill:#b535bb;opacity:.9;filter:drop-shadow(0 0 9px rgba(181,53,187,.8));
+  .sp-forkend.dead{fill:none;stroke:var(--muted);stroke-width:2;stroke-dasharray:2 3;
+    opacity:calc(.4 - var(--g)*.3 + var(--d)*.45);r:calc(4.5px + var(--d)*4.5px - var(--g)*1.5px)}
+  .sp-forkend.live{fill:#b535bb;filter:drop-shadow(0 0 9px rgba(181,53,187,.8));
+    opacity:calc(.9 + var(--g)*.1 - var(--d)*.6);r:calc(8px + var(--g)*7px - var(--d)*3px);
     animation:forkpulse 3.4s ease-in-out infinite}
   @media (prefers-reduced-motion:reduce){ .sp-fork.live,.sp-forkend.live{animation:none} }
   .sp-phase.mistlab{opacity:.5;letter-spacing:.22em}
   /* same size as the era tags — these are the sixth era, the one nobody has named yet */
   .sp-forklab{font:600 37px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    paint-order:stroke;stroke:var(--panel);stroke-width:6px;stroke-linejoin:round}
+    paint-order:stroke;stroke:var(--panel);stroke-width:6px;stroke-linejoin:round;
+    transform-box:fill-box;transform-origin:0 50%}
   .sp-forkdot{stroke:var(--panel);stroke-width:2}
-  .sp-forkdot.live{fill:#b535bb}
-  .sp-forkdot.dead{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-dasharray:3 3}
-  .sp-forklab.dead{fill:var(--muted);opacity:.7}
-  .sp-forklab.live{fill:#b535bb}
+  .sp-forkdot.live{fill:#b535bb;opacity:calc(1 - var(--d)*.6)}
+  .sp-forkdot.dead{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-dasharray:3 3;
+    opacity:calc(1 - var(--g)*.6)}
+  .sp-forklab.dead{fill:var(--muted);opacity:calc(.7 - var(--g)*.5 + var(--d)*.3);
+    transform:scale(calc(1 + var(--d)*.22))}
+  .sp-forklab.live{fill:#b535bb;opacity:calc(1 - var(--d)*.62);
+    transform:scale(calc(1 + var(--g)*.22))}
   :root[data-theme="dark"] .sp-forklab.live,:root[data-theme="dark"] .sp-fork.live{stroke:#cc5cd0}
   :root[data-theme="dark"] .sp-forklab.live{fill:#cc5cd0;stroke:var(--panel)}
   :root[data-mode="spiral"] #spiralwrap{display:block}
@@ -1260,9 +1290,9 @@
       <span class="grplab">the whole picture<em>step back</em></span>
       <div class="grpchips">
         <button class="tab t-spiral" role="tab" data-mode="spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></button>
+        <button class="tab t-syntropy" role="tab" data-mode="syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></button>
         <button class="tab t-turn" role="tab" data-mode="turn"><span class="em">⚙️</span>one turn<span class="tq">the loop, up close</span></button>
         <button class="tab t-ratchet" role="tab" data-mode="ratchet"><span class="em">🪜</span>the ratchet<span class="tq">what survives collapse</span></button>
-        <button class="tab t-syntropy" role="tab" data-mode="syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></button>
       </div>
     </div>
     <div class="tabgrp">
@@ -5077,16 +5107,39 @@ function renderRatchet(){
     <text class="rk-gq" x="${xf+26}" y="${top.y-RH/2+2}">?</text>
     <circle class="rk-hit" cx="${xf}" cy="${top.y-RH/2}" r="34"/>
   </g>`;
-  sv+=`<text class="rk-cap" x="${X0}" y="${YB+42}">each tread is an era · each riser is a fire · the stairs only go up because the risers only burn down</text>`;
+  // ---- two ways out of the smoke ----
+  // above the burning riser, the staircase forks into hypothesis: the EXTROPIC future keeps
+  // climbing the energy ladder — the kardashev stairs, steeper every step, toward one hot
+  // centre — and the SYNTROPIC future stops climbing and turns home, closing its flows into a
+  // loop: gaia. both are dashed, because nobody on this poster knows which. either way the
+  // ratchet's cargo rides along — the fire decides what you carry, not where you go. clicking
+  // either one opens the page where that fork is the whole argument.
+  const fy=top.y-RH;
+  let kd='M'+xf+' '+fy+'L1140 '+fy+'L1140 16L1182 16L1182 -48L1218 -48L1218 -88';
+  sv+=`<g class="rk-fut rk-kard" tabindex="0" role="button"
+        aria-label="one hypothetical future: the kardashev climb — the extropic bet. opens the syntropy page.">
+    <path class="rk-futpath kard" d="${kd}"/>
+    <circle class="rk-futend kard" cx="1218" cy="-88" r="5"/>
+    <text class="rk-futname kard" x="1146" y="108">the kardashev climb ↗</text>
+    <text class="rk-futsub" x="1146" y="126">the extropic future —</text>
+    <text class="rk-futsub" x="1146" y="142">every last photon,</text>
+    <text class="rk-futsub" x="1146" y="158">one hot centre</text>
+    <rect class="rk-hit" x="1130" y="-96" width="186" height="250" rx="14"/>
+  </g>`;
+  sv+=`<g class="rk-fut rk-gaia" tabindex="0" role="button"
+        aria-label="the other hypothetical future: becoming gaia — the syntropic bet. opens the syntropy page.">
+    <path class="rk-futpath gaia" d="M${xf} ${fy}C ${xf-30} ${fy-70}, 990 -14, 922 -22"/>
+    <circle class="rk-futring gaia" cx="884" cy="-24" r="26"/>
+    <text class="rk-futname gaia" x="842" y="-52" text-anchor="end">becoming gaia ⟲</text>
+    <text class="rk-futsub" x="842" y="-32" text-anchor="end">the syntropic future —</text>
+    <text class="rk-futsub" x="842" y="-16" text-anchor="end">the flows close into loops</text>
+    <rect class="rk-hit" x="620" y="-90" width="300" height="110" rx="14"/>
+  </g>`;
+  sv+=`<text class="rk-cap" x="${X0}" y="${YB+42}">each tread is an era · each riser is a fire · the stairs only go up because the risers only burn down · past the smoke, two bets</text>`;
 
   wrap.innerHTML=`
-   <div class="rkintro"><b>collapse is a filter, not an eraser.</b>
-     between any two eras of this poster there is a fire — and the fire has a bias. thrones burn:
-     one building, one lineage, one point of failure. tools survive: anything already in too many
-     hands to burn. what survives, compounds. that one-way valve is the ratchet.
-     <em>click a 🔥 to see what walked out of it.</em></div>
-   <svg id="rksvg" viewBox="0 0 1130 545" role="img"
-     aria-label="a staircase of five eras climbing left to right, a fire on every riser between them: the stairs only go up because each fire burns the thrones and spares the tools.">
+   <svg id="rksvg" viewBox="0 -100 1320 650" role="img"
+     aria-label="a staircase of five eras climbing left to right, a fire on every riser between them: the stairs only go up because each fire burns the thrones and spares the tools. above the last, burning riser the staircase forks into two dashed futures — the kardashev climb (extropy) and a closed loop, gaia (syntropy).">
      <path class="rk-stair" d="${stair}"/>${sv}
    </svg>
    <div class="rkgates">
@@ -5119,7 +5172,11 @@ function renderRatchet(){
         the loop each fire ends → <a href="#turn">⚙️ one turn</a> ·
         why flow beats hoard → <a href="#syntropy">🌀 syntropy</a></p>
     </section>
-   </div>`;
+   </div>
+   <div class="rkintro rkoutro"><b>collapse is a filter, not an eraser.</b>
+     between any two eras of this poster there is a fire — and the fire has a bias. thrones burn:
+     one building, one lineage, one point of failure. tools survive: anything already in too many
+     hands to burn. what survives, compounds. that one-way valve is the ratchet.</div>`;
 
   // a riser's fire takes you to its card; a kept-tool takes you to the tab holding its receipts
   wrap.querySelectorAll('.rk-riser').forEach(g=>{
@@ -5130,6 +5187,12 @@ function renderRatchet(){
   wrap.querySelectorAll('.rchip').forEach(b=>b.addEventListener('click',()=>{
     setMode(b.dataset.m,true); scrollTo({top:0,behavior:'smooth'});
   }));
+  // both bets cash out on the same page: syntropy is where the two shapes argue it out
+  wrap.querySelectorAll('.rk-fut').forEach(g=>{
+    const go=()=>{ setMode('syntropy',true); scrollTo({top:0,behavior:'smooth'}); };
+    g.addEventListener('click',go);
+    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
+  });
 }
 
 // ---------- ⚙️ one turn: the loop, face-on ----------
