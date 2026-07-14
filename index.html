@@ -525,22 +525,6 @@
   .synprog i.on[data-c="ex"]{background:#e8446f}
   .synprog i.on[data-c="sy"]{background:#12a37a}
   .synprog i.on[data-c="en"]{background:var(--muted)}
-  #syntri{width:100%;height:auto;touch-action:none;cursor:crosshair;outline:none}
-  #syntri:focus-visible .tri-face{stroke:var(--ink);stroke-width:2}
-  .tri-face{fill:color-mix(in srgb,var(--ink) 4%,transparent);stroke:var(--line);stroke-width:1.5;
-    stroke-linejoin:round}
-  .tri-guide{stroke:var(--line);stroke-width:1;opacity:.5;stroke-dasharray:2 5}
-  .tri-corner.sy{fill:#12a37a} .tri-corner.ex{fill:#e8446f} .tri-corner.en{fill:var(--muted)}
-  .tri-lab{font:850 11px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.08em;text-transform:uppercase}
-  .tri-lab.sy{fill:#12a37a} .tri-lab.ex{fill:#e8446f} .tri-lab.en{fill:var(--muted)}
-  .tri-sub{font:600 9px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted);opacity:.7;
-    letter-spacing:.06em}
-  .tri-handle{fill:var(--panel);stroke:var(--ink);stroke-width:2.5;cursor:grab;
-    box-shadow:0 4px 14px rgba(10,6,20,.35);filter:drop-shadow(0 3px 8px rgba(10,6,20,.35))}
-  #syntri:active .tri-handle{cursor:grabbing}
-  :root[data-theme="dark"] .tri-lab.sy,:root[data-theme="dark"] .tri-corner.sy{fill:#34d0a6}
-  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .tri-lab.sy,
-    :root:not([data-theme="light"]) .tri-corner.sy{fill:#34d0a6} }
   /* one row per scale */
   .syn-hit{fill:transparent}
   .syn-row{cursor:pointer;outline:none}
@@ -647,6 +631,60 @@
   /* brief while you scroll, full when you point. the min-height is sized to the FULL card so the
      sticky column never changes height as you sweep the corners — a panel that resizes under the
      cursor is a panel you cannot aim at. */
+  /* THE TRIANGLE — panel 04. it sets every ring at once, which is the argument as stated. it writes
+     the same per-ring state the grid does, so the two panels are two views of one machine. */
+  #syntri{width:100%;height:auto;touch-action:none;cursor:crosshair;outline:none}
+  #syntri:focus-visible .tri-face{stroke:var(--ink);stroke-width:2}
+  #syntri:active .tri-handle{cursor:grabbing}
+  .tri-face{fill:color-mix(in srgb,var(--ink) 4%,transparent);stroke:var(--line);stroke-width:1.5;
+    stroke-linejoin:round}
+  .tri-guide{stroke:var(--line);stroke-width:1;opacity:.5;stroke-dasharray:2 5}
+  .tri-corner.sy{fill:#12a37a} .tri-corner.ex{fill:#e8446f} .tri-corner.en{fill:var(--muted)}
+  .tri-lab{font:850 11px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.08em;text-transform:uppercase}
+  .tri-lab.sy{fill:#12a37a} .tri-lab.ex{fill:#e8446f} .tri-lab.en{fill:var(--muted)}
+  .tri-handle{fill:var(--panel);stroke:var(--ink);stroke-width:2.5;cursor:grab;
+    filter:drop-shadow(0 3px 8px rgba(10,6,20,.35))}
+  .tri-hit{fill:transparent;cursor:pointer;outline:none}
+  .tri-hit:focus-visible{fill:color-mix(in srgb,var(--ink) 8%,transparent)}
+  :root[data-theme="dark"] .tri-lab.sy,:root[data-theme="dark"] .tri-corner.sy{fill:#34d0a6}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .tri-lab.sy,
+    :root:not([data-theme="light"]) .tri-corner.sy{fill:#34d0a6} }
+
+  /* THE STACK GRID — panel 05: one row per scale, three buttons each. it is a readout as much as a control —
+     it always shows what the vessel is actually doing, including when the scroll is driving it. */
+  .stackgrid{display:flex;flex-direction:column;gap:3px;font-family:ui-monospace,"SF Mono",Menlo,monospace}
+  .sghead,.sgrow{display:grid;grid-template-columns:1fr 30px 30px 30px;gap:4px;align-items:center}
+  .sghead b{font:800 8px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.04em;
+    text-transform:uppercase;text-align:center;opacity:.65;writing-mode:vertical-rl;transform:rotate(180deg);
+    justify-self:center;height:44px}
+  .sghead b.en{color:var(--muted)} .sghead b.ex{color:#e8446f} .sghead b.sy{color:#12a37a}
+  .sgrow{cursor:default}
+  .sgrow:hover{background:color-mix(in srgb,var(--ink) 5%,transparent);border-radius:6px}
+  .sgname{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sgrow:hover .sgname{color:var(--ink)}
+  .sgb{height:20px;border-radius:5px;border:1.5px solid var(--line);background:none;cursor:pointer;
+    padding:0;transition:background .18s,border-color .18s}
+  .sgb:hover{border-color:var(--ink)}
+  .sgb:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+  .sgb.en.on{background:var(--muted);border-color:var(--muted)}
+  .sgb.ex.on{background:#e8446f;border-color:#e8446f}
+  .sgb.sy.on{background:#12a37a;border-color:#12a37a}
+  .sgall{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:2px;
+    font:600 10px/1 ui-monospace,"SF Mono",Menlo,monospace;color:var(--muted)}
+  .sgall .sgb.all{height:auto;width:auto;padding:4px 7px;font:inherit;color:var(--muted)}
+  .sgall .sgb.all.ex{color:#e8446f} .sgall .sgb.all.sy{color:#12a37a}
+  .ringcard{flex:1 1 300px;max-width:340px;min-height:112px;padding:14px 16px;border-radius:14px;
+    border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 55%,transparent);
+    display:flex;flex-direction:column;justify-content:center;transition:border-color .25s}
+  .ringcard>b{display:block;font-size:13px;font-weight:850;letter-spacing:.06em;text-transform:uppercase}
+  .ringcard .sub{display:block;font-size:10.5px;color:var(--muted);margin:2px 0 8px}
+  .ringcard p{margin:0;font-size:12.5px;line-height:1.6;color:var(--muted)}
+  .ringcard.en{border-color:color-mix(in srgb,var(--muted) 55%,var(--line))}
+  .ringcard.ex{border-color:color-mix(in srgb,#e8446f 55%,var(--line))}
+  .ringcard.sy{border-color:color-mix(in srgb,#12a37a 55%,var(--line))}
+  .ringcard.en>b{color:var(--muted)} .ringcard.ex>b{color:#e8446f} .ringcard.sy>b{color:#12a37a}
+  :root[data-theme="dark"] .ringcard.sy>b{color:#34d0a6}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .ringcard.sy>b{color:#34d0a6} }
   .tricard.brief .tri-rest{display:block;margin-top:8px}
   .tricard{flex:1 1 300px;max-width:340px;min-height:172px;padding:14px 16px;border-radius:14px;
     border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 55%,transparent);
@@ -664,9 +702,6 @@
   :root[data-theme="dark"] .tricard.sy>b{color:#34d0a6}
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .tricard.sy>b{color:#34d0a6} }
   /* a corner is a big invisible target with a small visible dot. it grows when you point at it. */
-  .tri-hit{fill:transparent;cursor:pointer;outline:none}
-  .tri-hit:hover~.tri-handle{opacity:.55}
-  .tri-hit:focus-visible{fill:color-mix(in srgb,var(--ink) 8%,transparent)}
   #synwrap{--t:.5;--e:0}
   /* the holarchy */
   .holowrap{display:flex;gap:30px;align-items:center;max-width:960px;margin:34px auto 0;flex-wrap:wrap}
@@ -3845,14 +3880,16 @@ function renderSyntropy(){
       <text class="syn-lmade" x="18" y="40">${i?`${L.of}, nested`:'the first ring'}</text>
     </g>`;
   });
-  // the core: what everything falls into if you let it — and it is worth NAMING what that is. an
-  // unlabelled hot dot is a metaphor; "the compute" is a claim. the energy is not reaching the cells
-  // at all. it is going to the chips.
-  const core=`<ellipse class="ves-core"/><circle class="ves-sing"/>
-    <g class="ves-corelab">
+  // A CORE PER RING. extropy is a choice made AT a scale — the parts of that ring feeding one centre
+  // of that ring — so the core belongs to the ring, not to the vessel. eight of them stacked is
+  // exactly the white-hot spindle the vessel used to have, so "everything extropic" looks as it
+  // always did; but now "only the city is extropic" can be said at all, which it could not before.
+  const core = LEVELS.map((_,i)=>`<ellipse class="ves-core" data-l="${i}"/><circle class="ves-sing" data-l="${i}"/>`).join('')
+    + `<g class="ves-corelab">
       <text class="ves-clab" x="0" y="-50" text-anchor="middle">▚ the compute</text>
       <text class="ves-csub" x="0" y="-28" text-anchor="middle">chips · data centres — the energy stops here</text>
     </g>`;
+
   // ENERGY, THROUGH the vessel. drawn as streaks, not dots, because a dot is a thing and a streak is
   // a thing MOVING. entropy's motes fall; these climb.
   //
@@ -3977,6 +4014,10 @@ function renderSyntropy(){
       ${stepsHTML}
       <!-- the control only exists once you have been shown all three. handing someone a mixer before
            they know what the ingredients are is how you get a toy instead of an argument. -->
+      <!-- TWO ways to drive it, in the order they make sense in. first the whole stack at once —
+           which is the argument as stated, and the thing you have just scrolled through. then the
+           modular one, which is the argument's own consequence: the choice is made on every ring, so
+           you had better be able to set every ring. -->
       <section class="trypanel" id="trypanel">
         <span class="stepn">04</span>
         <h3>now you drive it</h3>
@@ -3985,7 +4026,7 @@ function renderSyntropy(){
              entropy is the single point underneath both that you fall into. it is the drain, not a
              third peer sitting alongside them. -->
         <svg id="syntri" viewBox="0 0 320 214" role="application" tabindex="0"
-             aria-label="A triangle. Extropy at the top left, syntropy at the top right, entropy at the bottom point. Drag the handle, or use the arrow keys, to mix the three.">
+             aria-label="A triangle. Extropy at the top left, syntropy at the top right, entropy at the bottom point. Drag the handle, or use the arrow keys, to mix the three. This sets every ring at once.">
           <polygon class="tri-face" points="40,46 280,46 160,186"/>
           <line class="tri-guide" x1="40"  y1="46"  x2="220" y2="116"/>
           <line class="tri-guide" x1="280" y1="46"  x2="100" y2="116"/>
@@ -3997,17 +4038,29 @@ function renderSyntropy(){
           <text class="tri-lab sy" x="286" y="34"  text-anchor="end">syntropy</text>
           <text class="tri-lab en" x="160" y="206" text-anchor="middle">entropy</text>
           <circle class="tri-handle" cx="160" cy="186" r="9"/>
-          <!-- hover a corner to read it, click a corner to go there. the hit targets are far bigger
-               than the dots and sit ON TOP of the drag surface, so reaching for a corner never turns
-               into an accidental drag. -->
-          <circle class="tri-hit" data-c="ex" cx="40"  cy="46"  r="30" tabindex="0" role="button" aria-label="Extropy: read what it is, or click to go there"/>
-          <circle class="tri-hit" data-c="sy" cx="280" cy="46"  r="30" tabindex="0" role="button" aria-label="Syntropy: read what it is, or click to go there"/>
-          <circle class="tri-hit" data-c="en" cx="160" cy="186" r="30" tabindex="0" role="button" aria-label="Entropy: read what it is, or click to go there"/>
+          <circle class="tri-hit" data-c="ex" cx="40"  cy="46"  r="30" tabindex="0" role="button" aria-label="Extropy: read what it is, or click to set the whole stack to it"/>
+          <circle class="tri-hit" data-c="sy" cx="280" cy="46"  r="30" tabindex="0" role="button" aria-label="Syntropy: read what it is, or click to set the whole stack to it"/>
+          <circle class="tri-hit" data-c="en" cx="160" cy="186" r="30" tabindex="0" role="button" aria-label="Entropy: read what it is, or click to set the whole stack to it"/>
         </svg>
-        <div class="synprog" id="synprog" aria-hidden="true">
-          <i data-c="en"></i><i data-c="ex"></i><i data-c="sy"></i>
-        </div>
         <div class="tricard" id="tricard" aria-live="polite"></div>
+      </section>
+
+      <section class="trypanel" id="trypanel2">
+        <span class="stepn">05</span>
+        <h3>…or drive it ring by ring</h3>
+        <p class="lede">the choice is made on every ring. set them separately — and watch them fight.</p>
+        <!-- one row per scale, three buttons each. no mixing here: a ring is in one regime or another,
+             and the point is the STACK you build out of them. the vessel is the readout. -->
+        <div class="stackgrid" id="stackgrid" role="group" aria-label="Set the regime of each scale">
+          <div class="sghead"><span></span><b class="en">entropy</b><b class="ex">extropy</b><b class="sy">syntropy</b></div>
+          ${LEVELS.map((L,i)=>`
+          <div class="sgrow" data-l="${i}">
+            <span class="sgname">${L.n}</span>
+            ${['en','ex','sy'].map(r=>`<button class="sgb ${r}" data-l="${i}" data-r="${r}"
+                 aria-label="${L.n}: ${r==='en'?'entropy':r==='ex'?'extropy':'syntropy'}"></button>`).join('')}
+          </div>`).join('')}
+        </div>
+        <div class="ringcard" id="ringcard" aria-live="polite"></div>
       </section>
     </div>
     <div class="synsticky">
@@ -4088,8 +4141,6 @@ function renderSyntropy(){
     </div>`;
 
   const svg=document.getElementById('synsvg');
-  const tri=document.getElementById('syntri');
-  const handle=tri.querySelector('.tri-handle');
   const motes=svg.querySelector('.syn-motes');
   const rowEls=[...svg.querySelectorAll('.syn-row')];
 
@@ -4119,44 +4170,34 @@ function renderSyntropy(){
   const lerp=(a,b,t)=>a+(b-a)*t;
   const ease=t=>t*t*(3-2*t);
 
-  // ---- THE THREE-WAY ----
-  // the state is a barycentric mix of the three corners, not a single dial. from it fall the two
-  // numbers the picture actually runs on:
-  //   t  = the SHAPE of whatever order is left — 0 all-extropy, 1 all-syntropy. it is the ratio
-  //        between those two, so it stays meaningful even as entropy eats the total.
-  //   e  = how much of the system has stopped being fed at all.
-  // and that is the honest geometry: you do not slide FROM order TO entropy, you rot while you choose.
-  const W3={ex:[40,46], sy:[280,46], en:[160,186]};    // the triangle's corners, in its own viewBox
-  const CORNER={sy:{sy:1,ex:0,en:0}, ex:{sy:0,ex:1,en:0}, en:{sy:0,ex:0,en:1}};
-  // you arrive at the floor. entropy is the default state of the section because it is the default
-  // state of everything — the other two corners are what you have to spend energy to reach.
-  let Tw={sy:0,ex:0,en:1};                             // target mix
-  let Sw={sy:0,ex:0,en:1};                             // the eased mix actually drawn
-  let Tg=0, Sg=0;                                      // does the core capture the harvest? target, eased
-  const shapeOf=w=>{ const o=w.sy+w.ex; return o>1e-4 ? w.sy/o : 0.5; };
-
-  // a point in the triangle → the mix it represents. negatives mean "outside", so clamp and
-  // renormalise: dragging past an edge slides you along it rather than escaping the triangle.
-  const mixAt=(x,y)=>{
-    const [ax,ay]=W3.sy,[bx,by]=W3.ex,[cx,cy]=W3.en;
-    const D=(by-cy)*(ax-cx)+(cx-bx)*(ay-cy);
-    let a=((by-cy)*(x-cx)+(cx-bx)*(y-cy))/D;
-    let b=((cy-ay)*(x-cx)+(ax-cx)*(y-cy))/D;
-    let c=1-a-b;
-    a=Math.max(0,a); b=Math.max(0,b); c=Math.max(0,c);
-    const s=a+b+c || 1;
-    return {sy:a/s, ex:b/s, en:c/s};
+  // ---- THE STACK'S STATE ----
+  // three canonical regimes, and every ring holds one. (extropy comes in two flavours on the way
+  // down the page — 02 is the same pinched shape with no core, 02.5 adds the core — so the regime is
+  // a triple, not a label.)   S = circulate · E = starved outright · G = this ring's core captures.
+  const REGIME={
+    en:{S:0.5, E:1, G:0},      // slack, dark, nothing moving
+    ex:{S:0,   E:0, G:1},      // pinched, straight through, and its core takes the harvest
+    sy:{S:1,   E:0, G:0}       // open, orbiting, and it passes what it does not use
   };
-  const posOf=w=>[
-    w.sy*W3.sy[0]+w.ex*W3.ex[0]+w.en*W3.en[0],
-    w.sy*W3.sy[1]+w.ex*W3.ex[1]+w.en*W3.en[1]
-  ];
+  const NL=LEVELS.length;
+  const TS=new Array(NL).fill(0.5), TE=new Array(NL).fill(1), TG=new Array(NL).fill(0);   // target
+  const SS=TS.slice(), SE=TE.slice(), SG=TG.slice();                                       // eased
+  let RING=new Array(NL).fill('en');       // which regime each ring is set to, for the ui to read back
+  const setRing=(i,r,g)=>{
+    RING[i]=r;
+    TS[i]=REGIME[r].S; TE[i]=REGIME[r].E;
+    TG[i]=(g===undefined?REGIME[r].G:g);   // the scroll's step 02 is extropy WITHOUT the core
+  };
+  const setAll=(r,g)=>{ for(let i=0;i<NL;i++) setRing(i,r,g); };
 
   const holoSvg=document.getElementById('holosvg');
   const holoRings=[...holoSvg.querySelectorAll('.holo-ring')];
   const holoCore=holoSvg.querySelector('.holo-core');
   const vesEl=svg.querySelector('.ves');
-  const vesCore=vesEl.querySelector('.ves-core'), vesSing=vesEl.querySelector('.ves-sing');
+  const coreEls=LEVELS.map((_,i)=>({
+    core: vesEl.querySelector(`.ves-core[data-l="${i}"]`),
+    sing: vesEl.querySelector(`.ves-sing[data-l="${i}"]`)
+  }));
   const coreLab=vesEl.querySelector('.ves-corelab');
   const lvEls=[...vesEl.querySelectorAll('.ves-lv')];
   const glowEls=[...vesEl.querySelectorAll('.ves-glow')];
@@ -4199,65 +4240,66 @@ function renderSyntropy(){
   // but the straight-through shape and the core eating the harvest are two different claims, and the
   // section now makes them one at a time — "things get better" is the same needle-shaped vessel with
   // the energy still coming out the far end. so the core is its own dial.
-  function paint(t,e,g){
-    const alive=1-e;                                  // the multiplier on everything that has to eat
-    const squeeze=lerp(0.30,1,t);
-    const sp=spin;                                    // the solid turns, so you can see it is a solid
+  // ---- PER-RING STATE ----
+  // the section's own claim is that "the choice never gets made once and settled — it gets made on
+  // every ring, by whatever is standing on that ring. the shapes nest, and they fight." a single
+  // global dial could not say that: it could not express an extractive cell inside a healthy body.
+  // so there is no global dial any more. every ring carries its own three numbers:
+  //   S[i] = shape / circulation — 1 syntropy (open, orbiting), 0 extropy (pinched, straight through)
+  //   E[i] = has this ring stopped being fed at all
+  //   G[i] = does this ring's core capture the harvest passing through it
+  let FLOW_SHAPE=()=>0, FLOW_TRANS=()=>0;      // read by the tick; rebuilt every paint
+  function paint(S,E,G){
+    const sp=spin;
+    const N8=LEVELS.length, STAR=N8-1;
 
-    // ---- the side view: ONE vessel, threaded by meridians ----
-    // the core. at extropy it is a white-hot spindle running the height of the axis with a
-    // singularity at its heart; at syntropy it is gone, and the vessel is hollow and open.
-    vesCore.setAttribute('cx',0); vesCore.setAttribute('cy',CORE_Y.toFixed(1));
-    vesCore.setAttribute('rx',lerp(0,20,g).toFixed(1));
-    vesCore.setAttribute('ry',lerp(0,(YBOT-YTOP)*0.44,g).toFixed(1));
-    // …and the core is a thing that EATS, so it dies with the energy. this is the whole difference
-    // between the extropy corner and the entropy corner, which otherwise leave the same wreckage:
-    // extropy is a dead vessel with one white-hot dot still burning in it. entropy is a dead vessel.
-    vesCore.setAttribute('opacity',(0.55*g*alive).toFixed(2));
-    vesSing.setAttribute('cx',0); vesSing.setAttribute('cy',CORE_Y.toFixed(1));
-    vesSing.setAttribute('r',lerp(0,17,g).toFixed(1));
-    // and say what the core IS — but ONLY once it is actually eating. through "things get better" the
-    // vessel is the same needle and the energy still comes out the far end, so there is no compute
-    // block to name: it arrives with the capture, in 02.5, which is the moment the story turns.
-    coreLab.setAttribute('transform',`translate(0 ${CORE_Y.toFixed(1)})`);
-    coreLab.setAttribute('opacity',(g*alive).toFixed(2));
-    vesSing.setAttribute('opacity',(g*alive).toFixed(2));
+    // ENERGY ENTERS AT THE STAR. so if the star itself has fallen to entropy, nothing enters at all,
+    // and that is why "everything entropy" is a dark vessel rather than one with sparks still in it.
+    const input=1-E[STAR];
 
-    // ---- ENTROPY, PART ONE: WHAT STARVES ----
-    // a ring is only held together by work done ON it. so liveness is not decoration — it is whether
-    // energy is actually circulating at that scale. two things kill it:
-    //   · nothing circulates at all (t→0): the energy is a straight line, so no ring is doing work
-    //     on itself, whatever is racing past it.
-    //   · it sits ABOVE the core: at extropy the core eats the flow at u≈0.44, so every scale beyond
-    //     it never even sees a watt. it starves twice over.
-    // a starving ring loses its dots and its skin frays to a dotted line. that is entropy — not a
-    // floor under the picture, but the fate of any structure that stops being fed. and it is why
-    // extropy does not BEAT entropy: it just concentrates the order into one dot and lets the other
-    // seven rings rot. the core is the last thing lit in a dead vessel.
-    // …and now there is a third way to starve, which is the bluntest one: nobody is feeding the
-    // vessel at all. `alive` gates the whole thing, so the entropy corner rots every ring at once.
-    const cap=g, ucore=(YBOT-CORE_Y)/(YBOT-YTOP);
-    // how much work is actually being done ON this ring — 0 means nothing is, and means it.
-    const fedOf=li=>{
-      const starved=cap*Math.max(0,Math.min(1,(ULV[li]-ucore+0.10)/0.20));
-      return t*(1-starved)*alive;
-    };
-    // how much of it you can still SEE. floored, because a dead ring is still drawn — faintly, as a
-    // ghost of what was there. the floor is a drawing decision and must not leak into the warmth:
-    // a corpse is visible, it is not slightly alive.
-    const liveOf=li=>lerp(0.12,1,fedOf(li));
+    // …and then it climbs, and every capturing ring it passes TAKES ITS CUT. reach[i] is what is left
+    // by the time the energy arrives at ring i. this is the nesting conflict as arithmetic: put one
+    // core low in the stack and everything above it starves, however syntropic those upper rings are.
+    // a syntropic cell inside an extractive state is a cell with nothing coming to it.
+    const reach=new Array(N8);
+    let carry=input;
+    for(let i=STAR;i>=0;i--){ reach[i]=carry; carry*=(1-G[i]); }   // star first: the flow's own order
+    const escapes=carry;                                            // whatever makes it out of the top
 
-    // the warmth. it wants BOTH conditions: fed (live) and circulating (t). a ring that is merely
-    // being passed through is not alive, so extropy never glows — its core is hot, but nothing in it
-    // is warm. each level breathes on its own phase, so the stack shimmers instead of blinking.
-    // fedOf already carries both conditions — circulating (t) and not starved (alive) — so at the
-    // extropy corner AND the entropy corner this is flatly zero. only a living ring is warm.
+    // work is done on a ring only if it is BOTH reached and circulating. a ring merely passed through
+    // is not fed; and a ring nobody reaches is not fed however good its intentions.
+    const fed=LEVELS.map((_,i)=>reach[i]*S[i]*(1-E[i]));
+    const liveOf=i=>lerp(0.12,1,fed[i]);   // a dead ring is still drawn — faintly, as a ghost of itself
     const secs=spin/0.16;
-    const warmth=li=>fedOf(li)*(0.84+0.16*Math.sin(secs*0.85+li*0.8));
+    const warmth=i=>fed[i]*(0.84+0.16*Math.sin(secs*0.85+i*0.8));
+    const squeezeOf=i=>lerp(0.30,1,S[i]);
+    const circ=LEVELS.map((_,i)=>S[i]*(1-E[i]));
+
+    // ---- the cores, one per capturing ring, at that ring's own centre ----
+    coreEls.forEach((c,i)=>{
+      const gi=G[i], R=RAD[i]*squeezeOf(i);
+      c.core.setAttribute('cx',0); c.core.setAttribute('cy',rowY[i].toFixed(1));
+      c.core.setAttribute('rx',lerp(0,20,gi).toFixed(1));
+      c.core.setAttribute('ry',lerp(0,rowH[i]*0.62,gi).toFixed(1));
+      c.core.setAttribute('opacity',(0.55*gi).toFixed(2));
+      c.sing.setAttribute('cx',0); c.sing.setAttribute('cy',rowY[i].toFixed(1));
+      c.sing.setAttribute('r',lerp(0,17,gi).toFixed(1));
+      c.sing.setAttribute('opacity',gi.toFixed(2));
+    });
+    // the compute block names ONE of them — the capturing ring nearest where the single old core sat,
+    // so an all-extropic stack still reads exactly as it did. naming all eight would be a wall of type.
+    let lab=-1, best=1e9, maxG=0;
+    LEVELS.forEach((_,i)=>{
+      maxG=Math.max(maxG,G[i]);
+      if(G[i]>0.5){ const d=Math.abs(rowY[i]-CORE_Y); if(d<best){ best=d; lab=i; } }
+    });
+    const labY=lab>=0?rowY[lab]:CORE_Y;
+    coreLab.setAttribute('transform',`translate(0 ${labY.toFixed(1)})`);
+    coreLab.setAttribute('opacity',(lab>=0?G[lab]:0).toFixed(2));
 
     lvEls.forEach((g,li)=>{
       const N=+g.dataset.n;
-      const R=RAD[li]*squeeze, ry=R*SQY, cy=rowY[li];
+      const R=RAD[li]*squeezeOf(li), ry=R*SQY, cy=rowY[li];   // each ring is squeezed by ITS OWN choice
       const live=liveOf(li), warm=warmth(li);
       // the pool behind the ring…
       const gl=glowEls[li];
@@ -4275,7 +4317,7 @@ function renderSyntropy(){
       const ring=g.querySelector('.ves-ring');
       ring.setAttribute('cx',0); ring.setAttribute('cy',cy.toFixed(1));
       ring.setAttribute('rx',R.toFixed(1)); ring.setAttribute('ry',ry.toFixed(1));
-      const nodeR=lerp(2.0,4.6,t)*(0.85+li*0.045)*lerp(0.42,1,live);   // starved dots wither
+      const nodeR=lerp(2.0,4.6,S[li])*(0.85+li*0.045)*lerp(0.42,1,live);   // starved dots wither
       g.querySelectorAll('.syn-node').forEach((nd,k)=>{
         const a=k/N*6.283-Math.PI/2+sp;
         nd.setAttribute('cx',(Math.cos(a)*R).toFixed(1));
@@ -4289,7 +4331,7 @@ function renderSyntropy(){
       const dash=live>0.97 ? 'none' : `${(1.2+8*live).toFixed(1)} ${(7*(1-live)+0.6).toFixed(1)}`;
       g.querySelectorAll('.ves-seg').forEach((el,m)=>{
         const a=MERA[m]+sp, up=li-1;
-        const R0v=RAD[up]*squeeze, y0=rowY[up];
+        const R0v=RAD[up]*squeezeOf(up), y0=rowY[up];   // the skin spans two rings that may disagree
         const x0=Math.cos(a)*R0v, yy0=y0+Math.sin(a)*R0v*SQY;
         const x1=Math.cos(a)*R,   yy1=cy+Math.sin(a)*ry;
         const mx=(x0+x1)/2*1.06, my=(yy0+yy1)/2;    // a whisper of belly, so it reads as a surface
@@ -4303,17 +4345,40 @@ function renderSyntropy(){
     // entropy's motes fall; these climb. at syntropy they ride the skin, do work on each ring, and
     // leave the far end as waste heat. at extropy they are dragged into the core and eaten, and
     // nothing ever leaves. same starlight in; the design decides what becomes of it.
-    const capture=g;
-    const uc=(YBOT-CORE_Y)/(YBOT-YTOP);             // where the core sits, in flow coordinates
-    const at=u=>{                                    // a point on the energy's path at progress u
-      const y=lerp(YBOT,YTOP,u), skin=radAt(y,squeeze);
-      return [y, skin*lerp(0.10,1,t)];
+    // ---- THE ENERGY ----
+    // the skin at any height, now that neighbouring rings can be squeezed differently.
+    const skinAt=u=>{
+      const r=ringAt(u), k=Math.floor(r), f=r-k, k2=Math.min(N8-1,k+1);
+      const i1=N8-1-k, i2=N8-1-k2;                       // ringAt counts from the star; levels from the cell
+      return lerp(RAD[i1]*squeezeOf(i1), RAD[i2]*squeezeOf(i2), f);
+    };
+    // is the energy circulating where it currently is? that is the ring it is standing on, not a
+    // property of the whole vessel — so a spark can orbit through the syntropic rings and then shoot
+    // dead straight through an extractive one on its way up.
+    const shapeAt=u=>{
+      const r=ringAt(u), k=Math.floor(r), f=r-k, k2=Math.min(N8-1,k+1);
+      return lerp(circ[N8-1-k], circ[N8-1-k2], f);
+    };
+    // and how much of it is left at that height — the cut, taken continuously as it passes each core.
+    const transAt=u=>{
+      let a=input;
+      for(let i=STAR;i>=0;i--){
+        const passed=Math.max(0,Math.min(1,(u-ULV[i])/0.06+0.5));
+        a*=(1-G[i]*passed);
+      }
+      return a;
+    };
+    FLOW_SHAPE=shapeAt; FLOW_TRANS=transAt;             // the tick moves the sparks; it needs both
+
+    const at=u=>{
+      const y=lerp(YBOT,YTOP,u);
+      return [y, skinAt(u)*lerp(0.10,1,shapeAt(u))];    // hugging the axis where it does not circulate
     };
     flow.forEach((f,i)=>{
       const el=sparkEls[i];
       const a=f.a+sp, a2=f.ta+sp;                    // it rides the solid, so it turns with it
       const [y,r]=at(f.u), [y2,r2]=at(f.tu);         // head, and the tail chasing it
-      const eaten=capture*Math.max(0,Math.min(1,(f.u-uc+0.10)/0.20));
+      const amp=transAt(f.u);                        // what is left of it here — 0 once a core has eaten it
       const dep=0.35+0.65*(0.5+0.5*Math.sin(a));
       const x1=Math.cos(a2)*r2, yy1=y2+Math.sin(a2)*r2*SQY;
       const x2=Math.cos(a)*r,   yy2=y +Math.sin(a) *r *SQY;
@@ -4323,31 +4388,30 @@ function renderSyntropy(){
       const am=(a+a2)/2, rm=(r+r2)/2, bow=Math.cos((a-a2)/2)||1;
       const mx=Math.cos(am)*rm/bow, my=(y+y2)/2+Math.sin(am)*rm/bow*SQY;
       el.setAttribute('d',`M${x1.toFixed(1)} ${yy1.toFixed(1)}Q${mx.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${yy2.toFixed(1)}`);
-      el.setAttribute('stroke-width',(1.6+1.8*t).toFixed(1));
-      // and at the entropy corner the streaks simply are not there. no energy, nothing to draw.
-      el.setAttribute('opacity',(0.9*(1-eaten)*dep*Math.min(1,f.u*8+0.2)*alive).toFixed(2));
+      el.setAttribute('stroke-width',(1.6+1.8*shapeAt(f.u)).toFixed(1));
+      el.setAttribute('opacity',(0.9*amp*dep*Math.min(1,f.u*8+0.2)).toFixed(2));
       // remember where it is, in frame coordinates, so the heat it sheds can be born ON it.
       // .ves is translated by DX, the motes are not — hence the offset.
-      sparkPos[i][0]=DX+x2; sparkPos[i][1]=yy2; sparkPos[i][2]=(1-eaten)*alive;
+      sparkPos[i][0]=DX+x2; sparkPos[i][1]=yy2; sparkPos[i][2]=amp*shapeAt(f.u);
     });
+
     // and say, in words, what just happened to it. all three of these are claims ABOUT the energy,
     // so at the entropy corner — where there is none — none of them are saying anything, and they go.
-    const R7=RAD[LEVELS.length-1]*squeeze;
     anno.setAttribute('transform',`translate(0 ${YTOP.toFixed(1)})`);
-    anno.setAttribute('opacity',alive.toFixed(2));
+    anno.setAttribute('opacity','1');
     src.setAttribute('transform',`translate(0 ${YBOT.toFixed(1)})`);   // the star end: where it comes in
-    src.setAttribute('opacity',alive.toFixed(2));
-    vesOut.setAttribute('opacity',((1-g)*alive).toFixed(2));   // it still comes out the far end…
-    vesIn.setAttribute('x',0); vesIn.setAttribute('y',(CORE_Y-YTOP+34).toFixed(1));
-    vesIn.setAttribute('opacity',(g*alive).toFixed(2));         // …unless the core took it
+    src.setAttribute('opacity',input.toFixed(2));               // the star stops shining if IT rots
+    vesOut.setAttribute('opacity',escapes.toFixed(2));           // exactly what makes it out the far end…
+    vesIn.setAttribute('x',0); vesIn.setAttribute('y',(labY-YTOP+34).toFixed(1));
+    vesIn.setAttribute('opacity',(input*(1-escapes)).toFixed(2)); // …and the rest, which a core took
 
     // ---- the top view: the same rings, seen from above ----
     // it is the same object, so it starves the same way: same liveOf, same withering dots.
     holoCore.setAttribute('cx',HC.x); holoCore.setAttribute('cy',HC.y);
-    holoCore.setAttribute('r',lerp(3,22,g).toFixed(1));
-    holoCore.setAttribute('opacity',(g*alive).toFixed(2));
+    holoCore.setAttribute('r',lerp(3,22,maxG).toFixed(1));
+    holoCore.setAttribute('opacity',maxG.toFixed(2));
     holoRings.forEach((g,i)=>{
-      const N=+g.dataset.n, R=RAD[i]*squeeze, live=liveOf(i), warm=warmth(i);
+      const N=+g.dataset.n, R=RAD[i]*squeezeOf(i), live=liveOf(i), warm=warmth(i);
       g.style.filter = warm>0.03
         ? `drop-shadow(0 0 ${(warm*8).toFixed(1)}px rgba(255,181,94,${(0.66*warm).toFixed(2)}))`
         : 'none';
@@ -4359,19 +4423,21 @@ function renderSyntropy(){
         const a=k/N*6.283-Math.PI/2;                 // the same angles as the row: the same dots
         d.setAttribute('cx',(HC.x+Math.cos(a)*R).toFixed(1));
         d.setAttribute('cy',(HC.y+Math.sin(a)*R).toFixed(1));
-        d.setAttribute('r',(lerp(1.6,3.8,t)*lerp(0.42,1,live)).toFixed(1));
+        d.setAttribute('r',(lerp(1.6,3.8,S[i])*lerp(0.42,1,live)).toFixed(1));
         d.setAttribute('opacity',lerp(0.25,1,live).toFixed(2));
       });
       const lab=g.querySelector('.holo-lab');
       lab.textContent=LEVELS[i].n;
       lab.setAttribute('x',HC.x.toFixed(1));
       lab.setAttribute('y',(HC.y-R-5).toFixed(1));
-      lab.setAttribute('opacity',((0.3+0.7*t)*lerp(0.35,1,alive)).toFixed(2));
+      lab.setAttribute('opacity',(0.3+0.7*Math.max(0.25,fed[i])).toFixed(2));
     });
 
+    // the colour of the energy is one colour, so with a mixed stack it takes the stack's average.
+    const mT=S.reduce((a,b)=>a+b,0)/N8, mE=E.reduce((a,b)=>a+b,0)/N8;
     for(const el of [holoSvg,svg,wrap]){
-      el.style.setProperty('--t',t.toFixed(3));
-      el.style.setProperty('--e',e.toFixed(3));    // the cards drain with the corner too
+      el.style.setProperty('--t',mT.toFixed(3));
+      el.style.setProperty('--e',mE.toFixed(3));
     }
   }
 
@@ -4379,18 +4445,13 @@ function renderSyntropy(){
   const step=now=>{
     const dt=Math.min((now-last)/1000,0.05); last=now;
     const k=Math.min(1,dt*6);                        // the whole page eases toward the choice
-    Sw.sy+=(Tw.sy-Sw.sy)*k; Sw.ex+=(Tw.ex-Sw.ex)*k; Sw.en+=(Tw.en-Sw.en)*k;
-    // dragging the triangle is a shortcut through the whole story, so there the core simply follows
-    // extropy: the further you pull toward that corner, the more of the harvest it takes.
-    if(manual) Tg=Tw.ex;
-    Sg+=(Tg-Sg)*k;
-    const tw=ease(shapeOf(Sw)), ew=Sw.en, gw=Sg;
-    paint(tw,ew,gw);
+    for(let i=0;i<NL;i++){ SS[i]+=(TS[i]-SS[i])*k; SE[i]+=(TE[i]-SE[i])*k; SG[i]+=(TG[i]-SG[i])*k; }
+    paint(SS,SE,SG);
     triHandle();
     // heat, shed by the energy as it works. the rate is the work rate: a vessel that circulates pays
     // continuously, a vessel that just funnels pays nothing here and everything in rot instead —
     // and a vessel nobody feeds pays nothing anywhere, because nothing is happening in it.
-    shed+=dt*95*tw*(1-ew);
+    shed+=dt*95*(sparkPos.reduce((a,q)=>a+q[2],0)/FLOW);   // the work rate, summed over the sparks
     while(shed>=1){
       shed-=1;
       const s=sparkPos[(Math.random()*FLOW)|0];
@@ -4422,13 +4483,18 @@ function renderSyntropy(){
     // and the third corner is not a third shape. it is the flow GUTTERING OUT: entropy slows the
     // energy toward a standstill and paint() fades it to nothing, because there is no path at all
     // when there is nothing moving along it.
-    const ORB=2.6, DWELL=0.78*tw, run=1-ew;
+    // a spark now behaves according to the ring it is STANDING ON, not according to the vessel as a
+    // whole: it can orbit its way up through the syntropic scales and then shoot dead straight
+    // through an extractive one. and `run` is what is left of it there — a spark a core has already
+    // eaten stops dead rather than carrying on as an invisible ghost.
+    const ORB=2.6;
     flow.forEach(f=>{
+      const sh=FLOW_SHAPE(f.u), run=FLOW_TRANS(f.u);
       // cos(2π·ring) is +1 exactly ON a ring and -1 exactly between two: so this crawls on the rings
-      // and hurries through the gaps. at extropy DWELL is 0 and the climb is flat and quick.
-      const climb=1-DWELL*Math.cos(6.283*ringAt(f.u));
-      f.u+=f.v*dt*climb*lerp(1.55,0.7,tw)*run;
-      f.a+=f.w*dt*(0.12+ORB*tw)*run;               // it goes round its ring — but only if it is alive
+      // and hurries through the gaps. where nothing circulates the climb is flat and quick.
+      const climb=1-0.78*sh*Math.cos(6.283*ringAt(f.u));
+      f.u+=f.v*dt*climb*lerp(1.55,0.7,sh)*Math.max(run,0.06);
+      f.a+=f.w*dt*(0.12+ORB*sh)*run;
       if(f.u>1.06){ f.u=-0.04; f.a=Math.random()*6.283; f.tu=f.u; f.ta=f.a; }
       f.tu+=(f.u-f.tu)*0.30;                       // the trail, chasing it
       f.ta+=(f.a-f.ta)*0.30;
@@ -4439,58 +4505,145 @@ function renderSyntropy(){
   synRAF=requestAnimationFrame(step);
 
   const card=document.getElementById('tricard');
-  const prog=document.getElementById('synprog');
+  const ringCard=document.getElementById('ringcard');
+  const grid=document.getElementById('stackgrid');
+  const tri=document.getElementById('syntri');
+  const handle=tri.querySelector('.tri-handle');
   const steps=[...wrap.querySelectorAll('.synstep')];
-  let autoC=WAY[0], hoverC=null, manual=false;
+  let manual=false;
 
-  // the card is EMPTY until you point at a corner. it used to pre-announce whichever corner the
-  // scroll was parked on, which is noise: the vessel and the lit step already say that, and saying
-  // it a third time in the one place reserved for the answer just made the answer harder to find.
+  // ---- THE TRIANGLE: the whole stack at once ----
+  // it writes the SAME per-ring state the grid does; it just writes all eight at once. so the two
+  // panels are two views of one machine, not two machines — set a mix here and the grid below shows
+  // it, set a ring below and the handle here moves to the stack's average.
+  const W3={ex:[40,46], sy:[280,46], en:[160,186]};
+  const CORNER={sy:{sy:1,ex:0,en:0}, ex:{sy:0,ex:1,en:0}, en:{sy:0,ex:0,en:1}};
+  const setMix=w=>{
+    for(let i=0;i<NL;i++){
+      TS[i]=w.sy*1 + w.ex*0 + w.en*0.5;
+      TE[i]=w.en;
+      TG[i]=w.ex;                                   // pull toward extropy and its core takes more
+      RING[i]= w.en>=w.ex && w.en>=w.sy ? 'en' : w.ex>=w.sy ? 'ex' : 'sy';   // the grid shows the nearest
+    }
+  };
+  // …and back the other way: what mix is the stack currently in? (used to place the handle.)
+  const mixOf=()=>{
+    let sy=0,ex=0,en=0;
+    for(let i=0;i<NL;i++){
+      const e=SE[i], g=SG[i], y=SS[i]*(1-SE[i])*(1-SG[i]);
+      const t=e+g+y||1; sy+=y/t; ex+=g/t; en+=e/t;
+    }
+    return {sy:sy/NL, ex:ex/NL, en:en/NL};
+  };
+  const mixAt=(x,y)=>{
+    const [ax,ay]=W3.sy,[bx,by]=W3.ex,[cx,cy]=W3.en;
+    const D=(by-cy)*(ax-cx)+(cx-bx)*(ay-cy);
+    let a=((by-cy)*(x-cx)+(cx-bx)*(y-cy))/D;
+    let b=((cy-ay)*(x-cx)+(ax-cx)*(y-cy))/D;
+    let c=1-a-b;
+    a=Math.max(0,a); b=Math.max(0,b); c=Math.max(0,c);
+    const t=a+b+c || 1;
+    return {sy:a/t, ex:b/t, en:c/t};
+  };
+  const posOf=w=>[
+    w.sy*W3.sy[0]+w.ex*W3.ex[0]+w.en*W3.en[0],
+    w.sy*W3.sy[1]+w.ex*W3.ex[1]+w.en*W3.en[1]
+  ];
+
+  // ---- THE CARDS ----
+  // the triangle's card explains the REGIME. the grid's card explains the regime AT THAT SCALE — and
+  // that copy already existed, twenty-four sentences of it, buried in a hover tooltip. "extropy" is
+  // an abstraction; "the tumour — one cell that only ever takes" is not.
+  const REGNAME={en:'entropy', ex:'extropy', sy:'syntropy'};
+  let hoverC=null;
   const drawCard=()=>{
     if(!hoverC){ card.className='tricard'; card.innerHTML=`<span class="tri-rest">hover a corner to read it</span>`; return; }
     const k=CARD[hoverC];
     card.className='tricard full '+hoverC;
     card.innerHTML=`<b>${k.n}</b><span class="sub">${k.s}</span><p>${k.p}</p><em>${k.e}</em>`;
   };
-  const setProg=(c,el)=>{
-    prog.querySelectorAll('i').forEach(i=>i.classList.toggle('on',i.dataset.c===c));
-    // …by identity, not by corner: 02 and 02.5 are BOTH extropy, and matching on the corner would
-    // light the pair of them and leave the reader unsure which case is on screen.
-    steps.forEach(sec=>sec.classList.toggle('on', el ? sec===el : sec.dataset.c===c));
+  const showRing=i=>{
+    if(i==null){ ringCard.className='ringcard'; ringCard.innerHTML=`<span class="tri-rest">hover a ring to read what its regime means at that scale</span>`; return; }
+    const L=LEVELS[i], r=RING[i];
+    ringCard.className='ringcard full '+r;
+    ringCard.innerHTML=`<b>${L.n} · ${REGNAME[r]}</b><span class="sub">${L.s} — a whole made of ${L.of}, and a part of ${L.in}</span>`
+      +`<p>${r==='en'?L.ent:r==='ex'?L.ex:L.sy}</p>`;
   };
+  const syncGrid=()=>grid.querySelectorAll('.sgb').forEach(b=>
+    b.classList.toggle('on', RING[+b.dataset.l]===b.dataset.r));
+  const setProg=(c,el)=>steps.forEach(sec=>sec.classList.toggle('on', el?sec===el:sec.dataset.c===c));
+
+  // ---- triangle interaction ----
+  const toLocal=ev=>{
+    const pt=tri.createSVGPoint(); pt.x=ev.clientX; pt.y=ev.clientY;
+    const m=tri.getScreenCTM(); if(!m) return null;
+    const p=pt.matrixTransform(m.inverse());
+    return [p.x,p.y];
+  };
+  const grab=ev=>{
+    const p=toLocal(ev); if(!p) return;
+    manual=true; setMix(mixAt(p[0],p[1])); syncGrid();
+    ev.preventDefault();
+  };
+  let dragging=false;
+  tri.addEventListener('pointerdown',ev=>{ dragging=true; try{tri.setPointerCapture(ev.pointerId);}catch{} grab(ev); });
+  tri.addEventListener('pointermove',ev=>{ if(dragging) grab(ev); });
+  tri.addEventListener('pointerup',  ev=>{ dragging=false; try{tri.releasePointerCapture(ev.pointerId);}catch{} });
+  tri.addEventListener('pointercancel',()=>{ dragging=false; });
+  tri.addEventListener('keydown',ev=>{
+    const STEP={ArrowLeft:[-8,0],ArrowRight:[8,0],ArrowUp:[0,-8],ArrowDown:[0,8]}[ev.key];
+    if(!STEP) return;
+    manual=true;
+    const [x,y]=posOf(mixOf());
+    setMix(mixAt(x+STEP[0],y+STEP[1])); syncGrid();
+    ev.preventDefault();
+  });
   tri.querySelectorAll('.tri-hit').forEach(h=>{
     const c=h.dataset.c;
     h.addEventListener('pointerenter',()=>{ hoverC=c; drawCard(); });
     h.addEventListener('pointerleave',()=>{ hoverC=null; drawCard(); });
     h.addEventListener('focus',()=>{ hoverC=c; drawCard(); });
     h.addEventListener('blur',()=>{ hoverC=null; drawCard(); });
-    // clicking a corner goes there. stopPropagation so it never reads as a drag on the face.
-    const go=ev=>{ ev.stopPropagation(); manual=true; autoC=c; Tw={...CORNER[c]}; Tg=CORNER[c].ex; setProg(c,null); };
+    const go=ev=>{ ev.stopPropagation(); manual=true; setMix(CORNER[c]); syncGrid(); };
     h.addEventListener('pointerdown',go);
     h.addEventListener('keydown',ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); go(ev); } });
   });
+  // the handle follows the EASED stack, not the target, so it travels with the picture it is driving —
+  // and it moves when you use the GRID too, because the grid changes the same stack it is reporting.
+  const PCT=w=>Math.round(w*100);
+  function triHandle(){
+    const w=mixOf(), [x,y]=posOf(w);
+    handle.setAttribute('cx',x.toFixed(1)); handle.setAttribute('cy',y.toFixed(1));
+    tri.setAttribute('aria-label',
+      `The stack is ${PCT(w.sy)}% syntropy, ${PCT(w.ex)}% extropy, ${PCT(w.en)}% entropy. `+
+      `Drag inside the triangle or use the arrow keys to set every ring at once.`);
+  }
 
-  // ---- THE STEPS DRIVE THE VESSEL ----
-  // entropy → extropy → syntropy. you start on the floor — the default, the thing that happens when
-  // nobody does anything — and then watch each shape of order try to climb off it.
-  //
-  // the step nearest the reading line owns the picture, and it SNAPS the target rather than blending
-  // across the gaps. the target is a corner; the eased Sw does the travelling, so you get one slow
-  // honest transition per step instead of a permanent smear of two-thirds-of-one-thing.
+  // ---- grid interaction ----
+  grid.addEventListener('click',ev=>{
+    const b=ev.target.closest('.sgb'); if(!b) return;
+    manual=true; setRing(+b.dataset.l, b.dataset.r);
+    syncGrid(); showRing(+b.dataset.l);
+  });
+  grid.addEventListener('pointerover',ev=>{
+    const row=ev.target.closest('.sgrow'); if(row) showRing(+row.dataset.l);
+  });
+  grid.addEventListener('pointerleave',()=>showRing(null));
+
+  // ---- the steps still drive the whole stack ----
   const stage=wrap.querySelector('.synscroll');
   const tryPanel=document.getElementById('trypanel');
+  const tryPanel2=document.getElementById('trypanel2');
+  let autoC=null;
   function scrollDrive(){
     const r=stage.getBoundingClientRect();
-    // once the whole thing is off screen, hand control back to the scroll — otherwise one stray drag
-    // would leave the section frozen forever, and a reader who comes back to it gets a dead control.
     if(r.bottom<0||r.top>innerHeight){ manual=false; return; }
 
-    // the control appears only once you have scrolled PAST syntropy — measured off the last step
-    // clearing the reading line, not off the panel merely entering the window. those are different
-    // moments: the panel starts sliding in while syntropy is still the case being made, and showing
-    // the mixer then interrupts the last argument with an invitation to stop listening to it.
+    // the first control appears once you have scrolled PAST syntropy; the second once you have
+    // reached it. neither is tabbable before that (visibility, not just opacity — see the css).
     const last=steps[steps.length-1].getBoundingClientRect();
     tryPanel.classList.toggle('on', last.bottom < innerHeight*0.55);
+    tryPanel2.classList.toggle('on', tryPanel2.getBoundingClientRect().top < innerHeight*0.72);
 
     if(manual) return;
     const line=innerHeight*0.45;
@@ -4499,14 +4652,12 @@ function renderSyntropy(){
       const q=sec.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
       if(q.bottom>0 && q.top<innerHeight && d<wd){ wd=d; win=sec; }
     });
-    const c=win?win.dataset.c:autoC;
-    const gg=win?+win.dataset.g:Tg;
-    if(c!==autoC || Tw[c]!==1){ autoC=c; Tw={...CORNER[c]}; }
-    Tg=gg;
-    // …and light it EVERY pass, not only when it changes. entropy is the state we open on, so on the
-    // first pass nothing has changed yet — gate the highlight behind a change and the opening step
-    // never lights at all, which is precisely the one that has to.
-    setProg(autoC,win);
+    if(win && win!==autoC){
+      autoC=win;
+      setAll(win.dataset.c, +win.dataset.g);   // step 02 is extropy with the core switched OFF
+      syncGrid();
+    }
+    setProg(null,win||autoC);
   }
 
   if(synScroll) removeEventListener('scroll',synScroll);
@@ -4514,49 +4665,7 @@ function renderSyntropy(){
   synScroll=()=>{ if(sraf) return; sraf=requestAnimationFrame(()=>{ sraf=0; scrollDrive(); }); };
   addEventListener('scroll',synScroll,{passive:true});
   addEventListener('resize',synScroll,{passive:true});
-  scrollDrive(); drawCard();
-
-  // drag anywhere in the triangle. the pointer is in screen pixels and the triangle thinks in its own
-  // viewBox, so go through the SVG's own matrix rather than guessing at the scale — the thing is
-  // responsive, and getBoundingClientRect maths would silently drift the moment it reflows.
-  const toLocal=ev=>{
-    const pt=tri.createSVGPoint(); pt.x=ev.clientX; pt.y=ev.clientY;
-    const m=tri.getScreenCTM();
-    if(!m) return null;
-    const p=pt.matrixTransform(m.inverse());
-    return [p.x,p.y];
-  };
-  const grab=ev=>{
-    const p=toLocal(ev); if(!p) return;
-    manual=true;                                    // you touched it: the scroll stops steering
-    Tw=mixAt(p[0],p[1]);
-    ev.preventDefault();
-  };
-  let dragging=false;
-  tri.addEventListener('pointerdown',ev=>{ dragging=true; tri.setPointerCapture(ev.pointerId); grab(ev); });
-  tri.addEventListener('pointermove',ev=>{ if(dragging) grab(ev); });
-  tri.addEventListener('pointerup',  ev=>{ dragging=false; try{tri.releasePointerCapture(ev.pointerId);}catch{} });
-  tri.addEventListener('pointercancel',()=>{ dragging=false; });
-
-  // arrow keys nudge the handle around the triangle, so this is not a mouse-only control.
-  tri.addEventListener('keydown',ev=>{
-    const STEP={ArrowLeft:[-8,0],ArrowRight:[8,0],ArrowUp:[0,-8],ArrowDown:[0,8]}[ev.key];
-    if(!STEP) return;
-    manual=true;
-    const [x,y]=posOf(Tw);
-    Tw=mixAt(x+STEP[0],y+STEP[1]);
-    ev.preventDefault();
-  });
-
-  // the handle follows the EASED mix, not the target, so it travels with the picture it is driving
-  const PCT=w=>Math.round(w*100);
-  function triHandle(){
-    const [x,y]=posOf(Sw);
-    handle.setAttribute('cx',x.toFixed(1)); handle.setAttribute('cy',y.toFixed(1));
-    tri.setAttribute('aria-label',
-      `Mix: ${PCT(Sw.sy)}% syntropy, ${PCT(Sw.ex)}% extropy, ${PCT(Sw.en)}% entropy. `+
-      `Drag inside the triangle or use the arrow keys.`);
-  }
+  scrollDrive();
 
   // a level and its ring are the same object seen twice. touch either and BOTH light up, because
   // the whole point of the holarchy is that the row you are reading IS a ring in the nest.
@@ -4608,8 +4717,8 @@ function renderSyntropy(){
     rowEls.forEach(g=>synIO.observe(g));
   }
 
-  paint(shapeOf(Sw),Sw.en,Sg);   // first frame: on the floor, before anyone has scrolled or touched it
-  triHandle();
+  paint(SS,SE,SG);   // first frame: the whole stack on the floor, before anyone scrolls or clicks
+  triHandle(); syncGrid(); drawCard(); showRing(null);
 }
 
 // ---------- 🌀 syntropy & extropy: the same fork, at every scale ----------
