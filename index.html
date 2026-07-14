@@ -458,38 +458,101 @@
   :root[data-mode="syntropy"][data-theme="light"]{--pgrad:linear-gradient(175deg,#dfe6f8 0%,#e8dff2 52%,#f6e2e6 100%)}
   :root[data-mode="syntropy"] .poster .sub{background:linear-gradient(90deg,#e8446f,#b535bb,#6247d6,#2b7de0,#34d0a6);-webkit-background-clip:text;background-clip:text}
   .tab.on.t-syntropy{background:linear-gradient(90deg,#e8446f,#6247d6,#34d0a6);box-shadow:0 6px 18px rgba(98,71,214,.4)}
-  #synsvg{width:100%;height:auto;display:block;--t:.5}
-  /* the two ends of the argument, and the dial between them */
-  .synbar{display:flex;align-items:center;gap:16px;max-width:760px;margin:6px auto 0}
-  .synend{flex:0 0 auto;font:inherit;cursor:pointer;background:none;border:none;padding:6px 4px;text-align:center;
-    display:flex;flex-direction:column;gap:2px;-webkit-tap-highlight-color:transparent;transition:transform .2s}
-  .synend:hover{transform:translateY(-2px)}
-  .synend b{font-size:13.5px;font-weight:850;letter-spacing:.06em;text-transform:uppercase}
-  .synend em{font-style:normal;font-size:10.5px;color:var(--muted)}
-  .synend.ex b{color:#e8446f} .synend.sy b{color:#12a37a}
-  :root[data-theme="dark"] .synend.sy b{color:#34d0a6}
-  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .synend.sy b{color:#34d0a6} }
-  .synslider{flex:1 1 auto;-webkit-appearance:none;appearance:none;height:6px;border-radius:999px;outline:none;cursor:grab;
-    background:linear-gradient(90deg,#e8446f,#b535bb,#6247d6,#2b7de0,#12a37a)}
-  .synslider:active{cursor:grabbing}
-  .synslider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;cursor:grab;
-    background:var(--panel);border:2.5px solid var(--ink);box-shadow:0 4px 14px rgba(10,6,20,.35)}
-  .synslider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;cursor:grab;
-    background:var(--panel);border:2.5px solid var(--ink);box-shadow:0 4px 14px rgba(10,6,20,.35)}
+  #synsvg{width:100%;height:auto;display:block;--t:.5;--e:0}
+  /* THE CONTROL. it used to be a line with extropy at one end and syntropy at the other, which is
+     fine until you want entropy in it — because entropy is not a third stop on that line. the line
+     asks "what SHAPE is your order"; entropy asks "is there any". two questions, two dimensions, so:
+     a triangle. every real system sits somewhere INSIDE it — partly rotting, while it picks a shape. */
+  /* PINNED PICTURE, SCROLLING TEXT — the spiral's shape. the vessel is the constant you watch and
+     the steps are the variable you read, so the vessel must not move: it is capped to one screen and
+     stuck there while the steps walk past it, driving it corner to corner. before this, the thing you
+     were being told to look at slid off the top of the window while you read about it. */
+  .synscroll{display:flex;gap:30px;align-items:flex-start;max-width:1180px;margin:14px auto 0}
+  /* sticky is a positioned box, so the caption below can anchor to it absolutely */
+  .synsticky{position:sticky;top:12px;flex:1 1 auto;min-width:0;align-self:flex-start}
+  .synsticky #synsvg{width:100%;height:auto;max-height:96vh}
+  /* the caption floats in the vessel's own empty top-left corner (the first ring does not start
+     until y=176 in the viewBox), so it costs zero vertical room — otherwise it would eat straight
+     back into the 20% we just bought. */
+  .synlab{position:absolute;top:0;left:2px;z-index:2;pointer-events:none;
+    display:flex;flex-direction:column;gap:2px}
+  .synlab b{font:850 12px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink)}
+  .synlab span{font-size:11.5px;color:var(--muted);opacity:.85}
+
+  /* the reading column: three cases, then the control. */
+  .synsteps{flex:0 0 320px;order:2;padding-bottom:12vh}
+  /* the beats. each states its case as it takes the vessel over, so the argument arrives WITH the
+     picture that proves it — one at a time, instead of all three up front before you've seen any. */
+  .synstep{min-height:82vh;display:flex;flex-direction:column;justify-content:center;
+    opacity:.24;filter:blur(.6px);transform:translateY(10px);
+    transition:opacity .5s,filter .5s,transform .5s}
+  .synstep.on{opacity:1;filter:none;transform:none}
+  .synstep .stepn,.trypanel .stepn{font:800 10px/1 ui-monospace,"SF Mono",Menlo,monospace;
+    letter-spacing:.2em;color:var(--muted);opacity:.55}
+  .synstep h3,.trypanel h3{margin:7px 0 4px;font-size:26px;font-weight:850;line-height:1.1;color:var(--ink)}
+  .synstep[data-c="en"].on h3{color:var(--muted)}
+  .synstep[data-c="ex"].on h3{color:#e8446f}
+  .synstep[data-c="sy"].on h3{color:#12a37a}
+  .synstep p,.trypanel p{margin:0 0 8px;font-size:12.5px;line-height:1.6;color:var(--muted)}
+  .synstep p b{color:var(--ink);font-weight:750}
+  .synstep .lede,.trypanel .lede{font-size:11px;text-transform:uppercase;letter-spacing:.1em;
+    font-weight:800;opacity:.7;margin-bottom:9px}
+  .synstep em{font-style:italic;font-size:11.5px;color:var(--muted);opacity:.85}
+
+  /* THE CONTROL COMES LAST. you do not get the mixer until you have met all three ingredients —
+     hand it over any earlier and it is a toy, not an argument. it fades up as you reach it. */
+  .trypanel{min-height:70vh;display:flex;flex-direction:column;justify-content:center;gap:9px;
+    opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s;
+    pointer-events:none;visibility:hidden}
+  /* visibility, not just opacity: an invisible control that is still in the tab order is a trap. */
+  .trypanel.on{opacity:1;transform:none;pointer-events:auto;visibility:visible}
+  @media(max-width:900px){
+    .synscroll{flex-direction:column}
+    .synsticky{position:static;width:100%}
+    .synsticky #synsvg{max-height:none}
+    .synsteps{flex:1 1 auto;width:100%;order:0}
+    .synstep{min-height:auto;padding-bottom:22px}
+    .trypanel{min-height:auto;padding-bottom:22px}
+  }
+  /* which corner the scroll is sitting on */
+  .synprog{display:flex;gap:7px;justify-content:center}
+  .synprog i{width:22px;height:3px;border-radius:999px;background:var(--line);transition:background .3s}
+  .synprog i.on[data-c="ex"]{background:#e8446f}
+  .synprog i.on[data-c="sy"]{background:#12a37a}
+  .synprog i.on[data-c="en"]{background:var(--muted)}
+  #syntri{width:100%;height:auto;touch-action:none;cursor:crosshair;outline:none}
+  #syntri:focus-visible .tri-face{stroke:var(--ink);stroke-width:2}
+  .tri-face{fill:color-mix(in srgb,var(--ink) 4%,transparent);stroke:var(--line);stroke-width:1.5;
+    stroke-linejoin:round}
+  .tri-guide{stroke:var(--line);stroke-width:1;opacity:.5;stroke-dasharray:2 5}
+  .tri-corner.sy{fill:#12a37a} .tri-corner.ex{fill:#e8446f} .tri-corner.en{fill:var(--muted)}
+  .tri-lab{font:850 11px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.08em;text-transform:uppercase}
+  .tri-lab.sy{fill:#12a37a} .tri-lab.ex{fill:#e8446f} .tri-lab.en{fill:var(--muted)}
+  .tri-sub{font:600 9px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted);opacity:.7;
+    letter-spacing:.06em}
+  .tri-handle{fill:var(--panel);stroke:var(--ink);stroke-width:2.5;cursor:grab;
+    box-shadow:0 4px 14px rgba(10,6,20,.35);filter:drop-shadow(0 3px 8px rgba(10,6,20,.35))}
+  #syntri:active .tri-handle{cursor:grabbing}
+  :root[data-theme="dark"] .tri-lab.sy,:root[data-theme="dark"] .tri-corner.sy{fill:#34d0a6}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .tri-lab.sy,
+    :root:not([data-theme="light"]) .tri-corner.sy{fill:#34d0a6} }
   /* one row per scale */
   .syn-hit{fill:transparent}
   .syn-row{cursor:pointer;outline:none}
   .syn-row.lit .syn-hit,.syn-row:focus-visible .syn-hit{fill:color-mix(in srgb,var(--ink) 5%,transparent)}
-  .syn-lname{font:850 21px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
-  .syn-lscale{font:600 13px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
-  .syn-lmade{font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
+  .syn-lname{font:850 25px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  .syn-lscale{font:600 16px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  .syn-lmade{font:600 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
     opacity:0;transition:opacity .6s .35s}
   .syn-row.built .syn-lmade{opacity:.62}
 
   /* ---- one vessel ----
      the colour of the whole solid IS the choice: it bleeds from the extropy red to the syntropy
      green as you drag, so the argument is legible before you have read a word of it. */
-  .ves{--vc:color-mix(in srgb,#12a37a calc(var(--t,.5)*100%),#e8446f)}
+  /* the shape of the order picks the hue; how much entropy there is drains it toward grey */
+  .ves{--shape:color-mix(in srgb,#12a37a calc(var(--t,.5)*100%),#e8446f);
+    --vc:color-mix(in srgb,var(--shape) calc((1 - var(--e,0))*100%),var(--muted))}
   .ves-ring{fill:none;stroke:var(--vc);stroke-width:1.15}
   /* the skin: meridians running the full height. a meridian holds one angle, so its depth is
      constant — paint() gives the front ones weight and lets the back ones fall away. */
@@ -561,26 +624,40 @@
   }
   /* entropy: heat shed by the energy as it works. opacity is set per-mote as it fades. */
   .syn-mote{fill:var(--ink)}
-  @media(max-width:720px){ .syn-lname{font-size:26px} .syn-lscale{font-size:16px} }
+  @media(max-width:720px){ .syn-lname{font-size:31px} .syn-lscale{font-size:19px} }
   /* the hero, and the two shapes stated plainly before you are asked to choose between them */
   .synhero{max-width:660px;margin:2px auto 0;text-align:center}
   .synhero h2{margin:0 0 10px;font-size:clamp(20px,3.4vw,30px);font-weight:850;letter-spacing:.005em;line-height:1.2;color:var(--ink)}
   .synhero p{margin:0;font-size:13px;line-height:1.7;color:var(--muted)}
-  .synhero p b,.syncard p b{color:var(--ink);font-weight:750}
-  .syncards{display:flex;gap:14px;max-width:760px;margin:22px auto 0;flex-wrap:wrap}
-  .syncard{flex:1 1 300px;padding:15px 17px;border-radius:14px;border:1.5px solid var(--line);
-    background:color-mix(in srgb,var(--panel) 55%,transparent);transition:border-color .3s,box-shadow .3s}
-  .syncard>b{display:block;font-size:13px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
-  .syncard p{margin:0 0 8px;font-size:12.5px;line-height:1.6;color:var(--muted)}
-  .syncard em{font-style:italic;font-size:11.5px;color:var(--muted);opacity:.85}
-  .syncard.ex>b{color:#e8446f} .syncard.sy>b{color:#12a37a}
-  :root[data-theme="dark"] .syncard.sy>b{color:#34d0a6}
-  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .syncard.sy>b{color:#34d0a6} }
-  /* the dial doesn't just move the picture — it moves the ARGUMENT: whichever card you are steering
-     toward lights up, so the words and the shapes agree with each other at all times. */
-  .syncard.ex{border-color:color-mix(in srgb,#e8446f calc((1 - var(--t,.5))*70%),var(--line))}
-  .syncard.sy{border-color:color-mix(in srgb,#12a37a calc(var(--t,.5)*70%),var(--line))}
-  #synwrap{--t:.5}
+  .synhero p b{color:var(--ink);font-weight:750}
+  /* THE CORNER CARD. the three arguments used to sit in fat cards stacked above the control, so you
+     read all of it before you could touch any of it. now the corners hold them and the slot below
+     the triangle is empty until you ask. it is a FIXED slot, not a floating tooltip, so nothing on
+     the page reflows when you sweep across the corners. */
+  /* brief while you scroll, full when you point. the min-height is sized to the FULL card so the
+     sticky column never changes height as you sweep the corners — a panel that resizes under the
+     cursor is a panel you cannot aim at. */
+  .tricard.brief .tri-rest{display:block;margin-top:8px}
+  .tricard{flex:1 1 300px;max-width:340px;min-height:172px;padding:14px 16px;border-radius:14px;
+    border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 55%,transparent);
+    display:flex;flex-direction:column;justify-content:center;transition:border-color .25s,opacity .25s}
+  .tricard>b{display:block;font-size:13px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+  .tricard .sub{display:block;font-size:10.5px;color:var(--muted);margin:2px 0 8px}
+  .tricard p{margin:0 0 8px;font-size:12.5px;line-height:1.6;color:var(--muted)}
+  .tricard p b{color:var(--ink);font-weight:750}
+  .tricard em{font-style:italic;font-size:11.5px;color:var(--muted);opacity:.85}
+  .tri-rest{font-size:11.5px;color:var(--muted);opacity:.7;text-align:center;font-style:italic}
+  .tricard.ex{border-color:color-mix(in srgb,#e8446f 55%,var(--line))}
+  .tricard.sy{border-color:color-mix(in srgb,#12a37a 55%,var(--line))}
+  .tricard.en{border-color:color-mix(in srgb,var(--muted) 55%,var(--line))}
+  .tricard.ex>b{color:#e8446f} .tricard.sy>b{color:#12a37a} .tricard.en>b{color:var(--muted)}
+  :root[data-theme="dark"] .tricard.sy>b{color:#34d0a6}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .tricard.sy>b{color:#34d0a6} }
+  /* a corner is a big invisible target with a small visible dot. it grows when you point at it. */
+  .tri-hit{fill:transparent;cursor:pointer;outline:none}
+  .tri-hit:hover~.tri-handle{opacity:.55}
+  .tri-hit:focus-visible{fill:color-mix(in srgb,var(--ink) 8%,transparent)}
+  #synwrap{--t:.5;--e:0}
   /* the holarchy */
   .holowrap{display:flex;gap:30px;align-items:center;max-width:960px;margin:34px auto 0;flex-wrap:wrap}
   .holotext{flex:1 1 320px}
@@ -594,7 +671,7 @@
   .holoeq{padding:10px 12px;border-radius:10px;
     border-left:3px solid color-mix(in srgb,#6247d6 55%,transparent);
     background:color-mix(in srgb,#6247d6 7%,transparent)}
-  #holosvg{flex:0 0 440px;max-width:100%;height:auto;--t:.5}
+  #holosvg{flex:0 0 440px;max-width:100%;height:auto;--t:.5;--e:0}
   /* the axis, seen end-on: you are looking straight down it, so it is a point */
   .holo-axisdot{fill:none;stroke:var(--ink);stroke-width:1.2;opacity:.35;stroke-dasharray:2 3}
   .holo-core{fill:#e8446f;filter:drop-shadow(0 0 calc((1 - var(--t))*18px) rgba(232,68,111,.8))}
@@ -607,10 +684,6 @@
   #holosvg.focusing .holo-ring.lit{opacity:1}
   .holo-ring.lit .holo-o{stroke-width:3.4;opacity:1}
   .holo-ring.lit .holo-lab{fill:var(--ink);font-weight:850}
-  .synquote{max-width:640px;margin:32px auto 6px;padding:0 0 0 16px;
-    border-left:3px solid color-mix(in srgb,#6247d6 60%,transparent);
-    font-size:14px;line-height:1.7;font-style:italic;color:var(--muted)}
-  .synquote b{color:var(--ink);font-weight:800;font-style:normal}
   @media(max-width:760px){ .holowrap{flex-direction:column} #holosvg{flex:1 1 auto;width:100%} }
 
   #spiralwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1240px}
@@ -1005,15 +1078,6 @@
       </div>
     </div>
     <div class="tabgrp">
-      <span class="grplab">what it runs on<em>nothing else happens until these do</em></span>
-      <div class="grpchips">
-        <button class="tab t-energy" role="tab" data-mode="energy"><span class="em">⚡</span>energy<span class="tq">what powers you</span></button>
-        <button class="tab t-math" role="tab" data-mode="math"><span class="em">🔢</span>mathematics<span class="tq">what can be proven</span></button>
-        <button class="tab t-land" role="tab" data-mode="land"><span class="em">🗺️</span>land<span class="tq">who owns the place</span></button>
-        <button class="tab t-time" role="tab" data-mode="time"><span class="em">⏳</span>time<span class="tq">who sets the clock</span></button>
-      </div>
-    </div>
-    <div class="tabgrp">
       <span class="grplab">how you live<em>the business of not dying</em></span>
       <div class="grpchips">
         <button class="tab t-alloc" role="tab" data-mode="alloc"><span class="em">✨</span>resources<span class="tq">who gets what</span></button>
@@ -1028,6 +1092,15 @@
         <button class="tab t-trust" role="tab" data-mode="trust"><span class="em">🤝</span>trust<span class="tq">who you trust</span></button>
         <button class="tab t-identity" role="tab" data-mode="identity"><span class="em">🪪</span>identity<span class="tq">who you are</span></button>
         <button class="tab t-conflict" role="tab" data-mode="conflict"><span class="em">⚖️</span>conflict<span class="tq">how you fight</span></button>
+      </div>
+    </div>
+    <div class="tabgrp">
+      <span class="grplab">what it runs on<em>nothing else happens until these do</em></span>
+      <div class="grpchips">
+        <button class="tab t-energy" role="tab" data-mode="energy"><span class="em">⚡</span>energy<span class="tq">what powers you</span></button>
+        <button class="tab t-math" role="tab" data-mode="math"><span class="em">🔢</span>mathematics<span class="tq">what can be proven</span></button>
+        <button class="tab t-land" role="tab" data-mode="land"><span class="em">🗺️</span>land<span class="tq">who owns the place</span></button>
+        <button class="tab t-time" role="tab" data-mode="time"><span class="em">⏳</span>time<span class="tq">who sets the clock</span></button>
       </div>
     </div>
     <div class="tabgrp">
@@ -3692,7 +3765,7 @@ function fillSpiralTip(s,e){
     <div class="hintline">click to open the ${s.label} tab at this era</div>`;
 }
 
-let synRAF=0, synIO=null;
+let synRAF=0, synIO=null, synScroll=null;
 function renderSyntropy(){
   if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
   const wrap=document.getElementById('synwrap'), dark=spDark();
@@ -3734,13 +3807,19 @@ function renderSyntropy(){
   const MER=14, YTOP=rowY[0], YBOT=rowY[LEVELS.length-1];
   const MERA=Array.from({length:MER},(_,m)=>m/MER*6.283);
 
-  let vessel='', rows='';
+  // THE WARMTH. a syntropic ring is not merely "not decaying" — it is a place where something is
+  // living, and the picture should feel like that. so every level gets a soft warm pool behind it
+  // that only lights when the ring is BOTH fed and circulating, and each one breathes on its own
+  // slightly offset phase, so the stack shimmers rather than pulsing like one bulb. at extropy it
+  // never lights at all: the core is hot, but nothing is warm.
+  let vessel='', rows='', glows='';
   LEVELS.forEach((L,i)=>{
     const N=5+i;                                    // bigger scales are made of more parts
     // the skin between this ring and the one above it. it belongs to THIS level, so the vessel
     // extends downward as each scale builds — you watch the solid get made.
     const seg=i? MERA.map((_,m)=>`<path class="ves-seg" data-m="${m}" style="--m:${m}"/>`).join('') : '';
     const nodes=Array.from({length:N},(_,k)=>`<circle class="syn-node" data-i="${k}" style="--k:${k}"/>`).join('');
+    glows+=`<ellipse class="ves-glow" data-l="${i}"/>`;
     vessel+=`<g class="ves-lv" data-l="${i}" data-n="${N}">
       ${seg}
       <ellipse class="ves-ring"/>
@@ -3811,32 +3890,96 @@ function renderSyntropy(){
     </g>`;
   });
 
+  // ---- the three corners, and the order you meet them in ----
+  // entropy first, because it is the default and the thing the other two are answers TO. you start
+  // at the floor, and then you watch each shape of order try to climb off it.
+  const CARD={
+    en:{n:'entropy', s:'stop feeding it at all',
+        p:`not a third shape — the <b>absence</b> of one. nothing is fed, so nothing is held together:
+           the rings fray, the dots wither, and there is no core, because a core is a thing that eats
+           and <b>there is nothing left to eat.</b>`,
+        e:`the default. it costs nothing and it is always on.`},
+    ex:{n:'extropy', s:'pull it all to one centre',
+        p:`one centre, swallowing everything. the energy runs <b>straight through</b> every scale
+           without stopping — it does no work on the way, because it is not for any of them. it is
+           for the core. <b>it grows by absorbing.</b>`,
+        e:`the dyson sphere. the data centre. the black hole with good branding.`},
+    sy:{n:'syntropy', s:'let it flow through',
+        p:`many dots, organised, alive. the energy <b>circulates</b> — round and round the ring it is
+           on, doing work again and again, before what is left of it passes up to the next.
+           <b>the cycling <em>is</em> the order.</b>`,
+        e:`a forest. a neighbourhood that knows itself. life, basically.`}
+  };
+  const WAY=['en','ex','sy'];
+  // the steps ARE the sidebar. each one states its case as it takes the vessel over, so the argument
+  // arrives with the picture that demonstrates it, one at a time, instead of all three up front.
+  const stepsHTML=WAY.map((c,i)=>`
+    <section class="synstep" data-c="${c}">
+      <span class="stepn">0${i+1}</span>
+      <h3>${CARD[c].n}</h3>
+      <p class="lede">${CARD[c].s}</p>
+      <p>${CARD[c].p}</p>
+      <em>${CARD[c].e}</em>
+    </section>`).join('');
+
   wrap.innerHTML=`
     <div class="synhero">
       <h2>two ways to escape entropy</h2>
-      <p>entropy always wins in the end — that is not up for debate. the only thing a structure ever
-         decides is <b>how long it holds out</b>, and it decides that with its design. there are
-         <b>two shapes that energy can be turned into</b> as resistance to entropy, and you pick
-         between them at every scale there is.</p>
+      <p>entropy (disorder) always wins in the end — that is not up for debate.</p>
+      <p>the only thing a structure ever decides is <b>how long it holds out</b>, and it decides that
+         with its design — there are <b>two designs to escape entropy</b>, where energy can be turned
+         into as resistance to entropy.</p>
     </div>
-    <div class="syncards">
-      <div class="syncard ex"><b>extropy</b>
-        <p>one centre, swallowing everything. the energy runs <b>straight through</b> every scale
-           without stopping — it does no work on the way, because it is not for any of them. it is
-           for the core. <b>it grows by absorbing.</b></p>
-        <em>the dyson sphere. the data centre. the black hole with good branding.</em></div>
-      <div class="syncard sy"><b>syntropy</b>
-        <p>many dots, organised, alive. the energy <b>circulates</b> — it goes round and round the
-           ring it is on, doing work again and again, before what is left of it passes up to the
-           next. the cycling <em>is</em> the order.</p>
-        <em>a forest. a neighbourhood that knows itself. life, basically.</em></div>
+    <!-- the vessel is very tall and the triangle is small, so stacking them wasted the whole right
+         side of the page and put the control out of sight exactly when the picture was moving. now
+         they sit side by side: the vessel scrolls, the triangle sticks, and scrolling the one drives
+         the other. -->
+    <!-- the vessel is pinned and the steps scroll past it, exactly like the spiral: the picture is
+         the constant, the reading is the variable. it used to be the other way round, which meant the
+         thing you were being asked to watch slid off the top of the screen while you read about it. -->
+    <div class="synscroll">
+    <div class="synsteps">
+      ${stepsHTML}
+      <!-- the control only exists once you have been shown all three. handing someone a mixer before
+           they know what the ingredients are is how you get a toy instead of an argument. -->
+      <section class="trypanel" id="trypanel">
+        <span class="stepn">04</span>
+        <h3>now you drive it</h3>
+        <p class="lede">no real system sits on a corner. mix them.</p>
+        <!-- inverted on purpose: the two SHAPES of order are the two things you can climb toward, and
+             entropy is the single point underneath both that you fall into. it is the drain, not a
+             third peer sitting alongside them. -->
+        <svg id="syntri" viewBox="0 0 320 214" role="application" tabindex="0"
+             aria-label="A triangle. Extropy at the top left, syntropy at the top right, entropy at the bottom point. Drag the handle, or use the arrow keys, to mix the three.">
+          <polygon class="tri-face" points="40,46 280,46 160,186"/>
+          <line class="tri-guide" x1="40"  y1="46"  x2="220" y2="116"/>
+          <line class="tri-guide" x1="280" y1="46"  x2="100" y2="116"/>
+          <line class="tri-guide" x1="160" y1="186" x2="160" y2="46"/>
+          <circle class="tri-corner ex" cx="40"  cy="46"  r="5"/>
+          <circle class="tri-corner sy" cx="280" cy="46"  r="5"/>
+          <circle class="tri-corner en" cx="160" cy="186" r="5"/>
+          <text class="tri-lab ex" x="34"  y="34"  text-anchor="start">extropy</text>
+          <text class="tri-lab sy" x="286" y="34"  text-anchor="end">syntropy</text>
+          <text class="tri-lab en" x="160" y="206" text-anchor="middle">entropy</text>
+          <circle class="tri-handle" cx="160" cy="186" r="9"/>
+          <!-- hover a corner to read it, click a corner to go there. the hit targets are far bigger
+               than the dots and sit ON TOP of the drag surface, so reaching for a corner never turns
+               into an accidental drag. -->
+          <circle class="tri-hit" data-c="ex" cx="40"  cy="46"  r="30" tabindex="0" role="button" aria-label="Extropy: read what it is, or click to go there"/>
+          <circle class="tri-hit" data-c="sy" cx="280" cy="46"  r="30" tabindex="0" role="button" aria-label="Syntropy: read what it is, or click to go there"/>
+          <circle class="tri-hit" data-c="en" cx="160" cy="186" r="30" tabindex="0" role="button" aria-label="Entropy: read what it is, or click to go there"/>
+        </svg>
+        <div class="synprog" id="synprog" aria-hidden="true">
+          <i data-c="en"></i><i data-c="ex"></i><i data-c="sy"></i>
+        </div>
+        <div class="tricard" id="tricard" aria-live="polite"></div>
+      </section>
     </div>
-    <div class="synbar">
-      <button class="synend ex" data-t="0"><b>extropy</b><em>pull it all to one centre</em></button>
-      <input id="syntoggle" class="synslider" type="range" min="0" max="100" value="50"
-             aria-label="extropy at zero, syntropy at one hundred">
-      <button class="synend sy" data-t="100"><b>syntropy</b><em>let it flow through</em></button>
-    </div>
+    <div class="synsticky">
+      <div class="synlab">
+        <b>the holarchy</b>
+        <span>eight scales, one vessel — the star at the base, the cell at the tip</span>
+      </div>
     <svg id="synsvg" viewBox="0 0 ${W} ${H}" role="img"
       aria-label="one wireframe vessel threading eight scales, the star at its wide base and the cell at its narrow top. starlight enters at the star and moves up through every scale above it. extropy pinches the vessel to a needle: the energy runs straight up the axis without circulating and is swallowed by a core — the compute, the chips and data centres — and none of it ever leaves. syntropy opens the vessel into a bell: the energy circles each ring many times, doing work at that scale before passing up to the next, and what is left finally leaves as waste heat. entropy is visible in both, in two forms: the heat every working loop sheds and never gets back, and the decay of any ring that stops being fed — at extropy every ring outside the core withers to a frayed outline, because the order was not defeated, only moved into one dot.">
       <defs>
@@ -3845,15 +3988,25 @@ function renderSyntropy(){
           <stop offset="35%" stop-color="#ff7aa0" stop-opacity=".8"/>
           <stop offset="100%" stop-color="#e8446f" stop-opacity="0"/>
         </radialGradient>
+        <!-- the warmth of a living ring. deliberately NOT the vessel's own hue: the green is the
+             shape of the order, and this is the fact that something is alive inside it. -->
+        <radialGradient id="vesglow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#ffd9a0" stop-opacity=".85"/>
+          <stop offset="45%"  stop-color="#ffb45e" stop-opacity=".40"/>
+          <stop offset="100%" stop-color="#ff9a3c" stop-opacity="0"/>
+        </radialGradient>
       </defs>
       <g class="syn-motes"></g>
       ${rows}
       <g class="ves" transform="translate(${DX} 0)">
+        <g class="ves-glows">${glows}</g>
         ${core}
         ${vessel}
         ${flowSvg}
       </g>
     </svg>
+    </div><!-- /.synsticky -->
+    </div><!-- /.synscroll -->
 
     <div class="holowrap">
       <div class="holotext">
@@ -3878,13 +4031,11 @@ function renderSyntropy(){
         <circle class="holo-core"/>
         ${holo}
       </svg>
-    </div>
-
-    <blockquote class="synquote">entropy is inevitable. the question is how long a structure can hold
-      the resistance. <b>its design defines its resilience.</b></blockquote>`;
+    </div>`;
 
   const svg=document.getElementById('synsvg');
-  const slider=document.getElementById('syntoggle');
+  const tri=document.getElementById('syntri');
+  const handle=tri.querySelector('.tri-handle');
   const motes=svg.querySelector('.syn-motes');
   const rowEls=[...svg.querySelectorAll('.syn-row')];
 
@@ -3913,7 +4064,38 @@ function renderSyntropy(){
 
   const lerp=(a,b,t)=>a+(b-a)*t;
   const ease=t=>t*t*(3-2*t);
-  let T=0.5, shown=0.5;                              // target, and the eased value actually drawn
+
+  // ---- THE THREE-WAY ----
+  // the state is a barycentric mix of the three corners, not a single dial. from it fall the two
+  // numbers the picture actually runs on:
+  //   t  = the SHAPE of whatever order is left — 0 all-extropy, 1 all-syntropy. it is the ratio
+  //        between those two, so it stays meaningful even as entropy eats the total.
+  //   e  = how much of the system has stopped being fed at all.
+  // and that is the honest geometry: you do not slide FROM order TO entropy, you rot while you choose.
+  const W3={ex:[40,46], sy:[280,46], en:[160,186]};    // the triangle's corners, in its own viewBox
+  const CORNER={sy:{sy:1,ex:0,en:0}, ex:{sy:0,ex:1,en:0}, en:{sy:0,ex:0,en:1}};
+  // you arrive at the floor. entropy is the default state of the section because it is the default
+  // state of everything — the other two corners are what you have to spend energy to reach.
+  let Tw={sy:0,ex:0,en:1};                             // target mix
+  let Sw={sy:0,ex:0,en:1};                             // the eased mix actually drawn
+  const shapeOf=w=>{ const o=w.sy+w.ex; return o>1e-4 ? w.sy/o : 0.5; };
+
+  // a point in the triangle → the mix it represents. negatives mean "outside", so clamp and
+  // renormalise: dragging past an edge slides you along it rather than escaping the triangle.
+  const mixAt=(x,y)=>{
+    const [ax,ay]=W3.sy,[bx,by]=W3.ex,[cx,cy]=W3.en;
+    const D=(by-cy)*(ax-cx)+(cx-bx)*(ay-cy);
+    let a=((by-cy)*(x-cx)+(cx-bx)*(y-cy))/D;
+    let b=((cy-ay)*(x-cx)+(ax-cx)*(y-cy))/D;
+    let c=1-a-b;
+    a=Math.max(0,a); b=Math.max(0,b); c=Math.max(0,c);
+    const s=a+b+c || 1;
+    return {sy:a/s, ex:b/s, en:c/s};
+  };
+  const posOf=w=>[
+    w.sy*W3.sy[0]+w.ex*W3.ex[0]+w.en*W3.en[0],
+    w.sy*W3.sy[1]+w.ex*W3.ex[1]+w.en*W3.en[1]
+  ];
 
   const holoSvg=document.getElementById('holosvg');
   const holoRings=[...holoSvg.querySelectorAll('.holo-ring')];
@@ -3922,6 +4104,7 @@ function renderSyntropy(){
   const vesCore=vesEl.querySelector('.ves-core'), vesSing=vesEl.querySelector('.ves-sing');
   const coreLab=vesEl.querySelector('.ves-corelab');
   const lvEls=[...vesEl.querySelectorAll('.ves-lv')];
+  const glowEls=[...vesEl.querySelectorAll('.ves-glow')];
   const sparkEls=[...vesEl.querySelectorAll('.ves-spark')];
   const anno=vesEl.querySelector('.ves-anno');
   const vesOut=anno.querySelector('.ves-eout'), vesIn=anno.querySelector('.ves-ein');
@@ -3956,7 +4139,9 @@ function renderSyntropy(){
     return LU.length-1;
   };
 
-  function paint(t){
+  // t = the shape of the order · e = how much of it has stopped being fed
+  function paint(t,e){
+    const alive=1-e;                                  // the multiplier on everything that has to eat
     const squeeze=lerp(0.30,1,t);
     const sp=spin;                                    // the solid turns, so you can see it is a solid
 
@@ -3966,13 +4151,16 @@ function renderSyntropy(){
     vesCore.setAttribute('cx',0); vesCore.setAttribute('cy',CORE_Y.toFixed(1));
     vesCore.setAttribute('rx',lerp(15,0,t).toFixed(1));
     vesCore.setAttribute('ry',lerp((YBOT-YTOP)*0.44,0,t).toFixed(1));
-    vesCore.setAttribute('opacity',(0.55*(1-t)).toFixed(2));
+    // …and the core is a thing that EATS, so it dies with the energy. this is the whole difference
+    // between the extropy corner and the entropy corner, which otherwise leave the same wreckage:
+    // extropy is a dead vessel with one white-hot dot still burning in it. entropy is a dead vessel.
+    vesCore.setAttribute('opacity',(0.55*(1-t)*alive).toFixed(2));
     vesSing.setAttribute('cx',0); vesSing.setAttribute('cy',CORE_Y.toFixed(1));
     vesSing.setAttribute('r',lerp(13,0,t).toFixed(1));
     // and say what the core IS. it only exists at extropy, so it only gets named there.
     coreLab.setAttribute('transform',`translate(0 ${CORE_Y.toFixed(1)})`);
-    coreLab.setAttribute('opacity',Math.max(0,Math.min(1,(0.55-t)/0.35)).toFixed(2));
-    vesSing.setAttribute('opacity',(1-t).toFixed(2));
+    coreLab.setAttribute('opacity',(Math.max(0,Math.min(1,(0.55-t)/0.35))*alive).toFixed(2));
+    vesSing.setAttribute('opacity',((1-t)*alive).toFixed(2));
 
     // ---- ENTROPY, PART ONE: WHAT STARVES ----
     // a ring is only held together by work done ON it. so liveness is not decoration — it is whether
@@ -3985,16 +4173,44 @@ function renderSyntropy(){
     // floor under the picture, but the fate of any structure that stops being fed. and it is why
     // extropy does not BEAT entropy: it just concentrates the order into one dot and lets the other
     // seven rings rot. the core is the last thing lit in a dead vessel.
+    // …and now there is a third way to starve, which is the bluntest one: nobody is feeding the
+    // vessel at all. `alive` gates the whole thing, so the entropy corner rots every ring at once.
     const cap=1-t, ucore=(YBOT-CORE_Y)/(YBOT-YTOP);
-    const liveOf=li=>{
+    // how much work is actually being done ON this ring — 0 means nothing is, and means it.
+    const fedOf=li=>{
       const starved=cap*Math.max(0,Math.min(1,(ULV[li]-ucore+0.10)/0.20));
-      return lerp(0.12,1,t*(1-starved));            // never zero: a dead ring is still drawn, faintly
+      return t*(1-starved)*alive;
     };
+    // how much of it you can still SEE. floored, because a dead ring is still drawn — faintly, as a
+    // ghost of what was there. the floor is a drawing decision and must not leak into the warmth:
+    // a corpse is visible, it is not slightly alive.
+    const liveOf=li=>lerp(0.12,1,fedOf(li));
+
+    // the warmth. it wants BOTH conditions: fed (live) and circulating (t). a ring that is merely
+    // being passed through is not alive, so extropy never glows — its core is hot, but nothing in it
+    // is warm. each level breathes on its own phase, so the stack shimmers instead of blinking.
+    // fedOf already carries both conditions — circulating (t) and not starved (alive) — so at the
+    // extropy corner AND the entropy corner this is flatly zero. only a living ring is warm.
+    const secs=spin/0.16;
+    const warmth=li=>fedOf(li)*(0.84+0.16*Math.sin(secs*0.85+li*0.8));
 
     lvEls.forEach((g,li)=>{
       const N=+g.dataset.n;
       const R=RAD[li]*squeeze, ry=R*SQY, cy=rowY[li];
-      const live=liveOf(li);
+      const live=liveOf(li), warm=warmth(li);
+      // the pool behind the ring…
+      const gl=glowEls[li];
+      gl.setAttribute('cx',0); gl.setAttribute('cy',cy.toFixed(1));
+      gl.setAttribute('rx',(R*1.22+16).toFixed(1));
+      gl.setAttribute('ry',(ry*2.3+16).toFixed(1));
+      gl.setAttribute('fill','url(#vesglow)');
+      gl.setAttribute('opacity',(0.62*warm).toFixed(2));
+      // …and the bloom on the ring's own dots and skin. one filter on the whole group, not ninety
+      // filters on ninety circles — and dropped entirely below the threshold, because a zero-blur
+      // drop-shadow still costs a full extra render of everything under it.
+      g.style.filter = warm>0.03
+        ? `drop-shadow(0 0 ${(warm*9).toFixed(1)}px rgba(255,181,94,${(0.72*warm).toFixed(2)}))`
+        : 'none';
       const ring=g.querySelector('.ves-ring');
       ring.setAttribute('cx',0); ring.setAttribute('cy',cy.toFixed(1));
       ring.setAttribute('rx',R.toFixed(1)); ring.setAttribute('ry',ry.toFixed(1));
@@ -4047,54 +4263,69 @@ function renderSyntropy(){
       const mx=Math.cos(am)*rm/bow, my=(y+y2)/2+Math.sin(am)*rm/bow*SQY;
       el.setAttribute('d',`M${x1.toFixed(1)} ${yy1.toFixed(1)}Q${mx.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${yy2.toFixed(1)}`);
       el.setAttribute('stroke-width',(1.6+1.8*t).toFixed(1));
-      el.setAttribute('opacity',(0.9*(1-eaten)*dep*Math.min(1,f.u*8+0.2)).toFixed(2));
+      // and at the entropy corner the streaks simply are not there. no energy, nothing to draw.
+      el.setAttribute('opacity',(0.9*(1-eaten)*dep*Math.min(1,f.u*8+0.2)*alive).toFixed(2));
       // remember where it is, in frame coordinates, so the heat it sheds can be born ON it.
       // .ves is translated by DX, the motes are not — hence the offset.
-      sparkPos[i][0]=DX+x2; sparkPos[i][1]=yy2; sparkPos[i][2]=1-eaten;
+      sparkPos[i][0]=DX+x2; sparkPos[i][1]=yy2; sparkPos[i][2]=(1-eaten)*alive;
     });
-    // and say, in words, what just happened to it
+    // and say, in words, what just happened to it. all three of these are claims ABOUT the energy,
+    // so at the entropy corner — where there is none — none of them are saying anything, and they go.
     const R7=RAD[LEVELS.length-1]*squeeze;
     anno.setAttribute('transform',`translate(0 ${YTOP.toFixed(1)})`);
+    anno.setAttribute('opacity',alive.toFixed(2));
     src.setAttribute('transform',`translate(0 ${YBOT.toFixed(1)})`);   // the star end: where it comes in
+    src.setAttribute('opacity',alive.toFixed(2));
     vesOut.setAttribute('opacity',Math.max(0,Math.min(1,(t-0.45)/0.35)).toFixed(2));
     vesIn.setAttribute('x',0); vesIn.setAttribute('y',(CORE_Y-YTOP+34).toFixed(1));
     vesIn.setAttribute('opacity',Math.max(0,Math.min(1,(0.55-t)/0.35)).toFixed(2));
 
-    // ---- the top view: the same rings, looking straight down the axis ----
+    // ---- the top view: the same rings, seen from above ----
+    // it is the same object, so it starves the same way: same liveOf, same withering dots.
     holoCore.setAttribute('cx',HC.x); holoCore.setAttribute('cy',HC.y);
     holoCore.setAttribute('r',lerp(22,3,t).toFixed(1));
-    holoCore.setAttribute('opacity',(1-t*0.85).toFixed(2));
+    holoCore.setAttribute('opacity',((1-t*0.85)*alive).toFixed(2));
     holoRings.forEach((g,i)=>{
-      const N=+g.dataset.n, R=RAD[i]*squeeze;
+      const N=+g.dataset.n, R=RAD[i]*squeeze, live=liveOf(i), warm=warmth(i);
+      g.style.filter = warm>0.03
+        ? `drop-shadow(0 0 ${(warm*8).toFixed(1)}px rgba(255,181,94,${(0.66*warm).toFixed(2)}))`
+        : 'none';
       const el=g.querySelector('.holo-o');
       el.setAttribute('cx',HC.x); el.setAttribute('cy',HC.y); el.setAttribute('r',R.toFixed(1));
+      el.setAttribute('stroke-dasharray',live>0.97?'none':`${(1.6+9*live).toFixed(1)} ${(8*(1-live)+0.8).toFixed(1)}`);
+      el.setAttribute('opacity',(0.5*lerp(0.3,1,live)).toFixed(2));
       g.querySelectorAll('.holo-dot').forEach((d,k)=>{
         const a=k/N*6.283-Math.PI/2;                 // the same angles as the row: the same dots
         d.setAttribute('cx',(HC.x+Math.cos(a)*R).toFixed(1));
         d.setAttribute('cy',(HC.y+Math.sin(a)*R).toFixed(1));
-        d.setAttribute('r',lerp(1.6,3.8,t).toFixed(1));
+        d.setAttribute('r',(lerp(1.6,3.8,t)*lerp(0.42,1,live)).toFixed(1));
+        d.setAttribute('opacity',lerp(0.25,1,live).toFixed(2));
       });
       const lab=g.querySelector('.holo-lab');
       lab.textContent=LEVELS[i].n;
       lab.setAttribute('x',HC.x.toFixed(1));
       lab.setAttribute('y',(HC.y-R-5).toFixed(1));
-      lab.setAttribute('opacity',(0.3+0.7*t).toFixed(2));
+      lab.setAttribute('opacity',((0.3+0.7*t)*lerp(0.35,1,alive)).toFixed(2));
     });
 
-    holoSvg.style.setProperty('--t',t.toFixed(3));
-    svg.style.setProperty('--t',t.toFixed(3));
-    wrap.style.setProperty('--t',t.toFixed(3));   // the cards light with the dial too
+    for(const el of [holoSvg,svg,wrap]){
+      el.style.setProperty('--t',t.toFixed(3));
+      el.style.setProperty('--e',e.toFixed(3));    // the cards drain with the corner too
+    }
   }
 
   let last=performance.now();
   const step=now=>{
     const dt=Math.min((now-last)/1000,0.05); last=now;
-    shown+=(T-shown)*Math.min(1,dt*6);               // the whole page eases toward the choice
-    paint(ease(shown));
+    const k=Math.min(1,dt*6);                        // the whole page eases toward the choice
+    Sw.sy+=(Tw.sy-Sw.sy)*k; Sw.ex+=(Tw.ex-Sw.ex)*k; Sw.en+=(Tw.en-Sw.en)*k;
+    const tw=ease(shapeOf(Sw)), ew=Sw.en;
+    paint(tw,ew);
+    triHandle();
     // heat, shed by the energy as it works. the rate is the work rate: a vessel that circulates pays
-    // continuously, a vessel that just funnels pays nothing here and everything in rot instead.
-    const tw=ease(shown);
-    shed+=dt*95*tw;
+    // continuously, a vessel that just funnels pays nothing here and everything in rot instead —
+    // and a vessel nobody feeds pays nothing anywhere, because nothing is happening in it.
+    shed+=dt*95*tw*(1-ew);
     while(shed>=1){
       shed-=1;
       const s=sparkPos[(Math.random()*FLOW)|0];
@@ -4112,8 +4343,8 @@ function renderSyntropy(){
       el.setAttribute('cx',m.x.toFixed(1)); el.setAttribute('cy',m.y.toFixed(1));
       el.setAttribute('opacity',(0.30*Math.max(0,m.l)).toFixed(2));
     });
-    // ---- what the dial actually does to the energy ----
-    // it is not "where the line sits". it is the SHAPE OF THE PATH, and there are two of them.
+    // ---- what the corner you pick does to the energy ----
+    // the shape of the path is the argument, and there are two shapes:
     //
     //   extropy  → a straight shot. no orbit, no dwell, and fast: starlight falls down the axis into
     //              the core in one pass, does work for exactly one thing, and never leaves.
@@ -4123,14 +4354,16 @@ function renderSyntropy(){
     //              passes up to the next. it takes far longer to cross the stack, and that lateness
     //              IS the work. what finally leaves is what is left of it.
     //
-    // that is the difference kevin was asking for: a loop versus a line.
-    const tt=ease(shown), ORB=2.6, DWELL=0.78*tt;
+    // and the third corner is not a third shape. it is the flow GUTTERING OUT: entropy slows the
+    // energy toward a standstill and paint() fades it to nothing, because there is no path at all
+    // when there is nothing moving along it.
+    const ORB=2.6, DWELL=0.78*tw, run=1-ew;
     flow.forEach(f=>{
       // cos(2π·ring) is +1 exactly ON a ring and -1 exactly between two: so this crawls on the rings
       // and hurries through the gaps. at extropy DWELL is 0 and the climb is flat and quick.
       const climb=1-DWELL*Math.cos(6.283*ringAt(f.u));
-      f.u+=f.v*dt*climb*lerp(1.55,0.7,tt);
-      f.a+=f.w*dt*(0.12+ORB*tt);                   // it goes round its ring — but only if it is alive
+      f.u+=f.v*dt*climb*lerp(1.55,0.7,tw)*run;
+      f.a+=f.w*dt*(0.12+ORB*tw)*run;               // it goes round its ring — but only if it is alive
       if(f.u>1.06){ f.u=-0.04; f.a=Math.random()*6.283; f.tu=f.u; f.ta=f.a; }
       f.tu+=(f.u-f.tu)*0.30;                       // the trail, chasing it
       f.ta+=(f.a-f.ta)*0.30;
@@ -4140,10 +4373,121 @@ function renderSyntropy(){
   };
   synRAF=requestAnimationFrame(step);
 
-  slider.addEventListener('input',()=>{ T=+slider.value/100; });
-  wrap.querySelectorAll('.synend').forEach(b=>b.addEventListener('click',()=>{
-    slider.value=b.dataset.t; T=+b.dataset.t/100;
-  }));
+  const card=document.getElementById('tricard');
+  const prog=document.getElementById('synprog');
+  const steps=[...wrap.querySelectorAll('.synstep')];
+  let autoC=WAY[0], hoverC=null, manual=false;
+
+  // the card is EMPTY until you point at a corner. it used to pre-announce whichever corner the
+  // scroll was parked on, which is noise: the vessel and the lit step already say that, and saying
+  // it a third time in the one place reserved for the answer just made the answer harder to find.
+  const drawCard=()=>{
+    if(!hoverC){ card.className='tricard'; card.innerHTML=`<span class="tri-rest">hover a corner to read it</span>`; return; }
+    const k=CARD[hoverC];
+    card.className='tricard full '+hoverC;
+    card.innerHTML=`<b>${k.n}</b><span class="sub">${k.s}</span><p>${k.p}</p><em>${k.e}</em>`;
+  };
+  const setProg=c=>{
+    prog.querySelectorAll('i').forEach(el=>el.classList.toggle('on',el.dataset.c===c));
+    steps.forEach(sec=>sec.classList.toggle('on',sec.dataset.c===c));
+  };
+  tri.querySelectorAll('.tri-hit').forEach(h=>{
+    const c=h.dataset.c;
+    h.addEventListener('pointerenter',()=>{ hoverC=c; drawCard(); });
+    h.addEventListener('pointerleave',()=>{ hoverC=null; drawCard(); });
+    h.addEventListener('focus',()=>{ hoverC=c; drawCard(); });
+    h.addEventListener('blur',()=>{ hoverC=null; drawCard(); });
+    // clicking a corner goes there. stopPropagation so it never reads as a drag on the face.
+    const go=ev=>{ ev.stopPropagation(); manual=true; autoC=c; Tw={...CORNER[c]}; setProg(c); };
+    h.addEventListener('pointerdown',go);
+    h.addEventListener('keydown',ev=>{ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); go(ev); } });
+  });
+
+  // ---- THE STEPS DRIVE THE VESSEL ----
+  // entropy → extropy → syntropy. you start on the floor — the default, the thing that happens when
+  // nobody does anything — and then watch each shape of order try to climb off it.
+  //
+  // the step nearest the reading line owns the picture, and it SNAPS the target rather than blending
+  // across the gaps. the target is a corner; the eased Sw does the travelling, so you get one slow
+  // honest transition per step instead of a permanent smear of two-thirds-of-one-thing.
+  const stage=wrap.querySelector('.synscroll');
+  const tryPanel=document.getElementById('trypanel');
+  function scrollDrive(){
+    const r=stage.getBoundingClientRect();
+    // once the whole thing is off screen, hand control back to the scroll — otherwise one stray drag
+    // would leave the section frozen forever, and a reader who comes back to it gets a dead control.
+    if(r.bottom<0||r.top>innerHeight){ manual=false; return; }
+
+    // the control appears only once you have scrolled PAST syntropy — measured off the last step
+    // clearing the reading line, not off the panel merely entering the window. those are different
+    // moments: the panel starts sliding in while syntropy is still the case being made, and showing
+    // the mixer then interrupts the last argument with an invitation to stop listening to it.
+    const last=steps[steps.length-1].getBoundingClientRect();
+    tryPanel.classList.toggle('on', last.bottom < innerHeight*0.55);
+
+    if(manual) return;
+    const line=innerHeight*0.45;
+    let win=null,wd=1e9;
+    steps.forEach(sec=>{
+      const q=sec.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
+      if(q.bottom>0 && q.top<innerHeight && d<wd){ wd=d; win=sec; }
+    });
+    const c=win?win.dataset.c:autoC;
+    if(c!==autoC || Tw[c]!==1){ autoC=c; Tw={...CORNER[c]}; }
+    // …and light it EVERY pass, not only when it changes. entropy is the state we open on, so on the
+    // first pass nothing has changed yet — gate the highlight behind a change and the opening step
+    // never lights at all, which is precisely the one that has to.
+    setProg(autoC);
+  }
+
+  if(synScroll) removeEventListener('scroll',synScroll);
+  let sraf=0;
+  synScroll=()=>{ if(sraf) return; sraf=requestAnimationFrame(()=>{ sraf=0; scrollDrive(); }); };
+  addEventListener('scroll',synScroll,{passive:true});
+  addEventListener('resize',synScroll,{passive:true});
+  scrollDrive(); drawCard();
+
+  // drag anywhere in the triangle. the pointer is in screen pixels and the triangle thinks in its own
+  // viewBox, so go through the SVG's own matrix rather than guessing at the scale — the thing is
+  // responsive, and getBoundingClientRect maths would silently drift the moment it reflows.
+  const toLocal=ev=>{
+    const pt=tri.createSVGPoint(); pt.x=ev.clientX; pt.y=ev.clientY;
+    const m=tri.getScreenCTM();
+    if(!m) return null;
+    const p=pt.matrixTransform(m.inverse());
+    return [p.x,p.y];
+  };
+  const grab=ev=>{
+    const p=toLocal(ev); if(!p) return;
+    manual=true;                                    // you touched it: the scroll stops steering
+    Tw=mixAt(p[0],p[1]);
+    ev.preventDefault();
+  };
+  let dragging=false;
+  tri.addEventListener('pointerdown',ev=>{ dragging=true; tri.setPointerCapture(ev.pointerId); grab(ev); });
+  tri.addEventListener('pointermove',ev=>{ if(dragging) grab(ev); });
+  tri.addEventListener('pointerup',  ev=>{ dragging=false; try{tri.releasePointerCapture(ev.pointerId);}catch{} });
+  tri.addEventListener('pointercancel',()=>{ dragging=false; });
+
+  // arrow keys nudge the handle around the triangle, so this is not a mouse-only control.
+  tri.addEventListener('keydown',ev=>{
+    const STEP={ArrowLeft:[-8,0],ArrowRight:[8,0],ArrowUp:[0,-8],ArrowDown:[0,8]}[ev.key];
+    if(!STEP) return;
+    manual=true;
+    const [x,y]=posOf(Tw);
+    Tw=mixAt(x+STEP[0],y+STEP[1]);
+    ev.preventDefault();
+  });
+
+  // the handle follows the EASED mix, not the target, so it travels with the picture it is driving
+  const PCT=w=>Math.round(w*100);
+  function triHandle(){
+    const [x,y]=posOf(Sw);
+    handle.setAttribute('cx',x.toFixed(1)); handle.setAttribute('cy',y.toFixed(1));
+    tri.setAttribute('aria-label',
+      `Mix: ${PCT(Sw.sy)}% syntropy, ${PCT(Sw.ex)}% extropy, ${PCT(Sw.en)}% entropy. `+
+      `Drag inside the triangle or use the arrow keys.`);
+  }
 
   // a level and its ring are the same object seen twice. touch either and BOTH light up, because
   // the whole point of the holarchy is that the row you are reading IS a ring in the nest.
@@ -4195,7 +4539,8 @@ function renderSyntropy(){
     rowEls.forEach(g=>synIO.observe(g));
   }
 
-  paint(0.5);
+  paint(shapeOf(Sw),Sw.en);   // first frame: an even third of each, before anyone touches it
+  triHandle();
 }
 
 // ---------- 🌀 syntropy & extropy: the same fork, at every scale ----------
