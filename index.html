@@ -443,6 +443,42 @@
   .syn-row.lit .syn-hit,.syn-row:focus-visible .syn-hit{fill:color-mix(in srgb,var(--ink) 5%,transparent)}
   .syn-lname{font:850 21px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
   .syn-lscale{font:600 13px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
+  .syn-lmade{font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
+    opacity:0;transition:opacity .6s .35s}
+  .syn-row.built .syn-lmade{opacity:.62}
+
+  /* ---- the build ---- */
+  /* a level assembles as it arrives, and it assembles on top of the ones under it. nothing here
+     un-draws when you scroll back past it: the nest is meant to ACCUMULATE, and the last row is
+     the finished holarchy seen edge-on. */
+  .syn-row{opacity:.12;transition:opacity .7s cubic-bezier(.2,.7,.2,1)}
+  .syn-row.built{opacity:1}
+  /* the scale goes on an INNER group. put it on .syn-dia and the css transform replaces that
+     element's transform="translate(DX 0)" attribute outright — the whole stack silently collapses
+     onto the labels at x=0. css transform does not compose with the svg attribute; it overwrites it. */
+  .syn-row .syn-grow{transform:scale(.86);transform-origin:0 0;
+    transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+  .syn-row.built .syn-grow{transform:scale(1)}
+  /* what it is made of: the rings underneath, faint, still exactly where they were */
+  .syn-inner{fill:none;stroke:color-mix(in srgb,#12a37a calc(var(--t)*100%),#e8446f);
+    stroke-width:1.1;opacity:0;stroke-dasharray:2 5;transition:opacity .9s .1s}
+  .syn-row.built .syn-inner{opacity:.34}
+  .syn-row.lit .syn-inner{opacity:.7;stroke-width:1.6}
+  /* the new ring arrives as a GROUP. it has to be the group and not the individual spokes/mesh/hub,
+     because paint() sets each of those elements' opacity every frame to track the dial — a css
+     rule or keyframe on them would win on the cascade and the dial would go dead on this tab. */
+  .syn-row .syn-new{opacity:0;transition:opacity .7s .25s}
+  .syn-row.built .syn-new{opacity:1}
+  /* the nodes pop in one at a time, so you watch the level get made rather than find it finished */
+  .syn-row .syn-node{transform:scale(.2);transform-origin:center;transform-box:fill-box}
+  .syn-row.built .syn-node{animation:synpop .5s cubic-bezier(.2,.9,.3,1.4) both;
+    animation-delay:calc(.3s + var(--k,0)*.055s)}
+  @keyframes synpop{from{transform:scale(.2)}to{transform:scale(1)}}
+  @media (prefers-reduced-motion:reduce){
+    .syn-row,.syn-row .syn-dia,.syn-inner,.syn-row .syn-new{transition:none}
+    .syn-row .syn-new{opacity:1}
+    .syn-row .syn-node{transform:none;animation:none}
+  }
   /* the colour of the whole picture IS the choice: it bleeds from the extropy red to the syntropy
      green as you drag, so the argument is legible before you have read a word of it. */
   .syn-node{fill:color-mix(in srgb,#12a37a calc(var(--t)*100%),#e8446f);stroke:var(--panel);stroke-width:1.6}
@@ -3509,7 +3545,7 @@ function fillSpiralTip(s,e){
     <div class="hintline">click to open the ${s.label} tab at this era</div>`;
 }
 
-let synRAF=0;
+let synRAF=0, synIO=null;
 function renderSyntropy(){
   if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
   const wrap=document.getElementById('synwrap'), dark=spDark();
@@ -3530,26 +3566,40 @@ function renderSyntropy(){
   rowH.forEach(h=>{ rowY.push(acc+h/2); acc+=h; });
   const H=acc+66;
 
+  // each row does not draw ITS ring. it draws its ring AND every ring underneath it, at their true
+  // radii, nested. so the stack is a build: the cell is one ring; the body is a ring with the cell
+  // inside it; the band has the body and the cell inside that — and by the time you reach the star
+  // you have drawn the entire nest. the bottom row IS the holarchy, seen edge-on. which is exactly
+  // why the picture on the right, seen from above, is the same object: it is that row, from a
+  // quarter-turn away.
   let rows='';
   LEVELS.forEach((L,i)=>{
     const N=5+i;                                    // bigger scales are made of more parts
+    let inner='';
+    for(let j=0;j<i;j++) inner+=`<ellipse class="syn-inner" data-j="${j}"/>`;   // everything it is made of
     let edges='', nodes='';
     for(let k=0;k<N;k++){
       edges+=`<path class="syn-spoke" data-i="${k}"/>`;   // extropy: the spokes into the centre
       edges+=`<path class="syn-mesh" data-i="${k}"/>`;    // syntropy: the mesh between peers
     }
-    for(let k=0;k<N;k++) nodes+=`<circle class="syn-node" data-i="${k}"/>`;
+    for(let k=0;k<N;k++) nodes+=`<circle class="syn-node" data-i="${k}" style="--k:${k}"/>`;
     const hh=rowH[i];
     rows+=`<g class="syn-row" data-l="${i}" data-n="${N}" transform="translate(0 ${rowY[i].toFixed(1)})"
              tabindex="0" role="button"
-             aria-label="${L.n}: extropy is ${L.ex.split(' — ')[0]}, syntropy is ${L.sy.split(' — ')[0]}">
+             aria-label="${L.n}, a whole made of ${L.of} and a part of ${L.in}: extropy is ${L.ex.split(' — ')[0]}, syntropy is ${L.sy.split(' — ')[0]}">
       <rect class="syn-hit" x="0" y="${(-hh/2).toFixed(1)}" width="${W}" height="${hh.toFixed(1)}" rx="14"/>
       <text class="syn-lname" x="18" y="-4">${L.n}</text>
       <text class="syn-lscale" x="18" y="20">${L.s}</text>
+      <text class="syn-lmade" x="18" y="40">${i?`${L.of}, nested`:'the first ring'}</text>
       <g class="syn-dia" transform="translate(${DX} 0)">
-        ${edges}
-        <circle class="syn-hub"/>
-        ${nodes}
+        <g class="syn-grow">
+          <g class="syn-inherit">${inner}</g>
+          <g class="syn-new">
+            ${edges}
+            <circle class="syn-hub"/>
+            ${nodes}
+          </g>
+        </g>
       </g>
     </g>`;
   });
@@ -3601,7 +3651,7 @@ function renderSyntropy(){
       ${axis}
       ${rows}
       <line class="syn-floor" x1="18" y1="${H-40}" x2="${W-18}" y2="${H-40}"/>
-      <text class="syn-floorlab" x="18" y="${H-14}">entropy · the floor. it is not one of the options — it is what happens when nobody is paying.</text>
+      <text class="syn-floorlab" x="18" y="${H-14}">entropy · the floor. it is not one of the options — it is what happens with no energy, or no productive use of it.</text>
     </svg>
 
     <div class="holowrap">
@@ -3668,6 +3718,12 @@ function renderSyntropy(){
       const N=+g.dataset.n;
       const R=RAD[li]*squeeze, ry=R*SQY;
       const dia=g.querySelector('.syn-dia');
+      // everything this level is made of, still there, at its own true radius
+      dia.querySelectorAll('.syn-inner').forEach((el,j)=>{
+        const r=RAD[j]*squeeze;
+        el.setAttribute('cx',0); el.setAttribute('cy',0);
+        el.setAttribute('rx',r.toFixed(1)); el.setAttribute('ry',(r*SQY).toFixed(1));
+      });
       const hub=dia.querySelector('.syn-hub');
       hub.setAttribute('r',lerp(RAD[li]*0.30,0,t).toFixed(1));
       hub.setAttribute('opacity',(1-t).toFixed(2));
@@ -3771,13 +3827,29 @@ function renderSyntropy(){
     });
   });
 
+  // the build: a level assembles as it comes into view, and it assembles ON TOP of the ones under
+  // it. the inherited rings fade in first, then the new ring's nodes pop in one at a time — so you
+  // watch each scale being made out of the one below rather than finding it already finished.
+  if(synIO){ synIO.disconnect(); synIO=null; }
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||!('IntersectionObserver' in window)){
+    rowEls.forEach(g=>g.classList.add('built'));
+  } else {
+    synIO=new IntersectionObserver(es=>es.forEach(e=>{
+      // it builds on the way down and stays built. a diagram that un-draws itself when you scroll
+      // back past it is a toy; this is meant to accumulate.
+      if(e.isIntersecting) e.target.classList.add('built');
+    }),{rootMargin:'0px 0px -18% 0px',threshold:0.35});
+    rowEls.forEach(g=>synIO.observe(g));
+  }
+
   paint(0.5);
 }
 
 // ---------- 🌀 syntropy & extropy: the same fork, at every scale ----------
-// entropy is not one of the three options. it is the FLOOR — the thing that happens when nobody is
-// paying. the only real question a structure ever answers is how long it can hold out against it,
-// and that is a question about its design. there are two ways to answer:
+// entropy is not one of the three options. it is the FLOOR — what happens with no energy, or no
+// productive use of it. the only real question a structure ever answers is how long it can hold out
+// against that, and it answers it with its design. there are two ways to answer:
 //
 //   extropy  — pull everything toward one centre. the centre gets hot, gets rich, gets powerful,
 //              and gets brittle: nothing that goes in comes out, so when the centre goes, it all
@@ -5468,7 +5540,7 @@ const MODES={
    {t:'fission',s:'the atom, and the cartel',c:'#2f7f96',eras:[3]},
    {t:'flux',s:'sunlight, stored and traded',c:'#0e9aa8',eras:[4]}
   ],
-  arcnote:'the prime mover migrates: muscle → flow → fire → fission → flux. each jump is a ceiling lifted off every other tab — the census needed a granary, the printing press needed a watermill, the model needs a gigawatt. and the sting: jevons proved in 1865 that we spend every efficiency gain rather than banking it, and in a hundred and sixty years he has not been wrong once. we have never used less. coal freed the human body from being the engine and quietly billed the sky; the grid put a light in every rural kitchen and shipped a monopoly with a lobbyist attached.',
+  arcnote:'the prime mover migrates: muscle → flow → fire → fission → flux. each jump lifts a ceiling off every other tab — the model needs a gigawatt. and jevons proved in 1865 that we spend every efficiency gain rather than bank it. we have never used less.',
   foot:''},
  care:{stats:CARE_STATS,eras:CARE_ERAS,fav:'🩺',
   h1:'CARE',
@@ -5483,7 +5555,7 @@ const MODES={
    {t:'the insurer',s:'the price nobody can see',c:'#8f4fc0',eras:[3]},
    {t:'the protocol',s:'the patients fund their own cure',c:'#c04a86',eras:[4]}
   ],
-  arcnote:'the healer migrates: kin, then the priest, then the profession, then the insurer, then the protocol. every move buys real competence and sells something — the temple could not set a bone but it knew your name; the insurer can pay for a transplant and cannot tell you the price. and underneath every single era, unchanged, is the woman in the next room with the basin. unpaid family care is the largest health system on earth, it has never appeared on any budget, in any era on this poster, and it still doesn\'t.',
+  arcnote:'the healer migrates: kin → priest → profession → insurer → protocol. each move buys real competence and sells something. and under every era is the woman in the next room with the basin — the largest health system on earth, and on nobody\'s budget.',
   foot:''},
  land:{stats:LAND_STATS,eras:LAND_ERAS,fav:'🗺️',
   h1:'LAND',
@@ -5498,7 +5570,7 @@ const MODES={
    {t:'the zone',s:'a map decides who may own',c:'#5a7d4a',eras:[3]},
    {t:'the token',s:'the claim settles in a minute',c:'#2f7f96',eras:[4]}
   ],
-  arcnote:'the claim keeps migrating — use, custom, the deed, the zone, the token — and each new instrument is better than the last at the one job, which is telling a stranger who may stand here. underneath all five is the same sting. land is the only thing on this poster nobody produced, so every transfer of it, followed back far enough, is a transfer from somebody who was already there. enclosure, terra nullius, the survey grid, the redline: the paperwork gets cleaner every era, and the arithmetic never changes.',
+  arcnote:'the claim migrates: use → custom → deed → zone → token, each better than the last at telling a stranger who may stand here. but nobody produced land — so every transfer, followed back far enough, is a transfer from whoever was already there.',
   foot:''},
  time:{stats:TIME_STATS,eras:TIME_ERAS,fav:'⏳',
   h1:'THE&nbsp;CLOCK',
@@ -5513,7 +5585,7 @@ const MODES={
    {t:'the timestamp',s:'the microsecond, the quarter, the attention minute',c:'#2b6cb0',eras:[3]},
    {t:'the block',s:'a clock nobody owns',c:'#7a3fd1',eras:[4]}
   ],
-  arcnote:'the clock migrates: sun → bell → whistle → timestamp → block. each one measures time more precisely than the last, and each one claims more of yours — the elastic roman hour bent to fit the work; the whistle made the hour a thing you sell; the scanner now measures the gap between scans. the forty-hour week is the only entry on this tab where anybody took time back, and it was extracted, not granted. and across all five eras the future gets exactly one vote: the discount rate, which sets it to zero.',
+  arcnote:'the clock migrates: sun → bell → whistle → timestamp → block. each measures time more finely, and each claims more of yours. the forty-hour week is the only place anyone took time back — and it was extracted, not granted. the future\'s only vote is the discount rate.',
   foot:''},
  syntropy:{syn:true,stats:{},eras:[],fav:'🌀',
   h1:'SYNTROPY&nbsp;&&nbsp;EXTROPY',
@@ -5918,11 +5990,13 @@ function setMode(mode,user){
   } else if(M.spiral){
     document.getElementById('synwrap').innerHTML='';
     if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
+    if(synIO){ synIO.disconnect(); synIO=null; }
     WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML=''; hardWrap.innerHTML=''; lsvg.innerHTML='';
     renderSpiral();
   } else {
     document.getElementById('synwrap').innerHTML='';
     if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
+    if(synIO){ synIO.disconnect(); synIO=null; }
     // the spiral borrowed the buttons for its last step; give them back before we wipe it
     document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
     document.getElementById('spiralwrap').innerHTML='';
