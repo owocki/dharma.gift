@@ -254,6 +254,16 @@
     .tabgrp{padding:8px 8px 10px}
     .grplab em{display:none}
   }
+  /* the funders strip. below the nav, same register as the rest of the apparatus: whoever pays
+     for the room gets a nameplate by the door, not a billboard on the art. */
+  .funders{display:flex;flex-direction:column;align-items:center;gap:10px;margin:36px auto 6px;text-align:center}
+  .funders .flab{font-size:11px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .funders .flogo{color:var(--ink);opacity:.8;transition:opacity .2s}
+  .funders .flogo:hover{opacity:1}
+  .funders .fcta{font-size:11.5px;font-weight:700;color:var(--muted);text-decoration:none;
+    padding:7px 14px;border:1px solid var(--line);border-radius:999px;
+    transition:color .2s,border-color .2s,transform .2s}
+  .funders .fcta:hover{color:var(--ink);border-color:var(--muted);transform:translateY(-1px)}
   /* the landing page is the coil. the credits, the store link and the github link are not part of
      the argument — they belong on the tabs that are actually posters. */
   :root[data-mode="spiral"] .pfoot{display:none}
@@ -600,6 +610,124 @@
   .rlinks{font-size:12px;color:var(--muted);line-height:1.7;margin:0}
   .rlinks a{color:var(--ink);text-decoration:none;border-bottom:1px dashed var(--muted)}
 
+  /* ---------- 🧩 assembly — the assembly index ---------- */
+  #assemblywrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1140px}
+  :root[data-mode="assembly"] #assemblywrap{display:block}
+  :root[data-mode="assembly"] #eras{display:none}
+  /* nothing to play: this view is a thing you take apart, not a timeline you walk. */
+  :root[data-mode="assembly"] .playbtn{display:none}
+  :root[data-mode="assembly"] .pfoot{margin-top:14px}
+  :root[data-mode="assembly"]{--pgrad:linear-gradient(175deg,#efe6d4 0%,#dfeee1 52%,#e0e5f8 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="assembly"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#211809 0%,#0b2415 52%,#0b1030 100%)} }
+  :root[data-mode="assembly"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#211809 0%,#0b2415 52%,#0b1030 100%)}
+  :root[data-mode="assembly"][data-theme="light"]{--pgrad:linear-gradient(175deg,#efe6d4 0%,#dfeee1 52%,#e0e5f8 100%)}
+  :root[data-mode="assembly"] .poster .sub{background:linear-gradient(90deg,#d98a1f,#2f9e44,#1c7ed6,#7048e8);-webkit-background-clip:text;background-clip:text}
+  .tab.on.t-assembly{background:linear-gradient(90deg,#d98a1f,#2f9e44,#7048e8);box-shadow:0 6px 18px rgba(47,158,68,.4)}
+  #assemblywrap{--ac:#2f9e44}
+
+  .asmintro{max-width:840px;margin:4px auto 2px;text-align:center;font-size:13.5px;color:var(--muted);line-height:1.66}
+  .asmintro b{color:var(--ink);font-size:15px;display:block;margin-bottom:4px}
+  .asmintro b.inl{display:inline;font-size:inherit}
+  .asmintro.asmoutro{margin:22px auto 6px}
+  .asmintro a{color:var(--ink);text-decoration:none;border-bottom:1px dashed var(--muted)}
+  .asmintro em{font-style:italic}
+
+  .asmpick{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:16px auto 4px;max-width:880px}
+  .asmchip{font:inherit;font-weight:800;font-size:12.5px;letter-spacing:.01em;padding:8px 15px;border-radius:999px;
+    border:1.5px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer;
+    transition:transform .2s,box-shadow .2s,border-color .2s,color .2s}
+  .asmchip .ce{margin-right:6px}
+  .asmchip:hover{transform:translateY(-2px)}
+  .asmchip.on{color:#fff;border-color:transparent;background:var(--ac,#2f9e44);
+    box-shadow:0 6px 16px color-mix(in srgb,var(--ac,#2f9e44) 42%,transparent)}
+
+  .asmladder{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:start;
+    max-width:940px;margin:14px auto 0}
+  @media(max-width:720px){ .asmladder{grid-template-columns:76px minmax(0,1fr);gap:11px} }
+
+  /* the counter rail: one big number that climbs as the ladder builds itself */
+  .asmrail{position:sticky;top:12px;text-align:center;
+    border:1.5px solid var(--line);border-radius:18px;padding:16px 8px 14px;
+    background:color-mix(in srgb,var(--panel) 74%,transparent)}
+  .asmidx b{display:block;font-size:52px;font-weight:850;line-height:1;font-variant-numeric:tabular-nums;
+    background:linear-gradient(180deg,var(--ac,#2f9e44),color-mix(in srgb,var(--ac,#2f9e44) 40%,#7048e8));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .asmidx span{display:block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  .asmbase{font-size:10px;letter-spacing:.03em;color:var(--muted);line-height:1.5;margin-top:13px;
+    border-top:1px dashed var(--line);padding-top:11px}
+  .asmbase b{color:var(--ink);font-size:22px;display:block;font-weight:850;font-variant-numeric:tabular-nums;margin:1px 0 2px}
+  @media(max-width:720px){ .asmidx b{font-size:34px} .asmbase{font-size:9px} .asmbase b{font-size:17px} }
+
+  /* the rungs. rendered bottom-first in the dom (so the counter can climb with them) and flipped
+     into place with flex order, so the target crowns the top. */
+  .asmrungs{position:relative;display:flex;flex-direction:column;gap:9px}
+  .asmrung{position:relative;display:flex;gap:11px;align-items:center;
+    border:1.5px solid var(--line);border-radius:14px;background:var(--panel);
+    padding:11px 13px;cursor:pointer;text-align:left;color:var(--ink);font:inherit;
+    opacity:0;transform:translateY(16px) scale(.97);
+    transition:opacity .5s cubic-bezier(.2,.7,.2,1),transform .5s cubic-bezier(.2,.7,.2,1),border-color .22s,box-shadow .22s}
+  .asmrung.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){ .asmrung{opacity:1!important;transform:none!important;transition:border-color .22s,box-shadow .22s} }
+  .asmrung:hover{border-color:color-mix(in srgb,var(--ac,#2f9e44) 55%,transparent);
+    box-shadow:0 6px 16px color-mix(in srgb,var(--ac,#2f9e44) 20%,transparent)}
+  .asmrung .re{font-size:21px;flex:0 0 auto;width:29px;text-align:center;line-height:1}
+  .asmrung .rb{flex:1 1 auto;min-width:0}
+  .asmrung .rn{font-weight:800;font-size:14px;letter-spacing:.005em}
+  .asmrung .rw{color:var(--muted);font-size:11.5px;line-height:1.45;margin-top:1px}
+  .asmrung .rai{flex:0 0 auto;font:800 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;
+    color:var(--muted);background:color-mix(in srgb,var(--ink) 7%,transparent);
+    border-radius:999px;padding:5px 8px;white-space:nowrap}
+  .asmrung .rtag{display:none}
+  /* the target crowns the top: bigger, tinted, unmissable */
+  .asmrung.top{border-color:transparent;
+    background:linear-gradient(120deg,color-mix(in srgb,var(--ac,#2f9e44) 22%,var(--panel)),var(--panel));
+    box-shadow:0 10px 30px color-mix(in srgb,var(--ac,#2f9e44) 26%,transparent)}
+  .asmrung.top .rn{font-size:16px;color:var(--ac,#2f9e44)}
+  .asmrung.top .re{font-size:25px}
+  /* a brick you already had from an earlier build — reuse is the whole thesis */
+  .asmrung.reused{border-style:dashed;border-color:color-mix(in srgb,#d98a1f 62%,transparent)}
+  .asmrung.reused .rtag{display:inline-block;flex:0 0 auto;
+    font:800 9px/1 -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.05em;text-transform:uppercase;
+    color:#a86a10;background:color-mix(in srgb,#d98a1f 20%,transparent);border-radius:999px;padding:5px 7px}
+  @media (prefers-color-scheme:dark){ :root[data-mode="assembly"]:not([data-theme="light"]) .asmrung.reused .rtag{color:#e6b25a} }
+  :root[data-mode="assembly"][data-theme="dark"] .asmrung.reused .rtag{color:#e6b25a}
+
+  .asmcard{max-width:940px;margin:14px auto 0;border:1.5px solid var(--line);border-radius:16px;
+    background:color-mix(in srgb,var(--panel) 74%,transparent);padding:15px 18px;min-height:74px}
+  .asmcard h4{margin:0 0 7px;font-size:16px;font-weight:850;color:var(--ac,#2f9e44)}
+  .asmcard p{margin:0;font-size:12.5px;line-height:1.62;color:var(--muted)}
+  .asmcard p b{color:var(--ink)}
+  .asmreuse{font-size:12px;color:var(--muted);line-height:1.6;border-top:1px dashed var(--line);padding-top:10px;margin-top:10px}
+  .asmreuse b{color:#a86a10}
+  @media (prefers-color-scheme:dark){ :root[data-mode="assembly"]:not([data-theme="light"]) .asmreuse b{color:#e6b25a} }
+  :root[data-mode="assembly"][data-theme="dark"] .asmreuse b{color:#e6b25a}
+
+  /* the four nested rooms of assembly space — a filter, drawn as a filter */
+  .asmfunnel{display:flex;flex-direction:column;gap:7px;align-items:center;margin:12px auto 0;max-width:760px}
+  .asmlvl{width:var(--w);max-width:100%;min-width:210px;cursor:pointer;border:none;font:inherit;text-align:left;
+    color:#fff;border-radius:13px;padding:12px 17px;transition:transform .2s,filter .2s}
+  .asmlvl:hover{transform:scale(1.014);filter:brightness(1.07)}
+  .asmlvl .lh{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 8px}
+  .asmlvl b{font-size:14.5px;font-weight:850}
+  .asmlvl .ls{font-size:11px;opacity:.92;font-weight:600}
+  .asmlvl .lfr{font:800 9px/1 -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:.06em;text-transform:uppercase;
+    background:rgba(0,0,0,.22);border-radius:999px;padding:4px 8px;margin-left:auto}
+  .asmlvl .ld{max-height:0;opacity:0;overflow:hidden;font-size:12px;line-height:1.55;margin-top:0;
+    transition:max-height .45s ease,opacity .3s,margin-top .3s}
+  .asmlvl.open .ld{max-height:150px;opacity:.96;margin-top:8px}
+
+  /* the spiral read as one rising number, era by era */
+  .asmeras{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:940px;margin:12px auto 0}
+  @media(max-width:720px){ .asmeras{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:420px){ .asmeras{grid-template-columns:1fr} }
+  .asmerc{border:1.5px solid var(--line);border-top-width:3px;border-top-color:var(--ec);
+    border-radius:12px;background:color-mix(in srgb,var(--panel) 70%,transparent);padding:11px 12px 12px}
+  .asmerc .ea{font:850 30px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-variant-numeric:tabular-nums;color:var(--ec)}
+  .asmerc .ee{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:5px 0 6px}
+  .asmerc .eg{font-size:13px;font-weight:800;color:var(--ink)}
+  .asmerc .en{font-size:11px;line-height:1.45;color:var(--muted);margin-top:3px}
+
   #synsvg{width:100%;height:auto;display:block;--t:.5;--e:0}
   /* THE CONTROL. it used to be a line with extropy at one end and syntropy at the other, which is
      fine until you want entropy in it — because entropy is not a third stop on that line. the line
@@ -737,13 +865,20 @@
     paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
   .ves-lv.lit .ves-hlab{fill:var(--ink);font-weight:850}
   /* the holon lens: the tie between a ring and its dot-self one ring out, and the captions that
-     name the two readings — then the two defections. drawn in screen coords, unzoomed. */
+     name the two readings — then the two defections, the clamp, and the balance. drawn in screen
+     coords, unzoomed. */
   .ves-holon{pointer-events:none}
   .holon-link{fill:none;stroke:#7c5cff;stroke-width:2.2;stroke-dasharray:3 6;stroke-linecap:round}
   .holon-t{font:700 20px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     paint-order:stroke;stroke:var(--panel);stroke-width:5px;stroke-linejoin:round}
   .holon-t.vio{fill:#7c5cff}
   .holon-t.red{fill:#e8446f}
+  .holon-t.blu{fill:#2b7de0}
+  .holon-t.gld{fill:#d9930f}
+  /* dystopia's centre: cold, filled, and every leash runs to it. the leashes live INSIDE .ves
+     (they are geometry, and they zoom with the dots they hold); the fist is screen-coord type. */
+  .holon-fist{fill:#2b7de0;stroke:var(--panel);stroke-width:2}
+  .ves-leash{fill:none;stroke:#2b7de0;stroke-width:1.3;opacity:0}
 
   /* ---- the build ----
      a level arrives, and it brings the skin above it with it — so the vessel extends downward as
@@ -873,6 +1008,10 @@
      not a corner's colour. these sit AFTER the data-c rules on purpose: same specificity, later wins. */
   .synstep.holo.on h3{color:#7c5cff}
   .synstep.holo.on .tag{color:#7c5cff}
+  /* the two failure modes and the way out wear their own colours in the margin, same as on the
+     picture: cold blue for the clamp, gold for the ridge between the ditches. */
+  .synstep.dyst.on h3,.synstep.dyst.on .tag{color:#2b7de0}
+  .synstep.attr.on h3,.synstep.attr.on .tag{color:#d9930f}
 
   #spiralwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1240px}
   /* the coil, and its apparatus, side by side */
@@ -1280,6 +1419,7 @@
     <div id="turnwrap"></div>
     <div id="ratchetwrap"></div>
     <div id="synwrap"></div>
+    <div id="assemblywrap"></div>
     <div id="eras"></div>
     <footer class="pfoot">
       <span id="footleft" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></span>
@@ -1313,6 +1453,7 @@
         <button class="tab t-syntropy" role="tab" data-mode="syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></button>
         <button class="tab t-turn" role="tab" data-mode="turn"><span class="em">⚙️</span>one turn<span class="tq">the loop, up close</span></button>
         <button class="tab t-ratchet" role="tab" data-mode="ratchet"><span class="em">🪜</span>the ratchet<span class="tq">what survives collapse</span></button>
+        <button class="tab t-assembly" role="tab" data-mode="assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></button>
       </div>
     </div>
     <div class="tabgrp">
@@ -4142,6 +4283,7 @@ function renderSyntropy(){
     vessel+=`<g class="ves-lv" data-l="${i}" data-n="${N}">
       ${seg}
       <ellipse class="ves-ring"/>
+      ${i===1||i===2?'<path class="ves-leash"/>':''}
       ${nodes}
       <text class="ves-hlab" text-anchor="middle">${L.n}</text>
     </g>`;
@@ -4234,8 +4376,8 @@ function renderSyntropy(){
 
   // ---- THE STEPS ----
   // extropy gets TWO of them, and that is the whole point of the section. the shape of the vessel is
-  // identical in both — a straight shot, no circulation — but in 02 the energy still comes out the far
-  // end, and in 02.5 a core appears in the middle and eats it. same design, two different stories about
+  // identical in both — a straight shot, no circulation — but in 08 the energy still comes out the far
+  // end, and in 08.5 a core appears in the middle and eats it. same design, two different stories about
   // who the harvest is for. so `grab` (does the core capture?) is a SEPARATE dial from `c` (what shape
   // is the flow?), and the compute block only exists where grab is on.
   // and the FIRST step is the CAMERA's, not a regime's: the section opens looking straight DOWN
@@ -4250,11 +4392,15 @@ function renderSyntropy(){
      d2:`hold the shape. the question this page asks gets asked <b>on every ring</b>, by whatever is
         standing on it — and the rings answer separately. <b>the shapes nest, and they fight.</b>
         scroll, and the camera leans in on one of them.`},
-    // the holon, in two beats. `hol` is a second scroll-owned dial next to `tilt`: 1 leans the
+    // the holon, in four beats. `hol` is a second scroll-owned dial next to `tilt`: 1 leans the
     // camera into ONE nested pair (the body's ring, inside the band's) and draws the double life —
     // a whole ring here, a single dot one ring out. 2 keeps the lens and lets one part DEFECT:
     // the dot swells red and its siblings wither. cancer at one scale, crime at the next — the
-    // same move, so the same picture, drawn twice one ring apart.
+    // same move, so the same picture, drawn twice one ring apart. 3 flips the failure over: now
+    // the WHOLE misbehaves — a cold centre appears and leashes every dot inward, regimented and
+    // dimmed, until one flares red and pushes back OUT past the rim: dystopia, and the revolt it
+    // breeds. 4 is the answer to both: no swollen part, no clamping centre — the dots breathe at
+    // full radius and both rings glow. the third attractor is the tension HELD, not resolved.
     {no:'01',   c:'sy', grab:0, tilt:1, hol:1, cls:'holo',
      T:'the holon', tag:'a whole, and a part, at once',
      d:`look at the body twice. it is <b>a whole in and of itself</b> — its own ring, its own parts,
@@ -4264,23 +4410,56 @@ function renderSyntropy(){
         collective, nor <em>really</em> a member that happens to have insides.
         <b>it is both, all the way down and all the way up.</b>`},
     {no:'02',   c:'sy', grab:0, tilt:1, hol:2, cls:'holo',
-     T:'the tension', tag:'individual ⇄ collective',
+     T:'the first tension', tag:'individual ⇄ collective',
      d:`so every holon pulls two ways at once: <b>be the whole</b> — grow, keep, feed yourself —
         and <b>be the part</b> — serve, share, pass it through. a healthy ring does not resolve
         that tension. it <b>holds</b> it.`,
      d2:`and when one part stops holding it — takes like a whole, gives like nothing — you already
         know the names. in the body it is <b>cancer</b>. in the band it is <b>crime</b>.
         same defection, one ring apart. <b>the tumour and the thief are the same shape.</b>`},
-    {no:'03',   c:'en', grab:0, T:'Entropy',  tag:'Things Fall Apart',
+    {no:'03',   c:'sy', grab:0, tilt:1, hol:3, cls:'holo dyst',
+     T:'the second tension', tag:'dystopia ⇄ revolt',
+     d:`the defection has a mirror image. this time the <b>whole</b> stops holding the tension —
+        it clamps down, leashes every part to the centre, and governs them like property.
+        perfect order, nothing alive inside it. that is <b>dystopia</b>.`,
+     d2:`and clamped parts do not stay clamped. squeeze a ring hard enough and its dots stop doing
+        the work that feeds it — then they push back. <b>tyranny at one ring breeds revolt on the
+        ring below.</b> the first tension eats the whole from inside; this one crushes it from above.`},
+    {no:'04',   c:'sy', grab:0, tilt:1, hol:4, cls:'holo attr',
+     T:'the third attractor', tag:'neither catastrophe nor dystopia',
+     d:`so a holon has two ways to die, and they pull in opposite directions: <b>catastrophe</b> —
+        the parts defect and the whole comes apart — and <b>dystopia</b> — the whole clamps down
+        and the parts stop being alive. fleeing one is how you arrive at the other.`,
+     d2:`the <b>third attractor</b> is the narrow path between them: a whole coherent enough to
+        hold its parts, parts free enough to keep the whole alive — both tensions <b>held at
+        once, on purpose, at every ring</b>. the rest of this page is about how to build that.`},
+    // the lens lets go here — hol back to 0 while the tilt holds, so the zoom-out IS the step:
+    // the pair you have been staring at falls back into the nest, and the nest is the point.
+    {no:'05',   c:'sy', grab:0, tilt:1, cls:'holo',
+     T:'ok — we’re zooming out now', tag:'buckle up',
+     d:`the lens lets go. the pair you were watching falls back into the nest it came from —
+        <b>one ring among eight</b>, and every one of them holding the same two tensions
+        you just met.`},
+    // …and here the quarter-turn happens: no tilt, so the nest tips over into the stack as this
+    // step takes the line — the lineage is the side view, the whole object seen edge-on.
+    {no:'06',   c:'sy', grab:0, cls:'holo',
+     T:'the lineage', tag:'the hyperobject',
+     d:`you’re looking at <b>the upward spiral of humanity</b>. it is a <b>holarchy</b> —
+        a bunch of holons — our whole lineage, from the cell to the star, visualized as
+        <b>one object</b> that exists outside of time and space.`,
+     d2:`an object like this is a <b>hyperobject</b>: something so massively distributed in time
+        and space that it transcends human spatiotemporal comprehension. you cannot stand outside
+        it to look at it. <b>you are one of the dots.</b>`},
+    {no:'07',   c:'en', grab:0, T:'Entropy',  tag:'Things Fall Apart',
      d:`Order decays without energy. Systems drift toward disorder, randomness, and dissolution.`},
-    {no:'04',   c:'ex', grab:0, T:'Extropy',  tag:'Things Get Better',
+    {no:'08',   c:'ex', grab:0, T:'Extropy',  tag:'Things Get Better',
      d:`Energy is ingested + Intelligence pushes back. Through knowledge, technology, and
         coordination, systems become more capable.`},
-    {no:'04.5', c:'ex', grab:1, T:'Extropy',  tag:'Things Get Worse',
+    {no:'08.5', c:'ex', grab:1, T:'Extropy',  tag:'Things Get Worse',
      d:`The harvest of the energy ingested stops going to the smallfolk. Instead it goes to the elite.
         The ultimate fate of an extropic civilization is the dyson sphere. the platform that owns you.
         the globalist economic black hole with good branding.`},
-    {no:'05',   c:'sy', grab:0, T:'Syntropy', tag:'Things Come Together',
+    {no:'09',   c:'sy', grab:0, T:'Syntropy', tag:'Things Come Together',
      d:`Energy is ingested + Parts organize into a greater whole. Cooperation and connection create
         more life, coherence, and possibility.`}
   ];
@@ -4315,7 +4494,7 @@ function renderSyntropy(){
            modular one, which is the argument's own consequence: the choice is made on every ring, so
            you had better be able to set every ring. -->
       <section class="trypanel" id="trypanel">
-        <span class="stepn">06</span>
+        <span class="stepn">10</span>
         <h3>now you drive it</h3>
         <p class="lede">no real system sits on a corner. mix them.</p>
         <!-- inverted on purpose: the two SHAPES of order are the two things you can climb toward, and
@@ -4342,7 +4521,7 @@ function renderSyntropy(){
       </section>
 
       <section class="trypanel" id="trypanel2">
-        <span class="stepn">07</span>
+        <span class="stepn">11</span>
         <h3>…or drive it ring by ring</h3>
         <p class="lede">the choice is made on every ring. set them separately — and watch them fight.</p>
         <!-- one row per scale, three buttons each. no mixing here: a ring is in one regime or another,
@@ -4361,7 +4540,7 @@ function renderSyntropy(){
     </div>
     <div class="synsticky">
     <svg id="synsvg" viewBox="0 0 ${W} ${H}" role="img"
-      aria-label="one wireframe vessel threading eight scales, the star at its wide base and the cell at its narrow top. starlight enters at the star and moves up through every scale above it. extropy pinches the vessel to a needle: the energy runs straight up the axis without circulating and is swallowed by a core — the compute, the chips and data centres — and none of it ever leaves. syntropy opens the vessel into a bell: the energy circles each ring many times, doing work at that scale before passing up to the next, and what is left finally leaves as waste heat. entropy is visible in both, in two forms: the heat every working loop sheds and never gets back, and the decay of any ring that stops being fed — at extropy every ring outside the core withers to a frayed outline, because the order was not defeated, only moved into one dot. the picture opens looking straight down that axis — the eight rings concentric and nested, a holarchy, each ring named at its rim. two steps then lean the lens in on one holon, the body: a whole ring of parts in itself, and a single dot on the band's ring outside it. next, one dot on each of those rings defects — swells red while its siblings wither — the tumour at the body's scale and the thief at the band's, the same shape one ring apart. then the camera turns a quarter-turn onto its side as entropy arrives.">
+      aria-label="one wireframe vessel threading eight scales, the star at its wide base and the cell at its narrow top. starlight enters at the star and moves up through every scale above it. extropy pinches the vessel to a needle: the energy runs straight up the axis without circulating and is swallowed by a core — the compute, the chips and data centres — and none of it ever leaves. syntropy opens the vessel into a bell: the energy circles each ring many times, doing work at that scale before passing up to the next, and what is left finally leaves as waste heat. entropy is visible in both, in two forms: the heat every working loop sheds and never gets back, and the decay of any ring that stops being fed — at extropy every ring outside the core withers to a frayed outline, because the order was not defeated, only moved into one dot. the picture opens looking straight down that axis — the eight rings concentric and nested, a holarchy, each ring named at its rim. two steps then lean the lens in on one holon, the body: a whole ring of parts in itself, and a single dot on the band's ring outside it. next, one dot on each of those rings defects — swells red while its siblings wither — the tumour at the body's scale and the thief at the band's, the same shape one ring apart. the failure then flips over: a cold centre appears and leashes every dot inward — shrunk, dimmed, regimented — until one dot flares red and strains outward past the rim: dystopia, and the revolt it breeds. one more beat shows the third attractor — no swollen defector, no clamping centre; the dots breathe at full radius and both rings glow warm, the tension held rather than resolved. the lens then pulls back out to the whole nest: eight rings, all alive. then the camera turns a quarter-turn onto its side and the nest becomes the stacked vessel seen edge-on — the lineage, from star to cell, one object: the upward spiral of humanity drawn as a hyperobject, too large in time and space to see from outside. entropy arrives on this side view.">
       <defs>
         <radialGradient id="vescore" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
@@ -4398,13 +4577,21 @@ function renderSyntropy(){
       <!-- the holon lens's own captions. they sit OUTSIDE .ves on purpose: the lens zooms the
            vessel, and a caption that zoomed with it would be shouting. paint() places these in
            screen coordinates each frame, so they ride the dots they name without inheriting the
-           scale. step 01's pair is violet (the concept); step 02's pair is red (the defection). -->
+           scale. step 01's pair is violet (the concept); step 02's pair is red (the defection);
+           step 03's are cold blue (the clamp) and red again (the revolt — the defector's own
+           colour, because it is the same anger pointed the other way); step 04's pair is gold.
+           the fist is dystopia's centre: the one dot every leash runs to. -->
       <g class="ves-holon" aria-hidden="true">
         <path class="holon-link"/>
+        <circle class="holon-fist"/>
         <text class="holon-t vio" data-h="a1" text-anchor="end">a whole in itself</text>
         <text class="holon-t vio" data-h="b1" text-anchor="middle">…and one part of the next whole</text>
         <text class="holon-t red" data-h="a2" text-anchor="middle">cancer · a part that takes like a whole</text>
         <text class="holon-t red" data-h="b2" text-anchor="middle">crime · the same defection, one ring up</text>
+        <text class="holon-t blu" data-h="a3" text-anchor="middle">dystopia · the whole clamps its parts</text>
+        <text class="holon-t red" data-h="b3" text-anchor="middle">revolt · the parts push back</text>
+        <text class="holon-t gld" data-h="a4" text-anchor="middle">neither the tumour nor the tyrant</text>
+        <text class="holon-t gld" data-h="b4" text-anchor="middle">the tension held · parts free, whole coherent</text>
       </g>
     </svg>
     </div><!-- /.synsticky -->
@@ -4451,7 +4638,7 @@ function renderSyntropy(){
 
   // ---- THE STACK'S STATE ----
   // three canonical regimes, and every ring holds one. (extropy comes in two flavours on the way
-  // down the page — 02 is the same pinched shape with no core, 02.5 adds the core — so the regime is
+  // down the page — 08 is the same pinched shape with no core, 08.5 adds the core — so the regime is
   // a triple, not a label.)   S = circulate · E = starved outright · G = this ring's core captures.
   const REGIME={
     en:{S:0.5, E:1, G:0},      // slack, dark, nothing moving
@@ -4465,7 +4652,7 @@ function renderSyntropy(){
   const setRing=(i,r,g)=>{
     RING[i]=r;
     TS[i]=REGIME[r].S; TE[i]=REGIME[r].E;
-    TG[i]=(g===undefined?REGIME[r].G:g);   // the scroll's step 02 is extropy WITHOUT the core
+    TG[i]=(g===undefined?REGIME[r].G:g);   // the scroll's step 08 is extropy WITHOUT the core
   };
   const setAll=(r,g)=>{ for(let i=0;i<NL;i++) setRing(i,r,g); };
 
@@ -4483,6 +4670,7 @@ function renderSyntropy(){
   const src=vesEl.querySelector('.ves-src');
   const holonG=svg.querySelector('.ves-holon');
   const holLink=holonG.querySelector('.holon-link');
+  const holFist=holonG.querySelector('.holon-fist');
   const holT=Object.fromEntries([...holonG.querySelectorAll('.holon-t')].map(t=>[t.dataset.h,t]));
   let spin=0;                                       // the solid turns, slowly, forever
 
@@ -4498,12 +4686,15 @@ function renderSyntropy(){
   // …and THE LENS, the camera's second dial. hol leans in on one nested pair — the body's ring
   // (level 1) inside the band's (level 2) — dimming the rest of the nest and zooming toward the
   // pair, because at full frame those two rings are forty pixels wide and the argument lives on
-  // their dots. rog is the defection: one dot on each focused ring takes like a whole. both are
-  // scroll-owned, eased in the main loop, and multiplied by the tilt so the side view never zooms.
-  let holCur=0, holTgt=0, rogCur=0, rogTgt=0;
+  // their dots. rog is the defection: one dot on each focused ring takes like a whole. dys is the
+  // failure in the OTHER direction: the whole clamps its parts — a cold centre, every dot leashed
+  // inward — and one dot answers it by revolting. att is the third attractor: neither, held. all
+  // are scroll-owned, eased in the main loop, and multiplied by the tilt so the side view never zooms.
+  let holCur=0, holTgt=0, rogCur=0, rogTgt=0, dysCur=0, dysTgt=0, attCur=0, attTgt=0;
   let lensNow=0;                                    // paint tells the loop how leaned-in it is: the spin slows under the lens
   const HFOC=[1,2];                                 // the featured pair: the body, inside the band
   const ROGK={1:4,2:2};                             // which dot on each ring defects (spread apart on the rim)
+  const REBK={1:1,2:5};                             // which dot on each ring REVOLTS — not the defector; loyalty broke elsewhere
   const HZOOM=2.8;                                  // how far the lens leans in
 
   // the SQUEEZE is the only thing the dial does to the geometry, and both pictures use it: extropy
@@ -4571,6 +4762,7 @@ function renderSyntropy(){
     // the nest's centre — the geometry below never hears about it, except where a screen position
     // must be handed OUT of the vessel (the captions, and the motes born on sparks).
     const holF=ease(Math.max(0,Math.min(1,holCur))), rogF=ease(Math.max(0,Math.min(1,rogCur)));
+    const dysF=ease(Math.max(0,Math.min(1,dysCur))), attF=ease(Math.max(0,Math.min(1,attCur)));
     const ef=holF*tilt;
     const z=lerp(1,HZOOM,ef);
     lensNow=ef;
@@ -4578,6 +4770,8 @@ function renderSyntropy(){
     const SXX=x=>DX+z*x, SYY=y=>CAMY*(1-z)+z*y;      // vessel coords → screen coords
     const focW=li=>lerp(1,HFOC.includes(li)?1:0.12,ef);   // the rest of the nest steps back
     const rogAmt=ef*rogF;                             // how far the defection has gone
+    const dysAmt=ef*dysF;                             // how far the clamp has closed
+    const attAmt=ef*attF*(1-dysF);                    // the balance — gated so it fades IN as the clamp lets go
 
     // ENERGY ENTERS AT THE STAR. so if the star itself has fallen to entropy, nothing enters at all,
     // and that is why "everything entropy" is a dark vessel rather than one with sparks still in it.
@@ -4626,7 +4820,9 @@ function renderSyntropy(){
     lvEls.forEach((g,li)=>{
       const N=+g.dataset.n;
       const R=RAD[li]*squeezeOf(li), ry=R*sqy, cy=cyOf(li);   // each ring is squeezed by ITS OWN choice
-      const live=liveOf(li), warm=warmth(li);
+      // at the third attractor the featured pair does not just survive — it GLOWS: the warmth is
+      // the same warmth every fed ring has, turned up, because held tension is what feeding looks like.
+      const live=liveOf(li), warm=Math.min(1,warmth(li)+(HFOC.includes(li)?0.45*attAmt:0));
       g.setAttribute('opacity',focW(li).toFixed(2));          // under the lens, only the pair stays forward
       // the pool behind the ring… (round when seen down the axis, like everything else)
       const gl=glowEls[li];
@@ -4649,22 +4845,63 @@ function renderSyntropy(){
       // reddens, and breathes — and its siblings pay for it in size and light. that arithmetic IS
       // the picture: the part's gain drawn directly out of the whole's parts.
       const rk=(rogAmt>0.005&&HFOC.includes(li))?ROGK[li]:-1;
+      // …and the second tension, at dysAmt > 0: this time the WHOLE misbehaves. every dot is
+      // dragged in off its rim toward the centre — leashed, shrunk, dimmed, regimented cold blue —
+      // except one, which flares the defector's own red and pushes OUTWARD past the rim: the
+      // revolt. the two failures are drawn as opposite directions on the same radius, because
+      // that is what they are. at attAmt > 0 neither happens: the dots sit at full radius and
+      // breathe, each on its own phase — alive, free, and still a ring.
+      const dk=(dysAmt>0.005&&HFOC.includes(li))?REBK[li]:-1;
+      const flr=(attAmt>0.005&&HFOC.includes(li))?attAmt:0;
+      let leash='';
       g.querySelectorAll('.syn-node').forEach((nd,k)=>{
         const a=k/N*6.283-Math.PI/2+sp;
-        let r=nodeR, op=(0.42+0.58*depOf(a))*lerp(0.22,1,live);
-        if(rk>=0&&k===rk){
-          r*=1+1.9*rogAmt*(1+0.10*Math.sin(secs*2.1));
-          op=Math.min(1,op+rogAmt);
-          nd.style.fill=`color-mix(in srgb,#e8446f ${(rogAmt*100).toFixed(0)}%,var(--vc))`;
-        } else {
-          if(rk>=0){ r*=1-0.45*rogAmt; op*=1-0.55*rogAmt; }
-          if(nd.style.fill) nd.style.fill='';
+        let r=nodeR, op=(0.42+0.58*depOf(a))*lerp(0.22,1,live), rf=1;
+        let mixR=0, mixB=0, mixG=0;                 // fills compose, so the crossfades never pop
+        if(rk>=0){
+          if(k===rk){
+            r*=1+1.9*rogAmt*(1+0.10*Math.sin(secs*2.1));
+            op=Math.min(1,op+rogAmt);
+            mixR=100*rogAmt;
+          } else { r*=1-0.45*rogAmt; op*=1-0.55*rogAmt; }
         }
-        nd.setAttribute('cx',(Math.cos(a)*R).toFixed(1));
-        nd.setAttribute('cy',(cy+Math.sin(a)*ry).toFixed(1));
+        if(dk>=0){
+          if(k===dk){                               // the revolt: red, swelling, straining outward
+            rf*=1+0.20*dysAmt*(1+0.14*Math.sin(secs*2.6));
+            r*=1+0.9*dysAmt;
+            op=Math.min(1,op+0.8*dysAmt);
+            mixR=Math.max(mixR,100*dysAmt);
+          } else {                                  // the clamped: hauled inward, cold, obedient
+            rf*=1-0.34*dysAmt;
+            r*=1-0.35*dysAmt;
+            op*=1-0.40*dysAmt;
+            mixB=70*dysAmt;
+          }
+        }
+        if(flr>0){                                  // the balance: full radius, its own breath
+          r*=1+0.30*flr*(0.5+0.5*Math.sin(secs*1.5+k*1.1));
+          op=Math.min(1,op+0.25*flr);
+          mixG=60*flr;
+        }
+        let fill='var(--vc)';
+        if(mixG>0.5) fill=`color-mix(in srgb,#34d0a6 ${mixG.toFixed(0)}%,${fill})`;
+        if(mixB>0.5) fill=`color-mix(in srgb,#2b7de0 ${mixB.toFixed(0)}%,${fill})`;
+        if(mixR>0.5) fill=`color-mix(in srgb,#e8446f ${mixR.toFixed(0)}%,${fill})`;
+        nd.style.fill=(fill==='var(--vc)')?'':fill;
+        const nx=Math.cos(a)*R*rf, ny=cy+Math.sin(a)*ry*rf;
+        if(dk>=0) leash+=`M0 ${cy.toFixed(1)}L${nx.toFixed(1)} ${ny.toFixed(1)}`;
+        nd.setAttribute('cx',nx.toFixed(1));
+        nd.setAttribute('cy',ny.toFixed(1));
         nd.setAttribute('r',r.toFixed(1));
         nd.setAttribute('opacity',op.toFixed(2));
       });
+      // the leashes themselves: one spoke from the centre to every dot it holds — including the
+      // one that is straining against it, which is the picture's whole argument.
+      const le=g.querySelector('.ves-leash');
+      if(le){
+        le.setAttribute('d',leash||'M0 0');
+        le.setAttribute('opacity',(dk>=0?0.72*dysAmt*focW(li):0).toFixed(2));
+      }
       // the level's name rides its ring — pinned to the rim, so it TRAVELS with the circle as the
       // camera turns, and hands off to the row labels once the side view lands. neighbours
       // alternate above/below the rim: the two smallest radii sit 13 units apart, and two labels
@@ -4766,17 +5003,25 @@ function renderSyntropy(){
     // step 01: the dashed tie from the body's ring to the body-as-dot on the band's ring — the
     // two readings of one holon, named. step 02: the tie yields to the two defections, and the
     // caption under the crime dot swaps in place of the "part" caption that introduced it: the
-    // very dot you were shown as a member is the one that turns. all of it rides the spin.
+    // very dot you were shown as a member is the one that turns. step 03: the fist takes the
+    // centre and the captions name the clamp and the dot straining against it. step 04: gold,
+    // above and below the pair — the summary, because the picture finally has nothing wrong in
+    // it to point at. each beat's words yield to the next's. all of it rides the spin.
     holonG.setAttribute('opacity',ef.toFixed(2));
     if(ef>0.005){
       const R1=RAD[1]*squeezeOf(1), ry1=R1*sqy, cy1=cyOf(1);
       const R2=RAD[2]*squeezeOf(2), ry2=R2*sqy, cy2=cyOf(2);
       const aC=ROGK[1]/6*6.283-Math.PI/2+sp;         // the cancer dot, on the body's ring
       const aB=ROGK[2]/7*6.283-Math.PI/2+sp;         // the body-as-dot on the band's ring — and the crime dot
+      const aR=REBK[2]/7*6.283-Math.PI/2+sp;         // the revolt dot, on the band's ring
       const bx=SXX(Math.cos(aB)*R2), by=SYY(cy2+Math.sin(aB)*ry2);
       const qx=SXX(Math.cos(aB)*R1), qy=SYY(cy1+Math.sin(aB)*ry1);
       const cxp=SXX(Math.cos(aC)*R1), cyp=SYY(cy1+Math.sin(aC)*ry1);
-      const o1=(1-rogF).toFixed(2), o2=rogF.toFixed(2);
+      const rvf=1+0.20*dysAmt;                       // the revolt dot rides outside the rim (matches the node loop)
+      const rx=SXX(Math.cos(aR)*R2*rvf), ryv=SYY(cy2+Math.sin(aR)*ry2*rvf);
+      const fx=SXX(0), fy=SYY(cy1);                  // the shared centre, where the fist sits
+      const o1=((1-rogF)*(1-dysF)*(1-attF)).toFixed(2), o2=(rogF*(1-dysF)).toFixed(2);
+      const o3=(dysF*(1-attF)).toFixed(2), o4=attF.toFixed(2);
       holLink.setAttribute('d',`M${qx.toFixed(1)} ${qy.toFixed(1)}L${bx.toFixed(1)} ${by.toFixed(1)}`);
       holLink.setAttribute('opacity',o1);
       holT.a1.setAttribute('x',(SXX(-R1)-16).toFixed(1)); holT.a1.setAttribute('y',SYY(cy1).toFixed(1));
@@ -4787,6 +5032,18 @@ function renderSyntropy(){
       holT.a2.setAttribute('opacity',o2);
       holT.b2.setAttribute('x',bx.toFixed(1)); holT.b2.setAttribute('y',(by-26).toFixed(1));
       holT.b2.setAttribute('opacity',o2);
+      holT.a3.setAttribute('x',fx.toFixed(1)); holT.a3.setAttribute('y',(fy-30).toFixed(1));
+      holT.a3.setAttribute('opacity',o3);
+      holT.b3.setAttribute('x',rx.toFixed(1)); holT.b3.setAttribute('y',(ryv+34).toFixed(1));
+      holT.b3.setAttribute('opacity',o3);
+      holT.a4.setAttribute('x',fx.toFixed(1)); holT.a4.setAttribute('y',(SYY(cy2-ry2)-36).toFixed(1));
+      holT.a4.setAttribute('opacity',o4);
+      holT.b4.setAttribute('x',fx.toFixed(1)); holT.b4.setAttribute('y',(SYY(cy2+ry2)+34).toFixed(1));
+      holT.b4.setAttribute('opacity',o4);
+      // the fist: dystopia's centre, breathing slightly, gone the moment the balance arrives
+      holFist.setAttribute('cx',fx.toFixed(1)); holFist.setAttribute('cy',fy.toFixed(1));
+      holFist.setAttribute('r',(dysAmt*(9+1.1*Math.sin(secs*2.6))).toFixed(1));
+      holFist.setAttribute('opacity',(0.9*dysAmt).toFixed(2));
     }
 
     // the colour of the energy is one colour, so with a mixed stack it takes the stack's average.
@@ -4810,6 +5067,8 @@ function renderSyntropy(){
     camCur+=(camTgt-camCur)*ck; if(Math.abs(camTgt-camCur)<0.002) camCur=camTgt;
     holCur+=(holTgt-holCur)*ck; if(Math.abs(holTgt-holCur)<0.002) holCur=holTgt;
     rogCur+=(rogTgt-rogCur)*ck; if(Math.abs(rogTgt-rogCur)<0.002) rogCur=rogTgt;
+    dysCur+=(dysTgt-dysCur)*ck; if(Math.abs(dysTgt-dysCur)<0.002) dysCur=dysTgt;
+    attCur+=(attTgt-attCur)*ck; if(Math.abs(attTgt-attCur)<0.002) attCur=attTgt;
     paint(SS,SE,SG);
     triHandle();
     // heat, shed by the energy as it works. the rate is the work rate: a vessel that circulates pays
@@ -5024,9 +5283,9 @@ function renderSyntropy(){
     });
     if(cw){
       camTgt=+(cw.dataset.tilt||0);
-      const hv=+(cw.dataset.hol||0);                // 0 wide · 1 the lens · 2 the lens plus the defection
-      holTgt=hv>=1?1:0; rogTgt=hv>=2?1:0;
-      if(reduce){ camCur=camTgt; holCur=holTgt; rogCur=rogTgt; }
+      const hv=+(cw.dataset.hol||0);                // 0 wide · 1 the lens · 2 + the defection · 3 + the clamp & revolt · 4 the balance held
+      holTgt=hv>=1?1:0; rogTgt=hv===2?1:0; dysTgt=hv===3?1:0; attTgt=hv===4?1:0;
+      if(reduce){ camCur=camTgt; holCur=holTgt; rogCur=rogTgt; dysCur=dysTgt; attCur=attTgt; }
     }
 
     if(manual) return;
@@ -5037,7 +5296,7 @@ function renderSyntropy(){
     });
     if(win && win!==autoC){
       autoC=win;
-      setAll(win.dataset.c, +win.dataset.g);   // step 02 is extropy with the core switched OFF
+      setAll(win.dataset.c, +win.dataset.g);   // step 08 is extropy with the core switched OFF
       syncGrid();
     }
     setProg(null,win||autoC);
@@ -5049,7 +5308,7 @@ function renderSyntropy(){
   addEventListener('scroll',synScroll,{passive:true});
   addEventListener('resize',synScroll,{passive:true});
   scrollDrive();
-  camCur=camTgt; holCur=holTgt; rogCur=rogTgt;   // open AT the view the load position asks for — no swing on arrival
+  camCur=camTgt; holCur=holTgt; rogCur=rogTgt; dysCur=dysTgt; attCur=attTgt;   // open AT the view the load position asks for — no swing on arrival
 
   // a level and its ring are the same object — and now literally the same elements, whichever way
   // the camera is facing. hover the row and its ring lights up, in the stack or in the nest.
@@ -5305,7 +5564,8 @@ function renderRatchet(){
         better than closed.</p>
       <p class="rlinks">watch the whole coil climb → <a href="#spiral">🧬 the spiral</a> ·
         the loop each fire ends → <a href="#turn">⚙️ one turn</a> ·
-        why flow beats hoard → <a href="#syntropy">🌀 syntropy</a></p>
+        why flow beats hoard → <a href="#syntropy">🌀 syntropy</a> ·
+        the bricks the fire spares → <a href="#assembly">🧩 assembly</a></p>
     </section>
    </div>
    <div class="rkintro rkoutro"><b>collapse is a filter, not an eraser.</b>
@@ -5328,6 +5588,181 @@ function renderRatchet(){
     g.addEventListener('click',go);
     g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
   });
+}
+
+// ---------- 🧩 assembly — the assembly index ----------
+// assembly theory (cronin & walker, assemblytheory.xyz): the complexity of a thing is the minimum
+// number of steps to build it from basic parts, REUSING parts you have already made. every mechanism
+// on this poster has an assembly index — a count of the prior inventions it cannot exist without.
+// read the whole spiral this way and it is one number going up: the highest reachable index, era by
+// era, held in place by the ratchet. this view takes a few marquee mechanisms apart into their bricks.
+//
+// each target's `path` is its minimal construction, bottom (a raw primitive, AI 1) to top (the target,
+// AI = path.length). a brick's `m` is the tab where it keeps its receipts. bricks recur across targets
+// on purpose — that recurrence IS the thesis: once the substrate exists, the next thing up is cheap.
+const ASM=[
+ {n:'Quadratic Funding', em:'✨', m:'alloc', c:'#b535bb',
+  claim:"you could not build it in any earlier era. it needs a number, the square root doing real work, a way to tell people apart, and a ledger that settles with no bank in the loop — and that last brick is younger than most people reading this.",
+  path:[
+   {em:'🪵', n:'the tally', w:'one notch, one thing. counting is the first brick of all.', m:'math'},
+   {em:'🔢', n:'the number', w:'a quantity you can carry off the stick and do arithmetic to.', m:'math'},
+   {em:'√',  n:'the square root', w:'the operation that bends a big number back toward the crowd.', m:'math'},
+   {em:'🪪', n:'unique personhood', w:'one human, one voice — or the square root just counts wallets.', m:'identity'},
+   {em:'🤝', n:'the matching pool', w:'a common purse that answers the crowd instead of the donor.', m:'alloc'},
+   {em:'⛓️', n:'onchain settlement', w:'a ledger that settles with no bank in the loop to say no.', m:'record'},
+   {em:'✨', n:'quadratic funding', w:'many small gifts outvote a few big ones; the crowd sets the match.', m:'alloc', top:true}
+  ]},
+ {n:'Insurance', em:'🛡️', m:'trust', c:'#1c7ed6',
+  claim:"a bet against your own bad luck, pooled with strangers. it waits on <b>probability</b> — you cannot price a risk you cannot count — which is why it shows up thousands of years after the granary that does the same job by brute force.",
+  path:[
+   {em:'🪵', n:'the tally', w:'one notch, one thing — the same first brick as everything else.', m:'math'},
+   {em:'🔢', n:'the number', w:'quantity, off the stick and into arithmetic.', m:'math'},
+   {em:'🗒️', n:'the written record', w:'a claim that outlives the memory of the people who made it.', m:'record'},
+   {em:'🎲', n:'probability', w:'the odds, made countable — the future given a price.', m:'math'},
+   {em:'📊', n:'the law of large numbers', w:'one death is chaos; ten thousand is a rate you can plan on.', m:'math'},
+   {em:'🤝', n:'the pooled premium', w:'many pay a little so the unlucky few are made whole.', m:'trust'},
+   {em:'🛡️', n:'insurance', w:'risk, spread thin enough across strangers to survive.', m:'trust', top:true}
+  ]},
+ {n:'The Corporation', em:'🏛️', m:'power', c:'#b0561f',
+  claim:"the machine that lets strangers pool money into something that outlives them all. it stacks on the <b>tradable share</b>, which stacks on <b>limited liability</b> — the day the law agreed your loss could stop at what you put in.",
+  path:[
+   {em:'🗒️', n:'the written record', w:'a promise the parties cannot later misremember.', m:'record'},
+   {em:'🔢', n:'the number', w:'shares, sums, ledgers — none of it without counting.', m:'math'},
+   {em:'🪙', n:'coinage', w:'value in a portable, countable, tradeable unit.', m:'alloc'},
+   {em:'📜', n:'the contract', w:'a bargain a court will enforce whether the parties like it later or not.', m:'trust'},
+   {em:'⚖️', n:'limited liability', w:'your downside stops at your stake — so strangers dare to invest.', m:'math'},
+   {em:'📈', n:'the tradable share', w:'ownership sliced thin and sold, so capital can leave without breaking the thing.', m:'math'},
+   {em:'🏛️', n:'the joint-stock corporation', w:'a person made of paper that raises money, takes risk, and does not die.', m:'power', top:true}
+  ]},
+ {n:'Zero-Knowledge Proof', em:'🔐', m:'math', c:'#7048e8',
+  claim:"proof that you know a secret, revealing nothing but the fact of it. the deepest ladder here — <b>seven</b> pure-math bricks, most of them under a century old — which is exactly why it is the newest tool on the whole poster.",
+  path:[
+   {em:'🔢', n:'the number', w:'the ground floor. no proof about quantities without them.', m:'math'},
+   {em:'✅', n:'the proof', w:'a chain of steps that compels agreement — invented once, in greece.', m:'math'},
+   {em:'🕛', n:'modular arithmetic', w:'numbers that wrap around a clock — the soil all of crypto grows in.', m:'math'},
+   {em:'🗝️', n:'public-key cryptography', w:'a lock anyone can shut and only one key can open.', m:'trust'},
+   {em:'💬', n:'the interactive proof', w:'convince me by answering my random challenges, not by showing your work.', m:'math'},
+   {em:'🔗', n:'the arithmetic circuit', w:'any computation, rewritten as pure arithmetic a proof can chew on.', m:'math'},
+   {em:'🔐', n:'the zero-knowledge proof', w:'I can check that you are right without ever learning why.', m:'math', top:true}
+  ]},
+ {n:'The Nation-State', em:'🏴', m:'power', c:'#2f9e44',
+  claim:"the container most of the planet lives inside. it is a late, heavy assembly — a <b>census</b> to know its people, a <b>map</b> to bound its ground, a <b>bureaucracy</b> to reach them, and a <b>border</b> to say where it stops.",
+  path:[
+   {em:'🗒️', n:'the written record', w:'the state begins the moment it writes something down about you.', m:'record'},
+   {em:'🧮', n:'the census', w:'to tax and conscript a people, first you must count them.', m:'record'},
+   {em:'🗺️', n:'the map', w:'territory turned into a claim you can point at and defend.', m:'land'},
+   {em:'🗄️', n:'standing bureaucracy', w:'offices that outlive the office-holder, so the reach is permanent.', m:'power'},
+   {em:'🎖️', n:'the standing army', w:'force kept ready in peacetime — a monopoly on violence, salaried.', m:'conflict'},
+   {em:'🚧', n:'the hard border', w:'a line where one monopoly on force ends and the next begins.', m:'land'},
+   {em:'🏴', n:'the nation-state', w:'one people, one map, one monopoly on force — the modern default.', m:'power', top:true}
+  ]}
+];
+// the four nested rooms. each is a brutal filter on the one before it; the drop from imaginable to
+// built is the whole reason selection is a thing. widths are the funnel, not data.
+const ASM_SPACE=[
+ {n:'the universe', s:'everything imaginable', pct:100, bg:'linear-gradient(90deg,#8a8398,#6f6980)',
+  d:"every allocation rule, every institution, every proof that COULD be written down. combinatorially vast, and almost all of it noise — arrangements that would never hold together for a second."},
+ {n:'the possible', s:"what the era's physics permits", pct:66, bg:'linear-gradient(90deg,#d98a1f,#b56f12)',
+  d:"the subset an era's energy, math and materials can actually hold together. no cathedral without the ox, no model without the gigawatt. the possible grows every era — new math and new energy widen the room."},
+ {n:'the contingent', s:'what a path can reach from here', pct:40, bg:'linear-gradient(90deg,#2f9e44,#1f7d33)', frontier:true,
+  d:"far smaller: only what you can get to from where history actually stands, because the next brick has to sit on the last one. this is where the poster's ✦ unbuilt ones live — reachable now, not yet built. specs waiting for a builder."},
+ {n:'the observed', s:'what somebody actually built', pct:20, bg:'linear-gradient(90deg,#1c7ed6,#6247d6)',
+  d:"the 1,058 mechanisms in these tabs. a rounding error against the universe — and every one is a memory of its own construction. read its assembly index backwards and you read its history."}
+];
+// the spiral as one rising number. the figures are rough and illustrative — the SHAPE is the claim.
+const ASM_ERA=[
+ {era:'hunter-gatherer', ai:'~3', eg:'the gift', note:'a favour, remembered. tally + kin + reciprocity, and little else can be held together.'},
+ {era:'agricultural', ai:'~6', eg:'the tax', note:'granary + writing + the number + a court to enforce it. the first deep stacks.'},
+ {era:'industrial', ai:'~9', eg:'the corporation', note:'the share on limited liability on the contract on coinage. paper people appear.'},
+ {era:'information', ai:'~12', eg:'the search index', note:'the database on the network on the protocol stack. the bricks are mostly software now.'},
+ {era:'onchain', ai:'~16', eg:'quadratic funding', note:'every brick above, plus a ledger nobody owns. the tallest reachable rung so far.'}
+];
+let asmTimers=[], asmSeen=new Set();
+function clearAsmTimers(){ asmTimers.forEach(t=>clearTimeout(t)); asmTimers=[]; }
+function renderAssembly(){
+  const wrap=document.getElementById('assemblywrap');
+  asmSeen=new Set();
+  wrap.innerHTML=`
+   <div class="asmintro"><b>nothing is built from nothing.</b>
+     assembly theory (<a href="https://assemblytheory.xyz" target="_blank" rel="noopener">cronin &amp; walker</a>)
+     measures a thing by its <em>assembly index</em>: the fewest steps to build it from basic parts,
+     reusing parts you already made. every mechanism on this poster has one — a count of the prior
+     inventions it cannot exist without. <b class="inl">pick something and watch it come apart into its bricks.</b></div>
+   <div class="asmpick">${ASM.map((t,i)=>`<button class="asmchip${i===0?' on':''}" data-t="${i}" style="--ac:${t.c}"><span class="ce">${t.em}</span>${t.n.toLowerCase()}</button>`).join('')}</div>
+   <div class="asmladder">
+     <div class="asmrail">
+       <div class="asmidx"><b id="asmcount">0</b><span>assembly index</span></div>
+       <div class="asmbase">in your basement<b id="asmbase">0</b>bricks discovered</div>
+     </div>
+     <div class="asmrungs" id="asmrungs"></div>
+   </div>
+   <div class="asmcard" id="asmcard"></div>
+   <div class="asmintro" style="margin-top:26px"><b>most of what could exist never does.</b>
+     assembly theory sorts everything into four nested rooms, and each is a brutal filter on the one
+     before it. the drop from <em>imaginable</em> to <em>built</em> is why selection has a job at all. click a room.</div>
+   <div class="asmfunnel">${ASM_SPACE.map((s,i)=>`
+     <button class="asmlvl" data-l="${i}" style="--w:${s.pct}%;background:${s.bg}">
+       <div class="lh"><b>${s.n}</b><span class="ls">${s.s}</span>${s.frontier?'<span class="lfr">✦ the unbuilt ones live here</span>':''}</div>
+       <div class="ld">${s.d}</div></button>`).join('')}</div>
+   <div class="asmintro" style="margin-top:26px"><b>the spiral, read as one number going up.</b>
+     the highest reachable assembly index climbs every era — because the ratchet keeps the bricks from
+     the last one, so each era inherits a taller basement to build on.</div>
+   <div class="asmeras">${ASM_ERA.map((e,i)=>`
+     <div class="asmerc" style="--ec:${ERAC[i]}">
+       <div class="ea">${e.ai}</div>
+       <div class="ee">${e.era}</div>
+       <div class="eg">${e.eg}</div>
+       <div class="en">${e.note}</div></div>`).join('')}</div>
+   <div class="asmintro asmoutro"><b>an object is a memory of how it was made.</b>
+     that is why the assembly index is more than a score — read it backwards and you get the history:
+     every brick, in the order the world had to invent them. the ratchet is what carries that memory
+     through the fire, so the count only ever rises.<br>
+     watch the whole coil climb → <a href="#spiral">🧬 the spiral</a> ·
+     why the count survives collapse → <a href="#ratchet">🪜 the ratchet</a> ·
+     what resists entropy → <a href="#syntropy">🌀 syntropy</a></div>`;
+
+  const rungsEl=wrap.querySelector('#asmrungs'), countEl=wrap.querySelector('#asmcount'),
+        baseEl=wrap.querySelector('#asmbase'), cardEl=wrap.querySelector('#asmcard');
+
+  function build(ti){
+    clearAsmTimers();
+    const t=ASM[ti], ac=t.c, path=t.path, total=path.length;
+    wrap.style.setProperty('--ac',ac);
+    wrap.querySelectorAll('.asmchip').forEach(c=>c.classList.toggle('on',+c.dataset.t===ti));
+    // rungs: dom order = path order (bottom brick first), flipped by flex `order` so the target is on top
+    rungsEl.innerHTML=path.map((b,k)=>{
+      const ai=k+1, reused=asmSeen.has(b.n);
+      return `<button class="asmrung${b.top?' top':''}${reused?' reused':''}" data-m="${b.m}" style="order:${total-k}">
+        <span class="re">${b.em}</span>
+        <span class="rb"><span class="rn">${b.n}</span><span class="rw">${b.w}</span></span>
+        <span class="rtag">♻ had it</span>
+        <span class="rai">AI ${ai}</span></button>`;
+    }).join('');
+    rungsEl.querySelectorAll('.asmrung').forEach(r=>r.addEventListener('click',()=>{
+      setMode(r.dataset.m,true); scrollTo({top:0,behavior:'smooth'});
+    }));
+    const rungs=[...rungsEl.querySelectorAll('.asmrung')];
+    cardEl.innerHTML='';
+    // reveal bottom→top, ticking the counter up with each brick that lands
+    rungs.forEach((r,k)=>{
+      const dl=reduced?0:170+k*220;
+      asmTimers.push(setTimeout(()=>{ r.classList.add('in'); countEl.textContent=k+1; }, dl));
+    });
+    // once the last brick lands: fold this build into the basement, count what was reused, write the card
+    const doneAt=reduced?0:170+total*220;
+    asmTimers.push(setTimeout(()=>{
+      let reusedCount=0;
+      path.forEach(b=>{ if(asmSeen.has(b.n)) reusedCount++; asmSeen.add(b.n); });
+      baseEl.textContent=asmSeen.size;
+      cardEl.innerHTML=`<h4>${t.em} ${t.n} · assembly index ${total}</h4><p>${t.claim}</p>`+
+        (reusedCount
+         ? `<div class="asmreuse"><b>♻ ${reusedCount} of these ${total} bricks were already in your basement</b> from something you built earlier — that is assembly theory's whole point. once the substrate exists, the next thing up is nearly free. keep going and the basement does more of the work.</div>`
+         : `<div class="asmreuse">now build another target — most of its bricks are already in your basement, and it will tell you how many. <b>reuse is why the ladder gets easier to climb, not harder.</b></div>`);
+    }, doneAt));
+  }
+  wrap.querySelectorAll('.asmchip').forEach(c=>c.addEventListener('click',()=>build(+c.dataset.t)));
+  wrap.querySelectorAll('.asmlvl').forEach(l=>l.addEventListener('click',()=>l.classList.toggle('open')));
+  build(0);
 }
 
 // ---------- ⚙️ one turn: the loop, face-on ----------
@@ -5419,7 +5854,8 @@ function renderTurn(){
       <div class="tnchips">${PHASES.map((p,i)=>`<button class="tnchip" data-i="${i}" style="--pc:${PHC[i]}">${p.t}</button>`).join('')}</div>
       <div class="tncard" id="tncard"></div>
       <p class="tnfoot">this is the loop the coil runs once per era — <a href="#spiral">🧬 watch five of
-        them stack</a> · what makes it through each fork → <a href="#ratchet">🪜 the ratchet</a></p>
+        them stack</a> · what makes it through each fork → <a href="#ratchet">🪜 the ratchet</a> ·
+        the bricks it is built from → <a href="#assembly">🧩 assembly</a></p>
     </div>
    </div>`;
 
@@ -7301,7 +7737,7 @@ const MODES={
  math:{stats:MATH_STATS,eras:MATH_ERAS,fav:'🔢',
   h1:'MATHEMATICS',
   title:'mathematics through history · living poster',
-  lede:"the rate limiter under every other tab: nothing gets invented before the math that makes it thinkable. no insurance before probability, no quadratic funding before the square root got a job. hover anything to see what it unlocked, and what it broke.",
+  lede:"the rate limiter under every other tab: nothing gets invented before the math that makes it thinkable. no insurance before probability, no quadratic funding before the square root got a job. these are the bottom bricks in everything else's assembly index — see 🧩 assembly. hover anything to see what it unlocked, and what it broke.",
   cards:['what you could count','who could check it'],
   finale:'proof-carrying-allocation',
   arc:[
@@ -7418,6 +7854,13 @@ const MODES={
   h1:'THE&nbsp;RATCHET',
   title:'the ratchet · what survives collapse',
   lede:'the spiral climbs because collapse is a filter, not an eraser. the fire takes the thrones and leaves the tools — and what survives, compounds.',
+  foot:''},
+ assembly:{asm:true,stats:{},eras:[],fav:'🧩',
+  h1:'ASSEMBLY&nbsp;INDEX',
+  title:'assembly index · the building blocks of every spiral',
+  // no lede: the view opens with its own argument and hands you a thing to take apart. a sentence
+  // up here would just be the same claim, made twice, before you had touched anything.
+  lede:'',
   foot:''}
 };
 const slugOf=k=>k.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
@@ -7824,25 +8267,29 @@ function setMode(mode,user){
   const clearRatchet=()=>{ document.getElementById('ratchetwrap').innerHTML=''; };
   const clearTurn=()=>{ document.getElementById('turnwrap').innerHTML='';
     if(turnRAF){ cancelAnimationFrame(turnRAF); turnRAF=0; } };
+  const clearAssembly=()=>{ document.getElementById('assemblywrap').innerHTML=''; clearAsmTimers(); };
   const clearPoster=()=>{ WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML='';
     hardWrap.innerHTML=''; lsvg.innerHTML=''; };
   // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first
   // (the spiral borrows them for its last step).
   const giveBack=()=>document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
   if(M.syn){
-    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn();
+    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly();
     renderSyntropy();
   } else if(M.ratchet){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly();
     renderRatchet();
   } else if(M.turn){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly();
     renderTurn();
+  } else if(M.asm){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn();
+    renderAssembly();
   } else if(M.spiral){
-    clearSyn(); clearRatchet(); clearTurn(); clearPoster();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearPoster();
     renderSpiral();
   } else {
-    clearSyn(); clearRatchet(); clearTurn();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly();
     giveBack();
     clearSpiral();
     renderEras(M); bindPoster(); renderArc(M); renderHard(M);
@@ -7872,7 +8319,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
