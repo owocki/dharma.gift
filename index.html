@@ -586,9 +586,9 @@
      dial — the sun shines either way. what changes is what the vessel does with it. */
   /* what the core actually is, at extropy: not a metaphor, a datacentre */
   .ves-corelab{pointer-events:none}
-  .ves-clab{font:800 16px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#e8446f;
+  .ves-clab{font:800 21px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#e8446f;
     paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
-  .ves-csub{font:600 12px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:#e8446f;opacity:.85;
+  .ves-csub{font:600 16px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:#e8446f;opacity:.85;
     paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
   .ves-src{pointer-events:none}
   .ves-slab{font:800 16px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--vc);
@@ -3850,8 +3850,8 @@ function renderSyntropy(){
   // at all. it is going to the chips.
   const core=`<ellipse class="ves-core"/><circle class="ves-sing"/>
     <g class="ves-corelab">
-      <text class="ves-clab" x="0" y="-26" text-anchor="middle">▚ the compute</text>
-      <text class="ves-csub" x="0" y="-8" text-anchor="middle">chips · data centres — the energy stops here</text>
+      <text class="ves-clab" x="0" y="-50" text-anchor="middle">▚ the compute</text>
+      <text class="ves-csub" x="0" y="-28" text-anchor="middle">chips · data centres — the energy stops here</text>
     </g>`;
   // ENERGY, THROUGH the vessel. drawn as streaks, not dots, because a dot is a thing and a streak is
   // a thing MOVING. entropy's motes fall; these climb.
@@ -4208,14 +4208,14 @@ function renderSyntropy(){
     // the core. at extropy it is a white-hot spindle running the height of the axis with a
     // singularity at its heart; at syntropy it is gone, and the vessel is hollow and open.
     vesCore.setAttribute('cx',0); vesCore.setAttribute('cy',CORE_Y.toFixed(1));
-    vesCore.setAttribute('rx',lerp(0,15,g).toFixed(1));
+    vesCore.setAttribute('rx',lerp(0,20,g).toFixed(1));
     vesCore.setAttribute('ry',lerp(0,(YBOT-YTOP)*0.44,g).toFixed(1));
     // …and the core is a thing that EATS, so it dies with the energy. this is the whole difference
     // between the extropy corner and the entropy corner, which otherwise leave the same wreckage:
     // extropy is a dead vessel with one white-hot dot still burning in it. entropy is a dead vessel.
     vesCore.setAttribute('opacity',(0.55*g*alive).toFixed(2));
     vesSing.setAttribute('cx',0); vesSing.setAttribute('cy',CORE_Y.toFixed(1));
-    vesSing.setAttribute('r',lerp(0,13,g).toFixed(1));
+    vesSing.setAttribute('r',lerp(0,17,g).toFixed(1));
     // and say what the core IS — but ONLY once it is actually eating. through "things get better" the
     // vessel is the same needle and the energy still comes out the far end, so there is no compute
     // block to name: it arrives with the capture, in 02.5, which is the moment the story turns.
