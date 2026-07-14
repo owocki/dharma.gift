@@ -617,7 +617,10 @@
   .synsticky #synsvg{width:100%;height:auto;max-height:98vh}
   /* the caption is svg now, not html — see the .synlab group in the markup. it inherits .syn-lname
      and .syn-lscale, so it is the same size as the level labels by construction. */
-  .synlab{pointer-events:none}
+  /* --camside is (1 - tilt), written by paint(): the whole left column belongs to the SIDE view.
+     at step 00 the rims carry every name and the step carries the definition, so the column stays
+     out of the picture until the camera has tipped the nest over into the stack. */
+  .synlab{pointer-events:none;opacity:var(--camside,1)}
 
   /* the reading column: three cases, then the control. */
   .synsteps{flex:0 0 320px;order:2;padding-bottom:12vh}
@@ -728,12 +731,19 @@
   .ves.focusing .ves-lv.lit{opacity:1}
   .ves-lv.lit .ves-ring{stroke-width:2.6}
   .ves-lv.lit .syn-node{stroke-width:1.7}
+  /* the ring's own name — the holarchy's label. it rides its circle through the quarter-turn and
+     fades out as the side view arrives, where the row labels already hold every name. */
+  .ves-hlab{font:700 17px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
+    paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
+  .ves-lv.lit .ves-hlab{fill:var(--ink);font-weight:850}
 
   /* ---- the build ----
      a level arrives, and it brings the skin above it with it — so the vessel extends downward as
      you read rather than sitting there finished. nothing un-draws on the way back up. */
-  .syn-row{opacity:.12;transition:opacity .7s cubic-bezier(.2,.7,.2,1)}
-  .syn-row.built{opacity:1}
+  .syn-row{opacity:calc(.12*var(--camside,1));transition:opacity .7s cubic-bezier(.2,.7,.2,1)}
+  .syn-row.built{opacity:var(--camside,1)}
+  /* …and while the camera is overhead the hidden rows must not eat the pointer either */
+  #synsvg.topdown .syn-row{pointer-events:none}
   .syn-row .syn-lmade{opacity:0;transition:opacity .6s .35s}
   .syn-row.built .syn-lmade{opacity:.62}
   .ves-lv .ves-ring{opacity:0;transition:opacity .8s}
@@ -845,33 +855,16 @@
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .tricard.sy>b{color:#34d0a6} }
   /* a corner is a big invisible target with a small visible dot. it grows when you point at it. */
   #synwrap{--t:.5;--e:0}
-  /* the holarchy */
-  .holowrap{display:flex;gap:30px;align-items:center;max-width:960px;margin:34px auto 0;flex-wrap:wrap}
-  .holotext{flex:1 1 320px}
-  .holotext h3{margin:0 0 10px;font-size:19px;font-weight:850;color:var(--ink)}
-  .holotext p{margin:0 0 10px;font-size:12.5px;line-height:1.7;color:var(--muted)}
-  .holotext p b{color:var(--ink);font-weight:750}
-  .holohint{font-style:italic;opacity:.8}
-  .rot90{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;vertical-align:2px;
+  /* the holarchy — no longer its own drawing. it is the VESSEL, seen from a quarter-turn away:
+     step 00 OPENS looking straight down the axis (the nest, concentric), and the camera tips it
+     onto its side as entropy arrives. same move as the spiral's tilt steps. */
+  .rot90{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;vertical-align:4px;
     font:800 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.06em;
     color:var(--muted);border:1px dashed color-mix(in srgb,var(--ink) 30%,transparent)}
-  .holoeq{padding:10px 12px;border-radius:10px;
-    border-left:3px solid color-mix(in srgb,#6247d6 55%,transparent);
-    background:color-mix(in srgb,#6247d6 7%,transparent)}
-  #holosvg{flex:0 0 440px;max-width:100%;height:auto;--t:.5;--e:0}
-  /* the axis, seen end-on: you are looking straight down it, so it is a point */
-  .holo-axisdot{fill:none;stroke:var(--ink);stroke-width:1.2;opacity:.35;stroke-dasharray:2 3}
-  .holo-core{fill:#e8446f;filter:drop-shadow(0 0 calc((1 - var(--t))*18px) rgba(232,68,111,.8))}
-  .holo-ring{cursor:pointer;outline:none;transition:opacity .22s}
-  .holo-o{fill:none;stroke:color-mix(in srgb,#12a37a calc(var(--t)*100%),#e8446f);stroke-width:1.6;opacity:.5}
-  .holo-dot{fill:color-mix(in srgb,#12a37a calc(var(--t)*100%),#e8446f);stroke:var(--panel);stroke-width:1.2}
-  .holo-lab{font:700 11px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
-    paint-order:stroke;stroke:var(--panel);stroke-width:3px;stroke-linejoin:round}
-  #holosvg.focusing .holo-ring{opacity:.2}
-  #holosvg.focusing .holo-ring.lit{opacity:1}
-  .holo-ring.lit .holo-o{stroke-width:3.4;opacity:1}
-  .holo-ring.lit .holo-lab{fill:var(--ink);font-weight:850}
-  @media(max-width:760px){ .holowrap{flex-direction:column} #holosvg{flex:1 1 auto;width:100%} }
+  /* the holarchy step is the camera's beat, not a regime's — it reads in the nest's own violet,
+     not a corner's colour. these sit AFTER the data-c rules on purpose: same specificity, later wins. */
+  .synstep.holo.on h3{color:#7c5cff}
+  .synstep.holo.on .tag{color:#7c5cff}
 
   #spiralwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1240px}
   /* the coil, and its apparatus, side by side */
@@ -4086,12 +4079,13 @@ let synRAF=0, synIO=null, synScroll=null, turnRAF=0;
 function renderSyntropy(){
   if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
   const wrap=document.getElementById('synwrap'), dark=spDark();
-  // ONE set of eight rings, drawn twice from two angles ninety degrees apart.
-  //
-  // RAD is the whole geometry. the side view stacks the rings up the page and draws each one nearly
-  // edge-on (squashed hard); the holarchy looks straight DOWN the same axis and draws them as true
-  // circles, concentric. same numbers, same rings, one quarter-turn between the two pictures — so
-  // "the holarchy is the top-down view" is not a caption, it is arithmetic.
+  // ONE set of eight rings, and ONE camera. RAD is the whole geometry: the side view stacks the
+  // rings up the page and draws each one nearly edge-on (squashed hard); the holarchy — where the
+  // section now OPENS — looks straight DOWN the same axis, and the same rings are true circles,
+  // concentric. it used to be a second svg further down the page; now it is a tilt parameter the
+  // reader's scroll drives, exactly like the spiral's circle/line steps — the camera tips the nest
+  // onto its side as entropy arrives, so "the holarchy is the top-down view" is not a caption, it
+  // is arithmetic you watch happen.
   //
   // and the radii grow EXPONENTIALLY: each scale is a real order of magnitude on from the last, so
   // the page expands as you fall down it. a cell and a star cannot be the same size on the page.
@@ -4109,8 +4103,8 @@ function renderSyntropy(){
   // radii, nested. so the stack is a build: the cell is one ring; the body is a ring with the cell
   // inside it; the band has the body and the cell inside that — and by the time you reach the star
   // you have drawn the entire nest. the bottom row IS the holarchy, seen edge-on. which is exactly
-  // why the picture on the right, seen from above, is the same object: it is that row, from a
-  // quarter-turn away.
+  // what the holarchy step demonstrates: it turns the camera a quarter-turn and that row becomes
+  // the nest, without a line of new geometry.
   // ---- ONE VESSEL ----
   // eight diagrams stacked in a column is a spec sheet. it is eight objects, and the argument is
   // about ONE. so the rings get joined: MER meridians run the whole height of the stack, threading
@@ -4141,6 +4135,7 @@ function renderSyntropy(){
       ${seg}
       <ellipse class="ves-ring"/>
       ${nodes}
+      <text class="ves-hlab" text-anchor="middle">${L.n}</text>
     </g>`;
     const hh=rowH[i];
     rows+=`<g class="syn-row" data-l="${i}" data-n="${N}" transform="translate(0 ${rowY[i].toFixed(1)})"
@@ -4196,19 +4191,6 @@ function renderSyntropy(){
       <text class="ves-ssub" x="0" y="214" text-anchor="middle">fusion — the only new energy in the stack</text>
     </g>`;
 
-  // the holarchy: the same eight rings, seen from directly above.
-  const HC={x:210,y:208}, HR=RAD.slice();
-  let holo='';
-  LEVELS.forEach((L,i)=>{
-    const N=5+i;                                    // the SAME node count as the row: same ring
-    holo+=`<g class="holo-ring" data-l="${i}" data-n="${N}" tabindex="0" role="button"
-             aria-label="${L.n}: a whole made of ${L.of}, and a part of ${L.in}">
-      <circle class="holo-o"/>
-      ${Array.from({length:N},()=>'<circle class="holo-dot"/>').join('')}
-      <text class="holo-lab"></text>
-    </g>`;
-  });
-
   // ---- the three corners, and the order you meet them in ----
   // entropy first, because it is the default and the thing the other two are answers TO. you start
   // at the floor, and then you watch each shape of order try to climb off it.
@@ -4248,7 +4230,18 @@ function renderSyntropy(){
   // end, and in 02.5 a core appears in the middle and eats it. same design, two different stories about
   // who the harvest is for. so `grab` (does the core capture?) is a SEPARATE dial from `c` (what shape
   // is the flow?), and the compute block only exists where grab is on.
+  // and the FIRST step is the CAMERA's, not a regime's: the section opens looking straight DOWN
+  // the axis — the nest, the holarchy — and the quarter-turn to the side view happens under you
+  // as entropy arrives. you meet the object whole before you are told what it is up against.
   const STEPS=[
+    {no:'00',   c:'sy', grab:0, tilt:1, cls:'holo',
+     T:'the holarchy <span class="rot90">↻ 90°</span>', tag:'a system of nested wholes',
+     d:`you are looking <b>straight down the axis of everything</b>: eight rings, one inside the
+        next — the cell at the centre, the star at the rim. a nest like this is a <b>holarchy</b>:
+        each ring a whole made of the ring inside it, and a part of the ring outside it.`,
+     d2:`hold the shape. the question this page asks gets asked <b>on every ring</b>, by whatever is
+        standing on it — and the rings answer separately. <b>the shapes nest, and they fight.</b>
+        now scroll: the camera tips the nest onto its side, and the rings become a stack.`},
     {no:'01',   c:'en', grab:0, T:'Entropy',  tag:'Things Fall Apart',
      d:`Order decays without energy. Systems drift toward disorder, randomness, and dissolution.`},
     {no:'02',   c:'ex', grab:0, T:'Extropy',  tag:'Things Get Better',
@@ -4265,11 +4258,13 @@ function renderSyntropy(){
   // the steps ARE the sidebar. each one states its case as it takes the vessel over, so the argument
   // arrives with the picture that demonstrates it, one at a time, instead of all three up front.
   const stepsHTML=STEPS.map((s,i)=>`
-    <section class="synstep" data-c="${s.c}" data-g="${s.grab}" data-i="${i}">
+    <section class="synstep${s.cls?' '+s.cls:''}" data-c="${s.c}" data-g="${s.grab}" data-tilt="${s.tilt||0}" data-i="${i}">
       <span class="stepn">${s.no}</span>
       <h3>${s.T}</h3>
       <p class="tag">${s.tag}</p>
-      <p>${s.d}</p>
+      <p>${s.d}</p>${s.d2?`
+      <p>${s.d2}</p>`:''}${s.hint?`
+      <p><em>${s.hint}</em></p>`:''}
     </section>`).join('');
 
   wrap.innerHTML=`
@@ -4337,7 +4332,7 @@ function renderSyntropy(){
     </div>
     <div class="synsticky">
     <svg id="synsvg" viewBox="0 0 ${W} ${H}" role="img"
-      aria-label="one wireframe vessel threading eight scales, the star at its wide base and the cell at its narrow top. starlight enters at the star and moves up through every scale above it. extropy pinches the vessel to a needle: the energy runs straight up the axis without circulating and is swallowed by a core — the compute, the chips and data centres — and none of it ever leaves. syntropy opens the vessel into a bell: the energy circles each ring many times, doing work at that scale before passing up to the next, and what is left finally leaves as waste heat. entropy is visible in both, in two forms: the heat every working loop sheds and never gets back, and the decay of any ring that stops being fed — at extropy every ring outside the core withers to a frayed outline, because the order was not defeated, only moved into one dot.">
+      aria-label="one wireframe vessel threading eight scales, the star at its wide base and the cell at its narrow top. starlight enters at the star and moves up through every scale above it. extropy pinches the vessel to a needle: the energy runs straight up the axis without circulating and is swallowed by a core — the compute, the chips and data centres — and none of it ever leaves. syntropy opens the vessel into a bell: the energy circles each ring many times, doing work at that scale before passing up to the next, and what is left finally leaves as waste heat. entropy is visible in both, in two forms: the heat every working loop sheds and never gets back, and the decay of any ring that stops being fed — at extropy every ring outside the core withers to a frayed outline, because the order was not defeated, only moved into one dot. the picture opens looking straight down that axis — the eight rings concentric and nested, a holarchy, each ring named at its rim — and the camera turns a quarter-turn onto its side as the first step, entropy, arrives.">
       <defs>
         <radialGradient id="vescore" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
@@ -4382,32 +4377,7 @@ function renderSyntropy(){
       <span class="tldrtag">TL;DR</span>
       <h2>two ways to escape entropy - extropy and syntropy</h2>
       <p>entropy (disorder) always wins in the end — that is not up for debate.</p>
-    </section>
-
-    <div class="holowrap">
-      <div class="holotext">
-        <h3>the holarchy <span class="rot90">↻ 90°</span></h3>
-        <p class="holoeq"><b>this is the same picture as the one above it</b>, turned a quarter-turn.
-           up there you are looking at the eight rings <b>from the side</b>, stacked, each one a real
-           order of magnitude wider than the last. here you are looking <b>straight down that axis</b>,
-           and they fall into each other: eight rings, nested. same rings, same dots, same dial —
-           one quarter-turn between the two.</p>
-        <p>which is what a <b>holarchy</b> is: <b>a system of nested wholes — each part is whole in
-           itself, while also part of something larger.</b> a cell is built from molecules and is
-           itself one dot in a body.</p>
-        <p>which is why the choice never gets made once and settled. it gets made <b>on every ring</b>,
-           by whatever is standing on that ring — and each ring inherits the shape of the one under
-           it. an extractive cell in a healthy body. a syntropic neighbourhood inside an extractive
-           state. <b>the shapes nest, and they fight.</b></p>
-        <p class="holohint">hover a ring — or a scale above — to see what it is made of, and what it is part of.</p>
-      </div>
-      <svg id="holosvg" viewBox="0 0 420 420" role="img"
-        aria-label="eight nested rings, cell at the centre out to the star: each level is a whole made of the one inside it and a part of the one outside it.">
-        <circle class="holo-axisdot" cx="210" cy="208" r="9"/>
-        <circle class="holo-core"/>
-        ${holo}
-      </svg>
-    </div>`;
+    </section>`;
 
   const svg=document.getElementById('synsvg');
   const motes=svg.querySelector('.syn-motes');
@@ -4459,9 +4429,6 @@ function renderSyntropy(){
   };
   const setAll=(r,g)=>{ for(let i=0;i<NL;i++) setRing(i,r,g); };
 
-  const holoSvg=document.getElementById('holosvg');
-  const holoRings=[...holoSvg.querySelectorAll('.holo-ring')];
-  const holoCore=holoSvg.querySelector('.holo-core');
   const vesEl=svg.querySelector('.ves');
   const coreEls=LEVELS.map((_,i)=>({
     core: vesEl.querySelector(`.ves-core[data-l="${i}"]`),
@@ -4475,6 +4442,16 @@ function renderSyntropy(){
   const vesOut=anno.querySelector('.ves-eout'), vesIn=anno.querySelector('.ves-ein');
   const src=vesEl.querySelector('.ves-src');
   let spin=0;                                       // the solid turns, slowly, forever
+
+  // ---- THE CAMERA ----
+  // the spiral's move, borrowed whole: the reader's scroll owns the angle. 0 is the side view —
+  // the stack, eight rings nearly edge-on. 1 looks straight DOWN the axis: the rings round out to
+  // true circles, the stack collapses to one centre, and the vessel IS the holarchy. the tween
+  // lives in the main loop, next to the regime easing, at the spiral's own rate.
+  // it STARTS at 1: step 00 is the nest, and the quarter-turn down to the side view happens as
+  // entropy takes the reading line. (the init below re-snaps to wherever the page actually loaded.)
+  let camCur=1, camTgt=1;
+  const CAMY=(YTOP+YBOT)/2;                         // where the whole axis lands when you look down it
 
   // the SQUEEZE is the only thing the dial does to the geometry, and both pictures use it: extropy
   // crushes every ring in toward the axis (and grows a hot core to swallow them), syntropy lets each
@@ -4522,6 +4499,20 @@ function renderSyntropy(){
     const sp=spin;
     const N8=LEVELS.length, STAR=N8-1;
 
+    // the quarter-turn, applied to EVERYTHING that has a height or a squash. at tilt 0 this whole
+    // block is the identity and the maths below is exactly what it always was; at tilt 1 the rings
+    // are true circles sharing one centre, which is the holarchy by construction, not by a second
+    // drawing. depth cues (front-bright/back-faint) flatten out with it — looking down the axis,
+    // nothing is nearer the eye than anything else.
+    const tilt=ease(camCur);
+    const sqy=lerp(SQY,1,tilt);                     // the rings round out…
+    const cyOf=i=>lerp(rowY[i],CAMY,tilt);          // …and the stack falls into one centre
+    const depOf=a=>lerp(0.5+0.5*Math.sin(a),1,tilt);
+    // the left column (scale rows + the definition caption) rides the INVERSE of the tilt: it is
+    // side-view furniture, and it fades in as the nest tips over into the stack it labels.
+    svg.style.setProperty('--camside',(1-tilt).toFixed(3));
+    svg.classList.toggle('topdown',tilt>0.6);
+
     // ENERGY ENTERS AT THE STAR. so if the star itself has fallen to entropy, nothing enters at all,
     // and that is why "everything entropy" is a dark vessel rather than one with sparks still in it.
     const input=1-E[STAR];
@@ -4545,36 +4536,36 @@ function renderSyntropy(){
     const circ=LEVELS.map((_,i)=>S[i]*(1-E[i]));
 
     // ---- the cores, one per capturing ring, at that ring's own centre ----
+    // looking down the axis the spindle is a point, so each core rounds toward a dot as it tilts.
     coreEls.forEach((c,i)=>{
-      const gi=G[i], R=RAD[i]*squeezeOf(i);
-      c.core.setAttribute('cx',0); c.core.setAttribute('cy',rowY[i].toFixed(1));
+      const gi=G[i];
+      c.core.setAttribute('cx',0); c.core.setAttribute('cy',cyOf(i).toFixed(1));
       c.core.setAttribute('rx',lerp(0,20,gi).toFixed(1));
-      c.core.setAttribute('ry',lerp(0,rowH[i]*0.62,gi).toFixed(1));
+      c.core.setAttribute('ry',(lerp(0,lerp(rowH[i]*0.62,20,tilt),gi)).toFixed(1));
       c.core.setAttribute('opacity',(0.55*gi).toFixed(2));
-      c.sing.setAttribute('cx',0); c.sing.setAttribute('cy',rowY[i].toFixed(1));
+      c.sing.setAttribute('cx',0); c.sing.setAttribute('cy',cyOf(i).toFixed(1));
       c.sing.setAttribute('r',lerp(0,17,gi).toFixed(1));
       c.sing.setAttribute('opacity',gi.toFixed(2));
     });
     // the compute block names ONE of them — the capturing ring nearest where the single old core sat,
     // so an all-extropic stack still reads exactly as it did. naming all eight would be a wall of type.
-    let lab=-1, best=1e9, maxG=0;
+    let lab=-1, best=1e9;
     LEVELS.forEach((_,i)=>{
-      maxG=Math.max(maxG,G[i]);
       if(G[i]>0.5){ const d=Math.abs(rowY[i]-CORE_Y); if(d<best){ best=d; lab=i; } }
     });
-    const labY=lab>=0?rowY[lab]:CORE_Y;
+    const labY=lab>=0?cyOf(lab):lerp(CORE_Y,CAMY,tilt);
     coreLab.setAttribute('transform',`translate(0 ${labY.toFixed(1)})`);
     coreLab.setAttribute('opacity',(lab>=0?G[lab]:0).toFixed(2));
 
     lvEls.forEach((g,li)=>{
       const N=+g.dataset.n;
-      const R=RAD[li]*squeezeOf(li), ry=R*SQY, cy=rowY[li];   // each ring is squeezed by ITS OWN choice
+      const R=RAD[li]*squeezeOf(li), ry=R*sqy, cy=cyOf(li);   // each ring is squeezed by ITS OWN choice
       const live=liveOf(li), warm=warmth(li);
-      // the pool behind the ring…
+      // the pool behind the ring… (round when seen down the axis, like everything else)
       const gl=glowEls[li];
       gl.setAttribute('cx',0); gl.setAttribute('cy',cy.toFixed(1));
       gl.setAttribute('rx',(R*1.22+16).toFixed(1));
-      gl.setAttribute('ry',(ry*2.3+16).toFixed(1));
+      gl.setAttribute('ry',(lerp(R*SQY*2.3,R*1.22,tilt)+16).toFixed(1));
       gl.setAttribute('fill','url(#vesglow)');
       gl.setAttribute('opacity',(0.62*warm).toFixed(2));
       // …and the bloom on the ring's own dots and skin. one filter on the whole group, not ninety
@@ -4592,21 +4583,31 @@ function renderSyntropy(){
         nd.setAttribute('cx',(Math.cos(a)*R).toFixed(1));
         nd.setAttribute('cy',(cy+Math.sin(a)*ry).toFixed(1));
         nd.setAttribute('r',nodeR.toFixed(1));
-        nd.setAttribute('opacity',((0.42+0.58*(0.5+0.5*Math.sin(a)))*lerp(0.22,1,live)).toFixed(2));
+        nd.setAttribute('opacity',((0.42+0.58*depOf(a))*lerp(0.22,1,live)).toFixed(2));
       });
+      // the level's name rides its ring — pinned to the rim, so it TRAVELS with the circle as the
+      // camera turns, and hands off to the row labels once the side view lands. neighbours
+      // alternate above/below the rim: the two smallest radii sit 13 units apart, and two labels
+      // on the same side there would type over each other.
+      const hl=g.querySelector('.ves-hlab');
+      hl.setAttribute('x','0');
+      hl.setAttribute('y',(li%2 ? cy+ry+19 : cy-ry-9).toFixed(1));
+      hl.setAttribute('opacity',(tilt*(0.3+0.7*Math.max(0.25,fed[li]))).toFixed(2));
       // the skin, from the ring above down to this one. a meridian holds one angle for its whole
       // length, so its depth is constant — front bright, back faint, and that is the entire 3-D.
       // and it FRAYS: a fed skin is a solid line, a starved one comes apart into dashes.
       const dash=live>0.97 ? 'none' : `${(1.2+8*live).toFixed(1)} ${(7*(1-live)+0.6).toFixed(1)}`;
+      // seen down the axis the meridians become SPOKES between concentric rings — kept, but damped,
+      // so the nest reads as rings first and one solid second.
       g.querySelectorAll('.ves-seg').forEach((el,m)=>{
         const a=MERA[m]+sp, up=li-1;
-        const R0v=RAD[up]*squeezeOf(up), y0=rowY[up];   // the skin spans two rings that may disagree
-        const x0=Math.cos(a)*R0v, yy0=y0+Math.sin(a)*R0v*SQY;
+        const R0v=RAD[up]*squeezeOf(up), y0=cyOf(up);   // the skin spans two rings that may disagree
+        const x0=Math.cos(a)*R0v, yy0=y0+Math.sin(a)*R0v*sqy;
         const x1=Math.cos(a)*R,   yy1=cy+Math.sin(a)*ry;
         const mx=(x0+x1)/2*1.06, my=(yy0+yy1)/2;    // a whisper of belly, so it reads as a surface
         el.setAttribute('d',`M${x0.toFixed(1)} ${yy0.toFixed(1)}Q${mx.toFixed(1)} ${my.toFixed(1)} ${x1.toFixed(1)} ${yy1.toFixed(1)}`);
         el.setAttribute('stroke-dasharray',dash);
-        el.setAttribute('opacity',((0.10+0.55*(0.5+0.5*Math.sin(a)))*lerp(0.30,1,live)).toFixed(2));
+        el.setAttribute('opacity',((0.10+0.55*depOf(a))*lerp(0.30,1,live)*lerp(1,0.55,tilt)).toFixed(2));
       });
     });
 
@@ -4640,7 +4641,7 @@ function renderSyntropy(){
     FLOW_SHAPE=shapeAt; FLOW_TRANS=transAt;             // the tick moves the sparks; it needs both
 
     const at=u=>{
-      const y=lerp(YBOT,YTOP,u);
+      const y=lerp(lerp(YBOT,YTOP,u),CAMY,tilt);        // down the axis, the climb reads as INWARD
       return [y, skinAt(u)*lerp(0.10,1,shapeAt(u))];    // hugging the axis where it does not circulate
     };
     flow.forEach((f,i)=>{
@@ -4648,14 +4649,14 @@ function renderSyntropy(){
       const a=f.a+sp, a2=f.ta+sp;                    // it rides the solid, so it turns with it
       const [y,r]=at(f.u), [y2,r2]=at(f.tu);         // head, and the tail chasing it
       const amp=transAt(f.u);                        // what is left of it here — 0 once a core has eaten it
-      const dep=0.35+0.65*(0.5+0.5*Math.sin(a));
-      const x1=Math.cos(a2)*r2, yy1=y2+Math.sin(a2)*r2*SQY;
-      const x2=Math.cos(a)*r,   yy2=y +Math.sin(a) *r *SQY;
+      const dep=0.35+0.65*depOf(a);
+      const x1=Math.cos(a2)*r2, yy1=y2+Math.sin(a2)*r2*sqy;
+      const x2=Math.cos(a)*r,   yy2=y +Math.sin(a) *r *sqy;
       // when it is orbiting, head and tail sit at different angles on the ring, so a straight streak
       // would cut the chord straight through the middle of the holon. bow the streak out to the
       // ring's own radius instead and the motion reads as going AROUND rather than across.
       const am=(a+a2)/2, rm=(r+r2)/2, bow=Math.cos((a-a2)/2)||1;
-      const mx=Math.cos(am)*rm/bow, my=(y+y2)/2+Math.sin(am)*rm/bow*SQY;
+      const mx=Math.cos(am)*rm/bow, my=(y+y2)/2+Math.sin(am)*rm/bow*sqy;
       el.setAttribute('d',`M${x1.toFixed(1)} ${yy1.toFixed(1)}Q${mx.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${yy2.toFixed(1)}`);
       el.setAttribute('stroke-width',(1.6+1.8*shapeAt(f.u)).toFixed(1));
       el.setAttribute('opacity',(0.9*amp*dep*Math.min(1,f.u*8+0.2)).toFixed(2));
@@ -4664,47 +4665,20 @@ function renderSyntropy(){
       sparkPos[i][0]=DX+x2; sparkPos[i][1]=yy2; sparkPos[i][2]=amp*shapeAt(f.u);
     });
 
-    // and say, in words, what just happened to it. all three of these are claims ABOUT the energy,
-    // so at the entropy corner — where there is none — none of them are saying anything, and they go.
+    // and say, in words, what just happened to it. all three of these are claims ABOUT the energy —
+    // claims about its two ENDS, which are exactly what a quarter-turn foreshortens away. so they
+    // fade with the tilt: looking down the axis there is no "top" to leave from.
     anno.setAttribute('transform',`translate(0 ${YTOP.toFixed(1)})`);
-    anno.setAttribute('opacity','1');
+    anno.setAttribute('opacity',(1-tilt).toFixed(2));
     src.setAttribute('transform',`translate(0 ${YBOT.toFixed(1)})`);   // the star end: where it comes in
-    src.setAttribute('opacity',input.toFixed(2));               // the star stops shining if IT rots
+    src.setAttribute('opacity',(input*(1-tilt)).toFixed(2));    // the star stops shining if IT rots
     vesOut.setAttribute('opacity',escapes.toFixed(2));           // exactly what makes it out the far end…
     vesIn.setAttribute('x',0); vesIn.setAttribute('y',(labY-YTOP+34).toFixed(1));
     vesIn.setAttribute('opacity',(input*(1-escapes)).toFixed(2)); // …and the rest, which a core took
 
-    // ---- the top view: the same rings, seen from above ----
-    // it is the same object, so it starves the same way: same liveOf, same withering dots.
-    holoCore.setAttribute('cx',HC.x); holoCore.setAttribute('cy',HC.y);
-    holoCore.setAttribute('r',lerp(3,22,maxG).toFixed(1));
-    holoCore.setAttribute('opacity',maxG.toFixed(2));
-    holoRings.forEach((g,i)=>{
-      const N=+g.dataset.n, R=RAD[i]*squeezeOf(i), live=liveOf(i), warm=warmth(i);
-      g.style.filter = warm>0.03
-        ? `drop-shadow(0 0 ${(warm*8).toFixed(1)}px rgba(255,181,94,${(0.66*warm).toFixed(2)}))`
-        : 'none';
-      const el=g.querySelector('.holo-o');
-      el.setAttribute('cx',HC.x); el.setAttribute('cy',HC.y); el.setAttribute('r',R.toFixed(1));
-      el.setAttribute('stroke-dasharray',live>0.97?'none':`${(1.6+9*live).toFixed(1)} ${(8*(1-live)+0.8).toFixed(1)}`);
-      el.setAttribute('opacity',(0.5*lerp(0.3,1,live)).toFixed(2));
-      g.querySelectorAll('.holo-dot').forEach((d,k)=>{
-        const a=k/N*6.283-Math.PI/2;                 // the same angles as the row: the same dots
-        d.setAttribute('cx',(HC.x+Math.cos(a)*R).toFixed(1));
-        d.setAttribute('cy',(HC.y+Math.sin(a)*R).toFixed(1));
-        d.setAttribute('r',(lerp(1.6,3.8,S[i])*lerp(0.42,1,live)).toFixed(1));
-        d.setAttribute('opacity',lerp(0.25,1,live).toFixed(2));
-      });
-      const lab=g.querySelector('.holo-lab');
-      lab.textContent=LEVELS[i].n;
-      lab.setAttribute('x',HC.x.toFixed(1));
-      lab.setAttribute('y',(HC.y-R-5).toFixed(1));
-      lab.setAttribute('opacity',(0.3+0.7*Math.max(0.25,fed[i])).toFixed(2));
-    });
-
     // the colour of the energy is one colour, so with a mixed stack it takes the stack's average.
     const mT=S.reduce((a,b)=>a+b,0)/N8, mE=E.reduce((a,b)=>a+b,0)/N8;
-    for(const el of [holoSvg,svg,wrap]){
+    for(const el of [svg,wrap]){
       el.style.setProperty('--t',mT.toFixed(3));
       el.style.setProperty('--e',mE.toFixed(3));
     }
@@ -4715,6 +4689,10 @@ function renderSyntropy(){
     const dt=Math.min((now-last)/1000,0.05); last=now;
     const k=Math.min(1,dt*6);                        // the whole page eases toward the choice
     for(let i=0;i<NL;i++){ SS[i]+=(TS[i]-SS[i])*k; SE[i]+=(TE[i]-SE[i])*k; SG[i]+=(TG[i]-SG[i])*k; }
+    // the camera, easing toward whatever angle the reading line asked for — the spiral's rate,
+    // so the two pages' quarter-turns feel like the same hand moving them.
+    camCur+=(camTgt-camCur)*Math.min(1,dt*3.2);
+    if(Math.abs(camTgt-camCur)<0.002) camCur=camTgt;
     paint(SS,SE,SG);
     triHandle();
     // heat, shed by the energy as it works. the rate is the work rate: a vessel that circulates pays
@@ -4903,6 +4881,11 @@ function renderSyntropy(){
   const stage=wrap.querySelector('.synscroll');
   const tryPanel=document.getElementById('trypanel');
   const tryPanel2=document.getElementById('trypanel2');
+  // the sections the CAMERA answers to. the panels are in this list with no data-tilt, so the
+  // quarter-turn unwinds on its own as you reach the controls — the side view is the readout the
+  // panels were designed against, and you should not have to scroll back up to get it.
+  const camSecs=[...steps,tryPanel,tryPanel2];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let autoC=null;
   function scrollDrive(){
     const r=stage.getBoundingClientRect();
@@ -4914,8 +4897,17 @@ function renderSyntropy(){
     tryPanel.classList.toggle('on', last.bottom < innerHeight*0.55);
     tryPanel2.classList.toggle('on', tryPanel2.getBoundingClientRect().top < innerHeight*0.72);
 
-    if(manual) return;
     const line=innerHeight*0.45;
+    // the camera answers the scroll even when the dial has gone manual — the tilt is an angle,
+    // not a regime, and the reader's position on the page owns it at all times.
+    let cw=null,cwd=1e9;
+    camSecs.forEach(sec=>{
+      const q=sec.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
+      if(q.bottom>0 && q.top<innerHeight && d<cwd){ cwd=d; cw=sec; }
+    });
+    if(cw){ camTgt=+(cw.dataset.tilt||0); if(reduce) camCur=camTgt; }
+
+    if(manual) return;
     let win=null,wd=1e9;
     steps.forEach(sec=>{
       const q=sec.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
@@ -4935,9 +4927,10 @@ function renderSyntropy(){
   addEventListener('scroll',synScroll,{passive:true});
   addEventListener('resize',synScroll,{passive:true});
   scrollDrive();
+  camCur=camTgt;   // open AT the angle the load position asks for — no swing on arrival
 
-  // a level and its ring are the same object seen twice. touch either and BOTH light up, because
-  // the whole point of the holarchy is that the row you are reading IS a ring in the nest.
+  // a level and its ring are the same object — and now literally the same elements, whichever way
+  // the camera is facing. hover the row and its ring lights up, in the stack or in the nest.
   function tipFor(L,px,py){
     tt.style.setProperty('--acc','#7c5cff');
     tt.innerHTML=`<div class="nm">${L.n}</div><div class="er">${L.s}</div>
@@ -4950,28 +4943,23 @@ function renderSyntropy(){
       <div class="hintline">the same fork, on every ring · drag the dial</div>`;
     tt.classList.add('on'); placeTip(px,py);
   }
-  const pairs=rowEls.map((g,i)=>[g,holoRings[i]]);
-  pairs.forEach(([row,ring],i)=>{
-    const L=LEVELS[i];
-    const lv=lvEls[i];
-    const show=(px,py)=>{ row.classList.add('lit'); ring.classList.add('lit'); lv.classList.add('lit');
-      vesEl.classList.add('focusing'); holoSvg.classList.add('focusing'); tipFor(L,px,py); };
-    const hide=()=>{ row.classList.remove('lit'); ring.classList.remove('lit'); lv.classList.remove('lit');
-      vesEl.classList.remove('focusing'); holoSvg.classList.remove('focusing'); tt.classList.remove('on'); };
-    [row,ring].forEach(el=>{
-      el.addEventListener('pointerenter',e=>show(e.clientX,e.clientY));
-      el.addEventListener('pointermove',e=>placeTip(e.clientX,e.clientY));
-      el.addEventListener('pointerleave',hide);
-      el.addEventListener('focus',()=>{ const r=el.getBoundingClientRect(); show(r.right,r.top); });
-      el.addEventListener('blur',hide);
-    });
+  rowEls.forEach((row,i)=>{
+    const L=LEVELS[i], lv=lvEls[i];
+    const show=(px,py)=>{ row.classList.add('lit'); lv.classList.add('lit');
+      vesEl.classList.add('focusing'); tipFor(L,px,py); };
+    const hide=()=>{ row.classList.remove('lit'); lv.classList.remove('lit');
+      vesEl.classList.remove('focusing'); tt.classList.remove('on'); };
+    row.addEventListener('pointerenter',e=>show(e.clientX,e.clientY));
+    row.addEventListener('pointermove',e=>placeTip(e.clientX,e.clientY));
+    row.addEventListener('pointerleave',hide);
+    row.addEventListener('focus',()=>{ const r=row.getBoundingClientRect(); show(r.right,r.top); });
+    row.addEventListener('blur',hide);
   });
 
   // the build: a level assembles as it comes into view, and it assembles ON TOP of the ones under
   // it. the inherited rings fade in first, then the new ring's nodes pop in one at a time — so you
   // watch each scale being made out of the one below rather than finding it already finished.
   if(synIO){ synIO.disconnect(); synIO=null; }
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   // a level's LABEL and its RING are the same level, so they build together — and because each
   // level owns the skin above it, the vessel physically extends downward as you read.
   const buildLv=i=>{ rowEls[i].classList.add('built'); lvEls[i].classList.add('built'); };
