@@ -11,6 +11,7 @@ Click around. It sparkles.
 ## features
 
 - `index.html` — fourteen tabs, 988 mechanisms: **allocation** (81), **power structures** (80), **livelihood** (77), **energy** (76), **care** (75), **time** (73), **mathematics** (72), **land** (71), **ethics** (70), **truth** (68), **identity** (66), **trust** (60), **conflict** (60), **the record** (59)
+- **the whole picture** is four views now: 🧬 **the spiral** — all of it at once, with a camera that argues the shape (tilt it flat: from above it is a circle, from the side it is a climb, and only the low angle holds both) · ⚙️ **[one turn](https://resource.gitcoin.co/turn)** — the loop dissected face-on: the exit-cost ribbon, thick where you are trapped, and the capital beads jamming exactly where leaving is dear · 🪜 **[the ratchet](https://resource.gitcoin.co/ratchet)** — the four fires between the five eras, what each one burned (thrones) and what clicked through (tools) · 🌀 **[syntropy](https://resource.gitcoin.co/syntropy)** — what resists entropy, at eight scales
 - Every mechanism explained on click — what it is, where it came from, its tradeoffs
 - Each era ends with the **unbuilt ones** ✦ — specs waiting for a builder
 - **[what powers you](https://resource.gitcoin.co/energy)** is the other rate limiter: no city without the granary, no cathedral without the ox, no model without the gigawatt. It ends where Jevons left it — we have never, not once, used less

@@ -458,6 +458,114 @@
   :root[data-mode="syntropy"][data-theme="light"]{--pgrad:linear-gradient(175deg,#dfe6f8 0%,#e8dff2 52%,#f6e2e6 100%)}
   :root[data-mode="syntropy"] .poster .sub{background:linear-gradient(90deg,#e8446f,#b535bb,#6247d6,#2b7de0,#34d0a6);-webkit-background-clip:text;background-clip:text}
   .tab.on.t-syntropy{background:linear-gradient(90deg,#e8446f,#6247d6,#34d0a6);box-shadow:0 6px 18px rgba(98,71,214,.4)}
+
+  /* ---------- ⚙️ one turn: the loop, face-on ---------- */
+  #turnwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1180px}
+  :root[data-mode="turn"] #turnwrap{display:block}
+  :root[data-mode="turn"] #eras{display:none}
+  /* nothing to play here either: the loop plays itself. */
+  :root[data-mode="turn"] .playbtn{display:none}
+  :root[data-mode="turn"] .pfoot{margin-top:14px}
+  :root[data-mode="turn"]{--pgrad:linear-gradient(175deg,#ddeaf8 0%,#dff0ea 52%,#f6ecd9 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="turn"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#08182e 0%,#0a2420 52%,#241a08 100%)} }
+  :root[data-mode="turn"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#08182e 0%,#0a2420 52%,#241a08 100%)}
+  :root[data-mode="turn"][data-theme="light"]{--pgrad:linear-gradient(175deg,#ddeaf8 0%,#dff0ea 52%,#f6ecd9 100%)}
+  :root[data-mode="turn"] .poster .sub{background:linear-gradient(90deg,#2f9e44,#a17a00,#1c7ed6,#e03131,#b535bb);-webkit-background-clip:text;background-clip:text}
+  .tab.on.t-turn{background:linear-gradient(90deg,#2f9e44,#e03131,#b535bb);box-shadow:0 6px 18px rgba(28,126,214,.4)}
+  #tnsvg{width:100%;height:auto;display:block}
+  .tnlayout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,1fr);gap:16px;align-items:center}
+  @media(max-width:880px){ .tnlayout{grid-template-columns:1fr} }
+  .tnintro{max-width:760px;margin:2px auto 8px;text-align:center;font-size:13px;color:var(--muted);line-height:1.6}
+  .tn-seg{opacity:.88;transition:opacity .3s}
+  .tn-seg.dim{opacity:.15}
+  .tn-tick{stroke:var(--ink);stroke-width:2;opacity:.35}
+  .tn-name{font:850 30px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.03em;
+    paint-order:stroke;stroke:var(--panel);stroke-width:6px;stroke-linejoin:round;transition:opacity .3s}
+  .tn-sub{font:500 17px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
+    paint-order:stroke;stroke:var(--panel);stroke-width:5px;stroke-linejoin:round;transition:opacity .3s}
+  .tn-name.dim,.tn-sub.dim{opacity:.22}
+  .tn-core{font:850 30px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  .tn-coresub{font:500 16px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
+  .tn-jam{font:600 16px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
+  .tn-lift{fill:none;stroke:#b535bb;stroke-width:3;stroke-dasharray:7 8;opacity:.85}
+  .tn-liftend{fill:#b535bb}
+  .tn-liftlab{font:700 18px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#b535bb;
+    paint-order:stroke;stroke:var(--panel);stroke-width:5px;stroke-linejoin:round}
+  .tn-bead{stroke:var(--panel);stroke-width:1.2;opacity:.9}
+  .tn-hit{fill:transparent;cursor:pointer;outline:none}
+  .tn-hit:focus-visible{fill:color-mix(in srgb,var(--ink) 7%,transparent)}
+  .tnchips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+  .tnchip{font:inherit;font-weight:800;font-size:12px;letter-spacing:.03em;padding:6px 13px;border-radius:999px;
+    border:1.5px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer;transition:transform .2s,box-shadow .2s}
+  .tnchip:hover{transform:translateY(-1px)}
+  .tnchip.on{color:#fff;background:var(--pc);border-color:transparent;box-shadow:0 4px 12px color-mix(in srgb,var(--pc) 40%,transparent)}
+  .tncard{border:1.5px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--panel) 74%,transparent);padding:14px 16px}
+  .tncard h4{margin:0 0 8px;font-size:16px;font-weight:850;color:var(--pc)}
+  .tncard h4 em{color:var(--muted);font-style:normal;font-weight:600;font-size:12.5px;margin-left:7px}
+  .tnwhat{font-size:13px;line-height:1.62;color:var(--ink);margin:0 0 10px}
+  .tngrid{display:grid;gap:8px}
+  .tngrid>div{font-size:12.5px;color:var(--muted);line-height:1.55;border-top:1px dashed var(--line);padding-top:7px}
+  .tngrid b{display:block;color:var(--ink);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:2px}
+  .tnfoot{font-size:12px;color:var(--muted);line-height:1.6;margin:10px 2px 0}
+  .tnfoot a{color:var(--ink);text-decoration:none;border-bottom:1px dashed var(--muted)}
+
+  /* ---------- 🪜 the ratchet: what survives collapse ---------- */
+  #ratchetwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1140px}
+  :root[data-mode="ratchet"] #ratchetwrap{display:block}
+  :root[data-mode="ratchet"] #eras{display:none}
+  /* no play button: the whole page is the part of the story that happens between the eras. */
+  :root[data-mode="ratchet"] .playbtn{display:none}
+  :root[data-mode="ratchet"] .pfoot{margin-top:14px}
+  :root[data-mode="ratchet"]{--pgrad:linear-gradient(175deg,#f6ead7 0%,#f2e0dc 52%,#e2e0f6 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="ratchet"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#241304 0%,#2a0e12 52%,#120e33 100%)} }
+  :root[data-mode="ratchet"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#241304 0%,#2a0e12 52%,#120e33 100%)}
+  :root[data-mode="ratchet"][data-theme="light"]{--pgrad:linear-gradient(175deg,#f6ead7 0%,#f2e0dc 52%,#e2e0f6 100%)}
+  :root[data-mode="ratchet"] .poster .sub{background:linear-gradient(90deg,#a8712a,#e03131,#b535bb,#7048e8);-webkit-background-clip:text;background-clip:text}
+  .tab.on.t-ratchet{background:linear-gradient(90deg,#a8712a,#e03131,#7048e8);box-shadow:0 6px 18px rgba(168,113,42,.4)}
+  #rksvg{width:100%;height:auto;display:block;margin:8px 0 2px}
+  .rk-stair{fill:none;stroke:var(--ink);stroke-width:3;opacity:.7;stroke-linejoin:round}
+  .rk-nose{opacity:.9}
+  .rk-ename{font:800 13.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  .rk-ereach{font:600 12.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
+  .rk-cap{font:600 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
+  .rk-riser{cursor:pointer;outline:none}
+  .rk-riser:focus-visible .rk-fire{filter:drop-shadow(0 0 6px #e03131)}
+  .rk-fire{font-size:27px;transform-box:fill-box;transform-origin:center 80%;animation:rkflick 2.7s ease-in-out infinite}
+  .rk-fire.now{font-size:33px;animation-duration:1.6s}
+  @keyframes rkflick{50%{transform:scale(1.13)}}
+  @media (prefers-reduced-motion:reduce){ .rk-fire{animation:none} }
+  .rk-gn{fill:var(--panel);stroke:var(--line);stroke-width:1.5}
+  .rk-gnt{font:850 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink)}
+  .rk-gq{font:850 22px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
+  .rk-ghost{stroke:var(--muted);stroke-width:2.5;stroke-dasharray:4 7;opacity:.6}
+  .rk-hit{fill:transparent}
+  .rkintro{max-width:820px;margin:4px auto 2px;text-align:center;font-size:13.5px;color:var(--muted);line-height:1.65}
+  .rkintro b{color:var(--ink);font-size:15px;display:block;margin-bottom:4px}
+  .rkintro em{display:block;font-style:normal;font-size:12px;margin-top:5px;opacity:.85}
+  .rkgates{max-width:980px;margin:6px auto 0}
+  .rgate{border:1.5px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--panel) 74%,transparent);padding:16px 18px 13px;margin:12px 0}
+  .rgate header{display:flex;gap:12px;align-items:flex-start;margin-bottom:11px}
+  .rgn{flex:0 0 auto;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:850;font-size:14px;background:linear-gradient(135deg,#a8712a,#e03131);color:#fff}
+  .rgate.slips .rgn{background:linear-gradient(135deg,#555,#222)}
+  .rgate h3{margin:0;font-size:16px;font-weight:850;letter-spacing:.01em}
+  .rgate h3 b{background:linear-gradient(90deg,#a8712a,#e03131);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .rfire{color:var(--muted);font-size:12.5px;margin-top:3px}
+  .rkept{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px;margin:0 0 11px}
+  .rchip{font:inherit;text-align:left;cursor:pointer;border:1.5px solid var(--line);border-radius:12px;
+    background:var(--panel);padding:10px 12px;color:var(--ink);transition:transform .2s,box-shadow .2s,border-color .2s}
+  .rchip b{display:block;font-size:13.5px;font-weight:800}
+  .rchip .rem{font-size:16px;margin-right:7px}
+  .rchip .rs{display:block;color:var(--muted);font-size:11.5px;margin-top:3px;line-height:1.5}
+  .rchip:hover,.rchip:focus-visible{transform:translateY(-2px);
+    box-shadow:0 6px 16px color-mix(in srgb,#e03131 18%,transparent);border-color:color-mix(in srgb,var(--ink) 30%,transparent)}
+  .rburn{font-size:12.5px;color:var(--muted);line-height:1.55;border-top:1px dashed var(--line);padding-top:9px}
+  .rburn b{color:var(--ink);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase}
+  .rslip{font-size:13px;color:var(--muted);line-height:1.65;margin:0 0 10px}
+  .rslip b{color:var(--ink)}
+  .rlinks{font-size:12px;color:var(--muted);line-height:1.7;margin:0}
+  .rlinks a{color:var(--ink);text-decoration:none;border-bottom:1px dashed var(--muted)}
+
   #synsvg{width:100%;height:auto;display:block;--t:.5;--e:0}
   /* THE CONTROL. it used to be a line with extropy at one end and syntropy at the other, which is
      fine until you want entropy in it — because entropy is not a third stop on that line. the line
@@ -825,18 +933,47 @@
   /* ---- what each step does to the coil ---- */
   /* every one of these is a VARIABLE push, never a filter/opacity redeclaration — see the note by
      --g above. break that rule and you break the buttons. */
-  /* 01 · the rope fattens: swell it, saturate it, and let the breathing read */
+  /* 01–03 · the tilt: the rope ghosts out and the wire takes the light while the camera argues.
+     the wire is the same curve as the rope with the hair stripped off — one clean line per turn,
+     era-coloured — and each extreme angle brings its own annotation: the top-down circle names
+     the five places you keep passing; the side-on climb counts the reach. the 'both' step is the
+     hand letting go: wire out, rope back, low angle restored. only on wide screens — on a phone
+     there is no scrollytell, so there is no camera to move. */
+  .spwlayer{opacity:0;transition:opacity .55s;pointer-events:none}
+  .framelayer{transition:opacity .55s}
+  .spw-coil{fill:none;stroke:var(--wc);stroke-width:4.5;stroke-linecap:round;opacity:.92}
+  .spw-pht{font:850 30px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink);
+    letter-spacing:.04em;paint-order:stroke;stroke:var(--panel);stroke-width:6px;stroke-linejoin:round}
+  .spw-phs{font:500 20px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);
+    paint-order:stroke;stroke:var(--panel);stroke-width:5px;stroke-linejoin:round}
+  .spw-rc{font:700 24px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--ink);
+    paint-order:stroke;stroke:var(--panel);stroke-width:5px;stroke-linejoin:round}
+  .spw-ph,.spw-rc{opacity:0;transition:opacity .5s}
+  @media(min-width:901px){
+    .spsticky:is([data-act="circle"],[data-act="line"]) .spwlayer{opacity:1}
+    .spsticky:is([data-act="circle"],[data-act="line"]) .framelayer{opacity:.10}
+    /* the extreme angles waste the coil's headroom (no climb) or its width (no ellipse), so the
+       camera also steps closer — --az is the same zoom the build button already leans on */
+    .spsticky:is([data-act="circle"],[data-act="line"]){--ao:.05;--bo:0}
+    .spsticky[data-act="circle"]{--az:.34}
+    .spsticky[data-act="line"]{--az:.16}
+    /* the labels wait for the camera to get most of the way there — a phase wheel drawn on a
+       half-tilted coil is just clutter at an angle */
+    .spsticky[data-act="circle"] .spw-ph{opacity:1;transition-delay:.45s}
+    .spsticky[data-act="line"] .spw-rc{opacity:1;transition-delay:.45s}
+  }
+  /* 04 · the rope fattens: swell it, saturate it, and let the breathing read */
   .spsticky[data-act="rope"]{--as:.7;--az:.03}
-  /* 02 · the clusters: rope drops back so the swarms are all you can see */
+  /* 06 · the clusters: rope drops back so the swarms are all you can see */
   .spsticky[data-act="cluster"]{--ao:.30}
   .spsticky[data-act="cluster"] .caphalo{opacity:.55 !important}
-  /* 03 · the range: the flank counts up, one era at a time */
+  /* 05 · the range: the flank counts up, one era at a time */
   .spsticky[data-act="range"]{--ao:.34;--bo:.22}
   .spsticky[data-act="range"] .sp-eralab,.spsticky[data-act="range"] .sp-erasub{
     animation:rangepop .5s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0)*.28s)}
   .spsticky[data-act="range"] .sp-erasub{fill:var(--ink);font-weight:700}
   @keyframes rangepop{from{opacity:.25;transform:translateX(-14px)}to{opacity:1;transform:none}}
-  /* 04 · the fog: everything below drops away, the mist thickens, the forks draw themselves */
+  /* 07 · the fog: everything below drops away, the mist thickens, the forks draw themselves */
   .spsticky[data-act="fog"]{--ao:.22;--bo:.14}
   .spsticky[data-act="fog"] .sp-eralab,.spsticky[data-act="fog"] .sp-erasub{opacity:.2}
   .spsticky[data-act="fog"] .sp-mist{opacity:.13;filter:blur(30px)}
@@ -849,7 +986,7 @@
     animation:fadein .7s 1.5s both}
   @keyframes fadein{from{opacity:0}}
   .spsticky[data-act="fog"] .sp-phase.mistlab{opacity:.9}
-  /* 05 · go and break it: the things you can touch come forward */
+  /* 08 · go and break it: the things you can touch come forward */
   /* the chips wink to say "these are the things you can touch" — three times, then they stop. an
      animation that runs forever on a CLICK TARGET is a target that never holds still under the
      cursor, and it never stops asking for attention it has already got. */
@@ -953,16 +1090,18 @@
   .spsticky.coilon{--rv:1}                                                   /* 00 (partway) · the rope */
   /* the era tags belong to the step that explains what their numbers MEAN. before that they are
      five stacks of unexplained arithmetic sitting on the flank. */
-  .spsticky:is([data-stage="2"],[data-stage="3"],
-               [data-stage="4"],[data-stage="5"]){--ev:1}                    /* 02 · the eras */
-  .spsticky:is([data-stage="3"],[data-stage="4"],[data-stage="5"]){--cv:1}   /* 03 · the capital */
-  .spsticky:is([data-stage="4"],[data-stage="5"]){--fv:1}                    /* 04 · the fog */
-  .spsticky[data-stage="5"]{--lv:1}                                          /* 05 · the legends */
+  /* the three tilt steps (stages 1–3) sit between the intro and the rope, so every gate below
+     moved down three. they reveal nothing new themselves: the camera is the whole event. */
+  .spsticky:is([data-stage="5"],[data-stage="6"],
+               [data-stage="7"],[data-stage="8"]){--ev:1}                    /* 05 · the eras */
+  .spsticky:is([data-stage="6"],[data-stage="7"],[data-stage="8"]){--cv:1}   /* 06 · the capital */
+  .spsticky:is([data-stage="7"],[data-stage="8"]){--fv:1}                    /* 07 · the fog */
+  .spsticky[data-stage="8"]{--lv:1}                                          /* 08 · the legends */
   /* the legends are the key to a picture you have now finished reading. they are the last thing
      to arrive, not scenery you scroll past for five steps. */
   .spsticky .splegend{opacity:var(--lv,1);transition:opacity .7s;
     pointer-events:var(--lp,none)}
-  .spsticky[data-stage="5"] .splegend{--lp:auto}
+  .spsticky[data-stage="8"] .splegend{--lp:auto}
   /* no scrollytelling on narrow screens, so no progressive reveal either — show it all */
   @media(max-width:900px){ .spsticky{--ev:1;--rv:1;--cv:1;--fv:1;--lv:1;--lp:auto} }
   @media (prefers-reduced-motion:reduce){ .spsticky{--ev:1;--rv:1;--cv:1;--fv:1;--lv:1;--lp:auto} }
@@ -1088,6 +1227,8 @@
       </span>
     </header>
     <div id="spiralwrap"></div>
+    <div id="turnwrap"></div>
+    <div id="ratchetwrap"></div>
     <div id="synwrap"></div>
     <div id="eras"></div>
     <footer class="pfoot">
@@ -1119,6 +1260,8 @@
       <span class="grplab">the whole picture<em>step back</em></span>
       <div class="grpchips">
         <button class="tab t-spiral" role="tab" data-mode="spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></button>
+        <button class="tab t-turn" role="tab" data-mode="turn"><span class="em">⚙️</span>one turn<span class="tq">the loop, up close</span></button>
+        <button class="tab t-ratchet" role="tab" data-mode="ratchet"><span class="em">🪜</span>the ratchet<span class="tq">what survives collapse</span></button>
         <button class="tab t-syntropy" role="tab" data-mode="syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></button>
       </div>
     </div>
@@ -3387,6 +3530,19 @@ function renderSpiral(){
   // one idea per step, two sentences each. the sidebar is a set of captions, not an essay — the
   // coil is the thing you came for, and every extra clause in here is width taken off it.
   const STEPS=[
+    // the tilt: the shape argued by the camera, not the caption. the coil's two components —
+    // the cycle and the climb — are shown SEPARATELY by flattening the other one out, and then
+    // the low angle puts them back together. the doomer and the booster are both looking at the
+    // real object; each has one eye shut. these three steps open both eyes, one at a time.
+    {act:'circle', h:'seen from above, it is a circle',
+     p:`flatten the climb out of it and the doomer is right: <b>the same five places, every
+        turn</b> — adopt, formalize, scale, capture, fork. you always come back round.`},
+    {act:'line', h:'seen from the side, it is a climb',
+     p:`flatten the loop out of it and the booster is right too: <b>150 people, then a billion.</b>
+        the line only goes up.`},
+    {act:'both', h:'only the low angle holds both',
+     p:`a cycle and a ratchet are <b>the same object</b>, seen from different angles. the pessimist
+        and the optimist each have one eye shut.`},
     // built from STRANDS itself, so adding a strand never leaves this sentence lying.
     {act:'rope', h:'the spiral is many strands',
      p:`each strand is one question civilization never stops re-answering —
@@ -3410,7 +3566,7 @@ function renderSpiral(){
       <svg id="spiralsvg" viewBox="-430 -34 1700 1310" role="img"
         aria-label="${STRANDS.length} lineages of history coiling upward through five eras, each turn wider than the last, ending in a fog with two forks: one that comes apart and one that keeps going. ${CAPITALS.length} forms of capital climb the coil in clusters that thrive, collapse and re-seed.">
         ${defs}
-        <g class="reveal">${frame}<g class="foglayer">${fog}</g><g class="ropelayer">${rope}</g><g class="beadlayer">${beads}</g><g id="spcaps"></g><g class="eralayer">${lab}</g><g class="scalelayer">${scal}</g><g class="strandlayer">${strandlab}</g></g>
+        <g class="reveal"><g class="framelayer">${frame}</g><g class="foglayer">${fog}</g><g class="ropelayer">${rope}</g><g class="beadlayer">${beads}</g><g id="spcaps"></g><g class="eralayer">${lab}</g><g class="scalelayer">${scal}</g><g class="strandlayer">${strandlab}</g><g class="spwlayer" id="spwire"></g></g>
       </svg>
       <!-- two legends, one under the other, and the order is the argument: the capital TRAVELS,
            the strands CONTAIN. the rope is the container; the swarms on it are the cargo. -->
@@ -3448,6 +3604,52 @@ function renderSpiral(){
   </div>`;
 
   const svg=document.getElementById('spiralsvg');
+
+  // ---- the wire: the coil with the hair stripped off, so the camera can argue ----
+  // the full rope is ~4,600 path segments — you cannot re-project that per frame. the wire is the
+  // same curve as ONE clean line per turn (no sag, no wander: the tilt steps are about the
+  // geometry, and the noise would smear the circle it is trying to show you). it hides behind the
+  // rope until a tilt step wants it, then the rope drops to a ghost and the wire takes the light.
+  // sq: how round the turn's ellipse is (1 = looking straight down) · ck: how much of the climb
+  // survives projection (0 = flat) · yo: a lift up the page, because a circle drawn at the coil's
+  // FOOT with no climb sits half out of the viewBox.
+  const TILTQ={circle:{sq:.985,ck:.03,yo:-430}, line:{sq:.05,ck:1,yo:0}};
+  let tcur={sq:SQ,ck:1,yo:0}, ttgt={...tcur};
+  const wire=document.getElementById('spwire');
+  wire.innerHTML=
+    TURNS.map((_,u)=>`<path class="spw-coil" data-u="${u}" style="--wc:${ERAC[u]}"/>`).join('')
+    // the five places you keep passing: only the top-down view names them — that is its claim
+    +PHASES.map((p,i)=>`<g class="spw-ph" data-i="${i}"><text class="spw-pht">${p.t}</text><text class="spw-phs">${p.s}</text></g>`).join('')
+    // and the ladder of reach: only the side view counts it — that is its claim
+    +TURNS.map((T,u)=>`<text class="spw-rc" data-u="${u}">${T.era} · ${T.scale}</text>`).join('');
+  const wR=u=>186*Math.pow(1.10,u);                    // spR without the wander
+  function drawWire(){
+    const {sq,ck,yo}=tcur;
+    const wPt=u=>{ const th=spTh(u), r=wR(u);
+      return [SPC.cx+r*Math.cos(th), SPC.ybot+yo-136*u*ck+r*sq*Math.sin(th)]; };
+    wire.querySelectorAll('.spw-coil').forEach(p=>{
+      const u0=+p.dataset.u; let d='';
+      for(let k=0;k<=60;k++){ const [x,y]=wPt(u0+k/60); d+=(k?'L':'M')+x.toFixed(1)+' '+y.toFixed(1); }
+      p.setAttribute('d',d);
+    });
+    wire.querySelectorAll('.spw-ph').forEach(g=>{
+      const i=+g.dataset.i, pu=4+(i+0.5)/5;             // phase centre, on the outermost turn
+      const th=spTh(pu), r=wR(pu)+64;
+      const x=SPC.cx+r*Math.cos(th), y=SPC.ybot+yo-136*pu*ck+r*sq*Math.sin(th);
+      const anc=Math.cos(th)>0.3?'start':(Math.cos(th)<-0.3?'end':'middle');
+      [...g.children].forEach((t,j)=>{ t.setAttribute('x',x.toFixed(1));
+        t.setAttribute('y',(y+j*30).toFixed(1)); t.setAttribute('text-anchor',anc); });
+    });
+    wire.querySelectorAll('.spw-rc').forEach(t=>{
+      const u=+t.dataset.u+0.5;                         // mid-turn: the coil's left flank
+      const th=spTh(u), r=wR(u);
+      t.setAttribute('x',(SPC.cx+r*Math.cos(th)-18).toFixed(1));
+      t.setAttribute('y',(SPC.ybot+yo-136*u*tcur.ck+r*tcur.sq*Math.sin(th)+8).toFixed(1));
+      t.setAttribute('text-anchor','end');
+    });
+  }
+  drawWire();
+
   const focus=i=>{ svg.classList.add('focusing');
     svg.querySelectorAll('.strand').forEach(el=>el.classList.toggle('foc',+el.dataset.s===i)); };
   const blur=()=>{ svg.classList.remove('focusing');
@@ -3656,6 +3858,15 @@ function renderSpiral(){
     if(growth>0){ growth=Math.max(0,growth-dt*GCOOL); paintBuild(); }
     if(decay>0){ decay=Math.max(0,decay-dt*GCOOL); paintDecay(); }
     if(!reduce) drawClusters(dt);
+    // the camera, easing toward whatever angle the current step asked for. the wire only
+    // redraws while it is actually moving — the rest of the time this is three comparisons.
+    let tmv=false;
+    for(const kk of ['sq','ck','yo']){
+      const dd=ttgt[kk]-tcur[kk], eps=kk==='yo'?0.5:0.001;
+      if(Math.abs(dd)>eps){ tcur[kk]+=dd*Math.min(1,dt*3.2); tmv=true; }
+      else if(tcur[kk]!==ttgt[kk]){ tcur[kk]=ttgt[kk]; tmv=true; }
+    }
+    if(tmv) drawWire();
     spRAF=requestAnimationFrame(step);
   };
   spRAF=requestAnimationFrame(step);
@@ -3693,12 +3904,18 @@ function renderSpiral(){
   // the coil BUILDS itself as you read. nothing is on screen that has not been explained yet: the
   // era labels arrive with step 00, the rope with 01, the capital with 03, the fog with 04. it is
   // a guide-ellipse skeleton until you start reading, and a finished picture by the time you stop.
-  const ORDER=['loop','rope','range','cluster','fog','play'];
+  const ORDER=['loop','circle','line','both','rope','range','cluster','fog','play'];
   const doAct=a=>{
     if(a===act) return;
     act=a;
     sticky.dataset.act=a;
     sticky.dataset.stage=ORDER.indexOf(a);
+    // the tilt. 'circle' looks straight down (the ellipse rounds out, the climb flattens, and the
+    // whole ring lifts up the page so it is not sitting half out of frame at the coil's foot);
+    // 'line' looks dead level (the ellipse closes to a slit and only the climb is left). every
+    // other step restores the low angle. the wire tweens there in the main loop.
+    ttgt=TILTQ[a]||{sq:SQ,ck:1,yo:0};
+    if(reduce){ tcur={...ttgt}; drawWire(); }
     if(a==='rope') energy=Math.max(energy,2.2);          // make it breathe while you read that it does
     if(a==='cluster'){
       // kill the healthiest one on screen. the sentence says "watch — one is about to go", and it
@@ -3810,7 +4027,7 @@ function fillSpiralTip(s,e){
     <div class="hintline">click to open the ${s.label} tab at this era</div>`;
 }
 
-let synRAF=0, synIO=null, synScroll=null;
+let synRAF=0, synIO=null, synScroll=null, turnRAF=0;
 function renderSyntropy(){
   if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
   const wrap=document.getElementById('synwrap'), dark=spDark();
@@ -4776,6 +4993,286 @@ const LEVELS=[
   ex:'the dyson sphere — capture every last photon at one point. maximum order, zero redundancy, one target.',
   sy:'the seed — send life outward. many centres, no single point of failure, and nothing that has to be defended.'}
 ];
+
+// ---------- 🪜 the ratchet: what survives collapse ----------
+// the spiral says the coil climbs. this page says WHY: every turn ends in a fire, and the fire
+// has a bias. thrones burn — the god-king, the palace economy, the empire, the company town —
+// because a throne is one building, one lineage, one point of failure. tools survive — writing,
+// law, money, the proof — because a tool worth keeping is already in too many hands to burn.
+// keep the tool, lose the throne, compound: that one-way valve is the ratchet, and it is the
+// only reason the spiral is upward and not just around.
+//
+// each entry is one riser of the staircase: the fire between two eras of the poster, what
+// walked out of it, and what did not. every kept-tool carries the tab (m) where its whole
+// lineage lives, so the claim is one click from its receipts.
+const RATCHET=[
+ {a:0,b:1, fire:'the ice melts · the herds move on · the range closes',
+  burned:'the oldest right there was — to just walk away. the band\'s whole constitution was the exit, and settlement priced it out.',
+  kept:[
+   {em:'🗣️',n:'language',s:'the only tool that improves by being given away',m:'truth'},
+   {em:'🎁',n:'the gift',s:'reciprocity survives settlement by moving indoors — it runs your household to this day',m:'alloc'},
+   {em:'🔥',n:'fire',s:'the first technology nobody could un-know',m:'energy'},
+   {em:'🧮',n:'the count',s:'the notch on the bone becomes the granary ledger',m:'math'},
+   {em:'🎶',n:'song & myth',s:'memory that outlives every one of its carriers',m:'record'},
+   {em:'🫱',n:'kinship',s:'the algebra of who owes whom — the first institution',m:'trust'}]},
+ {a:1,b:2, fire:'the bronze age collapse · the fall of rome · the plague',
+  burned:'the god-king and the palace economy. the centre that hoarded everything went down with its granary — every single time.',
+  kept:[
+   {em:'✍️',n:'writing',s:'palaces burned around it more than once; the alphabet walked out of the ashes each time',m:'record'},
+   {em:'⚖️',n:'law',s:'rome fell and the corpus juris did not — it sat waiting, in full, until europe wanted it back',m:'conflict'},
+   {em:'🪙',n:'money',s:'every mint that struck it died; the idea never missed a market day',m:'alloc'},
+   {em:'📐',n:'the proof',s:'euclid crossed the collapse in arabic and came home fluent',m:'math'},
+   {em:'🗓️',n:'the calendar',s:'the bell tower fell; the date survived it',m:'time'},
+   {em:'🕌',n:'the waqf & the commenda',s:'capital that outlives its founder — the trust and the venture, six hundred years early',m:'math'}]},
+ {a:2,b:3, fire:'two world wars · the depression · the empires unwind',
+  burned:'the divine right of empire, and the company town — the whistle that owned your hours and the store that owned your wages.',
+  kept:[
+   {em:'🔬',n:'the method',s:'the one institution that runs on being proven wrong',m:'truth'},
+   {em:'🏢',n:'limited liability',s:'the empires that chartered the firm are gone; the firm is not',m:'math'},
+   {em:'📒',n:'double entry',s:'the merchant died; the method compounded',m:'record'},
+   {em:'💉',n:'the vaccine',s:'care learned at scale does not unlearn',m:'care'},
+   {em:'⚡',n:'the grid',s:'bombed flat twice, rebuilt wider both times',m:'energy'},
+   {em:'🕐',n:'universal time',s:'the one thing every combatant kept agreeing on',m:'time'}]},
+ {a:3,b:4, fire:'the walled gardens close · the feeds curdle · trust in the referees collapses',
+  burned:'still on the fire. the platform\'s claim — that the network, the ledger and your name must all live in one company\'s building — is what this riser is deciding.',
+  kept:[
+   {em:'🌐',n:'tcp/ip',s:'the protocol has outlived every company built on top of it, and is outliving the ones trying now',m:'record'},
+   {em:'🔑',n:'public-key crypto',s:'a secret you can prove without showing — the exit visa from the platform era',m:'identity'},
+   {em:'🧑‍💻',n:'open source',s:'code that cannot be repossessed: the commons, rediscovered in software',m:'live'},
+   {em:'🗄️',n:'the database',s:'the platform dies; the dump gets torrented',m:'record'},
+   {em:'⏱️',n:'the timestamp',s:'proof that one thing came before another — the spine of every chain',m:'time'},
+   {em:'🧬',n:'open weights',s:'a mind you can copy is a mind you cannot confiscate',m:'truth'}]}
+];
+function renderRatchet(){
+  const wrap=document.getElementById('ratchetwrap');
+  // ---- the staircase: the whole claim in one picture ----
+  // each tread is an era (wider as reach grows — the treads are the poster's five turns seen
+  // edge-on), each riser is the fire between two of them. the stairs only go up because the
+  // risers only burn down: you cannot un-know writing, so there is no stair back below it.
+  const TW=[132,162,200,248,308], RH=82, X0=42, YB=482;
+  let xx=X0; const treads=TW.map((w,i)=>{ const t={x:xx,y:YB-RH*i,w}; xx+=w; return t; });
+  let stair='M'+X0+' '+YB;
+  treads.forEach((t,i)=>{ stair+='L'+(t.x+t.w)+' '+t.y; if(i<4) stair+='L'+(t.x+t.w)+' '+(t.y-RH); });
+  let sv='';
+  treads.forEach((t,i)=>{
+    sv+=`<rect class="rk-nose" x="${t.x}" y="${t.y}" width="${t.w}" height="8" rx="4" fill="${ERAC[i]}"/>
+      <text class="rk-ename" x="${t.x+4}" y="${t.y-30}">${TURNS[i].era}</text>
+      <text class="rk-ereach" x="${t.x+4}" y="${t.y-13}">${TURNS[i].scale}</text>`;
+  });
+  treads.slice(0,4).forEach((t,i)=>{
+    const xr=t.x+t.w, ym=t.y-RH/2;
+    sv+=`<g class="rk-riser" data-i="${i}" tabindex="0" role="button"
+           aria-label="the fire between the ${TURNS[i].era} and ${TURNS[i+1].era} eras: ${RATCHET[i].fire}">
+      <text class="rk-fire" x="${xr}" y="${ym+10}" text-anchor="middle">🔥</text>
+      <circle class="rk-gn" cx="${xr}" cy="${ym+34}" r="11"/>
+      <text class="rk-gnt" x="${xr}" y="${ym+38.5}" text-anchor="middle">${i+1}</text>
+      <circle class="rk-hit" cx="${xr}" cy="${ym+14}" r="34"/>
+    </g>`;
+  });
+  // the fifth riser: burning now, so it is drawn in smoke rather than ink
+  const top=treads[4], xf=top.x+top.w;
+  sv+=`<g class="rk-riser" data-i="4" tabindex="0" role="button" aria-label="the fifth riser, burning now">
+    <path class="rk-ghost" d="M${xf} ${top.y}L${xf} ${top.y-RH}"/>
+    <text class="rk-fire now" x="${xf}" y="${top.y-RH/2+10}" text-anchor="middle">🔥</text>
+    <text class="rk-gq" x="${xf+26}" y="${top.y-RH/2+2}">?</text>
+    <circle class="rk-hit" cx="${xf}" cy="${top.y-RH/2}" r="34"/>
+  </g>`;
+  sv+=`<text class="rk-cap" x="${X0}" y="${YB+42}">each tread is an era · each riser is a fire · the stairs only go up because the risers only burn down</text>`;
+
+  wrap.innerHTML=`
+   <div class="rkintro"><b>collapse is a filter, not an eraser.</b>
+     between any two eras of this poster there is a fire — and the fire has a bias. thrones burn:
+     one building, one lineage, one point of failure. tools survive: anything already in too many
+     hands to burn. what survives, compounds. that one-way valve is the ratchet.
+     <em>click a 🔥 to see what walked out of it.</em></div>
+   <svg id="rksvg" viewBox="0 0 1130 545" role="img"
+     aria-label="a staircase of five eras climbing left to right, a fire on every riser between them: the stairs only go up because each fire burns the thrones and spares the tools.">
+     <path class="rk-stair" d="${stair}"/>${sv}
+   </svg>
+   <div class="rkgates">
+    ${RATCHET.map((g,i)=>`
+    <section class="rgate" id="rgate${i}">
+      <header><span class="rgn">${i+1}</span><div>
+        <h3>the fire between <b>${TURNS[g.a].era}</b> and <b>${TURNS[g.b].era}</b></h3>
+        <div class="rfire">🔥 ${g.fire}</div>
+      </div></header>
+      <div class="rkept">${g.kept.map(k=>`
+        <button class="rchip" data-m="${k.m}" title="open the ${k.m} tab">
+          <b><span class="rem">${k.em}</span>${k.n}</b><span class="rs">${k.s}</span></button>`).join('')}
+      </div>
+      <div class="rburn"><b>what the fire took</b> · ${g.burned}</div>
+    </section>`).join('')}
+    <section class="rgate slips" id="rgate4">
+      <header><span class="rgn">!</span><div>
+        <h3>when the ratchet slips</h3>
+        <div class="rfire">none of this is guaranteed — the pawl is a design, not a law of nature</div>
+      </div></header>
+      <p class="rslip">the library of alexandria. roman concrete, lost for fourteen hundred years.
+        the antikythera mechanism, without a successor for a millennium. damascus steel. greek fire.
+        the ratchet slips when a tool lives in too few heads or one building — when someone makes a
+        throne out of a tool.</p>
+      <p class="rslip"><b>so the pawl has a spec, and it has not changed in 12,000 years: many copies
+        beat one vault. many hands beat one keyholder. no permission needed to keep one.</b>
+        that is the entire engineering argument for the commons, and it is why open survives fire
+        better than closed.</p>
+      <p class="rlinks">watch the whole coil climb → <a href="#spiral">🧬 the spiral</a> ·
+        the loop each fire ends → <a href="#turn">⚙️ one turn</a> ·
+        why flow beats hoard → <a href="#syntropy">🌀 syntropy</a></p>
+    </section>
+   </div>`;
+
+  // a riser's fire takes you to its card; a kept-tool takes you to the tab holding its receipts
+  wrap.querySelectorAll('.rk-riser').forEach(g=>{
+    const go=()=>document.getElementById('rgate'+g.dataset.i)?.scrollIntoView({behavior:'smooth',block:'center'});
+    g.addEventListener('click',go);
+    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
+  });
+  wrap.querySelectorAll('.rchip').forEach(b=>b.addEventListener('click',()=>{
+    setMode(b.dataset.m,true); scrollTo({top:0,behavior:'smooth'});
+  }));
+}
+
+// ---------- ⚙️ one turn: the loop, face-on ----------
+// the spiral shows five of these stacked; the tilt step shows one from above for two seconds.
+// this page holds the circle still and dissects it. the ribbon's thickness is the cost of
+// leaving (the same EXIT curve the coil breathes with), the beads are capital moving at the
+// speed that cost allows (the same velocity law the clusters climb with) — so the traffic jam
+// at capture is not an illustration of the thesis, it is the thesis, running.
+const TURNPH=[
+ {what:'a few people pick up a tool nobody respectable would touch. it is small, open and unowned — and because anyone can leave at any moment, nobody has to be trusted.',
+  tell:'the rules fit on one page, and the person who wrote them still answers questions',
+  cost:'walking away costs nothing. this is the only beat where that is true — everything good about the phase follows from it.',
+  eg:'the first planted plot · the frontier chapel · the mailing list · the testnet'},
+ {what:'it works, so it gets writing: rites, offices, bylaws, an api. the founders become clergy, and the point becomes a procedure.',
+  tell:'there is suddenly a wrong way to do it, and someone is paid to say so',
+  cost:'leaving now costs your standing — the rules remember you, and the members do too.',
+  eg:'the temple calendar · the guild charter · the standards body · the core repo'},
+ {what:'it wins. the range explodes — ten times the people, then a hundred — and everyone inside is getting richer, so nobody is reading the terms.',
+  tell:'growth is the metric, and the graphs only go up',
+  cost:'leaving means leaving your winnings on the table. few do.',
+  eg:'the granary network · the railroad · the app store, year one · the bull market'},
+ {what:'the winners buy the rulebook. tolls rise, gates close, and the thing that won by being open stays up by being closed. the ribbon is fattest here — and this is where the clusters die.',
+  tell:'the product gets worse while the numbers get better',
+  cost:'your grain, your grave, your followers, your keys — whatever you cannot carry out, you now pay rent on.',
+  eg:'the palace granary · the enclosure acts · the company town · the walled garden'},
+ {what:'someone leaves and takes the idea. or the crowd revolts, or the whole thing simply falls down. the survivors carry the tools — never the thrones — to a turn that starts one ring up.',
+  tell:'the empire looks strongest just before it is simply over',
+  cost:'the lock breaks with the thing it was bolted to. exit is free again — one ring up.',
+  eg:'the exodus · the reformation · the printing press · the hard fork'}
+];
+function renderTurn(){
+  if(turnRAF){ cancelAnimationFrame(turnRAF); turnRAF=0; }
+  const wrap=document.getElementById('turnwrap'), dark=spDark();
+  const CX=560, CY=478, R=284;
+  const PHC=['#2f9e44','#a17a00','#1c7ed6','#e03131','#b535bb'];
+  const exitP=p=>{ p=((p%1)+1)%1; const q=p*5, i=Math.floor(q)%5, f=q-i;
+    return EXIT[i]+(EXIT[(i+1)%5]-EXIT[i])*f; };
+  const wid=p=>12+exitP(p)*56;
+  const ang=p=>-Math.PI/2+p*2*Math.PI;                  // adopt at noon, clockwise
+  const pt=(p,r)=>[CX+r*Math.cos(ang(p)), CY+r*Math.sin(ang(p))];
+
+  // the ribbon: one turn of the rope, held still. width is the exit curve, verbatim.
+  const N=240; let segs='';
+  for(let k=0;k<N;k++){
+    const p0=k/N, p1=(k+1)/N, w0=wid(p0)/2, w1=wid(p1)/2;
+    const [ax,ay]=pt(p0,R-w0),[bx,by]=pt(p0,R+w0),[cx2,cy2]=pt(p1,R+w1),[dx,dy]=pt(p1,R-w1);
+    const i=Math.floor(((p0+p1)/2)*5)%5;
+    segs+=`<path class="tn-seg" data-i="${i}" fill="${PHC[i]}" d="M${ax.toFixed(1)} ${ay.toFixed(1)}L${bx.toFixed(1)} ${by.toFixed(1)}L${cx2.toFixed(1)} ${cy2.toFixed(1)}L${dx.toFixed(1)} ${dy.toFixed(1)}Z"/>`;
+  }
+  let ticks='', labs='', wedges='';
+  for(let i=0;i<5;i++){
+    const pb=i/5, wb=wid(pb)/2;
+    const [x1,y1]=pt(pb,R-wb-12),[x2,y2]=pt(pb,R+wb+12);
+    ticks+=`<path class="tn-tick" d="M${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}"/>`;
+    const pm=(i+0.5)/5, wm=wid(pm)/2, [lx,ly]=pt(pm,R+wm+32);
+    const cs=Math.cos(ang(pm)), anc=cs>0.3?'start':(cs<-0.3?'end':'middle');
+    labs+=`<text class="tn-name" data-i="${i}" x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anc}" fill="${PHC[i]}">${PHASES[i].t}</text>
+           <text class="tn-sub" data-i="${i}" x="${lx.toFixed(1)}" y="${(ly+22).toFixed(1)}" text-anchor="${anc}">${PHASES[i].s}</text>`;
+    let wd='';
+    for(let k=0;k<=20;k++){ const [x,y]=pt(pb+(k/20)/5,R+80); wd+=(k?'L':'M')+x.toFixed(1)+' '+y.toFixed(1); }
+    for(let k=20;k>=0;k--){ const [x,y]=pt(pb+(k/20)/5,R-80); wd+='L'+x.toFixed(1)+' '+y.toFixed(1); }
+    wedges+=`<path class="tn-hit" data-i="${i}" d="${wd}Z" tabindex="0" role="button" aria-label="${PHASES[i].t}: ${PHASES[i].s}"/>`;
+  }
+  // where the fork lets go: the exit from this ring is the entrance to a wider one
+  let liftd='';
+  for(let k=0;k<=40;k++){ const t=k/40, p=0.965+t*0.155, a=ang(p), r=R+wid(p)/2+t*84;
+    liftd+=(k?'L':'M')+(CX+r*Math.cos(a)).toFixed(1)+' '+(CY+r*Math.sin(a)-t*26).toFixed(1); }
+  const [lex,ley]=(()=>{ const a=ang(1.12), r=R+wid(0.12)/2+84; return [CX+r*Math.cos(a),CY+r*Math.sin(a)-26]; })();
+  const lift=`<path class="tn-lift" d="${liftd}"/>
+    <circle class="tn-liftend" cx="${lex.toFixed(1)}" cy="${ley.toFixed(1)}" r="7"/>
+    <text class="tn-liftlab" x="${(lex+16).toFixed(1)}" y="${(ley+5).toFixed(1)}">the next turn starts here — wider</text>`;
+  // the standing annotation: the one mechanical fact the beads are about to prove anyway
+  const [jx,jy]=pt(0.72,R-wid(0.72)/2-52);
+  const jam=`<text class="tn-jam" x="${jx.toFixed(1)}" y="${jy.toFixed(1)}" text-anchor="end">the jam: capital slows exactly where exit is dear →</text>`;
+
+  wrap.innerHTML=`
+   <div class="tnintro">hover the ring — or the chips — to walk the five beats. the beads are the
+     capital, moving at the speed the exit cost allows. watch where they pile up.</div>
+   <div class="tnlayout">
+    <svg id="tnsvg" viewBox="-40 30 1260 900" role="img"
+      aria-label="one turn of the spiral drawn face-on as a ring of five phases — adopt, formalize, scale, capture, fork. the ring is thick where leaving is expensive, peaking at capture, and beads of capital circulate, bunching in the thick part. an arrow leaves the ring at fork toward a wider turn.">
+      <g class="tn-ring">${segs}</g>${ticks}${labs}${jam}${lift}
+      <text class="tn-core" x="${CX}" y="${CY-6}" text-anchor="middle">one turn ≈ one era</text>
+      <text class="tn-coresub" x="${CX}" y="${CY+22}" text-anchor="middle">the ribbon is thick where leaving is dear</text>
+      <g id="tnbeads">${Array.from({length:18},()=>'<circle class="tn-bead" r="5"/>').join('')}</g>
+      ${wedges}
+    </svg>
+    <div class="tnpanel">
+      <div class="tnchips">${PHASES.map((p,i)=>`<button class="tnchip" data-i="${i}" style="--pc:${PHC[i]}">${p.t}</button>`).join('')}</div>
+      <div class="tncard" id="tncard"></div>
+      <p class="tnfoot">this is the loop the coil runs once per era — <a href="#spiral">🧬 watch five of
+        them stack</a> · what makes it through each fork → <a href="#ratchet">🪜 the ratchet</a></p>
+    </div>
+   </div>`;
+
+  const svgEl=document.getElementById('tnsvg'), card=document.getElementById('tncard');
+  let cur=-1, virgin=true;
+  function select(i){
+    if(cur===i) return; cur=i;
+    // the first paint shows the whole ring at full strength — the dim is a reading aid that
+    // arrives with the reader's hand, not a default state the page wakes up already squinting in.
+    svgEl.querySelectorAll('.tn-seg,.tn-name,.tn-sub').forEach(el=>el.classList.toggle('dim',!virgin&&+el.dataset.i!==i));
+    virgin=false;
+    wrap.querySelectorAll('.tnchip').forEach(c=>c.classList.toggle('on',+c.dataset.i===i));
+    const ph=TURNPH[i];
+    card.innerHTML=`<h4 style="--pc:${PHC[i]}">${i+1} · ${PHASES[i].t} <em>${PHASES[i].s}</em></h4>
+      <p class="tnwhat">${ph.what}</p>
+      <div class="tngrid">
+        <div><b>the tell</b>${ph.tell}</div>
+        <div><b>the cost of leaving</b>${ph.cost}</div>
+        <div><b>the same beat, four eras</b>${ph.eg}</div>
+      </div>`;
+  }
+  select(0);
+  svgEl.querySelectorAll('.tn-hit').forEach(h=>{
+    const i=+h.dataset.i;
+    h.addEventListener('pointerenter',()=>select(i));
+    h.addEventListener('focus',()=>select(i));
+    h.addEventListener('click',()=>select(i));
+  });
+  wrap.querySelectorAll('.tnchip').forEach(c=>c.addEventListener('click',()=>select(+c.dataset.i)));
+
+  // the beads: same velocity law as the coil's clusters — they stream through adopt and
+  // silt up in capture, with no choreography telling them to. the jam is emergent, every run.
+  const beads=[...svgEl.querySelectorAll('.tn-bead')].map((el,i)=>({
+    el, p:i/18+0.013*spHash(i*3+1), o:(spHash(i*7+2)*2-1)*0.62, k:i%CAPITALS.length }));
+  function drawBeads(dt){
+    beads.forEach(b=>{
+      b.p=(b.p+dt*0.026/(0.35+exitP(b.p)*1.4))%1;
+      const w=Math.max(2,wid(b.p)/2-7), [x,y]=pt(b.p,R+b.o*w);
+      b.el.setAttribute('cx',x.toFixed(1)); b.el.setAttribute('cy',y.toFixed(1));
+      b.el.setAttribute('fill',dark?CAPITALS[b.k].d:CAPITALS[b.k].c);
+    });
+  }
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ for(let s=0;s<800;s++) drawBeads(0.05); }   // run the physics cold: the jam, as a still
+  else{
+    let last=performance.now();
+    const stepT=now=>{ const dt=Math.min((now-last)/1000,0.05); last=now;
+      drawBeads(dt); turnRAF=requestAnimationFrame(stepT); };
+    turnRAF=requestAnimationFrame(stepT);
+  }
+}
 
 // ---------- mode registry ----------
 const MATH_STATS={
@@ -6463,6 +6960,16 @@ const MODES={
   h1:'SYNTROPY&nbsp;&&nbsp;EXTROPY',
   title:'syntropy & extropy · what resists entropy',
   lede:'',
+  foot:''},
+ turn:{turn:true,stats:{},eras:[],fav:'⚙️',
+  h1:'ONE&nbsp;TURN',
+  title:'one turn · anatomy of the loop',
+  lede:'every era, every lineage, the same five beats: adopt, formalize, scale, capture, fork. this is one turn of the coil, face-on — thick where you are trapped, thin where you can walk away.',
+  foot:''},
+ ratchet:{ratchet:true,stats:{},eras:[],fav:'🪜',
+  h1:'THE&nbsp;RATCHET',
+  title:'the ratchet · what survives collapse',
+  lede:'the spiral climbs because collapse is a filter, not an eraser. the fire takes the thrones and leaves the tools — and what survives, compounds.',
   foot:''}
 };
 const slugOf=k=>k.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
@@ -6859,25 +7366,36 @@ function setMode(mode,user){
   playBtn.classList.toggle('build',!!M.spiral);
   if(M.spiral){ growth=0; decay=0; gPips=-1; dPips=-1; paintBuild(); paintDecay(); }
   else playBtn.textContent='▶ play 12,000 years';
-  if(M.syn){
-    // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first.
-    document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
-    WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML=''; hardWrap.innerHTML='';
-    lsvg.innerHTML=''; document.getElementById('spiralwrap').innerHTML='';
-    renderSyntropy();
-  } else if(M.spiral){
-    document.getElementById('synwrap').innerHTML='';
+  // four custom views and the thirteen posters all need everyone ELSE's room cleared before they
+  // move in. each helper wipes one view and puts down whatever it was holding (rafs, observers).
+  const clearSyn=()=>{ document.getElementById('synwrap').innerHTML='';
     if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
-    if(synIO){ synIO.disconnect(); synIO=null; }
-    WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML=''; hardWrap.innerHTML=''; lsvg.innerHTML='';
+    if(synIO){ synIO.disconnect(); synIO=null; } };
+  const clearSpiral=()=>{ document.getElementById('spiralwrap').innerHTML=''; };
+  const clearRatchet=()=>{ document.getElementById('ratchetwrap').innerHTML=''; };
+  const clearTurn=()=>{ document.getElementById('turnwrap').innerHTML='';
+    if(turnRAF){ cancelAnimationFrame(turnRAF); turnRAF=0; } };
+  const clearPoster=()=>{ WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML='';
+    hardWrap.innerHTML=''; lsvg.innerHTML=''; };
+  // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first
+  // (the spiral borrows them for its last step).
+  const giveBack=()=>document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
+  if(M.syn){
+    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn();
+    renderSyntropy();
+  } else if(M.ratchet){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn();
+    renderRatchet();
+  } else if(M.turn){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet();
+    renderTurn();
+  } else if(M.spiral){
+    clearSyn(); clearRatchet(); clearTurn(); clearPoster();
     renderSpiral();
   } else {
-    document.getElementById('synwrap').innerHTML='';
-    if(synRAF){ cancelAnimationFrame(synRAF); synRAF=0; }
-    if(synIO){ synIO.disconnect(); synIO=null; }
-    // the spiral borrowed the buttons for its last step; give them back before we wipe it
-    document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
-    document.getElementById('spiralwrap').innerHTML='';
+    clearSyn(); clearRatchet(); clearTurn();
+    giveBack();
+    clearSpiral();
     renderEras(M); bindPoster(); renderArc(M); renderHard(M);
     litCheck(); buildLifeline();
   }
@@ -6905,7 +7423,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|syntropy)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|syntropy|ratchet|turn)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
