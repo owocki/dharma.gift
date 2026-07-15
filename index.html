@@ -162,6 +162,13 @@
      — even the .03 ghost of the coil — goes fully dark */
   .spsticky:fullscreen :is(.crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.crxr,.creye,.crq,.crnw){opacity:0!important}
   .spsticky:-webkit-full-screen :is(.crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.crxr,.creye,.crq,.crnw){opacity:0!important}
+  /* the frame follows the room: in fullscreen the fire border leaves the scene
+     and takes the screen's own edges; the in-scene border stands down */
+  svg.molfssvg{display:none}   /* outweigh .crsvg svg's display:block */
+  .spsticky:fullscreen .molfssvg{display:block;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
+  .spsticky:fullscreen .mfireg{display:none}
+  .spsticky:-webkit-full-screen .molfssvg{display:block;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
+  .spsticky:-webkit-full-screen .mfireg{display:none}
   .crup path,.crdn path,.crflow path{fill:none;stroke-linecap:round}
   .crup path{stroke-width:7}
   /* the shadow: same geometry, grey ink — until the honest beat asks it to be counted, and it
@@ -250,7 +257,7 @@
   @keyframes tipbreathe{from{opacity:.5}to{opacity:1}}
   /* the clearing's rim: rings of hunger, swelling outward and dying */
   .crmoloch .mring{fill:none;stroke:#e0455c;stroke-width:1;opacity:0;
-    transform-box:fill-box;transform-origin:center}
+    transform-box:view-box;transform-origin:450px 392px}
   .spsticky[data-act="moloch"] .mring{animation:mringp 9s ease-out calc(var(--i)*3s) infinite}
   @keyframes mringp{0%{opacity:0;transform:scale(.55)}12%{opacity:.35}
     100%{opacity:0;transform:scale(1.65)}}
@@ -258,14 +265,21 @@
      holds a shape — and two broken accretion arcs crawl the rim, opposite ways.
      the whole clearing also breathes, circle to oval and back, and its darkness
      is salted with stars: you are not looking at a shadow, you are looking OUT. */
-  .crmoloch .mvoid{transform-box:fill-box;transform-origin:center}
+  /* every scale and spin is pinned to fixed view-box coordinates. fill-box
+     origins tremble here: the lobes churn and the brows lift, so any group's
+     bounding box — and with it a center-based origin — drifts every frame,
+     and the whole scene shakes. magnified at fullscreen. pin the axle. */
+  /* and hand the per-frame transforms to the compositor: rasterizing the big
+     gradient lobes on the main thread is what made fullscreen shudder */
+  .spsticky[data-act="moloch"] :is(.mvoid,.mvblob,.maccr,.mring,.meyes,.msquint,.slitg,.mbrow){will-change:transform}
+  .crmoloch .mvoid{transform-box:view-box;transform-origin:450px 392px}
   .spsticky[data-act="moloch"] .mvoid{animation:mvoidshape 21s ease-in-out infinite}
   @keyframes mvoidshape{0%,100%{transform:scale(1,1)}28%{transform:scale(1.16,.9)}
     55%{transform:scale(1,1)}80%{transform:scale(.9,1.14)}}
   .crmoloch .mstar{opacity:0}
   .spsticky[data-act="moloch"] .mstar{animation:startwinkle 7s ease-in-out calc(var(--i)*-1s) infinite}
   @keyframes startwinkle{0%,100%{opacity:calc(var(--so)*.3)}50%{opacity:var(--so)}}
-  .crmoloch .mvblob{transform-box:fill-box;transform-origin:center}
+  .crmoloch .mvblob{transform-box:view-box;transform-origin:450px 392px}
   .spsticky[data-act="moloch"] .mvblob{animation:mvchurn 17s ease-in-out calc(var(--i)*-4.6s) infinite}
   @keyframes mvchurn{
     0%,100%{transform:translate(0,0) scale(1)}
@@ -274,10 +288,10 @@
     75%{transform:translate(8px,13px) scale(1.04,.98)}}
   .crmoloch .maccr{fill:none;stroke:#e0455c;stroke-width:1.1;opacity:.26;
     stroke-dasharray:26 38 8 46 18 60;stroke-linecap:round;
-    transform-box:fill-box;transform-origin:center}
+    transform-box:view-box;transform-origin:450px 392px}
   .spsticky[data-act="moloch"] .maccr{animation:maccrspin calc(34s + var(--i)*16s) linear infinite}
   @keyframes maccrspin{to{transform:rotate(360deg)}}
-  .crmoloch .meyes{transform-box:fill-box;transform-origin:center}
+  .crmoloch .meyes{transform-box:view-box;transform-origin:450px 390px}
   .spsticky[data-act="moloch"] .meyes{animation:molblink 9s ease-in-out infinite}
   @keyframes molblink{0%,88%,100%{transform:scaleY(1)}92%{transform:scaleY(.06)}96%{transform:scaleY(1)}}
   /* the furnace light is not steady: each eye's halo gutters like firelight */
@@ -286,7 +300,7 @@
     47%{opacity:.68}58%{opacity:1}71%{opacity:.58}86%{opacity:.9}}
   /* and every so often the eyes narrow — a long suspicious squint, on its own
      cycle so it never lands on the blink */
-  .crmoloch .msquint{transform-box:fill-box;transform-origin:center}
+  .crmoloch .msquint{transform-box:view-box;transform-origin:450px 390px}
   .spsticky[data-act="moloch"] .msquint{animation:msquint 23s ease-in-out infinite}
   @keyframes msquint{0%,30%,62%,100%{transform:scaleY(1)}40%,52%{transform:scaleY(.55)}}
   .crmoloch .slit{fill:#0a0208;transform-box:fill-box;transform-origin:center}
@@ -316,7 +330,7 @@
   /* the frame catches fire: three dashed strokes crawl the border at different
      speeds — blood underglow, ember flame, gold sparks running the other way —
      each guttering on its own clock */
-  .crmoloch .mfire{fill:none;stroke-linecap:round;opacity:0}
+  .crmoloch .mfire,.molfssvg .mfire{fill:none;stroke-linecap:round;opacity:0}
   .spsticky[data-act="moloch"] .mfire{animation:
     mfiremove calc(30s/var(--v,1)) linear infinite,
     firegut 5.3s linear calc(var(--fo,.6)*-4s) infinite}
@@ -359,12 +373,13 @@
     .creye .lid{transition:none}
     .crharmg{animation:none!important;opacity:.7;transform:none}
     .crmoloch :is(.memberglow,.meyes,.meyeglow,.msquint,.slit,.slitg,.mspark,.crmantra,.hy,.hy-glow,.hypulse,.mring,.mtipg,.mvblob,.maccr,.mvoid,.mstar,.mbrow,.mfire){animation:none!important}
+    .molfssvg .mfire{animation:none!important}
     .crmantra{opacity:.95}
     .crmoloch :is(.hy,.hy-glow){stroke-dashoffset:0;opacity:var(--ho,.6)}
     .crmoloch :is(.hypulse,.mring,.mspark){opacity:0}
     .crmoloch .maccr{opacity:.16}
     .crmoloch .mstar{opacity:calc(var(--so,.6)*.55)}
-    .crmoloch .mfire{opacity:calc(var(--fo,.5)*.6)}
+    .crmoloch .mfire,.molfssvg .mfire{opacity:calc(var(--fo,.5)*.6)}
     .crmoloch .memberglow{opacity:.3}
   }
 
@@ -7232,6 +7247,14 @@ function renderCritique(){
         <text class="crlab dn2" x="36" y="880">what gets given back</text>
       </svg>
       <button class="molfsbtn" title="stare into it properly · esc leaves">⛶ fullscreen</button>
+      <!-- the fullscreen frame: a border-only svg that stretches to whatever
+           screen it is given (a rectangle survives any aspect), so the fire
+           hugs the room's edges while the scene keeps its proportions -->
+      <svg class="molfssvg" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+        <rect class="mfire" pathLength="1000" vector-effect="non-scaling-stroke" x="6" y="6" width="988" height="988" stroke="#e0455c" stroke-width="11" stroke-dasharray="22 12 30 8 38 15" style="--fo:.3;--v:1"/>
+        <rect class="mfire" pathLength="1000" vector-effect="non-scaling-stroke" x="6" y="6" width="988" height="988" stroke="#ff6a3d" stroke-width="4.5" stroke-dasharray="22 12 30 8 38 15" style="--fo:.8;--v:1.6"/>
+        <rect class="mfire" pathLength="1000" vector-effect="non-scaling-stroke" x="6" y="6" width="988" height="988" stroke="#ffb347" stroke-width="2.2" stroke-dasharray="5 120" style="--fo:.95;--v:2.4;animation-direction:reverse"/>
+      </svg>
     </div>
     <div class="spsteps">
       ${STEPS.map((s,i)=>`<section class="spstep" data-act="${s.act}">
