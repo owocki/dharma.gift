@@ -20,8 +20,8 @@ Click around. It sparkles.
 - **[what can be proven](https://www.upwardspiral.io/math)** is the rate limiter under all the others: no insurance before probability, no corporation before limited liability, no quadratic funding before somebody gave the square root a job. The advanced capital structures live here too — the commenda and the waqf, then limited liability and the share, then the derivative and the index fund, then the bonding curve and the hypercert
 - **[what you owe](https://www.upwardspiral.io/ethics)** is the question that always arrives late. Its five hardest entries — the ones that were, in their own era, the ordinary and respectable view — sit behind a switch, off by default
 - Every tab has its own crawlable URL + social card, so links unfurl properly
-- Light & dark themes, responsive layout, reduced-motion friendly
-- Self-contained HTML files — no build step, no dependencies
+- Light & dark themes (night by default — the coil glows), responsive layout, reduced-motion friendly
+- Self-contained HTML files — no build step; the only thing fetched is one display font (Fraunces, google fonts), and it degrades to a system serif offline
 
 ## running locally
 

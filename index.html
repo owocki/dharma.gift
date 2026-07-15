@@ -14,6 +14,15 @@
   gtag('config', 'G-882JMLBJG9');
 </script>
 <link id="fav" rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<!-- the theme, settled before first paint: the coil lives in the dark by default. a visitor's
+     explicit choice (the toggle) is remembered; absent one, night. -->
+<script>(function(){var t;try{t=localStorage.getItem('ra-theme')}catch(e){}
+  document.documentElement.setAttribute('data-theme',(t==='light'||t==='dark')?t:'dark');})()</script>
+<!-- one display face — a serif with some wobble in it — for the titles and chapter heads.
+     everything that has to be read at 11px stays on the system stack. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
 <title>upward spirals thru history</title>
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.upwardspiral.io/">
@@ -29,35 +38,56 @@
 <meta name="description" content="an interactive remake of the gitcoin 'resource allocation through history' poster, with nine sibling tabs: power structures, livelihood, truth, identity, trust, the record, conflict, mathematics, and ethics. 693 mechanisms across 5 eras, each explained.">
 <style>
   :root{
-    --bg:#f1edfa; --ink:#221c30; --muted:#665e78; --panel:#ffffff; --line:#ddd4ec;
+    --bg:#f3effa; --ink:#1d1629; --muted:#645c78; --panel:#ffffff; --line:#dcd3ec;
     --pgrad:linear-gradient(175deg,#c3b0f2 0%,#e2c4f0 52%,#fbc6e3 100%);
     --disc-mix:#ffffff; --pmix:76%; --card:#14101c; --cardink:#f4effc;
     --goodt:#0a7d0a; --badt:#b32626;
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
   }
   @media (prefers-color-scheme:dark){ :root{
-    --bg:#0d0a16; --ink:#e6dff2; --muted:#a095b5; --panel:#191225; --line:#2e2440;
-    --pgrad:linear-gradient(175deg,#221448 0%,#331754 52%,#43164a 100%);
+    --bg:#07040e; --ink:#f0e9fc; --muted:#a89cc6; --panel:#150e24; --line:#2c2148;
+    --pgrad:linear-gradient(175deg,#1d123f 0%,#2c144a 52%,#3a1342 100%);
     --disc-mix:#150f24; --pmix:38%; --card:#0b0813; --cardink:#f1eafc;
     --goodt:#5ad07d; --badt:#ff8080;
   }}
   :root[data-theme="dark"]{
-    --bg:#0d0a16; --ink:#e6dff2; --muted:#a095b5; --panel:#191225; --line:#2e2440;
-    --pgrad:linear-gradient(175deg,#221448 0%,#331754 52%,#43164a 100%);
+    --bg:#07040e; --ink:#f0e9fc; --muted:#a89cc6; --panel:#150e24; --line:#2c2148;
+    --pgrad:linear-gradient(175deg,#1d123f 0%,#2c144a 52%,#3a1342 100%);
     --disc-mix:#150f24; --pmix:38%; --card:#0b0813; --cardink:#f1eafc;
     --goodt:#5ad07d; --badt:#ff8080;
   }
   :root[data-theme="light"]{
-    --bg:#f1edfa; --ink:#221c30; --muted:#665e78; --panel:#ffffff; --line:#ddd4ec;
+    --bg:#f3effa; --ink:#1d1629; --muted:#645c78; --panel:#ffffff; --line:#dcd3ec;
     --pgrad:linear-gradient(175deg,#c3b0f2 0%,#e2c4f0 52%,#fbc6e3 100%);
     --disc-mix:#ffffff; --pmix:76%; --card:#14101c; --cardink:#f4effc;
     --goodt:#0a7d0a; --badt:#b32626;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  /* the sky. two soft glows pinned to the viewport — an aurora over the coil's shoulder — and a
+     film of grain over the whole thing so the gradients never band. both are pseudo-elements:
+     no markup, no scripts, nothing for the tabs to trip on. */
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(120% 90% at 78% -10%,color-mix(in srgb,#b535bb 16%,transparent),transparent 60%),
+      radial-gradient(110% 100% at 12% 8%,color-mix(in srgb,#6247d6 20%,transparent),transparent 55%),
+      radial-gradient(90% 70% at 50% 110%,color-mix(in srgb,#1c7ed6 11%,transparent),transparent 60%)}
+  :root[data-theme="light"] body::before{opacity:.5}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
   .page{max-width:1160px;margin:0 auto;padding:26px 14px 70px}
+  /* on the coil, the room has no walls: the frame dissolves, the sky is the mount, and the page
+     opens its shoulders. the fifteen posters keep their mats and frames — they are artifacts;
+     the landing is a place. */
+  :root[data-mode="spiral"] .page{max-width:1400px}
+  :root[data-mode="spiral"] .poster{background:transparent;border-color:transparent;padding-left:clamp(8px,2vw,26px);padding-right:clamp(8px,2vw,26px)}
   .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:10px;flex-wrap:wrap}
   .topbar a{color:inherit}
-  button.plain{font:inherit;font-weight:600;font-size:12px;padding:4px 10px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+  button.plain{font:inherit;font-weight:600;font-size:12px;padding:5px 12px;border-radius:999px;cursor:pointer;
+    border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
+    background:color-mix(in srgb,var(--panel) 55%,transparent);color:var(--ink);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
   /* the door back to the coil. it exists on every poster and on none of the coil. */
   #theme{margin-left:auto}
   .backbtn{display:inline-flex;align-items:center;gap:6px;font-weight:750;
@@ -84,11 +114,66 @@
   .poster>header,.era,.pfoot{position:relative;z-index:1}
 
   .poster>header{text-align:center;margin-bottom:34px}
-  .poster h1{margin:0;font-size:clamp(30px,6vw,62px);font-weight:850;letter-spacing:.045em;line-height:1.02}
-  .poster .sub{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:clamp(14px,2.6vw,26px);letter-spacing:.42em;margin:8px 0 0;font-weight:800;
-    background:linear-gradient(90deg,#6247d6,#8a3fd1,#b535bb,#d63d97,#e8446f);
+  /* the header's coil: centered on the title, dissolving at its rim, turning at geological speed */
+  .heroswirl{position:absolute;left:50%;top:clamp(70px,10vw,140px);transform:translate(-50%,-50%);
+    width:min(88vw,880px);aspect-ratio:1;pointer-events:none;z-index:-1;opacity:.42}
+  :root[data-theme="light"] .heroswirl{opacity:.3}
+  .heroswirl path{fill:none;stroke:url(#hswg);stroke-width:3.5;stroke-linecap:round;
+    filter:blur(1.2px) drop-shadow(0 0 10px rgba(181,53,187,.4))}
+  .heroswirl .nsg{transform-origin:500px 500px;animation:navspin 180s linear infinite}
+  /* the titles moved off the system stack and onto a serif with blood in it. lowercase, at poster
+     scale — the voice of the whole site is lowercase, and the headline finally agrees with it. */
+  .poster h1{margin:0;font-family:var(--serif);font-weight:620;font-variation-settings:"opsz" 144;
+    text-transform:lowercase;font-size:clamp(38px,7vw,92px);letter-spacing:-.018em;line-height:.98;
+    text-wrap:balance}
+  :root[data-mode="spiral"] .poster>header{padding-top:clamp(10px,4vh,44px)}
+  /* the title catches the light: a band of the era ramp sweeps through the ink every nine
+     seconds — iridescence, not a rainbow costume. the ink is ink the rest of the time. */
+  :root[data-mode="spiral"] #h1{
+    background:linear-gradient(104deg,
+      var(--ink) 0%,var(--ink) 37%,
+      #2f9e44 43%,#a17a00 47%,#b0561f 50%,#b535bb 53%,#1c7ed6 57%,
+      var(--ink) 63%,var(--ink) 100%);
+    background-size:280% 100%;background-position:0% 0;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:h1sheen 9s ease-in-out infinite}
+  :root[data-mode="spiral"] #h1 .emj{-webkit-text-fill-color:initial;color:initial}
+  @keyframes h1sheen{0%,58%{background-position:0% 0}90%,100%{background-position:100% 0}}
+  @media (prefers-reduced-motion:reduce){ :root[data-mode="spiral"] #h1{animation:none} }
+  /* the census numbers wear the ramp too — one era's ink each, oldest to newest */
+  :root[data-mode="spiral"] .herostats span:nth-child(1) b{color:color-mix(in srgb,#2f9e44 72%,var(--ink))}
+  :root[data-mode="spiral"] .herostats span:nth-child(2) b{color:color-mix(in srgb,#a17a00 72%,var(--ink))}
+  :root[data-mode="spiral"] .herostats span:nth-child(3) b{color:color-mix(in srgb,#b0561f 72%,var(--ink))}
+  :root[data-mode="spiral"] .herostats span:nth-child(4) b{color:color-mix(in srgb,#b535bb 72%,var(--ink))}
+  :root[data-mode="spiral"] .herostats span:nth-child(5) b{color:color-mix(in srgb,#1c7ed6 72%,var(--ink))}
+  /* a thin sky of stars over the whole theatre — dark nights only, and they breathe slowly */
+  :root[data-mode="spiral"][data-theme="dark"] .poster::before{content:'';position:absolute;inset:0;
+    pointer-events:none;z-index:0;opacity:.7;animation:starbreathe 11s ease-in-out infinite;
+    background-image:
+      radial-gradient(1.5px 1.5px at 8% 12%,rgba(255,255,255,.75),transparent 100%),
+      radial-gradient(1px 1px at 23% 42%,rgba(255,255,255,.5),transparent 100%),
+      radial-gradient(2px 2px at 36% 7%,rgba(214,196,255,.6),transparent 100%),
+      radial-gradient(1px 1px at 51% 28%,rgba(255,255,255,.45),transparent 100%),
+      radial-gradient(1.5px 1.5px at 64% 15%,rgba(255,224,240,.55),transparent 100%),
+      radial-gradient(1px 1px at 77% 38%,rgba(255,255,255,.5),transparent 100%),
+      radial-gradient(2px 2px at 88% 9%,rgba(196,214,255,.6),transparent 100%),
+      radial-gradient(1px 1px at 94% 51%,rgba(255,255,255,.4),transparent 100%),
+      radial-gradient(1.5px 1.5px at 16% 68%,rgba(255,255,255,.4),transparent 100%),
+      radial-gradient(1px 1px at 42% 82%,rgba(214,196,255,.45),transparent 100%),
+      radial-gradient(1.5px 1.5px at 70% 74%,rgba(255,255,255,.45),transparent 100%),
+      radial-gradient(1px 1px at 85% 88%,rgba(255,224,240,.4),transparent 100%);
+    background-size:1100px 760px;background-repeat:repeat}
+  @keyframes starbreathe{50%{opacity:.35}}
+  @media (prefers-reduced-motion:reduce){ :root[data-mode="spiral"][data-theme="dark"] .poster::before{animation:none} }
+  .poster .sub{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:clamp(12px,2vw,19px);letter-spacing:.42em;margin:14px 0 0;font-weight:800;
+    background:linear-gradient(90deg,#2f9e44,#a17a00,#b0561f,#b535bb,#1c7ed6);
     -webkit-background-clip:text;background-clip:text;color:transparent;
     animation:glitch 7s infinite}
+  /* every tab keeps its own sub gradient below; the default one now runs the era ramp — the same
+     five inks the coil climbs through, green to blue, 10,000 bce to now. resources keeps the
+     violet-to-rose it always wore. */
+  :root[data-mode="alloc"] .poster .sub{background:linear-gradient(90deg,#6247d6,#8a3fd1,#b535bb,#d63d97,#e8446f);
+    -webkit-background-clip:text;background-clip:text}
   /* the subtitle glitches: chromatic split + a skip in the tracking, like a bad signal. it fires
      rarely on its own (a tic, not a strobe) and then goes berserk under the cursor — the loop
      shortens to a couple of seconds, so hovering it is what makes the thing misbehave for you. */
@@ -103,6 +188,30 @@
   }
   .poster .sub:hover{animation-duration:2.2s}
   .poster .lede{color:var(--muted);font-size:13px;margin:14px auto 0;max-width:66ch}
+  /* the census strip: five measurements strung on a line, mono numerals, whisper labels.
+     it exists only where the coil is the page. */
+  .herostats{display:none}
+  :root[data-mode="spiral"] .herostats{display:flex;flex-wrap:wrap;justify-content:center;
+    gap:10px 0;margin:26px auto 0;max-width:760px}
+  .herostats span{display:flex;align-items:baseline;gap:7px;padding:0 22px;position:relative;
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:650}
+  .herostats span+span::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
+    width:1px;height:22px;background:color-mix(in srgb,var(--ink) 18%,transparent)}
+  .herostats b{font-family:var(--serif);font-weight:560;font-size:24px;letter-spacing:0;
+    color:var(--ink);line-height:1;font-variation-settings:"opsz" 40}
+  @media(max-width:720px){ .herostats span{padding:0 12px} .herostats b{font-size:19px} }
+  /* the invitation down. a slow breathing line, not an arrow in a circle. */
+  .heroscroll{display:none}
+  :root[data-mode="spiral"] .heroscroll{display:flex;flex-direction:column;align-items:center;gap:9px;
+    margin-top:clamp(18px,4.5vh,44px)}
+  .heroscroll span{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+    font-weight:700;opacity:.75}
+  .heroscroll em{width:1px;height:44px;overflow:hidden;position:relative;display:block;
+    background:color-mix(in srgb,var(--ink) 14%,transparent)}
+  .heroscroll em::after{content:'';position:absolute;left:0;top:-50%;width:1px;height:50%;
+    background:linear-gradient(180deg,transparent,#b535bb);animation:scrolldrip 2.6s cubic-bezier(.4,0,.4,1) infinite}
+  @keyframes scrolldrip{to{top:110%}}
+  @media (prefers-reduced-motion:reduce){ .heroscroll em::after{animation:none;top:25%} }
   .playbtn{font:inherit;font-weight:800;font-size:13px;margin-top:16px;padding:10px 22px;border-radius:999px;cursor:pointer;border:none;color:#fff;
     background:linear-gradient(90deg,#6247d6,#b535bb,#e8446f);box-shadow:0 8px 26px rgba(181,53,187,.45);transition:transform .25s,box-shadow .25s}
   .playbtn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(181,53,187,.6)}
@@ -216,10 +325,12 @@
 
   /* ---------- tabs + power-mode palette ---------- */
   /* off the print, below the mount — apparatus, not artwork */
-  .navlab{text-align:center;margin:26px auto 12px;font-size:22px;font-weight:800;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--muted)}
+  .navlab{text-align:center;margin:54px auto 18px;font-family:var(--serif);font-style:italic;
+    font-weight:520;font-variation-settings:"opsz" 80;font-size:clamp(26px,3.4vw,36px);
+    letter-spacing:-.01em;color:var(--ink)}
   /* the two-click rule is not discoverable on its own — say it, right where the clicking happens */
-  .navlab em{display:block;margin-top:5px;font-style:normal;font-weight:500;font-size:11px;
+  .navlab em{display:block;margin-top:8px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-style:normal;font-weight:500;font-size:11px;
     letter-spacing:.01em;text-transform:none;color:var(--muted);opacity:.85}
   /* the way back up. clicking a tab no longer teleports you anywhere — the nav sits below the
      poster, so a jump to the top would rip the thing you just clicked out from under your cursor
@@ -237,39 +348,54 @@
 
   /* five clusters, not nineteen chips in a heap. the four VIEWS come first and sit apart from the
      fifteen questions, because they are a different kind of thing. */
-  .tabs{display:flex;justify-content:center;gap:10px 22px;margin:0 auto;flex-wrap:wrap;align-items:flex-start}
-  .tabgrp{display:flex;flex-direction:column;align-items:center;gap:7px;
-    padding:10px 14px 12px;border-radius:14px;
-    border:1px solid transparent;transition:border-color .25s,background .25s}
-  .tabgrp:hover{border-color:var(--line);background:color-mix(in srgb,var(--panel) 40%,transparent)}
-  .grplab{display:flex;flex-direction:column;align-items:center;gap:2px;
-    font-size:10px;font-weight:850;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);opacity:.75}
+  .tabs{display:flex;justify-content:center;gap:14px 16px;margin:0 auto;flex-wrap:wrap;align-items:flex-start;
+    position:relative}
+  .navswirl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(94vw,980px);aspect-ratio:1;pointer-events:none;z-index:-1;opacity:.5}
+  :root[data-theme="light"] .navswirl{opacity:.4}
+  .navswirl path{fill:none;stroke:url(#navswg);stroke-width:3;stroke-linecap:round;
+    filter:blur(1px) drop-shadow(0 0 9px rgba(181,53,187,.5))}
+  .navswirl .nsg{transform-origin:500px 500px;animation:navspin 160s linear infinite}
+  @keyframes navspin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){ .navswirl .nsg{animation:none} }
+  .tabgrp{display:flex;flex-direction:column;align-items:center;gap:9px;
+    padding:14px 18px 16px;border-radius:18px;
+    border:1px solid color-mix(in srgb,var(--ink) 9%,transparent);
+    background:color-mix(in srgb,var(--panel) 38%,transparent);
+    backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+    transition:border-color .25s,background .25s,transform .25s}
+  .tabgrp:hover{border-color:color-mix(in srgb,var(--ink) 22%,transparent);
+    background:color-mix(in srgb,var(--panel) 60%,transparent);transform:translateY(-2px)}
+  /* each question-group wears one ink of the ramp — the nav is the spiral, flattened and labeled */
+  .tabgrp:nth-of-type(2){--ga:#2f9e44} .tabgrp:nth-of-type(3){--ga:#b0561f}
+  .tabgrp:nth-of-type(4){--ga:#b535bb} .tabgrp:nth-of-type(5){--ga:#1c7ed6}
+  .tabgrp:not(:nth-of-type(1)){border-color:color-mix(in srgb,var(--ga,var(--ink)) 26%,transparent)}
+  .tabgrp:not(:nth-of-type(1)):hover{border-color:color-mix(in srgb,var(--ga,var(--ink)) 55%,transparent);
+    box-shadow:0 10px 30px color-mix(in srgb,var(--ga,#000) 18%,transparent)}
+  .tabgrp:not(:nth-of-type(1)) .grplab{color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink))}
+  .grplab{display:flex;flex-direction:column;align-items:center;gap:3px;
+    font-size:10.5px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.8}
   .grplab em{font-style:normal;font-weight:500;font-size:10px;letter-spacing:.02em;
     text-transform:none;color:var(--muted);opacity:.9}
   .grpchips{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-  /* the front door: the two whole-picture views get their own weight */
-  .tabgrp:first-child{background:color-mix(in srgb,var(--panel) 55%,transparent);border-color:var(--line)}
+  /* the front door: the whole-picture views get their own weight — and the whole ramp, not one ink */
+  .tabgrp:nth-of-type(1){background:color-mix(in srgb,var(--panel) 66%,transparent);
+    border-color:color-mix(in srgb,#b535bb 28%,var(--line));flex-basis:100%;max-width:760px}
   @media(max-width:720px){
     .tabs{gap:6px 10px}
     .tabgrp{padding:8px 8px 10px}
     .grplab em{display:none}
   }
-  /* the funders strip. below the nav, same register as the rest of the apparatus: whoever pays
-     for the room gets a nameplate by the door, not a billboard on the art. */
-  .funders{display:flex;flex-direction:column;align-items:center;gap:10px;margin:36px auto 6px;text-align:center}
-  .funders .flab{font-size:11px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-  .funders .flogo{color:var(--ink);opacity:.8;transition:opacity .2s}
-  .funders .flogo:hover{opacity:1}
-  .funders .fcta{font-size:11.5px;font-weight:700;color:var(--muted);text-decoration:none;
-    padding:7px 14px;border:1px solid var(--line);border-radius:999px;
-    transition:color .2s,border-color .2s,transform .2s}
-  .funders .fcta:hover{color:var(--ink);border-color:var(--muted);transform:translateY(-1px)}
   /* the landing page is the coil. the credits, the store link and the github link are not part of
      the argument — they belong on the tabs that are actually posters. */
   :root[data-mode="spiral"] .pfoot{display:none}
-  .tab{font:inherit;font-weight:800;font-size:12.5px;letter-spacing:.04em;padding:8px 18px;border-radius:999px;cursor:pointer;
-    border:1.5px solid var(--line);background:var(--panel);color:var(--muted);transition:transform .25s,box-shadow .25s,color .25s}
-  .tab:hover{transform:translateY(-1px)}
+  .tab{font:inherit;font-weight:800;font-size:12.5px;letter-spacing:.04em;padding:9px 18px;border-radius:999px;cursor:pointer;
+    border:1.5px solid color-mix(in srgb,var(--ink) 13%,transparent);
+    background:color-mix(in srgb,var(--panel) 88%,transparent);color:var(--muted);
+    transition:transform .25s,box-shadow .25s,color .25s,border-color .25s}
+  .tab:hover{transform:translateY(-2px);color:var(--ink);
+    border-color:color-mix(in srgb,var(--ink) 30%,transparent);
+    box-shadow:0 8px 22px rgba(10,6,20,.25)}
   .tab .em{margin-right:7px}
   /* the name says which poster; the question says what it is for. the question rides quieter. */
   .tab .tq{font-weight:600;opacity:.6;text-transform:none;letter-spacing:.02em}
@@ -1202,7 +1328,7 @@
   /* the coil, and its apparatus, side by side */
   /* ---- the scrollytell: the coil sticks, the story scrolls past it, and the story drives it ---- */
   /* the coil is the thing. the sidebar is captions, so it gets a narrow gutter and no more. */
-  .spscroll{display:flex;gap:34px;align-items:flex-start}
+  .spscroll{display:flex;gap:48px;align-items:flex-start}
   .spsticky{position:sticky;top:12px;flex:1 1 auto;min-width:0;align-self:flex-start}
   .spsticky #spiralsvg{width:100%;max-height:82vh}
   /* both legends live under the coil, stacked — and they are styled as two different KINDS of
@@ -1257,17 +1383,20 @@
     transform:none;background:color-mix(in srgb,var(--sc) 11%,var(--panel));
     border-color:color-mix(in srgb,var(--sc) 55%,transparent);box-shadow:none}
   .spsticky .spchip .word{font-size:10.5px}
-  .spsteps{flex:0 0 250px;padding:10vh 0 16vh}
+  .spsteps{flex:0 0 305px;padding:10vh 0 16vh}
   .spstep{min-height:72vh;display:flex;flex-direction:column;justify-content:center;
     opacity:.28;filter:blur(.6px);transition:opacity .5s,filter .5s,transform .5s;transform:translateY(10px)}
   .spstep.on{opacity:1;filter:none;transform:none}
-  .spstep .stepn{font:800 10px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.2em;color:var(--muted);opacity:.55}
-  .spstep h3{margin:7px 0 8px;font-size:18px;font-weight:840;letter-spacing:.01em;color:var(--ink);line-height:1.18}
+  /* chapter furniture: the number, then a short rule that bleeds out like a contrail */
+  .spstep .stepn{display:flex;align-items:center;gap:11px;font:800 10px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.2em;color:var(--muted);opacity:.6}
+  .spstep .stepn::after{content:'';width:52px;height:1px;background:linear-gradient(90deg,#b535bb,transparent)}
+  .spstep h3{margin:10px 0 10px;font-family:var(--serif);font-size:27px;font-weight:590;
+    font-variation-settings:"opsz" 60;letter-spacing:-.012em;color:var(--ink);line-height:1.08;text-wrap:balance}
   .spstep.on h3{background:linear-gradient(90deg,#2f9e44,#b535bb,#1c7ed6);-webkit-background-clip:text;background-clip:text;color:transparent}
   /* the gradient heading paints text with a transparent fill — which erases colour emoji along
      with everything else. opt the emoji back out of it, or the helices vanish on the active step. */
   .spstep h3 .emj{-webkit-text-fill-color:initial;color:initial;letter-spacing:-.06em}
-  .spstep p{margin:0;font-size:12.5px;line-height:1.6;color:var(--muted)}
+  .spstep p{margin:0;font-size:14px;line-height:1.68;color:var(--muted)}
   .spstep p b{color:var(--ink);font-weight:700}
   .spstep p em{font-style:italic;color:var(--ink);opacity:.85}
   /* the five phases, inside step 00 — same chips, but now they belong to a paragraph that says
@@ -1487,7 +1616,17 @@
              drop-shadow(0 0 calc(var(--g)*9px + var(--as)*10px) rgba(124,92,255,.42));
              opacity:calc((0.86 + var(--g)*0.14 - var(--d)*0.44) * var(--ao) * var(--rv,1));
              transition:opacity .7s,filter .6s}
+  /* at night the rope carries its own light: a base glow under the same pipeline, so build still
+     swells it and decay still puts it out. same expressions, one extra candle. */
+  :root[data-theme="dark"] .ropelayer{filter:url(#sphand)
+             saturate(calc(1.1 + var(--g)*0.8 - var(--d)*0.8 + var(--as)))
+             grayscale(calc(var(--d)*0.65))
+             drop-shadow(0 0 calc(7px + var(--g)*9px + var(--as)*10px) rgba(150,110,255,calc(.42 - var(--d)*.3)));
+             opacity:calc((0.94 + var(--g)*0.06 - var(--d)*0.44) * var(--ao) * var(--rv,1))}
   .beadlayer{opacity:calc((1 - var(--d)*0.5) * var(--bo) * var(--rv,1));transition:opacity .7s}
+  :root[data-theme="dark"] .beadlayer{filter:drop-shadow(0 0 4px rgba(255,255,255,.18))}
+  :root[data-theme="dark"] .sp-guide{opacity:.16}
+  :root[data-theme="dark"] .sp-guide.ghost{opacity:.32}
   #spcaps{opacity:calc((1 - var(--d)*0.5) * var(--bo) * var(--cv,1));transition:opacity .7s}
   .eralayer{opacity:var(--ev,1);transition:opacity .7s}
   .foglayer{opacity:var(--fv,1);transition:opacity .9s}
@@ -1508,6 +1647,8 @@
   @media (prefers-reduced-motion:reduce){ .scalelayer,.strandlayer{transition:none} }
   @media (prefers-reduced-motion:reduce){
     .ropelayer{filter:saturate(calc(1 + var(--g)*0.8 - var(--d)*0.8 + var(--as))) grayscale(calc(var(--d)*0.65))}
+    :root[data-theme="dark"] .ropelayer{filter:saturate(calc(1.1 + var(--g)*0.8 - var(--d)*0.8 + var(--as)))
+      grayscale(calc(var(--d)*0.65)) drop-shadow(0 0 7px rgba(150,110,255,.42))}
   }
   /* the capital, climbing — in clusters that thrive, come apart, and start again */
   .captok{stroke:var(--panel);stroke-width:1.2;pointer-events:none}
@@ -1587,8 +1728,32 @@
   <div class="poster" id="poster">
     <svg id="lifeline" aria-hidden="true"></svg>
     <header>
+      <!-- every poster is a turn of the same spiral, so every header wears one: the same coil as
+           the nav, but inked in THIS tab's own arc colours. setMode repaints the gradient stops. -->
+      <svg class="heroswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
+        <defs>
+          <linearGradient id="hswg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#2f9e44"/><stop offset="25%" stop-color="#a17a00"/>
+            <stop offset="50%" stop-color="#b0561f"/><stop offset="75%" stop-color="#b535bb"/>
+            <stop offset="100%" stop-color="#1c7ed6"/>
+          </linearGradient>
+          <radialGradient id="hswr" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff"/><stop offset="58%" stop-color="#fff"/>
+            <stop offset="100%" stop-color="#000"/>
+          </radialGradient>
+          <mask id="hswm"><rect x="-270" y="-270" width="1680" height="1680" fill="url(#hswr)"/></mask>
+        </defs>
+        <g class="nsg" mask="url(#hswm)">
+          <path d="M530 500L538 506L543 515L546 527L546 539L542 552L535 565L523 577L508 587L490 595L469 599L446 598L422 593L398 583L376 569L357 549L342 525L331 498L326 468L328 436L337 404L353 373L377 344L407 319L443 299L483 285L528 278L574 280L621 289L666 308L708 334L745 369L774 410L796 457L808 508L809 562L798 616L777 669L744 718L701 762L648 799L588 826L521 843L451 848L380 841L309 821L243 789L183 745L132 691L93 628L66 557L54 482L57 405L76 329L111 255L161 188L225 130L301 83L386 49L478 29L574 26L670 40L764 70L851 117L928 178L992 253L1041 338L1073 432L1084 531L1076 631L1047 730L999 823L931 908L846 980L747 1038L637 1078L519 1098L397 1099L276 1078L160 1037L52 975L-42 896L-119 800L-176 692L-211 575L-222 452L-208 329L-169 208L-106 95L-20 -6L86 -92L209 -159L345 -205L489 -226L636 -223L782 -195L920 -141L1047 -65L1158 33L1247 150L1313 281L1351 422L1360 568L1339 715L1289 857L1211 989L1106 1107L978 1206L831 1282L670 1332L500 1354"/>
+        </g>
+      </svg>
       <h1 id="h1">RESOURCE&nbsp;ALLOCATION</h1>
       <div class="sub">THROUGH HISTORY</div>
+      <!-- the census, not a lede: the coil is still the argument, these are just its measurements.
+           spiral mode only — every other tab carries its own lede and stat cards. -->
+      <div class="herostats" id="herostats">
+        <span><b>12,000</b> years</span><span><b>15</b> questions</span><span><b>6</b> views</span><span><b>1,058</b> mechanisms</span><span><b>5</b> eras</span>
+      </div>
       <p class="lede" id="lede"></p>
       <div id="arcwrap"></div>
       <div id="hardwrap"></div>
@@ -1599,6 +1764,7 @@
         <button class="playbtn" id="play">▶ play 12,000 years</button>
         <button class="playbtn decaybtn" id="decay">ignore + stimulate status quo</button>
       </span>
+      <div class="heroscroll" aria-hidden="true"><span>scroll — the coil draws itself</span><em></em></div>
     </header>
     <div id="spiralwrap"></div>
     <div id="turnwrap"></div>
@@ -1632,6 +1798,25 @@
     <em>click once to open a tab and stay here · click again to jump to the top of it ↑</em>
   </div>
   <nav class="tabs" role="tablist" aria-label="poster">
+    <!-- the index wears the thing it indexes: one faint spiral, seen from above, era ramp for ink.
+         it turns once every couple of minutes — geology, not animation. -->
+    <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
+      <defs>
+        <linearGradient id="navswg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#2f9e44"/><stop offset="25%" stop-color="#a17a00"/>
+          <stop offset="50%" stop-color="#b0561f"/><stop offset="75%" stop-color="#b535bb"/>
+          <stop offset="100%" stop-color="#1c7ed6"/>
+        </linearGradient>
+        <radialGradient id="navsr" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff"/><stop offset="62%" stop-color="#fff"/>
+          <stop offset="100%" stop-color="#000"/>
+        </radialGradient>
+        <mask id="navsm"><rect x="-270" y="-270" width="1680" height="1680" fill="url(#navsr)"/></mask>
+      </defs>
+      <g class="nsg" mask="url(#navsm)">
+        <path d="M530 500L538 506L543 515L546 527L546 539L542 552L535 565L523 577L508 587L490 595L469 599L446 598L422 593L398 583L376 569L357 549L342 525L331 498L326 468L328 436L337 404L353 373L377 344L407 319L443 299L483 285L528 278L574 280L621 289L666 308L708 334L745 369L774 410L796 457L808 508L809 562L798 616L777 669L744 718L701 762L648 799L588 826L521 843L451 848L380 841L309 821L243 789L183 745L132 691L93 628L66 557L54 482L57 405L76 329L111 255L161 188L225 130L301 83L386 49L478 29L574 26L670 40L764 70L851 117L928 178L992 253L1041 338L1073 432L1084 531L1076 631L1047 730L999 823L931 908L846 980L747 1038L637 1078L519 1098L397 1099L276 1078L160 1037L52 975L-42 896L-119 800L-176 692L-211 575L-222 452L-208 329L-169 208L-106 95L-20 -6L86 -92L209 -159L345 -205L489 -226L636 -223L782 -195L920 -141L1047 -65L1158 33L1247 150L1313 281L1351 422L1360 568L1339 715L1289 857L1211 989L1106 1107L978 1206L831 1282L670 1332L500 1354"/>
+      </g>
+    </svg>
     <div class="tabgrp">
       <span class="grplab">the whole picture<em>step back</em></span>
       <div class="grpchips">
@@ -1679,22 +1864,7 @@
       </div>
     </div>
   </nav>
-  <!-- who pays for the room. one logo, one door: funding this thing is a dm away. -->
-  <div class="funders">
-    <span class="flab">funders</span>
-    <a class="flogo" href="https://www.gitcoin.co" target="_blank" rel="noopener" aria-label="gitcoin">
-      <svg width="118" height="21" viewBox="0 0 118 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M36.3638 20.6505V4.97402H31.9259V0.376668H45.7788V4.97511H41.3408V20.6516H36.3649L36.3638 20.6505Z" fill="currentColor"/>
-        <path d="M0 10.5947C0 4.30233 4.81475 0 10.8939 0C14.5521 0 17.8606 1.47838 19.9854 4.65179L15.6008 6.93686C14.417 5.32348 12.8836 4.46345 10.9473 4.46345C7.53087 4.46345 5.13711 7.12519 5.13711 10.6208C5.13711 14.1165 7.74651 16.7249 10.7861 16.7249C13.2877 16.7249 15.0901 15.2193 15.4124 13.2292V13.202H11.1629V9.38414H20.9808V10.2442C20.9808 16.8588 17.0264 21 10.7327 21C4.78752 21 0 16.7249 0 10.5947Z" fill="currentColor"/>
-        <path d="M24.3939 20.6505V0.376668H29.3699V20.6505H24.3939Z" fill="currentColor"/>
-        <path d="M89.6375 20.6505V0.376668H94.6135V20.6505H89.6375Z" fill="currentColor"/>
-        <path d="M113.131 0.376668H118V20.6505H113.965L103.798 7.87853L103.878 20.6505H98.9828V0.376668H103.126L113.293 13.0681L113.132 0.376668H113.131Z" fill="currentColor"/>
-        <path d="M57.8347 16.4026C54.7418 16.4026 52.1324 13.9826 52.1324 10.5142C52.1324 7.23406 54.634 4.62566 57.8892 4.62566C59.4923 4.62566 60.8917 5.23204 61.91 6.23577C62.4011 4.66812 63.1657 3.20171 64.1818 1.89098C62.4022 0.703266 60.2372 0.0272162 57.9153 0.0272162C51.944 0.0272162 46.9942 4.49067 46.9942 10.4869C46.9942 16.7793 51.9701 21 57.8347 21C60.1762 21 62.3576 20.3446 64.1469 19.1798C63.1428 17.8701 62.3859 16.395 61.9013 14.8078C60.8678 15.8072 59.4476 16.4026 57.8347 16.4026Z" fill="currentColor"/>
-        <path d="M75.6714 0.0272162C71.9239 0.0272162 68.5794 1.78538 66.6071 4.57667C65.4375 6.23359 64.7503 8.25412 64.7503 10.4869C64.7503 12.7198 65.4353 14.8687 66.5962 16.5235C68.5642 19.3289 71.9022 21 75.5908 21C81.5894 21 86.5392 16.6977 86.5392 10.5403C86.5392 4.38289 81.6166 0.0272162 75.6714 0.0272162ZM75.5908 16.4026C72.4979 16.4026 69.8885 13.9826 69.8885 10.5142C69.8885 7.23406 72.3901 4.62566 75.6453 4.62566C78.9005 4.62566 81.402 7.20684 81.402 10.5414C81.402 13.8759 78.9005 16.4026 75.5919 16.4026H75.5908Z" fill="currentColor"/>
-      </svg>
-    </a>
-    <a class="fcta" href="https://t.me/owocki" target="_blank" rel="noopener">become a funder → dm @owocki on telegram</a>
-  </div>
+
 </div>
 <button id="totop" aria-label="back to the top" title="back to the top">↑<span>top</span></button>
 <div id="tt"></div>
@@ -8635,7 +8805,8 @@ const ONTOLOGY_ERAS=[
 const MODES={
  spiral:{spiral:true,stats:{},eras:[],fav:'🧬',
   // plural. there is not one spiral — there are many, running at once, and most of them end.
-  h1:'UPWARD&nbsp;SPIRALS&nbsp;🧬',
+  // the emoji rides in a span the sheen can't reach — gradient-clipped text erases colour emoji
+  h1:'UPWARD&nbsp;SPIRALS&nbsp;<span class="emj">🧬</span>',
   title:'upward spirals thru history',
   // no lede. the coil is the argument, and every sentence put above it was a sentence asking
   // you to take the picture's word for it before you had seen the picture. it can speak for
@@ -9259,7 +9430,9 @@ document.getElementById('tonav').onclick=()=>{
 };
 document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
   const c=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
-  r.setAttribute('data-theme',c==='dark'?'light':'dark'); };
+  const n=c==='dark'?'light':'dark';
+  r.setAttribute('data-theme',n);
+  try{ localStorage.setItem('ra-theme',n); }catch(e){} };
 
 // ---------- tabs + hash routing ----------
 // on http(s) the power + live tabs live at crawlable /power and /live urls (power.html / live.html carry their unfurl metadata);
@@ -9281,6 +9454,11 @@ function setMode(mode,user){
   document.title=M.title;
   favEl.setAttribute('href',"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>"+M.fav+"</text></svg>");
   h1El.innerHTML=M.h1;
+  // the header coil takes this tab's ink: the arc's own colours when it has an arc, the five-era
+  // ramp when it doesn't (the coil itself, and the whole-picture views).
+  { const sw=document.getElementById('hswg');
+    if(sw){ const cols=(M.arc&&M.arc.length>1)?M.arc.map(a=>a.c):['#2f9e44','#a17a00','#b0561f','#b535bb','#1c7ed6'];
+      sw.innerHTML=cols.map((c,i)=>`<stop offset="${Math.round(i/(cols.length-1)*100)}%" stop-color="${c}"/>`).join(''); } }
   if(M.spiral) ledeEl.innerHTML=M.lede; else ledeEl.textContent=M.lede;
   ledeEl.classList.toggle('spiralede',!!M.spiral);
   footL.innerHTML=M.foot;
