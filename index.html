@@ -244,6 +244,9 @@
   :root[data-mode="spiral"] .sub{animation:herorise .8s cubic-bezier(.2,.7,.2,1) .26s both,glitch 7s 1.4s infinite}
   :root[data-mode="spiral"] .herostats{animation:herorise .8s cubic-bezier(.2,.7,.2,1) .42s both}
   :root[data-mode="spiral"] .heroscroll{animation:herorise .8s cubic-bezier(.2,.7,.2,1) .6s both}
+  /* the deck line is longer than THROUGH HISTORY — ease the size down so it holds one line
+     even on a phone */
+  :root[data-mode="spiral"] .poster .sub{font-size:clamp(10px,1.8vw,17px)}
   /* the title catches the light: a band of the era ramp sweeps through the ink every nine
      seconds — iridescence, not a rainbow costume. the ink is ink the rest of the time. */
   :root[data-mode="spiral"] #h1{
@@ -9080,6 +9083,8 @@ const MODES={
   // plural. there is not one spiral — there are many, running at once, and most of them end.
   // the emoji rides in a span the sheen can't reach — gradient-clipped text erases colour emoji
   h1:'UPWARD&nbsp;SPIRALS&nbsp;<span class="emj">🧬</span>',
+  // the landing's own deck line; every poster keeps THROUGH HISTORY (it completes their titles).
+  sub:'HUMAN PROGRESS VISUALIZED',
   title:'upward spirals thru history',
   // no lede. the coil is the argument, and every sentence put above it was a sentence asking
   // you to take the picture's word for it before you had seen the picture. it can speak for
@@ -9755,6 +9760,7 @@ function setMode(mode,user){
   document.title=M.title;
   favEl.setAttribute('href',"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>"+M.fav+"</text></svg>");
   h1El.innerHTML=M.h1;
+  document.querySelector('.poster .sub').textContent=M.sub||'THROUGH HISTORY';
   // the header coil takes this tab's ink: the arc's own colours when it has an arc, the five-era
   // ramp when it doesn't (the coil itself, and the whole-picture views).
   { const sw=document.getElementById('hswg');
