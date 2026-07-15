@@ -730,8 +730,12 @@
 
   /* ---- the build: a pinned hero that assembles itself, scroll-driven (the spiral/syntropy pattern) ---- */
   .asmscroll{display:flex;gap:30px;align-items:flex-start;max-width:1180px;margin:20px auto 0}
-  .asmsticky{position:sticky;top:8px;flex:1 1 auto;min-width:0;align-self:flex-start}
+  .asmsticky{position:sticky;top:8px;flex:1 1 auto;min-width:0;align-self:flex-start;position:sticky}
+  .asmstage{position:relative}
   #asmsvg{width:100%;height:auto;max-height:96vh;display:block}
+  /* the cosmic finale is drawn on canvas, not svg — thousands of points at 60fps with no DOM churn.
+     it overlays the svg hero and the two cross-fade as the walkthrough zooms out to the whole graph. */
+  #asmgalaxy{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0}
   .asmbeats{flex:0 0 330px;order:2;padding-bottom:12vh}
   .asmbeat{min-height:86vh;display:flex;flex-direction:column;justify-content:center;
     opacity:.22;filter:blur(.6px);transform:translateY(10px);transition:opacity .5s,filter .5s,transform .5s}
@@ -773,6 +777,42 @@
   .an-cap{font:600 12px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted)}
   .asmscrollnote{max-width:760px;margin:8px auto 0;text-align:center;font-size:11.5px;
     color:var(--muted);font-style:italic;line-height:1.6}
+
+  /* ---------- 🕳️ the multipolar trap — a fitness landscape you slide down, then reshape ---------- */
+  #trapwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1140px;--ac:#e0424f}
+  :root[data-mode="trap"] #trapwrap{display:block}
+  :root[data-mode="trap"] #eras{display:none}
+  :root[data-mode="trap"] .playbtn{display:none}
+  :root[data-mode="trap"] .pfoot{margin-top:14px}
+  :root[data-mode="trap"]{--pgrad:linear-gradient(175deg,#f6ddd8 0%,#f3ecd7 52%,#dfeee2 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="trap"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#2a0c0e 0%,#241a08 52%,#0b2416 100%)} }
+  :root[data-mode="trap"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#2a0c0e 0%,#241a08 52%,#0b2416 100%)}
+  :root[data-mode="trap"][data-theme="light"]{--pgrad:linear-gradient(175deg,#f6ddd8 0%,#f3ecd7 52%,#dfeee2 100%)}
+  :root[data-mode="trap"] .poster .sub{background:linear-gradient(90deg,#e0424f,#d98a1f,#2f9e44);-webkit-background-clip:text;background-clip:text}
+  .tab.on.t-trap{background:linear-gradient(90deg,#e0424f,#d98a1f,#2f9e44);box-shadow:0 6px 18px rgba(224,66,79,.4)}
+  #tpsvg{width:100%;height:auto;max-height:96vh;display:block}
+  .tp-fill{stroke:none;fill:color-mix(in srgb,var(--ink) 9%,transparent)}
+  .tp-line{fill:none;stroke:var(--ink);stroke-width:2.6;opacity:.55;stroke-linejoin:round;stroke-linecap:round}
+  .tp-glow{pointer-events:none}
+  .tp-ball{stroke:var(--panel);stroke-width:1.6}
+  .tp-rope{stroke:#2f9e44;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;fill:none}
+  .tp-peaklab{font:800 13px/1 -apple-system,BlinkMacSystemFont,sans-serif;fill:#2f9e44;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .tp-traplab{font:800 13px/1 -apple-system,BlinkMacSystemFont,sans-serif;fill:#e0424f;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .tp-walllab{font:700 11.5px/1 -apple-system,BlinkMacSystemFont,sans-serif;fill:var(--muted);paint-order:stroke;stroke:var(--panel);stroke-width:3.5px;stroke-linejoin:round}
+  .tp-badge{font:800 12px/1 -apple-system,BlinkMacSystemFont,sans-serif;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
+  .tp-badgen{font:800 10px/1 ui-monospace,Menlo,monospace;fill:var(--muted)}
+  .tp-arrow{stroke:#e0424f;stroke-width:2;fill:none;stroke-dasharray:4 4;opacity:0}
+  .tp-hud{position:absolute;top:10px;left:14px;pointer-events:none;font-variant-numeric:tabular-nums}
+  .tp-hud .hn{font:850 44px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .tp-hud .hl{font:800 9px/1.3 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px;max-width:150px}
+  .tp-toolgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;max-width:760px;margin:14px auto 0}
+  @media(max-width:640px){ .tp-toolgrid{grid-template-columns:1fr} }
+  .tp-tool{border:1.5px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--panel) 74%,transparent);padding:12px 15px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+  .tp-tool:hover{transform:translateY(-2px);box-shadow:0 6px 16px color-mix(in srgb,#2f9e44 22%,transparent);border-color:color-mix(in srgb,#2f9e44 45%,transparent)}
+  .tp-tool .tt-h{font-size:11px;font-weight:800;color:#e0424f}
+  .tp-tool .tt-h b{color:#2f9e44}
+  .tp-tool .tt-h .ar{color:var(--muted);margin:0 6px;font-weight:600}
+  .tp-tool .tt-d{display:block;font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5}
 
   #synsvg{width:100%;height:auto;display:block;--t:.5;--e:0}
   /* THE CONTROL. it used to be a line with extropy at one end and syntropy at the other, which is
@@ -1466,6 +1506,7 @@
     <div id="ratchetwrap"></div>
     <div id="synwrap"></div>
     <div id="assemblywrap"></div>
+    <div id="trapwrap"></div>
     <div id="eras"></div>
     <footer class="pfoot">
       <span id="footleft" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></span>
@@ -1500,6 +1541,7 @@
         <button class="tab t-turn" role="tab" data-mode="turn"><span class="em">⚙️</span>one turn<span class="tq">the loop, up close</span></button>
         <button class="tab t-ratchet" role="tab" data-mode="ratchet"><span class="em">🪜</span>the ratchet<span class="tq">what survives collapse</span></button>
         <button class="tab t-assembly" role="tab" data-mode="assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></button>
+        <button class="tab t-trap" role="tab" data-mode="trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></button>
       </div>
     </div>
     <div class="tabgrp">
@@ -5776,10 +5818,10 @@ const alerp=(a,b,t)=>a+(b-a)*t;
 const atw=s=>Math.max(58,s.length*7.1+18);
 
 let asmTimers=[], asmSeen=new Set(), asmRAF=0, asmScroll=null;
+let trapRAF=0, trapScroll=null;
 function clearAsmTimers(){ asmTimers.forEach(t=>clearTimeout(t)); asmTimers=[]; }
 function renderAssembly(){
   const wrap=document.getElementById('assemblywrap');
-  asmSeen=new Set();
   const BEATS=[
    {tag:'the corporation feels like furniture.',
     p:'it raises money from strangers, takes risks, signs contracts, and outlives everyone who started it — and it sits there so plainly it looks like it was always possible.',
@@ -5792,22 +5834,51 @@ function renderAssembly(){
     p2:'the honest count falls from fourteen to <b>seven</b>. that seven is the <b>assembly index</b>: the fewest steps, reuse counted. it is how a tall thing can ever be cheap.'},
    {tag:'one foundation, many roofs.',
     p:'and the bottom bricks — <b>the number</b>, <b>the written record</b> — were never the corporation’s. quadratic funding stands on them. so do insurance, the zero-knowledge proof, the nation-state.',
-    p2:'this was never five structures. it is <b>one</b>, with five roofs — and every new thing gets cheaper as the basement fills. <b>keep scrolling: most of what could be built never is.</b>'}
+    p2:'this was never five structures. it is <b>one</b>, with five roofs — and every new thing gets cheaper as the basement fills.'},
+   {tag:'one lineage among fifteen.',
+    p:'pull back. the corporation is a single arm of something much bigger — the poster’s other fourteen questions rise beside it: power, trust, energy, care, truth, land. every one its own climb from the same floor.',
+    p2:'same basement. fifteen arms. <b>keep pulling back.</b>'},
+   {tag:'the whole thing climbs, era by era.',
+    p:'colour every point by <b>when</b> its bricks were invented and a pattern falls out: the reachable index only ever rises. the hunter-gatherer tops out near <b>three</b>; the onchain era reaches <b>sixteen</b>.',
+    p2:'because the ratchet keeps the last era’s bricks, each age inherits a taller basement. the number in the corner <em>is</em> that climb.'},
+   {tag:'and almost none of it gets built.',
+    p:'every bright point is something real. every dim one is something the same bricks <em>could</em> assemble that nobody has. the frontier — the <b>✦ unbuilt ones</b> — is the faint rim, one brick out.',
+    p2:'most of what could exist never does. that gap is exactly where the next thing comes from.'},
+   {tag:'the whole assembly graph of planet earth.',
+    p:'every object around you — this device, that institution, the bread, the vote — is a point in <b>one graph</b>, rooted in the same handful of primitives, climbing the same ladder.',
+    p2:'the corporation you took apart is <b>one speck</b> in it. that is assembly theory: not a catalogue of things, but the single branching history that made all of them. <a href="https://assemblytheory.xyz" target="_blank" rel="noopener">learn more ↗</a>'}
   ];
+  // ---- the galaxy: precomputed once, drawn on canvas (perf: no DOM, thousands of points) ----
+  const mob=(reduced||innerWidth<640), NPT=mob?1100:2600, ARMS=15;
+  const grnd=sr(20260714);
+  const galaxy=[];
+  for(let i=0;i<NPT;i++){
+    const arm=i%ARMS, t=grnd(), ang0=arm*(6.28318/ARMS);
+    galaxy.push({t, ang:ang0+t*2.4+(grnd()-0.5)*0.30, rad:0.10+t*0.9+(grnd()-0.5)*0.04,
+      built: grnd()<(0.60*(1-t)+0.05), ph:grnd()*6.28318});
+  }
+  galaxy.push({t:0.52, ang:2*(6.28318/ARMS)+0.15, rad:0.60, built:true, ph:0, corp:true});
+  const ACORP=galaxy.length-1;
+  const galHue=t=>{ const st=[[0,[217,138,31]],[.34,[47,158,68]],[.66,[28,126,214]],[1,[112,72,232]]];
+    for(let i=1;i<st.length;i++){ if(t<=st[i][0]){ const a=st[i-1],b=st[i],f=(t-a[0])/(b[0]-a[0]||1);
+      return b[1].map((c,k)=>a[1][k]+(c-a[1][k])*f); } } return st[3][1]; };
+
   wrap.innerHTML=`
    <div class="asmintro"><b>nothing is built from nothing.</b>
-     assembly theory (<a href="https://assemblytheory.xyz" target="_blank" rel="noopener">cronin &amp; walker</a>)
-     measures a thing by its <em>assembly index</em>: the fewest steps to build it from basic parts,
-     reusing parts you already made. every mechanism on this poster has one. <b class="inl">watch one come apart — the corporation, seven bricks deep.</b></div>
+     every mechanism on this poster has an <em>assembly index</em> — the fewest steps to build it from
+     parts you already have. <b class="inl">watch one come apart: the corporation, seven bricks deep.</b></div>
 
    <div class="asmscroll">
      <div class="asmsticky">
-       <svg id="asmsvg" viewBox="0 0 680 640" role="img"
-         aria-label="the corporation, taken apart into its building blocks: a tradable share on limited liability on the contract on coinage, the number and the written record. first drawn as a sprawling tree with every prerequisite re-derived (fourteen steps), then the duplicate bricks fuse into a lean stack of seven — the assembly index. finally the shared bottom bricks fan out to other structures: one basement, many roofs.">
-         <g id="asmcam">
-           <g id="asmsatedges"></g><g id="asmedges"></g><g id="asmsats"></g><g id="asmtiles"></g>
-         </g>
-       </svg>
+       <div class="asmstage">
+         <svg id="asmsvg" viewBox="0 0 680 640" role="img"
+           aria-label="the corporation, taken apart into its building blocks and then re-fused: a sprawling naive tree of fourteen steps tightens into a lean stack of seven — its assembly index. the view then pulls back until the single structure is one arm of the whole assembly graph of planet earth, a galaxy of points rooted in the same few primitives.">
+           <g id="asmcam">
+             <g id="asmsatedges"></g><g id="asmedges"></g><g id="asmsats"></g><g id="asmtiles"></g>
+           </g>
+         </svg>
+         <canvas id="asmgalaxy" aria-hidden="true"></canvas>
+       </div>
        <div class="asm-hud"><div class="hn" id="asmhud">1</div><div class="hl" id="asmhudl">one finished thing</div></div>
      </div>
      <div class="asmbeats">
@@ -5819,51 +5890,22 @@ function renderAssembly(){
        </div>`).join('')}
      </div>
    </div>
-   <div class="asmscrollnote">tap any brick to visit the tab where it keeps its receipts · the count in the corner is the honest step-total, melting from naïve (14) to the assembly index (7) as the copies fuse</div>
+   <div class="asmscrollnote">tap any brick to open the tab where it keeps its receipts · the count in the corner is the honest step-total — melting from naïve (14) to the assembly index (7), then climbing era by era to the whole graph</div>
 
-   <div class="asmintro" style="margin-top:30px"><b>most of what could exist never does.</b>
-     assembly theory sorts everything into four nested rooms, and each is a brutal filter on the one
-     before it. the drop from <em>imaginable</em> to <em>built</em> is why selection has a job at all. click a room.</div>
-   <div class="asmfunnel">${ASM_SPACE.map((s,i)=>`
-     <button class="asmlvl" data-l="${i}" style="--w:${s.pct}%;background:${s.bg}">
-       <div class="lh"><b>${s.n}</b><span class="ls">${s.s}</span>${s.frontier?'<span class="lfr">✦ the unbuilt ones live here</span>':''}</div>
-       <div class="ld">${s.d}</div></button>`).join('')}</div>
-
-   <div class="asmintro" style="margin-top:30px"><b>now build one yourself.</b>
-     pick any target and watch its ladder assemble, bottom brick to crown. each one you build fills a
-     shared basement the next one draws on — so the counter tells you how much you already had.</div>
-   <div class="asmpick">${ASM.map((t,i)=>`<button class="asmchip${i===0?' on':''}" data-t="${i}" style="--ac:${t.c}"><span class="ce">${t.em}</span>${t.n.toLowerCase()}</button>`).join('')}</div>
-   <div class="asmladder">
-     <div class="asmrail">
-       <div class="asmidx"><b id="asmcount">0</b><span>assembly index</span></div>
-       <div class="asmbase">in your basement<b id="asmbase">0</b>bricks discovered</div>
-     </div>
-     <div class="asmrungs" id="asmrungs"></div>
-   </div>
-   <div class="asmcard" id="asmcard"></div>
-
-   <div class="asmintro" style="margin-top:30px"><b>the spiral, read as one number going up.</b>
-     the highest reachable assembly index climbs every era — because the ratchet keeps the bricks from
-     the last one, so each era inherits a taller basement to build on.</div>
-   <div class="asmeras">${ASM_ERA.map((e,i)=>`
-     <div class="asmerc" style="--ec:${ERAC[i]}">
-       <div class="ea">${e.ai}</div>
-       <div class="ee">${e.era}</div>
-       <div class="eg">${e.eg}</div>
-       <div class="en">${e.note}</div></div>`).join('')}</div>
    <div class="asmintro asmoutro"><b>an object is a memory of how it was made.</b>
-     that is why the assembly index is more than a score — read it backwards and you get the history:
-     every brick, in the order the world had to invent them. the ratchet is what carries that memory
-     through the fire, so the count only ever rises.<br>
+     read the index backwards and you get the history: every brick, in the order the world had to invent
+     them. the ratchet is what carries that memory through the fire, so the count only ever rises.<br>
+     learn the theory → <a href="https://assemblytheory.xyz" target="_blank" rel="noopener">🧩 assemblytheory.xyz ↗</a> ·
      watch the whole coil climb → <a href="#spiral">🧬 the spiral</a> ·
-     why the count survives collapse → <a href="#ratchet">🪜 the ratchet</a> ·
+     what survives collapse → <a href="#ratchet">🪜 the ratchet</a> ·
      what resists entropy → <a href="#syntropy">🌀 syntropy</a></div>`;
 
-  // ===== the build: render the hero, then drive it with the scroll =====
+  // ===== the intimate hero (svg, beats 0-3): the corporation built + fused =====
   const svg=wrap.querySelector('#asmsvg'), cam=wrap.querySelector('#asmcam'),
         tilesG=wrap.querySelector('#asmtiles'), edgesG=wrap.querySelector('#asmedges'),
         satsG=wrap.querySelector('#asmsats'), satEdgesG=wrap.querySelector('#asmsatedges'),
-        hudN=wrap.querySelector('#asmhud'), hudL=wrap.querySelector('#asmhudl');
+        hudN=wrap.querySelector('#asmhud'), hudL=wrap.querySelector('#asmhudl'),
+        canvas=wrap.querySelector('#asmgalaxy'), gctx=canvas.getContext('2d');
   const TH=30;
   tilesG.innerHTML=AINST.map((it,i)=>{ const nd=ANODES[it.id], w=atw(nd.short);
     return `<g class="an-tile${it.id===AROOT?' crown':''}" data-i="${i}" data-m="${nd.m}" tabindex="0" role="button" aria-label="${nd.short}, assembly index ${nd.ai}">
@@ -5881,11 +5923,20 @@ function renderAssembly(){
   const tileEls=[...tilesG.querySelectorAll('.an-tile')],
         edgeEls=AINST.map((it,i)=>it.parent<0?null:edgesG.querySelector(`[data-i="${i}"]`)),
         satEls=[...satsG.querySelectorAll('.an-tile')], satEdgeEls=[...satEdgesG.querySelectorAll('.an-edge')];
-  tileEls.forEach(g=>g.addEventListener('click',()=>{ setMode(g.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); }));
-  tileEls.forEach(g=>g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); setMode(g.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); } }));
+  tileEls.forEach(g=>{ const go=()=>{ setMode(g.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); };
+    g.addEventListener('click',go);
+    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
 
-  let sealC=1,fuseC=0,spreadC=0,spinC=0, sealT=1,fuseT=0,spreadT=0;
-  function paint(){
+  let gpx=1;   // devicePixelRatio, resolved on size
+  function sizeCanvas(){ const r=svg.getBoundingClientRect(); if(!r.width) return;
+    gpx=Math.min(2,devicePixelRatio||1);
+    canvas.width=Math.max(1,Math.round(r.width*gpx)); canvas.height=Math.max(1,Math.round(r.height*gpx)); }
+  sizeCanvas();
+
+  // eased state: seal(monolith) · fuse(tree→dag) · spread(shared base) · gC(svg→canvas) · gp(galaxy progress)
+  let sealC=1,fuseC=0,spreadC=0,gCC=0,gpC=0,spinC=0, galRot=0,galT=0;
+  let sealT=1,fuseT=0,spreadT=0,gCT=0,gpT=0;
+  function paintSVG(){
     const P=[],O=[];
     AINST.forEach((it,i)=>{ const can=ACAN[it.id];
       P[i]={x:alerp(it.tx,can[0],fuseC), y:alerp(it.ty,can[1],fuseC)};
@@ -5904,11 +5955,260 @@ function renderAssembly(){
     });
     satEls.forEach(g=>g.setAttribute('opacity',spreadC.toFixed(2)));
     satEdgeEls.forEach(e=>e.setAttribute('opacity',(spreadC*0.55).toFixed(2)));
-    const sc=1-0.16*spreadC, wob=(5*sealC*Math.sin(spinC));
+    const sc=(1-0.16*spreadC)*(1-0.55*gCC), wob=(5*sealC*Math.sin(spinC));
     cam.setAttribute('transform',`translate(340,${(330-6*sealC).toFixed(1)}) scale(${sc.toFixed(3)}) rotate(${wob.toFixed(2)}) translate(-340,-330)`);
-    if(sealC>0.4){ hudN.textContent='1'; hudL.innerHTML='one finished thing — <b>so it seems</b>'; }
+  }
+  // ===== the cosmic finale (canvas, beats 4-7): the whole assembly graph =====
+  function drawGalaxy(){
+    const W=canvas.width, H=canvas.height; if(!W) return;
+    const cx=W/2, cy=H/2, R=Math.min(W,H)*0.46;
+    gctx.clearRect(0,0,W,H);
+    const reveal=Math.min(1,gpC*1.7), climbR=Math.max(0,Math.min(1,(gpC-0.30)/0.30)),
+          inClimb=gpC>0.28&&gpC<0.66, earth=Math.max(0,Math.min(1,(gpC-0.72)/0.28));
+    if(earth>0){ const g=gctx.createRadialGradient(cx,cy,0,cx,cy,R*1.25);
+      g.addColorStop(0,`rgba(96,150,255,${(0.12*earth).toFixed(3)})`); g.addColorStop(1,'rgba(96,150,255,0)');
+      gctx.fillStyle=g; gctx.fillRect(0,0,W,H); }
+    const dot=Math.max(1,R*0.0065);
+    for(const p of galaxy){
+      if(p.rad>reveal+0.02) continue;
+      const a=p.ang+galRot, r=p.rad*R, x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r*0.60;
+      const c=galHue(p.t);
+      let al=p.built?0.92:(0.05+0.18*earth);
+      if(inClimb){ const near=1-Math.min(1,Math.abs(p.rad-climbR)/0.09); if(near>0) al=Math.max(al,near*0.95); }
+      al*=(0.72+0.28*Math.sin(galT*1.8+p.ph));
+      if(al<0.02) continue;
+      gctx.globalAlpha=al; gctx.fillStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
+      const s=dot*(p.built?1.25:0.85)*(p.corp?1.6:1);
+      gctx.beginPath(); gctx.arc(x,y,s,0,6.28318); gctx.fill();
+    }
+    gctx.globalAlpha=1;
+    if(earth>0){ const p=galaxy[ACORP], a=p.ang+galRot, r=p.rad*R, x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r*0.60;
+      gctx.strokeStyle=`rgba(232,68,111,${earth.toFixed(2)})`; gctx.lineWidth=Math.max(1.4,R*0.006);
+      gctx.beginPath(); gctx.arc(x,y,R*0.03,0,6.28318); gctx.stroke();
+      gctx.fillStyle=`rgba(240,150,175,${earth.toFixed(2)})`;
+      gctx.font=`600 ${Math.round(R*0.045)}px -apple-system,BlinkMacSystemFont,sans-serif`;
+      gctx.fillText('the corporation ·  one speck', x+R*0.05, y+R*0.012); }
+  }
+  function setHud(){
+    if(gCC>0.5){
+      if(gpC<0.26){ hudN.textContent='15'; hudL.innerHTML='lineages, <b>one graph</b>'; }
+      else if(gpC<0.66){ const climbR=Math.max(0,Math.min(1,(gpC-0.30)/0.30)); hudN.textContent=Math.round(3+13*climbR); hudL.innerHTML='assembly index, <b>era by era</b>'; }
+      else if(gpC<0.80){ hudN.textContent='most'; hudL.innerHTML='could exist · <b>never built</b>'; }
+      else{ hudN.textContent='10⁹'; hudL.innerHTML='the assembly graph <b>of earth</b>'; }
+    } else if(sealC>0.4){ hudN.textContent='1'; hudL.innerHTML='one finished thing — <b>so it seems</b>'; }
     else{ hudN.textContent=Math.round(ANAIVE-(ANAIVE-AIDX)*fuseC);
       hudL.innerHTML=fuseC>0.55?'the <b>assembly index</b> — reuse counted':'naïve steps — every part re-derived'; }
+  }
+  function paint(){
+    svg.style.opacity=(1-gCC).toFixed(2);
+    canvas.style.opacity=gCC.toFixed(2);
+    paintSVG();
+    if(gCC>0.01) drawGalaxy(); else gctx.clearRect(0,0,canvas.width,canvas.height);
+    setHud();
+  }
+
+  const beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
+  const GP=[0,0,0,0,0.16,0.48,0.74,1.0];   // galaxy progress target per beat
+  function scrollDrive(){
+    const st=wrap.querySelector('.asmscroll'); if(!st) return;
+    const r=st.getBoundingClientRect();
+    if(r.bottom<0||r.top>innerHeight) return;
+    const line=innerHeight*0.45; let win=null,wd=1e9;
+    beats.forEach(b=>{ const q=b.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
+      if(q.bottom>0&&q.top<innerHeight&&d<wd){ wd=d; win=b; } });
+    if(win){ const bi=+win.dataset.b;
+      sealT=bi<=0?1:0; fuseT=bi>=2?1:0; spreadT=bi>=3?1:0; gCT=bi>=4?1:0; gpT=GP[bi];
+      beats.forEach(b=>b.classList.toggle('on',b===win));
+      progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
+      if(reduced){ sealC=sealT; fuseC=fuseT; spreadC=spreadT; gCC=gCT; gpC=gpT; }
+    }
+  }
+  let last=0;
+  function raf(now){
+    const dt=Math.min(0.05,(now-(last||now))/1000); last=now;
+    const k=1-Math.pow(0.015,dt);
+    sealC+=(sealT-sealC)*k; fuseC+=(fuseT-fuseC)*k; spreadC+=(spreadT-spreadC)*k;
+    gCC+=(gCT-gCC)*k; gpC+=(gpT-gpC)*k; spinC+=dt*0.9;
+    if(gCC>0.01){ galRot+=dt*0.05; galT+=dt; }
+    paint(); asmRAF=requestAnimationFrame(raf);
+  }
+  if(asmScroll){ removeEventListener('scroll',asmScroll); removeEventListener('resize',asmScroll); }
+  let sraf=0;
+  asmScroll=()=>{ if(sraf) return; sraf=requestAnimationFrame(()=>{ sraf=0; sizeCanvas(); scrollDrive(); }); };
+  addEventListener('scroll',asmScroll,{passive:true});
+  addEventListener('resize',asmScroll,{passive:true});
+  scrollDrive();
+  if(reduced){ sealC=sealT; fuseC=fuseT; spreadC=spreadT; gCC=gCT; gpC=gpT; }
+  paint();
+  if(asmRAF) cancelAnimationFrame(asmRAF);
+  asmRAF=requestAnimationFrame(raf);
+}
+
+// ---------- 🕳️ the multipolar trap — the fitness landscape you slide down, then reshape ----------
+// a multipolar trap (multipolartrap.xyz): individually rational moves that compound into a collectively
+// worse equilibrium — a race to the bottom no one can leave first. drawn as a potential landscape: the
+// actors follow the local downhill gradient into a trap valley, far below a summit they can't reach alone.
+// then the escape — see, coordinate, commit — reshapes the hill itself, and they climb it together. the
+// terrain MORPH is the signature move, the way the assembly view's FUSE is. same scroll-camera machinery.
+const TP_BEATS=[
+ {tag:'the payoff for breaking ranks is always right there.',
+  p:'a multipolar trap is when every actor, following its own <b>rational</b> incentive, makes everyone worse off — and no one can afford to stop first. an arms race. overfishing. every lab shipping the model faster.',
+  p2:'picture it as a landscape. <b>height is how well the whole system does.</b> the actors start up on a ridge — and each one can see a step downhill that pays.'},
+ {tag:'so everyone follows the gradient down.',
+  p:'each actor takes the step that helps <em>it</em>: cut the price, skip the safety review, take the extra fish. locally, obviously correct. every one of them is behaving reasonably.',
+  p2:'and reasonable, repeated by everyone, points <b>one way</b> — down.'},
+ {tag:'and they all end up in the same hole.',
+  p:'the steepest-incentive path doesn’t lead anywhere good. it leads to the <b>trap</b>: a stable equilibrium where everyone has defected, everyone is worse off, and nobody can move.',
+  p2:'this is the pattern under climate inaction, open-source underfunding, the engagement economy, the AI race. <b>"no one can unilaterally fix it."</b>'},
+ {tag:'the summit is right there. no one can reach it alone.',
+  p:'cooperation — the summit — would be better for everyone. but between here and there is a wall: <b>whoever cooperates first, alone, loses.</b> they raise their costs while everyone else keeps defecting.',
+  p2:'so the lone climber slides back. the trap isn’t that people are bad. it’s that the <em>landscape</em> punishes anyone who moves first.'},
+ {tag:'the way out is three moves.',
+  p:'<b>see</b> — everyone watching the same shared truth. <b>coordinate</b> — signalling intent, aligning on the goal. <b>commit</b> — making cooperation <em>binding</em>, so the temptation to defect is off the table.',
+  p2:'tie the climbers together and the calculus changes: no one moves first, so no one loses for moving first.'},
+ {tag:'a credible commitment reshapes the hill itself.',
+  p:'this is the move. a binding commitment doesn’t fight the incentive gradient — it <b>redraws it</b>. the valley fills in, the wall comes down, and a path to the summit opens where there wasn’t one.',
+  p2:'change the payoffs and you change the terrain. the trap was never destiny — it was a shape.'},
+ {tag:'and they climb it together.',
+  p:'roped together and pulling the same way, the actors walk up the ridge they could never take alone. the collective outcome — the height — goes up for <b>everyone</b> at once.',
+  p2:'that is what coordination <em>is</em>: not everyone being nicer, but a landscape where the cooperative move is finally the rational one.'},
+ {tag:'the tools already exist — and this whole poster is full of them.',
+  p:'shared ledgers make everyone <b>see</b>. peer networks let people <b>coordinate</b> without permission. smart contracts let a crowd <b>commit</b>. every mechanism in the spiral is somebody’s escape from a trap.',
+  p2:'quadratic funding, attestations, DAOs, retro funding — these are commitment devices with better branding. <a href="https://www.multipolartrap.xyz" target="_blank" rel="noopener">multipolartrap.xyz ↗</a>'}
+];
+// each trap → the spiral mechanism that reshapes its hill (from multipolartrap.xyz), each a live link
+const TP_TOOLS=[
+ {trap:'open-source underfunding', fix:'quadratic funding', m:'alloc', d:'many small donors get matched from a shared pool — the crowd, not the whale, sets what gets built.'},
+ {trap:'engagement / social-media overuse', fix:'reputation + attestations', m:'trust', d:'portable, verifiable credibility, recorded on-chain — trust from behaviour, not virality.'},
+ {trap:'the AI arms race', fix:'open models + attestations', m:'truth', d:'safety commitments made binding and legible, so the race becomes who builds the safest, not just the fastest.'},
+ {trap:'climate inaction', fix:'tokenized carbon + public goods funding', m:'land', d:'verified climate action becomes transparent and rewardable; communities pool funds to retire credits.'}
+];
+function renderTrap(){
+  const wrap=document.getElementById('trapwrap');
+  const gauss=(x,c,w)=>Math.exp(-(((x-c)/w)**2));
+  const smooth=(a,b,x)=>{ const t=Math.max(0,Math.min(1,(x-a)/(b-a))); return t*t*(3-2*t); };
+  const Htrap=x=>0.36+0.08*x + 0.62*gauss(x,0.86,0.10) - 0.60*gauss(x,0.30,0.17) + 0.28*gauss(x,0.60,0.085);
+  const Hcoop=x=>0.30 + 0.66*smooth(0.12,0.90,x);
+  const Hgt=(x,m)=>{ const h=alerp(Htrap(x),Hcoop(x),m); return Math.max(0.02,Math.min(1.03,h)); };
+  const PX=x=>30+x*660, PY=h=>386-h*300;
+  // ball x-targets per beat (7 actors), terrain morph, and rope visibility
+  const BX=[
+   [0.50,0.54,0.59,0.63,0.67,0.71,0.75],
+   [0.44,0.41,0.38,0.35,0.37,0.40,0.45],
+   [0.26,0.29,0.315,0.335,0.30,0.28,0.345],
+   [0.26,0.29,0.315,0.335,0.30,0.55,0.345],
+   [0.27,0.30,0.32,0.34,0.31,0.29,0.335],
+   [0.46,0.50,0.545,0.575,0.60,0.63,0.665],
+   [0.795,0.825,0.855,0.875,0.845,0.815,0.895],
+   [0.795,0.825,0.855,0.875,0.845,0.815,0.895]
+  ];
+  const MO=[0,0,0,0,0.16,0.72,1,1], ROPE=[0,0,0,0,1,1,1,1], WALL=[0,0,0,1,0,0,0,0];
+  const NB=7;
+  wrap.innerHTML=`
+   <div class="asmintro"><b>why can’t we have nice things?</b>
+     often because we are caught in a <em>multipolar trap</em>: everyone acting rationally, and everyone
+     worse off for it — a race to the bottom no one can leave first. <b class="inl">scroll: fall into one, then climb out.</b></div>
+   <div class="asmscroll">
+     <div class="asmsticky">
+       <div class="asmstage">
+         <svg id="tpsvg" viewBox="0 0 720 430" role="img"
+           aria-label="a fitness landscape where height means how well the whole system does. seven actors start on a ridge, then follow the local downhill incentive into a deep trap valley, far below a summit that means cooperation. a lone actor who tries to climb out alone slides back. then a binding commitment reshapes the terrain — the valley fills, the wall between them and the summit comes down — and, roped together, the actors climb to the top.">
+           <ellipse class="tp-glow" id="tpredglow" cx="0" cy="0" rx="150" ry="30" fill="#e0424f" opacity="0"/>
+           <ellipse class="tp-glow" id="tpgrnglow" cx="0" cy="0" rx="120" ry="26" fill="#2f9e44" opacity="0"/>
+           <path class="tp-fill" id="tpfill"/>
+           <path class="tp-line" id="tpcurve"/>
+           <path class="tp-arrow" id="tparrow"/>
+           <text class="tp-peaklab" id="tppeak" text-anchor="middle">▲ the summit · everyone cooperates</text>
+           <text class="tp-traplab" id="tptrap" text-anchor="middle">▼ the trap · everyone defects</text>
+           <text class="tp-walllab" id="tpwall" text-anchor="middle">the first to cooperate, alone, loses</text>
+           <g id="tpbadges" opacity="0">
+             <text class="tp-badgen" x="150" y="40" text-anchor="middle">01</text><text class="tp-badge" x="150" y="56" text-anchor="middle" fill="#1c7ed6">see</text>
+             <text class="tp-badgen" x="360" y="40" text-anchor="middle">02</text><text class="tp-badge" x="360" y="56" text-anchor="middle" fill="#d98a1f">coordinate</text>
+             <text class="tp-badgen" x="570" y="40" text-anchor="middle">03</text><text class="tp-badge" x="570" y="56" text-anchor="middle" fill="#2f9e44">commit</text>
+           </g>
+           <polyline class="tp-rope" id="tprope" points="" opacity="0"/>
+           <g id="tpballs">${Array.from({length:NB},(_,i)=>`<circle class="tp-ball" data-b="${i}" r="9" fill="#d98a1f"/>`).join('')}</g>
+         </svg>
+       </div>
+       <div class="tp-hud"><div class="hn" id="tphud">—</div><div class="hl" id="tphudl">collective outcome</div></div>
+     </div>
+     <div class="asmbeats">
+       ${TP_BEATS.map((b,i)=>`<div class="asmbeat${i===0?' on':''}" data-b="${i}">
+         <span class="bn">${String(i).padStart(2,'0')}</span>
+         <span class="tag">${b.tag}</span>
+         <p>${b.p}</p><p>${b.p2}</p>
+         ${i===TP_BEATS.length-1?`<div class="asmprog">${TP_BEATS.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`:''}
+       </div>`).join('')}
+     </div>
+   </div>
+   <div class="asmscrollnote">the number in the corner is the collective outcome — the average height of all seven actors. watch it crater in the trap, then climb once the terrain is reshaped.</div>
+
+   <div class="asmintro" style="margin-top:30px"><b>trap → escape hatch.</b>
+     each of these is a real multipolar trap, matched to the coordination mechanism that reshapes its hill.
+     every one of them lives in a tab of this poster — tap through.</div>
+   <div class="tp-toolgrid">${TP_TOOLS.map(t=>`
+     <button class="tp-tool" data-m="${t.m}">
+       <div class="tt-h">${t.trap}<span class="ar">→</span><b>${t.fix}</b></div>
+       <span class="tt-d">${t.d}</span></button>`).join('')}</div>
+
+   <div class="asmintro asmoutro"><b>coordination is not everyone being nicer.</b>
+     it is a landscape where the cooperative move is finally the rational one — and building those landscapes
+     is what this whole poster is about.<br>
+     read the argument → <a href="https://www.multipolartrap.xyz" target="_blank" rel="noopener">🌈 multipolartrap.xyz ↗</a> ·
+     the mechanisms that escape → <a href="#alloc">✨ resources</a> ·
+     who you can trust → <a href="#trust">🤝 trust</a> ·
+     the whole climb → <a href="#spiral">🧬 the spiral</a></div>`;
+
+  const svg=wrap.querySelector('#tpsvg'),
+        fillEl=wrap.querySelector('#tpfill'), curveEl=wrap.querySelector('#tpcurve'),
+        ballEls=[...wrap.querySelectorAll('#tpballs circle')], ropeEl=wrap.querySelector('#tprope'),
+        peakEl=wrap.querySelector('#tppeak'), trapEl=wrap.querySelector('#tptrap'),
+        wallEl=wrap.querySelector('#tpwall'), badgesEl=wrap.querySelector('#tpbadges'),
+        arrowEl=wrap.querySelector('#tparrow'), redGlow=wrap.querySelector('#tpredglow'),
+        grnGlow=wrap.querySelector('#tpgrnglow'),
+        hudN=wrap.querySelector('#tphud'), hudL=wrap.querySelector('#tphudl');
+  wrap.querySelectorAll('.tp-tool').forEach(b=>b.addEventListener('click',()=>{ setMode(b.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); }));
+
+  const bx=BX[0].slice();                 // eased ball x-positions
+  let mC=0,ropeC=0,wallC=0, mT=0,ropeT=0,wallT=0, bxT=BX[0].slice();
+  function terrainPath(m,close){
+    let d=''; const N=80;
+    for(let i=0;i<=N;i++){ const x=i/N, px=PX(x), py=PY(Hgt(x,m)); d+=(i?'L':'M')+px.toFixed(1)+' '+py.toFixed(1); }
+    if(close) d+=`L${PX(1).toFixed(1)} 430L${PX(0).toFixed(1)} 430Z`;
+    return d;
+  }
+  function paint(){
+    curveEl.setAttribute('d',terrainPath(mC,false));
+    fillEl.setAttribute('d',terrainPath(mC,true));
+    // actors
+    bx.forEach((x,i)=>{ const el=ballEls[i]; el.setAttribute('cx',PX(x).toFixed(1)); el.setAttribute('cy',(PY(Hgt(x,mC))-9).toFixed(1)); });
+    // rope through the actors (sorted by x so it reads as a line)
+    const order=bx.map((x,i)=>i).sort((a,b)=>bx[a]-bx[b]);
+    ropeEl.setAttribute('points',order.map(i=>`${PX(bx[i]).toFixed(1)},${(PY(Hgt(bx[i],mC))-9).toFixed(1)}`).join(' '));
+    ropeEl.setAttribute('opacity',ropeC.toFixed(2));
+    // labels track the terrain
+    peakEl.setAttribute('x',PX(0.86)); peakEl.setAttribute('y',(PY(Hgt(0.86,mC))-16).toFixed(1));
+    trapEl.setAttribute('x',PX(0.30)); trapEl.setAttribute('y',(PY(Hgt(0.30,mC))+26).toFixed(1));
+    trapEl.setAttribute('opacity',(1-mC).toFixed(2));
+    wallEl.setAttribute('x',PX(0.60)); wallEl.setAttribute('y',(PY(Hgt(0.60,mC))-14).toFixed(1));
+    wallEl.setAttribute('opacity',wallC.toFixed(2));
+    badgesEl.setAttribute('opacity',Math.max(0,ropeC*1).toFixed(2));
+    // the lone climber's slide-back arrow (beat 3): from just above the strayer, curving back to the pit
+    const sx=bx[5];
+    if(wallC>0.02){ const x0=PX(sx), y0=PY(Hgt(sx,mC))-20, x1=PX(0.33), y1=PY(Hgt(0.33,mC))-14;
+      arrowEl.setAttribute('d',`M${x0.toFixed(1)} ${y0.toFixed(1)}Q${((x0+x1)/2).toFixed(1)} ${(y0-34).toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`);
+      arrowEl.setAttribute('opacity',(wallC*0.9).toFixed(2)); }
+    else arrowEl.setAttribute('opacity','0');
+    // region glows
+    redGlow.setAttribute('cx',PX(0.30)); redGlow.setAttribute('cy',PY(0.06)); redGlow.setAttribute('opacity',(0.16*(1-mC)).toFixed(3));
+    grnGlow.setAttribute('cx',PX(0.86)); grnGlow.setAttribute('cy',(PY(Hgt(0.86,mC))+10).toFixed(1)); grnGlow.setAttribute('opacity',(0.10+0.14*mC).toFixed(3));
+    // the collective-outcome gauge = average height of the actors
+    let s=0; bx.forEach(x=>s+=Hgt(x,mC)); s/=NB;
+    const pct=Math.round(s*100);
+    hudN.textContent=pct;
+    const col= s<0.33?[224,66,79] : s<0.62?[217,138,31] : [47,158,68];
+    hudN.style.color=`rgb(${col[0]},${col[1]},${col[2]})`;
+    hudL.innerHTML = s<0.33?'collective outcome — <b>the trap</b>' : s<0.62?'collective outcome — <b>climbing</b>' : 'collective outcome — <b>the summit</b>';
   }
   const beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
   function scrollDrive(){
@@ -5919,73 +6219,30 @@ function renderAssembly(){
     beats.forEach(b=>{ const q=b.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
       if(q.bottom>0&&q.top<innerHeight&&d<wd){ wd=d; win=b; } });
     if(win){ const bi=+win.dataset.b;
-      sealT=bi<=0?1:0; fuseT=bi>=2?1:0; spreadT=bi>=3?1:0;
+      mT=MO[bi]; ropeT=ROPE[bi]; wallT=WALL[bi]; bxT=BX[bi];
       beats.forEach(b=>b.classList.toggle('on',b===win));
       progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
-      if(reduced){ sealC=sealT; fuseC=fuseT; spreadC=spreadT; }
+      if(reduced){ mC=mT; ropeC=ropeT; wallC=wallT; bx.forEach((_,i)=>bx[i]=bxT[i]); }
     }
   }
   let last=0;
   function raf(now){
     const dt=Math.min(0.05,(now-(last||now))/1000); last=now;
-    const k=1-Math.pow(0.015,dt);
-    sealC+=(sealT-sealC)*k; fuseC+=(fuseT-fuseC)*k; spreadC+=(spreadT-spreadC)*k; spinC+=dt*0.9;
-    paint(); asmRAF=requestAnimationFrame(raf);
+    const k=1-Math.pow(0.02,dt);
+    mC+=(mT-mC)*k; ropeC+=(ropeT-ropeC)*k; wallC+=(wallT-wallC)*k;
+    bx.forEach((_,i)=>bx[i]+=(bxT[i]-bx[i])*k);
+    paint(); trapRAF=requestAnimationFrame(raf);
   }
-  if(asmScroll){ removeEventListener('scroll',asmScroll); removeEventListener('resize',asmScroll); }
+  if(trapScroll){ removeEventListener('scroll',trapScroll); removeEventListener('resize',trapScroll); }
   let sraf=0;
-  asmScroll=()=>{ if(sraf) return; sraf=requestAnimationFrame(()=>{ sraf=0; scrollDrive(); }); };
-  addEventListener('scroll',asmScroll,{passive:true});
-  addEventListener('resize',asmScroll,{passive:true});
+  trapScroll=()=>{ if(sraf) return; sraf=requestAnimationFrame(()=>{ sraf=0; scrollDrive(); }); };
+  addEventListener('scroll',trapScroll,{passive:true});
+  addEventListener('resize',trapScroll,{passive:true});
   scrollDrive();
-  if(reduced){ sealC=sealT; fuseC=fuseT; spreadC=spreadT; }
+  if(reduced){ mC=mT; ropeC=ropeT; wallC=wallT; bx.forEach((_,i)=>bx[i]=bxT[i]); }
   paint();
-  if(asmRAF) cancelAnimationFrame(asmRAF);
-  asmRAF=requestAnimationFrame(raf);
-
-  // ===== the hands-on ladder (the finale) =====
-  const rungsEl=wrap.querySelector('#asmrungs'), countEl=wrap.querySelector('#asmcount'),
-        baseEl=wrap.querySelector('#asmbase'), cardEl=wrap.querySelector('#asmcard');
-
-  function build(ti){
-    clearAsmTimers();
-    const t=ASM[ti], ac=t.c, path=t.path, total=path.length;
-    wrap.style.setProperty('--ac',ac);
-    wrap.querySelectorAll('.asmchip').forEach(c=>c.classList.toggle('on',+c.dataset.t===ti));
-    // rungs: dom order = path order (bottom brick first), flipped by flex `order` so the target is on top
-    rungsEl.innerHTML=path.map((b,k)=>{
-      const ai=k+1, reused=asmSeen.has(b.n);
-      return `<button class="asmrung${b.top?' top':''}${reused?' reused':''}" data-m="${b.m}" style="order:${total-k}">
-        <span class="re">${b.em}</span>
-        <span class="rb"><span class="rn">${b.n}</span><span class="rw">${b.w}</span></span>
-        <span class="rtag">♻ had it</span>
-        <span class="rai">AI ${ai}</span></button>`;
-    }).join('');
-    rungsEl.querySelectorAll('.asmrung').forEach(r=>r.addEventListener('click',()=>{
-      setMode(r.dataset.m,true); scrollTo({top:0,behavior:'smooth'});
-    }));
-    const rungs=[...rungsEl.querySelectorAll('.asmrung')];
-    cardEl.innerHTML='';
-    // reveal bottom→top, ticking the counter up with each brick that lands
-    rungs.forEach((r,k)=>{
-      const dl=reduced?0:170+k*220;
-      asmTimers.push(setTimeout(()=>{ r.classList.add('in'); countEl.textContent=k+1; }, dl));
-    });
-    // once the last brick lands: fold this build into the basement, count what was reused, write the card
-    const doneAt=reduced?0:170+total*220;
-    asmTimers.push(setTimeout(()=>{
-      let reusedCount=0;
-      path.forEach(b=>{ if(asmSeen.has(b.n)) reusedCount++; asmSeen.add(b.n); });
-      baseEl.textContent=asmSeen.size;
-      cardEl.innerHTML=`<h4>${t.em} ${t.n} · assembly index ${total}</h4><p>${t.claim}</p>`+
-        (reusedCount
-         ? `<div class="asmreuse"><b>♻ ${reusedCount} of these ${total} bricks were already in your basement</b> from something you built earlier — that is assembly theory's whole point. once the substrate exists, the next thing up is nearly free. keep going and the basement does more of the work.</div>`
-         : `<div class="asmreuse">now build another target — most of its bricks are already in your basement, and it will tell you how many. <b>reuse is why the ladder gets easier to climb, not harder.</b></div>`);
-    }, doneAt));
-  }
-  wrap.querySelectorAll('.asmchip').forEach(c=>c.addEventListener('click',()=>build(+c.dataset.t)));
-  wrap.querySelectorAll('.asmlvl').forEach(l=>l.addEventListener('click',()=>l.classList.toggle('open')));
-  build(0);
+  if(trapRAF) cancelAnimationFrame(trapRAF);
+  trapRAF=requestAnimationFrame(raf);
 }
 
 // ---------- ⚙️ one turn: the loop, face-on ----------
@@ -8084,6 +8341,11 @@ const MODES={
   // no lede: the view opens with its own argument and hands you a thing to take apart. a sentence
   // up here would just be the same claim, made twice, before you had touched anything.
   lede:'',
+  foot:''},
+ trap:{trap:true,stats:{},eras:[],fav:'🕳️',
+  h1:'THE&nbsp;MULTIPOLAR&nbsp;TRAP',
+  title:'the multipolar trap · why we can\'t have nice things',
+  lede:'',
   foot:''}
 };
 const slugOf=k=>k.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
@@ -8493,28 +8755,34 @@ function setMode(mode,user){
   const clearAssembly=()=>{ document.getElementById('assemblywrap').innerHTML=''; clearAsmTimers();
     if(asmRAF){ cancelAnimationFrame(asmRAF); asmRAF=0; }
     if(asmScroll){ removeEventListener('scroll',asmScroll); removeEventListener('resize',asmScroll); asmScroll=null; } };
+  const clearTrap=()=>{ document.getElementById('trapwrap').innerHTML='';
+    if(trapRAF){ cancelAnimationFrame(trapRAF); trapRAF=0; }
+    if(trapScroll){ removeEventListener('scroll',trapScroll); removeEventListener('resize',trapScroll); trapScroll=null; } };
   const clearPoster=()=>{ WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML='';
     hardWrap.innerHTML=''; lsvg.innerHTML=''; };
   // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first
   // (the spiral borrows them for its last step).
   const giveBack=()=>document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
   if(M.syn){
-    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly();
+    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap();
     renderSyntropy();
   } else if(M.ratchet){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap();
     renderRatchet();
   } else if(M.turn){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap();
     renderTurn();
   } else if(M.asm){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap();
     renderAssembly();
+  } else if(M.trap){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly();
+    renderTrap();
   } else if(M.spiral){
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearPoster();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearPoster();
     renderSpiral();
   } else {
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap();
     giveBack();
     clearSpiral();
     renderEras(M); bindPoster(); renderArc(M); renderHard(M);
@@ -8544,7 +8812,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
