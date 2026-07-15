@@ -158,6 +158,10 @@
   .spsticky:fullscreen svg{width:auto;height:100%;max-height:100vh}
   .spsticky:-webkit-full-screen{background:#0a0410;display:flex;align-items:center;justify-content:center}
   .spsticky:-webkit-full-screen svg{width:auto;height:100%;max-height:100vh}
+  /* fullscreen is moloch's room and his alone: every other layer of the ledger
+     — even the .03 ghost of the coil — goes fully dark */
+  .spsticky:fullscreen :is(.crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.crxr,.creye,.crq,.crnw){opacity:0!important}
+  .spsticky:-webkit-full-screen :is(.crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.crxr,.creye,.crq,.crnw){opacity:0!important}
   .crup path,.crdn path,.crflow path{fill:none;stroke-linecap:round}
   .crup path{stroke-width:7}
   /* the shadow: same geometry, grey ink — until the honest beat asks it to be counted, and it
@@ -7240,7 +7244,12 @@ function renderCritique(){
   </div>`;
   foldSteps(wrap);
   const sticky=wrap.querySelector('.spsticky'), steps=[...wrap.querySelectorAll('.spstep')];
-  critIO=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){
+  // while fullscreen the observer stands down: the viewport resize makes it
+  // re-fire with whatever step happens to cross the band, which would swap the
+  // scene out from under the stare.
+  critIO=new IntersectionObserver(es=>{
+    if(document.fullscreenElement||document.webkitFullscreenElement) return;
+    es.forEach(e=>{ if(e.isIntersecting){
     steps.forEach(s=>s.classList.toggle('on',s===e.target));
     sticky.dataset.act=e.target.dataset.act; } }); },{rootMargin:'-42% 0px -42% 0px'});
   steps.forEach(s=>critIO.observe(s));
