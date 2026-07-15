@@ -763,6 +763,7 @@
   .asmbeat.on[data-b="2"] h3{color:var(--ac)}
   .asmbeat p{margin:0 0 9px;font-size:12.8px;line-height:1.62;color:var(--muted)}
   .asmbeat p b{color:var(--ink);font-weight:750}
+  .asmbeat p a{color:var(--ink);font-weight:750;text-decoration:underline;text-underline-offset:2px}
   .asmbeat .tag{font-size:15px;line-height:1.32;font-weight:800;color:var(--ink);opacity:.92;margin-bottom:9px}
   .asmbeat.on[data-b="2"] .tag{color:var(--ac)}
   .asmprog{display:flex;gap:7px;justify-content:center;margin-top:6px}
@@ -5915,7 +5916,16 @@ function renderAssembly(){
     p2:'most of what could exist never does. that gap is exactly where the next thing comes from.'},
    {tag:'the whole assembly graph of planet earth.',
     p:'every object around you — this device, that institution, the bread, the vote — is a point in <b>one graph</b>, rooted in the same handful of primitives, climbing the same ladder. and the graph reads outward: the <b>simple</b> bricks crowd the bright <b>core</b>, and the deeper the assembly, the further out — so the faint <b>blue rim</b> is the most <b>complex</b>, newest things of all.',
-    p2:'the corporation you took apart is <b>one speck</b> between core and rim. that is assembly theory: not a catalogue of things, but the single branching history that made all of them. <a href="https://assemblytheory.xyz" target="_blank" rel="noopener">learn more ↗</a>'}
+    p2:'the corporation you took apart is <b>one speck</b> between core and rim. that is assembly theory: not a catalogue of things, but the single branching history that made all of them. <a href="https://assemblytheory.xyz" target="_blank" rel="noopener">learn more ↗</a>'},
+   {tag:'zoom out once more: the assembly universe.',
+    p:'around everything that exists sit three bigger ghosts — everything <b>mathematics</b> allows, the part <b>physics</b> permits, the part <b>history</b> actually reached. what selection built — the <b>observed</b> — is the innermost sliver.',
+    p2:'four nested spaces, and all of reality lives in the smallest one. this is the frame the rest of the tour stands on — <a href="https://www.assemblytheory.xyz/" target="_blank" rel="noopener">assemblytheory.xyz ↗</a>'},
+   {tag:'objects are memories.',
+    p:'find the corporation again and read its arm <b>backwards</b>: seven bricks light in reverse, all the way down to the primitives. the structure <em>is</em> its history — time, crystallized into shape.',
+    p2:'every object around you is a physical record of the exact path that built it. <a href="https://www.assemblytheory.xyz/profound/objects-memories/index.html" target="_blank" rel="noopener">explore the concept ↗</a>'},
+   {tag:'planets are search engines for life.',
+    p:'a planet is a machine for probing the dim space: billions of years of chemistry testing what the bricks can do, keeping whatever replicates. watch the probes fire — most fade, a few <b>stick</b>.',
+    p2:'evolution, intelligence, technology: three search strategies over the same assembly space. all twelve implications live at <a href="https://www.assemblytheory.xyz/profound/index.html" target="_blank" rel="noopener">profound implications ↗</a>'}
   ];
   // ---- the galaxy: precomputed once, drawn on canvas (perf: no DOM, thousands of points) ----
   const mob=(reduced||innerWidth<640), NPT=mob?1100:2600, ARMS=15;
@@ -5941,7 +5951,7 @@ function renderAssembly(){
      <div class="asmsticky">
        <div class="asmstage">
          <svg id="asmsvg" viewBox="0 0 680 640" role="img"
-           aria-label="the corporation, taken apart into its building blocks and then re-fused: a sprawling naive tree of fourteen steps tightens into a lean stack of seven — its assembly index. the view then pulls back until the single structure is one arm of the whole assembly graph of planet earth, a galaxy of points rooted in the same few primitives.">
+           aria-label="the corporation, taken apart into its building blocks and then re-fused: a sprawling naive tree of fourteen steps tightens into a lean stack of seven — its assembly index. the view then pulls back until the single structure is one arm of the whole assembly graph of planet earth, a galaxy of points rooted in the same few primitives. a closing tour visits three ideas from assemblytheory.xyz: four nested constraint spaces around the galaxy, one object's arm read backwards as memory, and probes firing over the dim unbuilt space like a planet searching for life.">
            <g id="asmcam">
              <g id="asmsatedges"></g><g id="asmedges"></g><g id="asmsats"></g><g id="asmtiles"></g>
            </g>
@@ -5959,7 +5969,7 @@ function renderAssembly(){
        </div>`).join('')}
      </div>
    </div>
-   <div class="asmscrollnote">tap any brick to open the tab where it keeps its receipts · the count in the corner is the honest step-total — melting from naïve (14) to the assembly index (7), then climbing era by era out to the whole graph, where simple sits at the core and complexity climbs to the rim</div>
+   <div class="asmscrollnote">tap any brick to open the tab where it keeps its receipts · the count in the corner is the honest step-total — melting from naïve (14) to the assembly index (7), then climbing era by era out to the whole graph, where simple sits at the core and complexity climbs to the rim · the coda tours three favorites from <a href="https://www.assemblytheory.xyz/" target="_blank" rel="noopener">assemblytheory.xyz</a></div>
 
    <div class="asmintro asmoutro"><b>an object is a memory of how it was made.</b>
      read the index backwards and you get the history: every brick, in the order the world had to invent
@@ -5999,12 +6009,14 @@ function renderAssembly(){
   let gpx=1;   // devicePixelRatio, resolved on size
   function sizeCanvas(){ const r=svg.getBoundingClientRect(); if(!r.width) return;
     gpx=Math.min(2,devicePixelRatio||1);
-    canvas.width=Math.max(1,Math.round(r.width*gpx)); canvas.height=Math.max(1,Math.round(r.height*gpx)); }
+    const w=Math.max(1,Math.round(r.width*gpx)), h=Math.max(1,Math.round(r.height*gpx));
+    if(w===canvas.width&&h===canvas.height) return; // resetting canvas size clears it mid-frame → scroll flicker
+    canvas.width=w; canvas.height=h; }
   sizeCanvas();
 
   // eased state: seal(monolith) · fuse(tree→dag) · spread(shared base) · gC(svg→canvas) · gp(galaxy progress)
-  let sealC=1,fuseC=0,spreadC=0,gCC=0,gpC=0,spinC=0, galRot=0,galT=0;
-  let sealT=1,fuseT=0,spreadT=0,gCT=0,gpT=0;
+  let sealC=1,fuseC=0,spreadC=0,gCC=0,gpC=0,spinC=0, galRot=0,galT=0, tourC=0;
+  let sealT=1,fuseT=0,spreadT=0,gCT=0,gpT=0,tourT=0;
   function paintSVG(){
     const P=[],O=[];
     AINST.forEach((it,i)=>{ const can=ACAN[it.id];
@@ -6025,7 +6037,15 @@ function renderAssembly(){
     satEls.forEach(g=>g.setAttribute('opacity',spreadC.toFixed(2)));
     satEdgeEls.forEach(e=>e.setAttribute('opacity',(spreadC*0.55).toFixed(2)));
     const sc=(1-0.16*spreadC)*(1-0.55*gCC), wob=(5*sealC*Math.sin(spinC));
-    cam.setAttribute('transform',`translate(340,${(330-6*sealC).toFixed(1)}) scale(${sc.toFixed(3)}) rotate(${wob.toFixed(2)}) translate(-340,-330)`);
+    // as the galaxy fades in, the stack rotates and drifts into the corp's spot on its arm
+    let ox=0, oy=0, rotG=0;
+    if(gCC>0.001&&canvas.width){ const p=galaxy[ACORP], aa=p.ang+galRot,
+        armDeg=Math.atan2(Math.sin(aa)*0.60,Math.cos(aa))*180/Math.PI;
+      rotG=gCC*((((armDeg+90+180)%360)+360)%360-180);
+      const W=canvas.width, Hc=canvas.height, Rg=Math.min(W,Hc)*0.46,
+            x=W/2+Math.cos(aa)*p.rad*Rg, y=Hc/2+Math.sin(aa)*p.rad*Rg*0.60;
+      ox=(x/W*680-340)*gCC; oy=(y/Hc*640-330)*gCC; }
+    cam.setAttribute('transform',`translate(${(340+ox).toFixed(1)},${(330-6*sealC+oy).toFixed(1)}) scale(${sc.toFixed(3)}) rotate(${(wob+rotG).toFixed(2)}) translate(-340,-330)`);
   }
   // ===== the cosmic finale (canvas, beats 4-7): the whole assembly graph =====
   function drawGalaxy(){
@@ -6034,16 +6054,20 @@ function renderAssembly(){
     gctx.clearRect(0,0,W,H);
     const reveal=Math.min(1,gpC*1.7), climbR=Math.max(0,Math.min(1,(gpC-0.30)/0.30)),
           inClimb=gpC>0.28&&gpC<0.66, earth=Math.max(0,Math.min(1,(gpC-0.72)/0.28));
+    // the assemblytheory.xyz coda: t8 nested spaces · t9 objects-are-memories · t10 planetary search
+    const t8=Math.max(0,Math.min(1,tourC)), t9=Math.max(0,Math.min(1,tourC-1)), t10=Math.max(0,Math.min(1,tourC-2));
     if(earth>0){ const g=gctx.createRadialGradient(cx,cy,0,cx,cy,R*1.25);
       g.addColorStop(0,`rgba(96,150,255,${(0.12*earth).toFixed(3)})`); g.addColorStop(1,'rgba(96,150,255,0)');
       gctx.fillStyle=g; gctx.fillRect(0,0,W,H); }
     const dot=Math.max(1,R*0.0065);
-    for(const p of galaxy){
+    for(let gi=0;gi<galaxy.length;gi++){ const p=galaxy[gi];
       if(p.rad>reveal+0.02) continue;
       const a=p.ang+galRot, r=p.rad*R, x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r*0.60;
       const c=galHue(p.t);
       let al=p.built?0.92:(0.05+0.18*earth);
       if(inClimb){ const near=1-Math.min(1,Math.abs(p.rad-climbR)/0.09); if(near>0) al=Math.max(al,near*0.95); }
+      // the searches that stick: a scattering of unbuilt points come alive during the planetary-search beat
+      if(t10>0.01&&!p.built&&gi%111===7) al=Math.max(al,t10*(0.55+0.35*Math.sin(galT*0.7+p.ph)));
       al*=(0.72+0.28*Math.sin(galT*1.8+p.ph));
       if(al<0.02) continue;
       gctx.globalAlpha=al; gctx.fillStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
@@ -6051,40 +6075,106 @@ function renderAssembly(){
       gctx.beginPath(); gctx.arc(x,y,s,0,6.28318); gctx.fill();
     }
     gctx.globalAlpha=1;
-    if(earth>0){ const p=galaxy[ACORP], a=p.ang+galRot, r=p.rad*R, x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r*0.60;
-      gctx.strokeStyle=`rgba(232,68,111,${earth.toFixed(2)})`; gctx.lineWidth=Math.max(1.4,R*0.006);
+    const eca=earth*(1-t10); // the corp speck stays through objects-are-memories, bows out for the search beat
+    if(eca>0.01){ const p=galaxy[ACORP], a=p.ang+galRot, r=p.rad*R, x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r*0.60;
+      gctx.strokeStyle=`rgba(232,68,111,${eca.toFixed(2)})`; gctx.lineWidth=Math.max(1.4,R*0.006);
       gctx.beginPath(); gctx.arc(x,y,R*0.03,0,6.28318); gctx.stroke();
-      gctx.fillStyle=`rgba(240,150,175,${earth.toFixed(2)})`;
+      gctx.fillStyle=`rgba(240,150,175,${eca.toFixed(2)})`;
       gctx.font=`600 ${Math.round(R*0.045)}px -apple-system,BlinkMacSystemFont,sans-serif`;
       gctx.fillText('the corporation ·  one speck', x+R*0.05, y+R*0.012); }
     // the axis IS the point: radius = assembly index. simple at the core, complex at the rim — say so.
-    if(earth>0.01){
-      const dt=document.documentElement.getAttribute('data-theme'),
-            dark=dt==='dark'||(dt!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches),
-            halo=dark?'rgba(11,8,22,0.92)':'rgba(255,255,255,0.92)',
-            ink=dark?'230,223,242':'34,28,48',
-            lab=(x,y,txt,rgb,sz,al,rot)=>{ gctx.save(); gctx.translate(x,y); if(rot) gctx.rotate(rot);
-              gctx.font=`800 ${Math.round(sz)}px -apple-system,BlinkMacSystemFont,sans-serif`;
-              gctx.textAlign=al||'left'; gctx.textBaseline='middle';
-              gctx.lineJoin='round'; gctx.lineWidth=Math.max(3,sz*0.30); gctx.strokeStyle=halo;
-              gctx.globalAlpha=earth; gctx.strokeText(txt,0,0);
-              gctx.fillStyle=`rgba(${rgb},${earth.toFixed(2)})`; gctx.fillText(txt,0,0); gctx.globalAlpha=1; gctx.restore(); };
+    const dtq=document.documentElement.getAttribute('data-theme'),
+          dark=dtq==='dark'||(dtq!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches),
+          halo=dark?'rgba(11,8,22,0.92)':'rgba(255,255,255,0.92)',
+          ink=dark?'230,223,242':'34,28,48',
+          lab=(x,y,txt,rgb,sz,al,rot,A)=>{ gctx.save(); gctx.translate(x,y); if(rot) gctx.rotate(rot);
+            gctx.font=`800 ${Math.round(sz)}px -apple-system,BlinkMacSystemFont,sans-serif`;
+            gctx.textAlign=al||'left'; gctx.textBaseline='middle';
+            gctx.lineJoin='round'; gctx.lineWidth=Math.max(3,sz*0.30); gctx.strokeStyle=halo;
+            gctx.globalAlpha=A; gctx.strokeText(txt,0,0);
+            gctx.fillStyle=`rgba(${rgb},${A.toFixed(2)})`; gctx.fillText(txt,0,0); gctx.globalAlpha=1; gctx.restore(); };
+    // the radius axis appears with the era-by-era climb (beat 05), not only at the earth finale
+    const axisA=Math.max(0,Math.min(1,(gpC-0.40)/0.12))*(1-t9);
+    if(axisA>0.01){
       const topY=cy-R*0.60;
       // dashed radius arrow from the core up to the rim
-      gctx.save(); gctx.globalAlpha=earth*0.85; gctx.strokeStyle=`rgba(${ink},0.55)`;
+      gctx.save(); gctx.globalAlpha=axisA*0.85; gctx.strokeStyle=`rgba(${ink},0.55)`;
       gctx.setLineDash([Math.max(2,R*0.012),Math.max(2,R*0.012)]); gctx.lineWidth=Math.max(1.2,R*0.005);
       gctx.beginPath(); gctx.moveTo(cx,cy-R*0.09); gctx.lineTo(cx,topY+R*0.04); gctx.stroke(); gctx.setLineDash([]);
       gctx.beginPath(); gctx.moveTo(cx,topY-R*0.02); gctx.lineTo(cx-R*0.022,topY+R*0.035); gctx.lineTo(cx+R*0.022,topY+R*0.035);
       gctx.closePath(); gctx.fillStyle=`rgba(${ink},0.62)`; gctx.fill(); gctx.restore();
-      lab(cx+R*0.055, cy-R*0.31, 'assembly index →', ink, R*0.032, 'left', -Math.PI/2);
-      lab(cx+R*0.05, cy+R*0.05, 'the core — simple', '210,132,26', R*0.044, 'left');
-      lab(cx+R*0.05, cy+R*0.105, 'assembly index ≈ 1', '210,132,26', R*0.030, 'left');
-      lab(cx, topY-R*0.055, 'the blue rim — complex', '120,108,232', R*0.044, 'center');
-      lab(cx, topY-R*0.008, 'the highest index, the newest things', '120,108,232', R*0.030, 'center');
+      lab(cx+R*0.055, cy-R*0.31, 'assembly index →', ink, R*0.032, 'left', -Math.PI/2, axisA);
+    }
+    // the possible / the plausible / the present — while "almost none of it gets built" (beat 06)
+    const unb=Math.max(0,Math.min(1,(gpC-0.60)/0.10))*(1-Math.max(0,Math.min(1,(gpC-0.84)/0.12)));
+    if(unb>0.01){
+      const gcol=fr=>{ const c=galHue(Math.max(0,Math.min(1,(fr-0.10)/0.9))); return `${c[0]|0},${c[1]|0},${c[2]|0}`; };
+      const at=fr=>({x:cx-fr*R*0.71, y:cy+fr*R*0.71*0.60});
+      const p1=at(0.30), p2=at(0.68), p3=at(1.04);
+      lab(p1.x,p1.y,'the present — what got built',gcol(0.30),R*0.036,'center',0,unb);
+      lab(p2.x,p2.y,'the plausible — one brick out',gcol(0.68),R*0.036,'center',0,unb);
+      lab(p3.x,p3.y,'the possible — never built',gcol(1.0),R*0.036,'center',0,unb*0.9);
+    }
+    const efa=earth*(1-t9); // core/rim explainers clear the stage once the tour proper begins
+    if(efa>0.01){
+      const topY=cy-R*0.60;
+      lab(cx+R*0.05, cy+R*0.05, 'the core — simple', '210,132,26', R*0.044, 'left', 0, efa);
+      lab(cx+R*0.05, cy+R*0.105, 'assembly index ≈ 1', '210,132,26', R*0.030, 'left', 0, efa);
+      lab(cx, topY-R*0.055, 'the blue rim — complex', '120,108,232', R*0.044, 'center', 0, efa);
+      lab(cx, topY-R*0.008, 'the highest index, the newest things', '120,108,232', R*0.030, 'center', 0, efa);
+    }
+    // ---- the coda: a three-stop tour of assemblytheory.xyz ----
+    const a8=t8*(1-t9);
+    if(a8>0.01){ // 08 · the assembly universe — four nested constraint spaces
+      const shells=[[1.16,'the assembly universe — all that mathematics allows',ink,0.55],
+                    [0.90,'the possible — what physics permits','112,72,232',0.85],
+                    [0.66,'the contingent — what history reached','28,126,214',0.90],
+                    [0.44,'the observed — what selection built','47,158,68',0.95]];
+      for(const [f,txt,rgb,ax] of shells){
+        gctx.save(); gctx.globalAlpha=a8*ax*0.8; gctx.strokeStyle=`rgba(${rgb},0.8)`;
+        gctx.setLineDash([Math.max(2,R*0.016),Math.max(2,R*0.014)]); gctx.lineWidth=Math.max(1.2,R*0.005);
+        gctx.beginPath(); gctx.ellipse(cx,cy,R*f,R*f*0.60,0,0,6.28318); gctx.stroke(); gctx.restore();
+        lab(cx, cy-R*f*0.60-R*0.028, txt, rgb, R*0.032, 'center', 0, a8*ax);
+      }
+    }
+    const a9=t9*(1-t10);
+    if(a9>0.01){ // 09 · objects are memories — read the corporation's arm backwards
+      const p=galaxy[ACORP], endA=p.ang+galRot, NL=64, path=[];
+      for(let i=0;i<=NL;i++){ const f=i/NL, rr=0.10+f*(p.rad-0.10), aa=endA-(1-f)*1.05;
+        path.push({x:cx+Math.cos(aa)*rr*R, y:cy+Math.sin(aa)*rr*R*0.60}); }
+      gctx.save(); gctx.lineCap='round'; gctx.lineJoin='round';
+      for(let i=1;i<=NL;i++){ const s=path[i-1],e=path[i], c=galHue(0.52*i/NL);
+        gctx.globalAlpha=a9*(0.25+0.6*i/NL); gctx.strokeStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
+        gctx.lineWidth=Math.max(1.2,R*0.006); gctx.beginPath(); gctx.moveTo(s.x,s.y); gctx.lineTo(e.x,e.y); gctx.stroke(); }
+      // the reading head runs rim → core: memory, read backwards
+      const bf=1-((galT*0.22)%1), bp=path[Math.round(bf*NL)];
+      // seven bricks along the path, lit once the head has passed them
+      for(let k=0;k<7;k++){ const f=k/6*0.96+0.02, q=path[Math.round(f*NL)], lit=f>=bf, c=galHue(0.52*f);
+        gctx.globalAlpha=a9*(lit?0.95:0.30); gctx.fillStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
+        gctx.beginPath(); gctx.arc(q.x,q.y,Math.max(1.8,R*0.008)*(lit?1.5:1),0,6.28318); gctx.fill(); }
+      gctx.globalAlpha=a9; gctx.fillStyle=dark?'#f1eafc':'#221c30';
+      gctx.beginPath(); gctx.arc(bp.x,bp.y,Math.max(2.2,R*0.011),0,6.28318); gctx.fill();
+      gctx.restore();
+      lab(cx, cy+R*0.72, '← read the object backwards and you read time', ink, R*0.036, 'center', 0, a9);
+    }
+    if(t10>0.01){ // 10 · planets are search engines — probes over the dim, unbuilt space
+      gctx.save();
+      for(let gi=0;gi<galaxy.length;gi+=29){ const p=galaxy[gi]; if(p.built) continue;
+        const ph=(galT*0.55+p.ph)%6.28318; if(ph>1.3) continue;
+        const fr=ph/1.3, a=p.ang+galRot, rr=p.rad*R,
+              x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr*0.60, c=galHue(p.t);
+        gctx.globalAlpha=t10*(1-fr)*0.8; gctx.strokeStyle=`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
+        gctx.lineWidth=Math.max(1,R*0.004);
+        gctx.beginPath(); gctx.arc(x,y,R*(0.010+0.040*fr),0,6.28318); gctx.stroke(); }
+      gctx.restore();
+      lab(cx, cy+R*0.72, '🪐 probes fire · most fade · what replicates, sticks', ink, R*0.036, 'center', 0, t10);
     }
   }
   function setHud(){
-    if(gCC>0.5){
+    if(tourC>2.5){ hudN.textContent='🪐'; hudL.innerHTML='planets — <b>search engines for life</b>'; }
+    else if(tourC>1.5){ hudN.textContent='💎'; hudL.innerHTML='objects are <b>memories</b>'; }
+    else if(tourC>0.5){ hudN.textContent='4'; hudL.innerHTML='nested spaces — <b>the assembly universe</b>'; }
+    else if(gCC>0.5){
       if(gpC<0.26){ hudN.textContent='15'; hudL.innerHTML='lineages, <b>one graph</b>'; }
       else if(gpC<0.66){ const climbR=Math.max(0,Math.min(1,(gpC-0.30)/0.30)); hudN.textContent=Math.round(3+13*climbR); hudL.innerHTML='assembly index, <b>era by era</b>'; }
       else if(gpC<0.80){ hudN.textContent='most'; hudL.innerHTML='could exist · <b>never built</b>'; }
@@ -6102,7 +6192,8 @@ function renderAssembly(){
   }
 
   const beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
-  const GP=[0,0,0,0,0.16,0.48,0.74,1.0];   // galaxy progress target per beat
+  const GP=[0,0,0,0,0.16,0.48,0.74,1.0,1,1,1];   // galaxy progress target per beat
+  const TR=[0,0,0,0,0,0,0,0,1,2,3];              // tour target per beat (assemblytheory.xyz coda)
   function scrollDrive(){
     const st=wrap.querySelector('.asmscroll'); if(!st) return;
     const r=st.getBoundingClientRect();
@@ -6111,10 +6202,10 @@ function renderAssembly(){
     beats.forEach(b=>{ const q=b.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
       if(q.bottom>0&&q.top<innerHeight&&d<wd){ wd=d; win=b; } });
     if(win){ const bi=+win.dataset.b;
-      sealT=bi<=0?1:0; fuseT=bi>=2?1:0; spreadT=bi>=3?1:0; gCT=bi>=4?1:0; gpT=GP[bi];
+      sealT=bi<=0?1:0; fuseT=bi>=2?1:0; spreadT=bi>=3?1:0; gCT=bi>=4?1:0; gpT=GP[bi]; tourT=TR[bi];
       beats.forEach(b=>b.classList.toggle('on',b===win));
       progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
-      if(reduced){ sealC=sealT; fuseC=fuseT; spreadC=spreadT; gCC=gCT; gpC=gpT; }
+      if(reduced){ sealC=sealT; fuseC=fuseT; spreadC=spreadT; gCC=gCT; gpC=gpT; tourC=tourT; }
     }
   }
   let last=0;
@@ -6122,7 +6213,7 @@ function renderAssembly(){
     const dt=Math.min(0.05,(now-(last||now))/1000); last=now;
     const k=1-Math.pow(0.015,dt);
     sealC+=(sealT-sealC)*k; fuseC+=(fuseT-fuseC)*k; spreadC+=(spreadT-spreadC)*k;
-    gCC+=(gCT-gCC)*k; gpC+=(gpT-gpC)*k; spinC+=dt*0.9;
+    gCC+=(gCT-gCC)*k; gpC+=(gpT-gpC)*k; tourC+=(tourT-tourC)*k; spinC+=dt*0.9;
     if(gCC>0.01){ galRot+=dt*0.05; galT+=dt; }
     paint(); asmRAF=requestAnimationFrame(raf);
   }
@@ -6132,7 +6223,7 @@ function renderAssembly(){
   addEventListener('scroll',asmScroll,{passive:true});
   addEventListener('resize',asmScroll,{passive:true});
   scrollDrive();
-  if(reduced){ sealC=sealT; fuseC=fuseT; spreadC=spreadT; gCC=gCT; gpC=gpT; }
+  if(reduced){ sealC=sealT; fuseC=fuseT; spreadC=spreadT; gCC=gCT; gpC=gpT; tourC=tourT; }
   paint();
   if(asmRAF) cancelAnimationFrame(asmRAF);
   asmRAF=requestAnimationFrame(raf);
@@ -6237,7 +6328,9 @@ function renderTrap(){
   let W=1,Ht=1,SC=1,cx=0,cy=0;
   function sizeCanvas(){ const r=cv.getBoundingClientRect(); if(!r.width) return;
     const dpr=Math.min(2,devicePixelRatio||1);
-    cv.width=W=Math.round(r.width*dpr); cv.height=Ht=Math.round(r.height*dpr);
+    const w=Math.round(r.width*dpr), h=Math.round(r.height*dpr);
+    if(w===W&&h===Ht) return; // setting canvas.width clears the bitmap mid-frame → scroll flicker
+    cv.width=W=w; cv.height=Ht=h;
     SC=Math.min(W*0.40,Ht*0.62); cx=W/2; cy=Ht*0.60; }
   sizeCanvas();
 
@@ -6250,10 +6343,14 @@ function renderTrap(){
     const xr=xw*ca-yw*sa, yr=xw*sa+yw*ca;
     return {x:cx+xr*SC, y:cy+yr*SC*0.42-h*SC*0.62, depth:yr};
   }
-  function hcol(h,shade){
+  function hrgb(h){
     const t=Math.max(0,Math.min(1,(h-0.05)/0.92)); let r,g,b;
     if(t<0.5){ const f=t/0.5; r=alerp(224,217,f); g=alerp(66,138,f); b=alerp(79,31,f); }
     else{ const f=(t-0.5)/0.5; r=alerp(217,47,f); g=alerp(138,158,f); b=alerp(31,68,f); }
+    return [r,g,b];
+  }
+  function hcol(h,shade){
+    const [r,g,b]=hrgb(h);
     return `rgb(${(r*shade)|0},${(g*shade)|0},${(b*shade)|0})`;
   }
   function label(x,y,txt,rgb,sz,al,rot,halo){ ctx.save(); ctx.translate(x,y); if(rot) ctx.rotate(rot);
@@ -6276,13 +6373,28 @@ function renderTrap(){
       ctx.beginPath(); ctx.moveTo(q.a.x,q.a.y); ctx.lineTo(q.b.x,q.b.y); ctx.lineTo(q.c.x,q.c.y); ctx.lineTo(q.d.x,q.d.y); ctx.closePath();
       ctx.fillStyle=hcol(q.h,shade); ctx.fill();
       ctx.strokeStyle=dark?'rgba(0,0,0,0.28)':'rgba(255,255,255,0.30)'; ctx.lineWidth=Math.max(0.5,SC*0.0015); ctx.stroke(); }
-    // ---- inherited axes: the design space (the grid) and success (height) ----
-    { const f=proj(0.5,1.06,0.02,camA); label(f.x,f.y,'◄  the design space — every choice we could make  ►',ink,SC*0.055,'center',0,halo);
+    // ---- inherited axes: each label hugs its axis and takes the palette of the terrain nearest it ----
+    { const lift=c=>dark?`rgb(${(c[0]+(255-c[0])*0.45)|0},${(c[1]+(255-c[1])*0.45)|0},${(c[2]+(255-c[2])*0.45)|0})`
+                       :`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;
+      const keepUp=a=>Math.abs(a)>Math.PI/2?a+(a>0?-Math.PI:Math.PI):a;
+      // hug the surface's right edge (u=1, v 0→1, at terrain height), font auto-fit to the edge length
+      const e0=proj(1.04,0.05,H(1,0.05,mC)-0.06,camA), e1=proj(1.04,0.95,H(1,0.95,mC)-0.06,camA),
+            em=proj(1.04,0.5,H(1,0.5,mC)-0.06,camA);
+      const ea=keepUp(Math.atan2(e1.y-e0.y,e1.x-e0.x));
+      const dsTxt='◄  the design space — every choice we could make  ►';
+      let dsSz=SC*0.055; ctx.font=`800 ${Math.round(dsSz)}px -apple-system,BlinkMacSystemFont,sans-serif`;
+      const edgeL=Math.hypot(e1.x-e0.x,e1.y-e0.y), dsW=ctx.measureText(dsTxt).width;
+      if(dsW>edgeL*1.25) dsSz*=edgeL*1.25/dsW;
+      // nudge just off the surface, perpendicular to the edge (outward = down-right)
+      let nx=(e1.y-e0.y)/edgeL, ny=-(e1.x-e0.x)/edgeL; if(nx<0){ nx=-nx; ny=-ny; }
+      label(em.x+nx*SC*0.065,em.y+ny*SC*0.065,dsTxt,lift(hrgb(H(1,0.5,mC))),dsSz,'center',ea,halo);
       const z0=proj(-0.04,-0.04,0.02,camA), z1=proj(-0.04,-0.04,1.02,camA);
       ctx.save(); ctx.globalAlpha=0.8; ctx.strokeStyle=ink; ctx.lineWidth=Math.max(1,SC*0.006);
       ctx.beginPath(); ctx.moveTo(z0.x,z0.y); ctx.lineTo(z1.x,z1.y); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(z1.x,z1.y); ctx.lineTo(z1.x-SC*0.03,z1.y+SC*0.03); ctx.lineTo(z1.x+SC*0.03,z1.y+SC*0.03); ctx.closePath(); ctx.fillStyle=ink; ctx.fill(); ctx.restore();
-      label(z1.x-SC*0.02,z1.y-SC*0.05,'collective success ↑',dark?'#8fe0a3':'#2f9e44',SC*0.05,'center',0,halo); }
+      const zl=Math.hypot(z1.x-z0.x,z1.y-z0.y)||1, zdx=(z1.x-z0.x)/zl, zdy=(z1.y-z0.y)/zl;
+      const za=keepUp(Math.atan2(zdy,zdx)), zm={x:(z0.x+z1.x)/2,y:(z0.y+z1.y)/2};
+      label(zm.x+zdy*SC*0.045,zm.y-zdx*SC*0.045,'collective success ↑',lift(hrgb(1)),SC*0.05,'center',za,halo); }
     // peak + trap labels, on the surface
     const climbed=Math.max(0,Math.min(1,(bx.reduce((a,b)=>a+b,0)/NB-0.58)/0.20));
     { const pk=proj(0.82,0.5,H(0.82,0.5,mC),camA); if(1-climbed>0.02) label(pk.x,pk.y-SC*0.09,'▲ the summit',dark?'#8fe0a3':'#2f9e44',SC*0.052,'center',0,halo),label(pk.x,pk.y-SC*0.045,'everyone cooperates',dark?'rgba(143,224,163,.85)':'rgba(47,158,68,.9)',SC*0.036,'center',0,halo);
