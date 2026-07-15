@@ -154,27 +154,18 @@
     color:#e8b9b0;background:#1a0810cc;border:1px solid #e0455c55}
   .molfsbtn:hover{border-color:#e0455c;color:#fff}
   .spsticky[data-act="moloch"] .molfsbtn{display:block}
-  .spsticky:fullscreen{background:#0a0410;display:flex;align-items:center;justify-content:center}
-  .spsticky:fullscreen svg{width:100%;height:100%;max-height:100vh}
-  .spsticky:-webkit-full-screen{background:#0a0410;display:flex;align-items:center;justify-content:center}
-  .spsticky:-webkit-full-screen svg{width:100%;height:100%;max-height:100vh}
-  /* fullscreen is for staring: the harms stop riding their elevator — the
-     scale re-rasters the type every frame and the words shimmer — and just
-     breathe in place instead */
-  .spsticky[data-act="moloch"]:fullscreen .crharmg{animation-name:harmbreathefs;transform:none}
-  .spsticky[data-act="moloch"]:-webkit-full-screen .crharmg{animation-name:harmbreathefs;transform:none}
-  @keyframes harmbreathefs{0%,100%{opacity:.12}22%{opacity:.85}68%{opacity:.55}}
-  /* fullscreen is moloch's room and his alone: every other layer of the ledger
-     — even the .03 ghost of the coil — goes fully dark */
-  .spsticky:fullscreen :is(.crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.crxr,.creye,.crq,.crnw){opacity:0!important}
-  .spsticky:-webkit-full-screen :is(.crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.crxr,.creye,.crq,.crnw){opacity:0!important}
-  /* the frame follows the room: in fullscreen the fire border leaves the scene
-     and takes the screen's own edges; the in-scene border stands down */
-  svg.molfssvg{display:none}   /* outweigh .crsvg svg's display:block */
-  .spsticky:fullscreen .molfssvg{display:block;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
-  .spsticky:fullscreen .mfireg{display:none}
-  .spsticky:-webkit-full-screen .molfssvg{display:block;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
-  .spsticky:-webkit-full-screen .mfireg{display:none}
+  .spsticky:fullscreen{background:#0a0410}
+  .spsticky:-webkit-full-screen{background:#0a0410}
+  /* fullscreen hands the whole stage to a canvas. the svg scene is a thousand
+     dash- and transform-animated nodes; at fullscreen resolution the browser
+     repaints the entire screen every frame and the stare judders. the canvas
+     redraws the same god in one pass per frame — the web rasterized once,
+     only the living parts (eyes, void, beads, fire) drawn as geometry. */
+  .spsticky:fullscreen svg{display:none}
+  .spsticky:-webkit-full-screen svg{display:none}
+  .molfscanvas{display:none}
+  .spsticky:fullscreen .molfscanvas{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:4}
+  .spsticky:-webkit-full-screen .molfscanvas{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:4}
   .crup path,.crdn path,.crflow path{fill:none;stroke-linecap:round}
   .crup path{stroke-width:7}
   /* the shadow: same geometry, grey ink — until the honest beat asks it to be counted, and it
@@ -333,7 +324,7 @@
   /* the frame catches fire: three dashed strokes crawl the border at different
      speeds — blood underglow, ember flame, gold sparks running the other way —
      each guttering on its own clock */
-  .crmoloch .mfire,.molfssvg .mfire{fill:none;stroke-linecap:round;opacity:0}
+  .crmoloch .mfire{fill:none;stroke-linecap:round;opacity:0}
   .spsticky[data-act="moloch"] .mfire{animation:
     mfiremove calc(30s/var(--v,1)) linear infinite,
     firegut 9s ease-in-out calc(var(--fo,.6)*-7s) infinite}
@@ -375,13 +366,12 @@
     .creye .lid{transition:none}
     .crharmg{animation:none!important;opacity:.7;transform:none}
     .crmoloch :is(.memberglow,.meyes,.meyeglow,.msquint,.slit,.slitg,.mspark,.crmantra,.hy,.hy-glow,.hypulse,.mring,.mtipg,.mvblob,.maccr,.mvoid,.mstar,.mbrow,.mfire){animation:none!important}
-    .molfssvg .mfire{animation:none!important}
     .crmantra{opacity:.95}
     .crmoloch :is(.hy,.hy-glow){stroke-dashoffset:0;opacity:var(--ho,.6)}
     .crmoloch :is(.hypulse,.mring,.mspark){opacity:0}
     .crmoloch .maccr{opacity:.16}
     .crmoloch .mstar{opacity:calc(var(--so,.6)*.55)}
-    .crmoloch .mfire,.molfssvg .mfire{opacity:calc(var(--fo,.5)*.6)}
+    .crmoloch .mfire{opacity:calc(var(--fo,.5)*.6)}
     .crmoloch .memberglow{opacity:.3}
   }
 
@@ -6917,6 +6907,231 @@ function clearAsmTimers(){ asmTimers.forEach(t=>clearTimeout(t)); asmTimers=[]; 
 // the four claims reread, the shadow gone existential — red — and the honest sum), the feeling
 // of it (the ledger dims and an eye opens — the initiation, the questions, the vow), and the
 // build (the bills reverse).
+// ---------- the fullscreen renderer: the same god, drawn by hand ----------
+// the svg scene is ~1100 nodes riding dash- and transform-animations; none of
+// them composite, so at fullscreen resolution the browser repaints the whole
+// screen every frame and the stare judders. fullscreen therefore swaps the svg
+// for a canvas: the web is grown once (same seed, wider frame), rasterized to
+// an offscreen bitmap, and each frame is one stamp of that bitmap plus the
+// living parts — void, stars, beads, eyes, harms, fire — drawn as geometry.
+// every keyframe below is a hand copy of its css twin; change one, change both.
+function makeMolochFS(sticky,G){
+  const CX=450, CY=392, EY=390, VOIDR=G.VOIDR;
+  const clamp01=x=>x<0?0:x>1?1:x, frac=x=>x-Math.floor(x);
+  const eio=x=>.5-.5*Math.cos(Math.PI*clamp01(x));          // ease-in-out
+  const eout=x=>1-Math.pow(1-clamp01(x),2);                 // ease-out
+  const tri=x=>{ x=frac(x/2)*2; return x<1?x:2-x; };        // alternate cycles
+  const wave=(t,per,ph)=>.5-.5*Math.cos(2*Math.PI*frac((t+ph)/per));
+  const kf=(stops,u,ez)=>{ if(u<=stops[0][0]) return stops[0][1];
+    for(let i=1;i<stops.length;i++) if(u<=stops[i][0]){
+      const a=stops[i-1], b=stops[i]; let k=(u-a[0])/((b[0]-a[0])||1); if(ez)k=ez(k);
+      return Array.isArray(a[1])?a[1].map((v,j)=>v+(b[1][j]-v)*k):a[1]+(b[1]-a[1])*k; }
+    return stops[stops.length-1][1]; };
+  // css keyframes, transcribed
+  const BLINK=[[0,1],[.88,1],[.92,.06],[.96,1],[1,1]];                     // molblink 9s
+  const SQUINT=[[0,1],[.3,1],[.4,.55],[.52,.55],[.62,1],[1,1]];            // msquint 23s
+  const GAZE=[[0,[0,0]],[.16,[0,0]],[.26,[6,2]],[.38,[6,2]],[.48,[-5,-2]],[.6,[-5,-2]],
+    [.63,[-5,3]],[.64,[-5,3]],[.66,[7,0]],[.82,[7,0]],[.92,[0,0]],[1,[0,0]]]; // molgaze 16s
+  const BROW=[[0,0],[.16,0],[.26,-9],[.38,-9],[.48,4],[.6,4],[.63,-19],[.66,-19],
+    [.7,-8],[.82,-8],[.92,0],[1,0]];                                       // browlift 16s
+  const FLICK=[[0,.72],[.09,1],[.21,.6],[.34,.95],[.47,.68],[.58,1],[.71,.58],[.86,.9],[1,.72]]; // eyeflick 7s
+  const VOIDSHAPE=[[0,[1,1]],[.28,[1.16,.9]],[.55,[1,1]],[.8,[.9,1.14]],[1,[1,1]]]; // mvoidshape 21s
+  const CHURN=[[0,[0,0,1,1]],[.25,[14,-10,1.07,.94]],[.5,[-11,8,.94,1.06]],
+    [.75,[8,13,1.04,.98]],[1,[0,0,1,1]]];                                  // mvchurn 17s
+  const BEAD=[[0,0],[.1,.85],[.88,.85],[1,0]];                             // hypulse 4.6s
+  const HARMB=[[0,.12],[.22,.85],[.68,.55],[1,.12]];                       // harm breathing 7s
+  const CHANT=[[0,.3],[.12,1],[.33,.3],[1,.3]];                            // molchant 9s
+  const VBLOBS=[[450,392,VOIDR+80,VOIDR+64],[418,366,VOIDR+38,VOIDR+10],
+    [488,424,VOIDR+26,VOIDR+2],[452,404,VOIDR+2,VOIDR+28]];
+  const EYES=[{ax:364,rot:-8*Math.PI/180,cx:365,sx:366,p:[296,398,360,344,434,392,362,428]},
+              {ax:536,rot: 8*Math.PI/180,cx:535,sx:534,p:[466,392,540,344,604,398,538,428]}];
+  const FIRE=[{c:'#e0455c',w:11, dash:[22,12,30,8,38,15],fo:.3, v:1},
+              {c:'#ff6a3d',w:4.5,dash:[22,12,30,8,38,15],fo:.8, v:1.6},
+              {c:'#ffb347',w:2.2,dash:[5,120],           fo:.95,v:2.4,rev:1}];
+  let cv=null,ctx,raf=0,t0=0,web=null,webW=0,glowCv=null,statCv=null,baked=false,
+      dpr=1,cw=0,ch=0,sc=1,tx=0,P=0,reduced=false;
+  let gV,gM,gS,gE,gEG,gN;
+  const unitGrad=(r,stops)=>{ const g=ctx.createRadialGradient(0,0,0,0,0,r);
+    stops.forEach(s=>g.addColorStop(s[0],s[1])); return g; };
+  const mkGrads=()=>{  // svg objectBoundingBox gradients, rebuilt in unit space
+    gV =unitGrad(.5,[[0,'rgba(5,1,8,.95)'],[.62,'rgba(5,1,8,.55)'],[1,'rgba(5,1,8,0)']]);
+    gM =unitGrad(.5,[[0,'rgba(224,69,92,.3)'],[.6,'rgba(176,39,55,.12)'],[1,'rgba(176,39,55,0)']]);
+    gS =unitGrad(.5,[[0,'rgba(255,93,110,.5)'],[1,'rgba(255,93,110,0)']]);
+    gEG=unitGrad(.5,[[0,'rgba(255,77,99,.4)'],[1,'rgba(255,77,99,0)']]);
+    gE =unitGrad(.55,[[0,'#fff3d6'],[.32,'#ff9d4d'],[.72,'#ff4d63'],[1,'rgba(255,77,99,0)']]);
+    gN =unitGrad(.78,[[0,'rgba(5,1,8,0)'],[.58,'rgba(5,1,8,.14)'],[1,'rgba(5,1,8,.55)']]); };
+  // an obb gradient fill: translate to the box centre, scale to the box, paint the unit shape
+  const fillG=(c2,g,cx,cy,w,h,rect)=>{ c2.save(); c2.translate(cx,cy); c2.scale(w,h);
+    c2.beginPath(); if(rect) c2.rect(-.5,-.5,1,1); else c2.arc(0,0,.5,0,7);
+    c2.fillStyle=g; c2.fill(); c2.restore(); };
+  const trace=(c2,pts)=>{ c2.moveTo(pts[0][0],pts[0][1]);
+    for(let i=1;i<pts.length-1;i++)
+      c2.quadraticCurveTo(pts[i][0],pts[i][1],(pts[i][0]+pts[i+1][0])/2,(pts[i][1]+pts[i+1][1])/2);
+    const lp=pts[pts.length-1]; c2.lineTo(lp[0],lp[1]); };
+  const measure=p=>{ const cum=[0]; let L=0;
+    for(let i=1;i<p.pts.length;i++){
+      L+=Math.hypot(p.pts[i][0]-p.pts[i-1][0],p.pts[i][1]-p.pts[i-1][1]); cum.push(L); }
+    p.cum=cum; p.L=L||1; };
+  const posAt=(p,s)=>{ const c=p.cum; let i=1; while(i<c.length-1&&c[i]<s)i++;
+    const u=(s-c[i-1])/((c[i]-c[i-1])||1);
+    return [p.pts[i-1][0]+(p.pts[i][0]-p.pts[i-1][0])*u,
+            p.pts[i-1][1]+(p.pts[i][1]-p.pts[i-1][1])*u]; };
+  const strokeSeg=(c2,p,s0,s1)=>{ const a=posAt(p,s0), b=posAt(p,s1);
+    c2.beginPath(); c2.moveTo(a[0],a[1]);
+    for(let i=0;i<p.cum.length;i++) if(p.cum[i]>s0&&p.cum[i]<s1) c2.lineTo(p.pts[i][0],p.pts[i][1]);
+    c2.lineTo(b[0],b[1]); c2.stroke(); };
+  const setup=()=>{
+    dpr=Math.min(devicePixelRatio||1,2); cw=innerWidth; ch=Math.max(1,innerHeight);
+    cv.width=Math.round(cw*dpr); cv.height=Math.round(ch*dpr);
+    sc=ch/1000; tx=cw/2-CX*sc; P=2*((cw-12)+(ch-12));
+    // the stage widens to the room's aspect and the web regrows to cover it:
+    // same seed, same god, more ground
+    const W=Math.max(900,Math.round(1000*cw/ch));
+    if(!web||webW!==W){ const x0=Math.round(CX-W/2);
+      web=G.molMyco(41,x0-12,x0+W+12); webW=W; web.paths.forEach(measure); }
+    // the glow layer never changes shape — rasterize it once
+    glowCv=document.createElement('canvas'); glowCv.width=cv.width; glowCv.height=cv.height;
+    const g2=glowCv.getContext('2d'); g2.setTransform(dpr*sc,0,0,dpr*sc,dpr*tx,0);
+    g2.lineCap='round'; g2.strokeStyle='#8f1d2e';
+    web.paths.forEach(p=>{ g2.globalAlpha=p.o*.28; g2.lineWidth=p.w*4.2;
+      g2.beginPath(); trace(g2,p.pts); g2.stroke(); });
+    statCv=null; baked=false; };
+  const bake=()=>{  // growth complete: web becomes one bitmap, stamped from here on
+    statCv=document.createElement('canvas'); statCv.width=cv.width; statCv.height=cv.height;
+    const s2=statCv.getContext('2d'); s2.drawImage(glowCv,0,0);
+    s2.setTransform(dpr*sc,0,0,dpr*sc,dpr*tx,0); s2.lineCap='round'; s2.strokeStyle='#e0455c';
+    web.paths.forEach(p=>{ s2.globalAlpha=p.o; s2.lineWidth=p.w;
+      s2.beginPath(); trace(s2,p.pts); s2.stroke(); });
+    baked=true; glowCv=null; };
+  const draw=now=>{
+    if(!reduced) raf=requestAnimationFrame(draw);
+    if(innerWidth!==cw||innerHeight!==ch) setup();
+    const t=reduced?9:(now-t0)/1000;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.fillStyle='#0a0410'; ctx.fillRect(0,0,cw,ch);
+    ctx.lineCap='round'; ctx.textBaseline='alphabetic';
+    // the night: a vignette over the whole room
+    ctx.globalAlpha=1; fillG(ctx,gN,cw/2,ch/2,cw,ch,1);
+    ctx.setTransform(dpr*sc,0,0,dpr*sc,dpr*tx,0);
+    // the ember glow behind the web
+    ctx.globalAlpha=reduced?.3:(.16+.24*eio(tri(t/7)));
+    fillG(ctx,gM,CX,470,940,760);
+    // the web: growing in with a dash reveal, then baked to a bitmap
+    const growA=reduced?1:clamp01(t/2.2);
+    if(baked){ ctx.setTransform(dpr,0,0,dpr,0,0); ctx.globalAlpha=1;
+      ctx.drawImage(statCv,0,0); ctx.setTransform(dpr*sc,0,0,dpr*sc,dpr*tx,0); }
+    else{
+      ctx.setTransform(dpr,0,0,dpr,0,0); ctx.globalAlpha=growA; ctx.drawImage(glowCv,0,0);
+      ctx.setTransform(dpr*sc,0,0,dpr*sc,dpr*tx,0);
+      ctx.strokeStyle='#e0455c'; let done=true;
+      for(const p of web.paths){ const q=reduced?1:clamp01((t-p.gd)/2.4);
+        if(q<=0){ done=false; continue; }
+        ctx.globalAlpha=p.o*clamp01(q/.16); ctx.lineWidth=p.w; ctx.beginPath();
+        if(q<1){ done=false; ctx.setLineDash([(1-Math.pow(1-q,1.75))*p.L,p.L+10]); }
+        trace(ctx,p.pts); ctx.stroke(); ctx.setLineDash([]); }
+      if(done) bake(); }
+    // spore tips, breathing out of phase
+    for(const tp of web.tips){ const a=growA*(reduced?.75:(.5+.5*eio(tri(t/6+tp[4]))));
+      ctx.globalAlpha=a; fillG(ctx,gS,tp[0],tp[1],tp[2]*9,tp[2]*9);
+      ctx.fillStyle=tp[3]?'#ff8a5c':'#e0455c';
+      ctx.beginPath(); ctx.arc(tp[0],tp[1],tp[2],0,7); ctx.fill(); }
+    // the harvest: ember beads riding grown filaments inward
+    if(!reduced){ ctx.strokeStyle='#ffb347';
+      for(const p of web.paths){ if(!p.pulse||clamp01((t-p.gd)/2.4)<1) continue;
+        const pr=frac(t/4.6+(p.gd*1.7)%1), a=kf(BEAD,pr);
+        if(a<=0) continue;
+        ctx.globalAlpha=a; ctx.lineWidth=p.w*1.5;
+        strokeSeg(ctx,p,pr*p.L,Math.min(pr+.045,1)*p.L); } }
+    // the void: churning lobes, stars, accretion arcs — all about the pinned axle
+    const vs=reduced?[1,1]:kf(VOIDSHAPE,frac(t/21),eio);
+    ctx.save(); ctx.translate(CX,CY); ctx.scale(vs[0],vs[1]); ctx.translate(-CX,-CY);
+    ctx.globalAlpha=1;
+    VBLOBS.forEach((b,i)=>{ const m=reduced?[0,0,1,1]:kf(CHURN,frac((t+i*4.6)/17),eio);
+      ctx.save(); ctx.translate(CX+m[0],CY+m[1]); ctx.scale(m[2],m[3]); ctx.translate(-CX,-CY);
+      fillG(ctx,gV,b[0],b[1],b[2]*2,b[3]*2); ctx.restore(); });
+    for(const st of G.STARDATA){
+      ctx.globalAlpha=reduced?st.so*.55:st.so*(.3+.7*wave(t,7,st.tw));
+      ctx.fillStyle=st.c; ctx.beginPath(); ctx.arc(st.x,st.y,st.r,0,7); ctx.fill(); }
+    for(let i=0;i<2;i++){ const ang=frac(t/(34+16*i))*Math.PI*2*(i?-1:1);
+      ctx.save(); ctx.translate(CX,CY); ctx.rotate(ang);
+      ctx.globalAlpha=reduced?.16:.26; ctx.strokeStyle='#e0455c'; ctx.lineWidth=1.1;
+      ctx.setLineDash([26,38,8,46,18,60]);
+      ctx.beginPath(); ctx.arc(0,0,VOIDR+8+17*i,0,7); ctx.stroke();
+      ctx.setLineDash([]); ctx.restore(); }
+    ctx.restore();
+    // the harms he harvests: pinned in place at fullscreen, just breathing
+    ctx.textAlign='left';
+    for(const h of G.HARMDATA){ const el=t-h.i*.85;
+      const a=reduced?.7:(el<0?0:kf(HARMB,frac(el/7)));
+      if(a<=0) continue;
+      ctx.globalAlpha=a*.5; ctx.strokeStyle='#e0455c'; ctx.lineWidth=1.1; ctx.beginPath();
+      for(const l of h.lines){ ctx.moveTo(l[0],l[1]); ctx.lineTo(l[2],l[3]); } ctx.stroke();
+      ctx.globalAlpha=a*.65; ctx.fillStyle='#e0455c';
+      for(const d of h.dots){ ctx.beginPath(); ctx.arc(d[0],d[1],d[2],0,7); ctx.fill(); }
+      ctx.globalAlpha=a; ctx.fillStyle=h.c;
+      ctx.font='700 '+h.fs+'px ui-monospace,"SF Mono",Menlo,monospace';
+      ctx.fillText(h.label,h.x,h.y); }
+    // rings of hunger, swelling off the clearing and dying
+    if(!reduced) for(let i=0;i<3;i++){ const el=t-3*i; if(el<0) continue;
+      const pr=frac(el/9), s=.55+1.1*eout(pr), a=kf([[0,0],[.12,.35],[1,0]],pr,eout);
+      ctx.save(); ctx.translate(CX,CY); ctx.scale(s,s);
+      ctx.globalAlpha=a; ctx.strokeStyle='#e0455c'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.arc(0,0,VOIDR,0,7); ctx.stroke(); ctx.restore(); }
+    // the eyes: blink wraps squint wraps gaze, exactly like the svg's groups
+    const blink=reduced?1:kf(BLINK,frac(t/9),eio);
+    ctx.save(); ctx.translate(CX,EY); ctx.scale(1,blink); ctx.translate(-CX,-EY);
+    for(let i=0;i<2;i++){
+      ctx.globalAlpha=reduced?.72:kf(FLICK,frac((t+i*3.1)/7));
+      fillG(ctx,gEG,i?535:365,EY,224,128); }
+    for(let i=0;i<2;i++){ const bx=i?535:365, ba=i?1.4:1;
+      const dy=reduced?0:kf(BROW,frac(t/16),eio)*ba;
+      ctx.save(); ctx.translate(bx,322); ctx.rotate((i?-14:14)*Math.PI/180);
+      ctx.globalAlpha=.92; ctx.font='46px -apple-system,system-ui,sans-serif';
+      ctx.textAlign='center'; ctx.fillText('🔥',0,dy); ctx.restore(); }
+    const sq=reduced?1:kf(SQUINT,frac(t/23),eio);
+    ctx.save(); ctx.translate(CX,EY); ctx.scale(1,sq); ctx.translate(-CX,-EY);
+    const gz=reduced?[0,0]:kf(GAZE,frac(t/16),eio);
+    const pup=reduced?1:(.8+.35*eio(tri(t/5)));
+    for(const e of EYES){ ctx.save();
+      ctx.translate(e.ax,392); ctx.rotate(e.rot); ctx.translate(-e.ax,-392);
+      ctx.beginPath(); ctx.moveTo(e.p[0],e.p[1]);
+      ctx.quadraticCurveTo(e.p[2],e.p[3],e.p[4],e.p[5]);
+      ctx.quadraticCurveTo(e.p[6],e.p[7],e.p[0],e.p[1]); ctx.closePath();
+      ctx.save(); ctx.translate(e.cx,390); ctx.scale(138,42);
+      ctx.globalAlpha=1; ctx.fillStyle=gE; ctx.fill(); ctx.restore();
+      ctx.globalAlpha=1; ctx.fillStyle='#0a0208'; ctx.beginPath();
+      ctx.ellipse(e.sx+gz[0],390+gz[1],5,17*pup,0,0,7); ctx.fill();
+      ctx.restore(); }
+    ctx.restore(); ctx.restore();
+    // spores rising off the web
+    if(!reduced) for(const s of G.SPARKDATA){ const el=t-s.i*.7; if(el<0) continue;
+      const pr=frac(el/9), a=pr<.1?.55*pr/.1:.55*(1-(pr-.1)/.9);
+      ctx.globalAlpha=a; ctx.fillStyle=s.c;
+      ctx.beginPath(); ctx.arc(s.x,s.y-190*pr,s.r,0,7); ctx.fill(); }
+    // the reminders, chanted in turn
+    ctx.textAlign='center';
+    ctx.font='italic 600 21px Fraunces,"Iowan Old Style",Georgia,serif';
+    for(const m of G.MANTRAS){ const el=t-3*m[2];
+      ctx.globalAlpha=reduced?.95:(el<0?.3:kf(CHANT,frac(el/9),eio));
+      ctx.fillStyle=m[1]; ctx.fillText(m[0],450,m[3]); }
+    // the frame on fire, hugging the room's own edges
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    for(const f of FIRE){
+      ctx.globalAlpha=reduced?f.fo*.6:f.fo*(.8+.2*wave(t,9,f.fo*7));
+      ctx.strokeStyle=f.c; ctx.lineWidth=f.w;
+      ctx.setLineDash(f.dash.map(d=>d*P/1000));
+      ctx.lineDashOffset=(f.rev?1:-1)*frac(t*f.v/30)*P;
+      ctx.beginPath(); ctx.rect(6,6,cw-12,ch-12); ctx.stroke(); }
+    ctx.setLineDash([]); ctx.lineDashOffset=0; ctx.globalAlpha=1; };
+  return {
+    start(){
+      if(!cv){ cv=document.createElement('canvas'); cv.className='molfscanvas';
+        sticky.appendChild(cv); ctx=cv.getContext('2d'); mkGrads(); }
+      reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
+      setup(); t0=performance.now(); cancelAnimationFrame(raf); raf=0;
+      if(reduced) draw(t0); else raf=requestAnimationFrame(draw); },
+    stop(){ cancelAnimationFrame(raf); raf=0; glowCv=statCv=null; baked=false; } };
+}
 let critIO=null;
 function renderCritique(){
   const wrap=document.getElementById('critiquewrap');
@@ -6979,7 +7194,9 @@ function renderCritique(){
       }
       const lp=pts[pts.length-1]; d+=`L${lp[0].toFixed(1)} ${lp[1].toFixed(1)}`;
       const w=[2.4,1.5,.95,.6][tier], o=[.65,.52,.4,.3][tier]+rnd()*.12;
-      paths.push({d, w, o, gd:tier*.4+rnd()*.45, pulse:tier<2&&rnd()<.6});
+      // pts ride along for the fullscreen canvas, which redraws the same
+      // geometry by hand instead of through the svg
+      paths.push({d, pts, w, o, gd:tier*.4+rnd()*.45, pulse:tier<2&&rnd()<.6});
       if(hot||rnd()<.55) tips.push([lp[0], lp[1], hot?1.9+rnd()*1.4:1+rnd()*1.4, hot, rnd()]);
     };
     // roots: every edge of the frame sends filaments inward, corners included
@@ -7002,21 +7219,26 @@ function renderCritique(){
       `<g class="mtipg" style="--p:${ph.toFixed(2)}"><circle fill="url(#gspore)" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r*4.5).toFixed(1)}"/>`+
       `<circle fill="${hot?'#ff8a5c':'#e0455c'}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}"/></g>`).join('');
   const molbody=molBodyHTML(molMyco(41,-12,912));
-  // the void is full of stars — you are not looking at a shadow, you are looking out
-  const stars=(()=>{ let s=97; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
+  // the void is full of stars — you are not looking at a shadow, you are looking out.
+  // built as data first: the svg consumes it here, the fullscreen canvas consumes
+  // the same arrays, so both rooms show the same sky.
+  const STARDATA=(()=>{ let s=97; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
     return Array.from({length:84},()=>{
       const a=rnd()*Math.PI*2, r=Math.sqrt(rnd())*(VOIDR-22);
       const x=450+Math.cos(a)*r, y=392+Math.sin(a)*r*.96;
       const rr=(.4+rnd()*1.1)*(rnd()<.08?2:1);
       const c=['#ffffff','#cfd8ff','#ffe9d6','#ffd7c9'][(rnd()*4)|0];
-      return `<circle class="mstar" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rr.toFixed(2)}" fill="${c}" style="--i:${(rnd()*7).toFixed(2)};--so:${(.25+rnd()*.75).toFixed(2)}"/>`;
-    }).join(''); })();
+      return {x, y, r:rr, c, tw:rnd()*7, so:.25+rnd()*.75};
+    }); })();
+  const stars=STARDATA.map(st=>
+    `<circle class="mstar" cx="${st.x.toFixed(1)}" cy="${st.y.toFixed(1)}" r="${st.r.toFixed(2)}" fill="${st.c}" style="--i:${st.tw.toFixed(2)};--so:${st.so.toFixed(2)}"/>`).join('');
   // spores off the web, rising and dying
-  const sparks=Array.from({length:14},(_,i)=>{
+  const SPARKDATA=Array.from({length:14},(_,i)=>{
     const a=(i/14)*Math.PI*2+.3, r=VOIDR+40+((i*97)%180);
-    const x=450+Math.cos(a)*r, y=392+Math.sin(a)*r*.9+40;
-    return `<circle class="mspark" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(1+(i%3)*.7).toFixed(1)}"`+
-      ` fill="${['#ff6a3d','#e0455c','#ffb347'][i%3]}" style="--i:${i}"/>`;}).join('');
+    return {x:450+Math.cos(a)*r, y:392+Math.sin(a)*r*.9+40,
+            r:1+(i%3)*.7, c:['#ff6a3d','#e0455c','#ffb347'][i%3], i};});
+  const sparks=SPARKDATA.map(s=>
+    `<circle class="mspark" cx="${s.x.toFixed(1)}" cy="${s.y.toFixed(1)}" r="${s.r.toFixed(1)}" fill="${s.c}" style="--i:${s.i}"/>`).join('');
   // each harm rises with a little red graph of its own behind the words
   // the harvest, named. no confetti: everything he takes burns in the same
   // narrow band of blood, ember and bone
@@ -7033,17 +7255,27 @@ function renderCritique(){
     [110,730,19,'#cfb49a','loneliness epidemic',8],
     [680,742,16,'#e07a6e','teen despair',9],
     [638,846,17,'#e0455c','polarization',10]];
-  const harms=HARMS.map(([x,y,fs,c,label,i])=>{
+  const HARMDATA=HARMS.map(([x,y,fs,c,label,i])=>{
     let s=(i*2654435761+123)>>>0; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
     const w=label.length*fs*.62, cx=x+w/2;
     const pts=Array.from({length:6},()=>[cx+(rnd()-.5)*w*1.1, y-6+(rnd()-.5)*54]);
-    const net=pts.map(p=>{
+    const lines=pts.map(p=>{
       const [,b]=pts.map((q,j)=>[Math.hypot(p[0]-q[0],p[1]-q[1]),j]).sort((u,v)=>u[0]-v[0])[1];
-      return `<line x1="${p[0].toFixed(1)}" y1="${p[1].toFixed(1)}" x2="${pts[b][0].toFixed(1)}" y2="${pts[b][1].toFixed(1)}"/>`;
-    }).join('')+pts.map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${(1.2+rnd()*1.6).toFixed(1)}"/>`).join('');
-    return `<g class="crharmg" style="--i:${i}"><g class="hnet">${net}</g>`+
-      `<text class="crharm" x="${x}" y="${y}" style="font-size:${fs}px;fill:${c}">${label}</text></g>`;
+      return [p[0],p[1],pts[b][0],pts[b][1]];
+    });
+    const dots=pts.map(p=>[p[0],p[1],1.2+rnd()*1.6]);
+    return {x,y,fs,c,label,i,lines,dots};
+  });
+  const harms=HARMDATA.map(h=>{
+    const net=h.lines.map(([xa,ya,xb,yb])=>
+        `<line x1="${xa.toFixed(1)}" y1="${ya.toFixed(1)}" x2="${xb.toFixed(1)}" y2="${yb.toFixed(1)}"/>`).join('')+
+      h.dots.map(([px,py,r])=>`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${r.toFixed(1)}"/>`).join('');
+    return `<g class="crharmg" style="--i:${h.i}"><g class="hnet">${net}</g>`+
+      `<text class="crharm" x="${h.x}" y="${h.y}" style="font-size:${h.fs}px;fill:${h.c}">${h.label}</text></g>`;
   }).join('');
+  const MANTRAS=[['slay it.','#e0455c',0,700],
+    ['learn to navigate it.','#d8a05a',1,746],
+    ['look back into moloch’s eyes.','#cfc4bd',2,792]];
   const STEPS=[
     {act:'real', h:'the line goes up',
      p:`and it is not a lie. <b>longer lives, less poverty, more learning, more peace</b> — the
@@ -7238,9 +7470,8 @@ function renderCritique(){
             </g>
           </g>
           ${sparks}
-          <text class="crmantra" x="450" y="700" text-anchor="middle" style="--i:0;fill:#e0455c">slay it.</text>
-          <text class="crmantra" x="450" y="746" text-anchor="middle" style="--i:1;fill:#d8a05a">learn to navigate it.</text>
-          <text class="crmantra" x="450" y="792" text-anchor="middle" style="--i:2;fill:#cfc4bd">look back into moloch’s eyes.</text>
+          ${MANTRAS.map(([mt,mc,mi,my])=>
+            `<text class="crmantra" x="450" y="${my}" text-anchor="middle" style="--i:${mi};fill:${mc}">${mt}</text>`).join('')}
           <g class="mfireg">
             <rect class="mfire" pathLength="1000" x="8" y="8" width="884" height="984" stroke="#e0455c" stroke-width="11" stroke-dasharray="22 12 30 8 38 15" style="--fo:.3;--v:1"/>
             <rect class="mfire" pathLength="1000" x="8" y="8" width="884" height="984" stroke="#ff6a3d" stroke-width="4.5" stroke-dasharray="22 12 30 8 38 15" style="--fo:.8;--v:1.6"/>
@@ -7252,14 +7483,6 @@ function renderCritique(){
         <text class="crlab dn2" x="36" y="880">what gets given back</text>
       </svg>
       <button class="molfsbtn" title="stare into it properly · esc leaves">⛶ fullscreen</button>
-      <!-- the fullscreen frame: a border-only svg that stretches to whatever
-           screen it is given (a rectangle survives any aspect), so the fire
-           hugs the room's edges while the scene keeps its proportions -->
-      <svg class="molfssvg" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
-        <rect class="mfire" pathLength="1000" vector-effect="non-scaling-stroke" x="6" y="6" width="988" height="988" stroke="#e0455c" stroke-width="11" stroke-dasharray="22 12 30 8 38 15" style="--fo:.3;--v:1"/>
-        <rect class="mfire" pathLength="1000" vector-effect="non-scaling-stroke" x="6" y="6" width="988" height="988" stroke="#ff6a3d" stroke-width="4.5" stroke-dasharray="22 12 30 8 38 15" style="--fo:.8;--v:1.6"/>
-        <rect class="mfire" pathLength="1000" vector-effect="non-scaling-stroke" x="6" y="6" width="988" height="988" stroke="#ffb347" stroke-width="2.2" stroke-dasharray="5 120" style="--fo:.95;--v:2.4;animation-direction:reverse"/>
-      </svg>
     </div>
     <div class="spsteps">
       ${STEPS.map((s,i)=>`<section class="spstep" data-act="${s.act}">
@@ -7293,26 +7516,14 @@ function renderCritique(){
       if(fsEl()) (document.exitFullscreen||document.webkitExitFullscreen).call(document);
       else (sticky.requestFullscreen||sticky.webkitRequestFullscreen).call(sticky);
     });
-    const sceneSvg=sticky.querySelector('svg');
+    const molFS=makeMolochFS(sticky,{molMyco,VOIDR,STARDATA,SPARKDATA,HARMDATA,MANTRAS});
     const sync=()=>{ const on=fsEl()===sticky;
       fsb.textContent=on?'✕ exit':'⛶ fullscreen';
-      // no crop, no zoom: the stage itself widens to the room's aspect and the
-      // web is regrown to cover the new ground — same seed, same god, more
-      // frame. exit hands back the original growth untouched.
-      if(on){
-        const W=Math.max(900, Math.round(1000*innerWidth/Math.max(1,innerHeight)));
-        const x0=Math.round(450-W/2);
-        sceneSvg.setAttribute('viewBox', x0+' 0 '+W+' 1000');
-        sticky.querySelector('.molbodyg').innerHTML=molBodyHTML(molMyco(41, x0-12, x0+W+12));
-        const nr=sticky.querySelector('.mnight');
-        nr.setAttribute('x',x0); nr.setAttribute('width',W);
-        sticky.dataset.act='moloch';
-      }else{
-        sceneSvg.setAttribute('viewBox','0 0 900 1000');
-        sticky.querySelector('.molbodyg').innerHTML=molbody;
-        const nr=sticky.querySelector('.mnight');
-        nr.setAttribute('x',0); nr.setAttribute('width',900);
-      } };
+      // fullscreen swaps the svg for the canvas renderer; the act stays pinned
+      // to moloch so a stray observer tick can't swap the scene mid-stare.
+      // exit hands back the untouched svg, still mid-breath.
+      if(on){ sticky.dataset.act='moloch'; molFS.start(); }
+      else molFS.stop(); };
     document.addEventListener('fullscreenchange',sync);
     document.addEventListener('webkitfullscreenchange',sync);
   }
