@@ -818,6 +818,7 @@
   :root[data-mode="trap"] .poster .sub{background:linear-gradient(90deg,#e0424f,#d98a1f,#2f9e44);-webkit-background-clip:text;background-clip:text}
   .tab.on.t-trap{background:linear-gradient(90deg,#e0424f,#d98a1f,#2f9e44);box-shadow:0 6px 18px rgba(224,66,79,.4)}
   #tpsvg{width:100%;height:auto;max-height:96vh;display:block}
+  #tp3d{width:100%;display:block;aspect-ratio:72/50;max-height:92vh}
   .tp-fill{stroke:none;fill:color-mix(in srgb,var(--ink) 9%,transparent)}
   .tp-line{fill:none;stroke:var(--ink);stroke-width:2.6;opacity:.55;stroke-linejoin:round;stroke-linecap:round}
   .tp-glow{pointer-events:none}
@@ -6144,26 +6145,26 @@ function renderAssembly(){
 // then the escape — see, coordinate, commit — reshapes the hill itself, and they climb it together. the
 // terrain MORPH is the signature move, the way the assembly view's FUSE is. same scroll-camera machinery.
 const TP_BEATS=[
- {tag:'the payoff for breaking ranks is always right there.',
-  p:'a multipolar trap is when every actor, following its own <b>rational</b> incentive, makes everyone worse off — and no one can afford to stop first. an arms race. overfishing. every lab shipping the model faster.',
-  p2:'picture it as a landscape. <b>height is how well the whole system does.</b> the actors start up on a ridge — and each one can see a step downhill that pays.'},
- {tag:'so everyone follows the gradient down.',
-  p:'each actor takes the step that helps <em>it</em>: cut the price, skip the safety review, take the extra fish. locally, obviously correct. every one of them is behaving reasonably.',
-  p2:'and reasonable, repeated by everyone, points <b>one way</b> — down.'},
- {tag:'and they all end up in the same hole.',
-  p:'the steepest-incentive path doesn’t lead anywhere good. it leads to the <b>trap</b>: a stable equilibrium where everyone has defected, everyone is worse off, and nobody can move.',
-  p2:'this is the pattern under climate inaction, open-source underfunding, the engagement economy, the AI race. <b>"no one can unilaterally fix it."</b>'},
- {tag:'the summit is right there. no one can reach it alone.',
-  p:'cooperation — the summit — would be better for everyone. but between here and there is a wall: <b>whoever cooperates first, alone, loses.</b> they raise their costs while everyone else keeps defecting.',
-  p2:'so the lone climber slides back. the trap isn’t that people are bad. it’s that the <em>landscape</em> punishes anyone who moves first.'},
+ {tag:'a map of every future we could choose.',
+  p:'this is a <b>fitness landscape</b>. the flat grid is the <b>design space</b> — every policy, rule, or choice we could make. the <b>height</b> is how well everyone does under it: up is flourishing, down is collapse.',
+  p2:'the seven actors start up on a ridge. and each one can see a step <em>downhill</em> that pays it, personally, right now.'},
+ {tag:'so everyone walks downhill.',
+  p:'each actor follows the steepest local incentive — the move that helps <em>it</em> most: cut the price, skip the safety review, take the extra fish. on the landscape that is, literally, down the slope.',
+  p2:'every one of them is being reasonable. and reasonable, repeated by everyone, runs <b>one way</b> — down.'},
+ {tag:'into the basin. the trap.',
+  p:'the downhill paths all drain to the same place — a deep <b>basin</b>, low on the success axis, where everyone has defected, everyone is worse off, and no one can move.',
+  p2:'climate inaction, open-source underfunding, the engagement economy, the AI race — all the same shape. <b>"no one can unilaterally fix it."</b>'},
+ {tag:'the summit is a different hill entirely.',
+  p:'cooperation is the <b>summit</b>, high on the success axis — better for everyone. but a wall of low ground sits between the basin and it: whoever climbs first, alone, spends success everyone else keeps.',
+  p2:'so the lone climber slides back. the trap isn’t that people are bad. it’s the <em>shape of the landscape</em> — it punishes whoever moves first.'},
  {tag:'the way out is three moves.',
   p:'<b>see</b> — everyone watching the same shared truth. <b>coordinate</b> — signalling intent, aligning on the goal. <b>commit</b> — making cooperation <em>binding</em>, so the temptation to defect is off the table.',
   p2:'tie the climbers together and the calculus changes: no one moves first, so no one loses for moving first.'},
- {tag:'a credible commitment reshapes the hill itself.',
-  p:'this is the move. a binding commitment doesn’t fight the incentive gradient — it <b>redraws it</b>. the valley fills in, the wall comes down, and a path to the summit opens where there wasn’t one.',
-  p2:'change the payoffs and you change the terrain. the trap was never destiny — it was a shape.'},
+ {tag:'a credible commitment reshapes the land itself.',
+  p:'this is the move. a binding commitment doesn’t fight the slope — it <b>redraws the terrain</b>. the basin lifts, the wall between it and the summit flattens into a ramp that wasn’t there.',
+  p2:'change the payoffs and you change the ground. the trap was never destiny — it was a shape.'},
  {tag:'and they climb it together.',
-  p:'roped together and pulling the same way, the actors walk up the ridge they could never take alone. the collective outcome — the height — goes up for <b>everyone</b> at once.',
+  p:'roped together and pulling the same way, the actors walk up the ridge they could never take alone. the height — the collective success — goes up for <b>everyone</b> at once.',
   p2:'that is what coordination <em>is</em>: not everyone being nicer, but a landscape where the cooperative move is finally the rational one.'},
  {tag:'the tools already exist — and this whole poster is full of them.',
   p:'shared ledgers make everyone <b>see</b>. peer networks let people <b>coordinate</b> without permission. smart contracts let a crowd <b>commit</b>. every mechanism in the spiral is somebody’s escape from a trap.',
@@ -6178,25 +6179,28 @@ const TP_TOOLS=[
 ];
 function renderTrap(){
   const wrap=document.getElementById('trapwrap');
-  const gauss=(x,c,w)=>Math.exp(-(((x-c)/w)**2));
   const smooth=(a,b,x)=>{ const t=Math.max(0,Math.min(1,(x-a)/(b-a))); return t*t*(3-2*t); };
-  const Htrap=x=>0.36+0.08*x + 0.62*gauss(x,0.86,0.10) - 0.60*gauss(x,0.30,0.17) + 0.28*gauss(x,0.60,0.085);
-  const Hcoop=x=>0.30 + 0.66*smooth(0.12,0.90,x);
-  const Hgt=(x,m)=>{ const h=alerp(Htrap(x),Hcoop(x),m); return Math.max(0.02,Math.min(1.03,h)); };
-  const PX=x=>30+x*660, PY=h=>386-h*300;
-  // ball x-targets per beat (7 actors), terrain morph, and rope visibility
+  // ---- the fitness landscape as a real heightfield H(u,v): the flat (u,v) grid is the DESIGN SPACE,
+  // the height is COLLECTIVE SUCCESS (after multipolartrap.xyz). a deep basin (the trap) and a high hill
+  // (cooperation) sit apart, a ridge between them. the commitment morph lifts the basin into a ramp. ----
+  const g2=(u,v,cu,cv,w,ev)=>Math.exp(-(((u-cu)**2+((v-cv)*ev)**2)/w));
+  const Htrap=(u,v)=>0.34 + 0.60*g2(u,v,0.82,0.5,0.030,0.85) - 0.52*g2(u,v,0.30,0.5,0.055,0.75) + 0.20*Math.exp(-(((u-0.58)**2)/0.010));
+  const Hcoop=(u,v)=>0.30 + 0.60*smooth(0.10,0.90,u) + 0.16*g2(u,v,0.82,0.5,0.030,0.85);
+  const H=(u,v,m)=>{ const h=alerp(Htrap(u,v),Hcoop(u,v),m); return Math.max(0.02,Math.min(1.05,h)); };
+  // 7 actors: u-target per beat (their position along the design axis), v is a fixed spread across the basin
   const BX=[
-   [0.50,0.54,0.59,0.63,0.67,0.71,0.75],
-   [0.44,0.41,0.38,0.35,0.37,0.40,0.45],
-   [0.26,0.29,0.315,0.335,0.30,0.28,0.345],
-   [0.26,0.29,0.315,0.335,0.30,0.55,0.345],
-   [0.27,0.30,0.32,0.34,0.31,0.29,0.335],
-   [0.46,0.50,0.545,0.575,0.60,0.63,0.665],
-   [0.795,0.825,0.855,0.875,0.845,0.815,0.895],
-   [0.795,0.825,0.855,0.875,0.845,0.815,0.895]
+   [0.52,0.55,0.60,0.57,0.63,0.58,0.54],
+   [0.44,0.41,0.38,0.40,0.37,0.42,0.45],
+   [0.28,0.32,0.30,0.34,0.29,0.31,0.33],
+   [0.28,0.32,0.30,0.34,0.29,0.55,0.33],
+   [0.29,0.32,0.30,0.335,0.31,0.30,0.325],
+   [0.48,0.52,0.55,0.58,0.60,0.62,0.64],
+   [0.80,0.83,0.855,0.875,0.845,0.815,0.83],
+   [0.80,0.83,0.855,0.875,0.845,0.815,0.83]
   ];
+  const AV=[0.50,0.44,0.57,0.47,0.53,0.41,0.60];
   const MO=[0,0,0,0,0.16,0.72,1,1], ROPE=[0,0,0,0,1,1,1,1], WALL=[0,0,0,1,0,0,0,0];
-  const NB=7;
+  const NB=7, mob=(reduced||innerWidth<640), GN=mob?16:24;
   wrap.innerHTML=`
    <div class="asmintro"><b>why can’t we have nice things?</b>
      often because we are caught in a <em>multipolar trap</em>: everyone acting rationally, and everyone
@@ -6204,31 +6208,10 @@ function renderTrap(){
    <div class="asmscroll">
      <div class="asmsticky">
        <div class="asmstage">
-         <svg id="tpsvg" viewBox="0 0 720 430" role="img"
-           aria-label="a fitness landscape where height means how well the whole system does. seven actors start on a ridge, then follow the local downhill incentive into a deep trap valley, far below a summit that means cooperation. a lone actor who tries to climb out alone slides back. then a binding commitment reshapes the terrain — the valley fills, the wall between them and the summit comes down — and, roped together, the actors climb to the top.">
-           <ellipse class="tp-glow" id="tpredglow" cx="0" cy="0" rx="150" ry="30" fill="#e0424f" opacity="0"/>
-           <ellipse class="tp-glow" id="tpgrnglow" cx="0" cy="0" rx="120" ry="26" fill="#2f9e44" opacity="0"/>
-           <path class="tp-fill" id="tpfill"/>
-           <path class="tp-line" id="tpcurve"/>
-           <path class="tp-arrow" id="tparrow"/>
-           <text class="tp-peaklab" id="tppeak" text-anchor="middle">▲ the summit · everyone cooperates</text>
-           <text class="tp-traplab" id="tptrap" text-anchor="middle">▼ the trap · everyone defects</text>
-           <text class="tp-walllab" id="tpwall" text-anchor="middle">the first to cooperate, alone, loses</text>
-           <g id="tpbadges" opacity="0">
-             <text class="tp-badgen" x="150" y="40" text-anchor="middle">01</text><text class="tp-badge" x="150" y="56" text-anchor="middle" fill="#1c7ed6">see</text>
-             <text class="tp-badgen" x="360" y="40" text-anchor="middle">02</text><text class="tp-badge" x="360" y="56" text-anchor="middle" fill="#d98a1f">coordinate</text>
-             <text class="tp-badgen" x="570" y="40" text-anchor="middle">03</text><text class="tp-badge" x="570" y="56" text-anchor="middle" fill="#2f9e44">commit</text>
-           </g>
-           <polyline class="tp-rope" id="tprope" points="" opacity="0"/>
-           <g id="tpballs">${Array.from({length:NB},(_,i)=>`<circle class="tp-ball" data-b="${i}" r="9" fill="#d98a1f"/>`).join('')}</g>
-           <g id="tparrows">${Array.from({length:NB},(_,i)=>`<g class="tp-arw" data-a="${i}"><path d="M0 9L0 -9M-4.6 -4.4L0 -9L4.6 -4.4"/></g>`).join('')}</g>
-           <g id="tplock" opacity="0">
-             <text class="tp-lock" id="tplocktxt" text-anchor="middle">🔒 credible commitment — cooperation is now binding</text>
-             <text class="tp-conf" id="tpconftxt" text-anchor="middle">every arrow now points up · no one loses for moving first</text>
-           </g>
-         </svg>
+         <canvas id="tp3d" role="img"
+           aria-label="a three-dimensional fitness landscape. the flat grid is the design space — every choice we could make — and the height is how well everyone does under it. seven actors follow the downhill incentive off a ridge into a deep basin (the trap, where everyone has defected), far below a separate summit that means cooperation. a lone actor who climbs out alone slides back. then a binding commitment reshapes the surface — the basin lifts into a ramp to the summit — and, roped together, the actors climb it."></canvas>
        </div>
-       <div class="tp-hud"><div class="hn" id="tphud">—</div><div class="hl" id="tphudl">collective outcome</div></div>
+       <div class="tp-hud"><div class="hn" id="tphud">—</div><div class="hl" id="tphudl">collective success</div></div>
      </div>
      <div class="asmbeats">
        ${TP_BEATS.map((b,i)=>`<div class="asmbeat${i===0?' on':''}" data-b="${i}">
@@ -6239,7 +6222,7 @@ function renderTrap(){
        </div>`).join('')}
      </div>
    </div>
-   <div class="asmscrollnote">the number in the corner is the collective outcome — the average height of all seven actors. watch it crater in the trap, then climb once the terrain is reshaped. each escape above lives in a tab of this poster — tap through.</div>
+   <div class="asmscrollnote">the flat grid is the <b>design space</b> — every choice we could make — and the height is <b>collective success</b>. the number in the corner is the group's average height: watch it crater in the basin, then climb once the terrain is reshaped. each escape above lives in a tab of this poster — tap through.</div>
 
    <div class="asmintro asmoutro"><b>coordination is not everyone being nicer.</b>
      it is a landscape where the cooperative move is finally the rational one — and building those landscapes
@@ -6249,84 +6232,95 @@ function renderTrap(){
      the whole climb → <a href="#spiral">🧬 the spiral</a></div>
    <div class="xctawrap"><a class="xcta trap" href="https://multipolartrap.xyz/" target="_blank" rel="noopener">🌈 solving multipolar traps with ethereum ↗</a></div>`;
 
-  const svg=wrap.querySelector('#tpsvg'),
-        fillEl=wrap.querySelector('#tpfill'), curveEl=wrap.querySelector('#tpcurve'),
-        ballEls=[...wrap.querySelectorAll('#tpballs circle')], ropeEl=wrap.querySelector('#tprope'),
-        peakEl=wrap.querySelector('#tppeak'), trapEl=wrap.querySelector('#tptrap'),
-        wallEl=wrap.querySelector('#tpwall'), badgesEl=wrap.querySelector('#tpbadges'),
-        arrowEl=wrap.querySelector('#tparrow'), redGlow=wrap.querySelector('#tpredglow'),
-        grnGlow=wrap.querySelector('#tpgrnglow'),
-        arwEls=[...wrap.querySelectorAll('#tparrows .tp-arw')],
-        lockG=wrap.querySelector('#tplock'), lockTxt=wrap.querySelector('#tplocktxt'), confTxt=wrap.querySelector('#tpconftxt'),
-        hudN=wrap.querySelector('#tphud'), hudL=wrap.querySelector('#tphudl');
   wrap.querySelectorAll('.tp-tool').forEach(b=>b.addEventListener('click',()=>{ setMode(b.dataset.m,true); scrollTo({top:0,behavior:'smooth'}); }));
+  const cv=wrap.querySelector('#tp3d'), ctx=cv.getContext('2d'), hudN=wrap.querySelector('#tphud'), hudL=wrap.querySelector('#tphudl');
+  let W=1,Ht=1,SC=1,cx=0,cy=0;
+  function sizeCanvas(){ const r=cv.getBoundingClientRect(); if(!r.width) return;
+    const dpr=Math.min(2,devicePixelRatio||1);
+    cv.width=W=Math.round(r.width*dpr); cv.height=Ht=Math.round(r.height*dpr);
+    SC=Math.min(W*0.40,Ht*0.62); cx=W/2; cy=Ht*0.60; }
+  sizeCanvas();
 
-  const bx=BX[0].slice();                 // eased ball x-positions
-  let mC=0,ropeC=0,wallC=0, mT=0,ropeT=0,wallT=0, bxT=BX[0].slice();
-  function terrainPath(m,close){
-    let d=''; const N=80;
-    for(let i=0;i<=N;i++){ const x=i/N, px=PX(x), py=PY(Hgt(x,m)); d+=(i?'L':'M')+px.toFixed(1)+' '+py.toFixed(1); }
-    if(close) d+=`L${PX(1).toFixed(1)} 430L${PX(0).toFixed(1)} 430Z`;
-    return d;
+  const bx=BX[0].slice();
+  let mC=0,ropeC=0,wallC=0, mT=0,ropeT=0,wallT=0, bxT=BX[0].slice(), camT=0;
+  const themeDark=()=>{ const dt=document.documentElement.getAttribute('data-theme');
+    return dt==='dark'||(dt!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches); };
+  function proj(u,v,h,camA){
+    const xw=u-0.5, yw=v-0.5, ca=Math.cos(camA), sa=Math.sin(camA);
+    const xr=xw*ca-yw*sa, yr=xw*sa+yw*ca;
+    return {x:cx+xr*SC, y:cy+yr*SC*0.42-h*SC*0.62, depth:yr};
   }
-  function paint(){
-    curveEl.setAttribute('d',terrainPath(mC,false));
-    fillEl.setAttribute('d',terrainPath(mC,true));
-    // actors
-    bx.forEach((x,i)=>{ const el=ballEls[i]; el.setAttribute('cx',PX(x).toFixed(1)); el.setAttribute('cy',(PY(Hgt(x,mC))-9).toFixed(1)); });
-    // rope through the actors (sorted by x so it reads as a line). it thickens + firms up with the
-    // commitment — a slack idea becoming a taut, load-bearing one. that firming IS the confidence.
-    const order=bx.map((x,i)=>i).sort((a,b)=>bx[a]-bx[b]);
-    ropeEl.setAttribute('points',order.map(i=>`${PX(bx[i]).toFixed(1)},${(PY(Hgt(bx[i],mC))-9).toFixed(1)}`).join(' '));
-    ropeEl.setAttribute('opacity',ropeC.toFixed(2));
-    ropeEl.setAttribute('stroke-width',(1.8+2.0*ropeC).toFixed(1));
-    // the incentive arrow over each actor: points DOWN + red (defect pays) and rotates UP + green
-    // (cooperate now pays) as the commitment redraws the gradient. this is the credible commitment,
-    // made literal: the payoffs flip, so the confident move is up.
-    const deg=alerp(180,0,mC), acol=`rgb(${Math.round(alerp(224,47,mC))},${Math.round(alerp(66,158,mC))},${Math.round(alerp(79,68,mC))})`;
-    bx.forEach((x,i)=>{ const g=arwEls[i], bxpx=PX(x), byp=PY(Hgt(x,mC))-9;
-      g.setAttribute('transform',`translate(${bxpx.toFixed(1)},${(byp-23).toFixed(1)}) rotate(${deg.toFixed(1)})`);
-      g.firstElementChild.setAttribute('stroke',acol);
-      g.setAttribute('opacity',(0.4+0.5*Math.abs(mC-0.5)*2).toFixed(2)); });
-    // the commitment device itself: a lock over the roped group, arriving with the rope and firming
-    // as the terrain heals — the thing they are all bound to.
-    // how far up the ridge the group has climbed — used to declutter the top as they arrive
-    const avgX=bx.reduce((a,b)=>a+b,0)/NB, climbed=Math.max(0,Math.min(1,(avgX-0.58)/0.20));
-    { const gx=PX(avgX), gy=Math.max(52,Math.min(...bx.map(x=>PY(Hgt(x,mC))-9))-32);
-      lockTxt.setAttribute('x',gx.toFixed(1)); lockTxt.setAttribute('y',gy.toFixed(1));
-      confTxt.setAttribute('x',gx.toFixed(1)); confTxt.setAttribute('y',(gy+17).toFixed(1));
-      lockG.setAttribute('opacity',(ropeC*(0.55+0.45*mC)).toFixed(2)); }
-    // labels track the terrain — the peak label fades once the actors are standing ON the summit
-    peakEl.setAttribute('x',PX(0.86)); peakEl.setAttribute('y',(PY(Hgt(0.86,mC))-16).toFixed(1));
-    peakEl.setAttribute('opacity',(1-climbed).toFixed(2));
-    trapEl.setAttribute('x',PX(0.30)); trapEl.setAttribute('y',(PY(Hgt(0.30,mC))+26).toFixed(1));
-    trapEl.setAttribute('opacity',(1-mC).toFixed(2));
-    wallEl.setAttribute('x',PX(0.60)); wallEl.setAttribute('y',(PY(Hgt(0.60,mC))-14).toFixed(1));
-    wallEl.setAttribute('opacity',wallC.toFixed(2));
-    // the see/coordinate/commit badges belong to the escape moment; fade them as the climb completes
-    badgesEl.setAttribute('opacity',(ropeC*(1-climbed)).toFixed(2));
-    // the lone climber's slide-back arrow (beat 3): from just above the strayer, curving back to the pit
-    const sx=bx[5];
-    if(wallC>0.02){ const x0=PX(sx), y0=PY(Hgt(sx,mC))-20, x1=PX(0.33), y1=PY(Hgt(0.33,mC))-14;
-      arrowEl.setAttribute('d',`M${x0.toFixed(1)} ${y0.toFixed(1)}Q${((x0+x1)/2).toFixed(1)} ${(y0-34).toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`);
-      arrowEl.setAttribute('opacity',(wallC*0.9).toFixed(2)); }
-    else arrowEl.setAttribute('opacity','0');
-    // region glows
-    redGlow.setAttribute('cx',PX(0.30)); redGlow.setAttribute('cy',PY(0.06)); redGlow.setAttribute('opacity',(0.16*(1-mC)).toFixed(3));
-    grnGlow.setAttribute('cx',PX(0.86)); grnGlow.setAttribute('cy',(PY(Hgt(0.86,mC))+10).toFixed(1)); grnGlow.setAttribute('opacity',(0.10+0.14*mC).toFixed(3));
-    // the collective-outcome gauge = average height of the actors
-    let s=0; bx.forEach(x=>s+=Hgt(x,mC)); s/=NB;
-    const pct=Math.round(s*100);
-    hudN.textContent=pct;
-    const col= s<0.33?[224,66,79] : s<0.62?[217,138,31] : [47,158,68];
-    hudN.style.color=`rgb(${col[0]},${col[1]},${col[2]})`;
-    hudL.innerHTML = s<0.33?'collective outcome — <b>the trap</b>' : s<0.62?'collective outcome — <b>climbing</b>' : 'collective outcome — <b>the summit</b>';
+  function hcol(h,shade){
+    const t=Math.max(0,Math.min(1,(h-0.05)/0.92)); let r,g,b;
+    if(t<0.5){ const f=t/0.5; r=alerp(224,217,f); g=alerp(66,138,f); b=alerp(79,31,f); }
+    else{ const f=(t-0.5)/0.5; r=alerp(217,47,f); g=alerp(138,158,f); b=alerp(31,68,f); }
+    return `rgb(${(r*shade)|0},${(g*shade)|0},${(b*shade)|0})`;
+  }
+  function label(x,y,txt,rgb,sz,al,rot,halo){ ctx.save(); ctx.translate(x,y); if(rot) ctx.rotate(rot);
+    ctx.font=`800 ${Math.round(sz)}px -apple-system,BlinkMacSystemFont,sans-serif`; ctx.textAlign=al||'center';
+    ctx.textBaseline='middle'; ctx.lineJoin='round'; ctx.lineWidth=Math.max(3,sz*0.30); ctx.strokeStyle=halo;
+    ctx.strokeText(txt,0,0); ctx.fillStyle=rgb; ctx.fillText(txt,0,0); ctx.restore(); }
+  function draw(camA){
+    ctx.clearRect(0,0,W,Ht);
+    const dark=themeDark(), halo=dark?'rgba(11,8,22,0.9)':'rgba(255,255,255,0.9)',
+          ink=dark?'rgba(230,223,242,0.9)':'rgba(34,28,48,0.85)';
+    // vertices
+    const V=[]; for(let j=0;j<=GN;j++){ V[j]=[]; for(let i=0;i<=GN;i++){ const u=i/GN,v=j/GN,h=H(u,v,mC);
+      const p=proj(u,v,h,camA); p.h=h; V[j][i]=p; } }
+    // quads, painter-sorted (far first)
+    const quads=[];
+    for(let j=0;j<GN;j++) for(let i=0;i<GN;i++){ const a=V[j][i],b=V[j][i+1],c=V[j+1][i+1],d=V[j+1][i];
+      quads.push({a,b,c,d,depth:(a.depth+b.depth+c.depth+d.depth)/4,h:(a.h+b.h+c.h+d.h)/4}); }
+    quads.sort((p,q)=>p.depth-q.depth);
+    for(const q of quads){ const shade=0.66+0.34*Math.max(0,Math.min(1,(q.depth+0.72)/1.44));
+      ctx.beginPath(); ctx.moveTo(q.a.x,q.a.y); ctx.lineTo(q.b.x,q.b.y); ctx.lineTo(q.c.x,q.c.y); ctx.lineTo(q.d.x,q.d.y); ctx.closePath();
+      ctx.fillStyle=hcol(q.h,shade); ctx.fill();
+      ctx.strokeStyle=dark?'rgba(0,0,0,0.28)':'rgba(255,255,255,0.30)'; ctx.lineWidth=Math.max(0.5,SC*0.0015); ctx.stroke(); }
+    // ---- inherited axes: the design space (the grid) and success (height) ----
+    { const f=proj(0.5,1.06,0.02,camA); label(f.x,f.y,'◄  the design space — every choice we could make  ►',ink,SC*0.055,'center',0,halo);
+      const z0=proj(-0.04,-0.04,0.02,camA), z1=proj(-0.04,-0.04,1.02,camA);
+      ctx.save(); ctx.globalAlpha=0.8; ctx.strokeStyle=ink; ctx.lineWidth=Math.max(1,SC*0.006);
+      ctx.beginPath(); ctx.moveTo(z0.x,z0.y); ctx.lineTo(z1.x,z1.y); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(z1.x,z1.y); ctx.lineTo(z1.x-SC*0.03,z1.y+SC*0.03); ctx.lineTo(z1.x+SC*0.03,z1.y+SC*0.03); ctx.closePath(); ctx.fillStyle=ink; ctx.fill(); ctx.restore();
+      label(z1.x-SC*0.02,z1.y-SC*0.05,'collective success ↑',dark?'#8fe0a3':'#2f9e44',SC*0.05,'center',0,halo); }
+    // peak + trap labels, on the surface
+    const climbed=Math.max(0,Math.min(1,(bx.reduce((a,b)=>a+b,0)/NB-0.58)/0.20));
+    { const pk=proj(0.82,0.5,H(0.82,0.5,mC),camA); if(1-climbed>0.02) label(pk.x,pk.y-SC*0.09,'▲ the summit',dark?'#8fe0a3':'#2f9e44',SC*0.052,'center',0,halo),label(pk.x,pk.y-SC*0.045,'everyone cooperates',dark?'rgba(143,224,163,.85)':'rgba(47,158,68,.9)',SC*0.036,'center',0,halo);
+      if(1-mC>0.02){ const tp=proj(0.30,0.5,H(0.30,0.5,mC),camA); ctx.globalAlpha=1-mC; label(tp.x,tp.y+SC*0.08,'▼ the trap · everyone defects','#e0424f',SC*0.05,'center',0,halo); ctx.globalAlpha=1; }
+      if(wallC>0.02){ const wl=proj(0.58,0.5,H(0.58,0.5,mC),camA); ctx.globalAlpha=wallC; label(wl.x,wl.y-SC*0.06,'the first to cooperate, alone, loses',dark?'#d9cfe6':'#665e78',SC*0.04,'center',0,halo); ctx.globalAlpha=1; }
+    }
+    // ---- the actors, on the surface ----
+    const acts=bx.map((u,i)=>{ const v=AV[i],h=H(u,v,mC),p=proj(u,v,h,camA); return {x:p.x,y:p.y,depth:p.depth,u,v,h,i}; });
+    const rope=[...acts].sort((a,b)=>a.u-b.u);
+    // rope: firms up (thicker) with the commitment — that firming is the confidence
+    if(ropeC>0.02){ ctx.save(); ctx.globalAlpha=ropeC; ctx.strokeStyle='#2f9e44'; ctx.lineWidth=Math.max(1.4,SC*(0.006+0.010*ropeC)); ctx.lineJoin='round'; ctx.lineCap='round';
+      ctx.beginPath(); rope.forEach((a,i)=>{ const y=a.y-SC*0.02; i?ctx.lineTo(a.x,y):ctx.moveTo(a.x,y); }); ctx.stroke(); ctx.restore(); }
+    const drawOrder=[...acts].sort((a,b)=>a.depth-b.depth);
+    const acol=`rgb(${Math.round(alerp(224,47,mC))},${Math.round(alerp(66,158,mC))},${Math.round(alerp(79,68,mC))})`;
+    drawOrder.forEach(a=>{ const r=Math.max(3.5,SC*0.024*(0.78+0.34*Math.max(0,Math.min(1,(a.depth+0.72)/1.44))));
+      // incentive arrow: down+red (defect pays) → up+green (cooperate pays) as commitment redraws the slope
+      ctx.save(); ctx.translate(a.x,a.y-r*2.6); ctx.rotate((1-mC)*Math.PI); ctx.strokeStyle=acol; ctx.globalAlpha=0.45+0.5*Math.abs(mC-0.5)*2;
+      ctx.lineWidth=Math.max(1.6,r*0.28); ctx.lineCap='round'; ctx.lineJoin='round';
+      const s=r*0.9; ctx.beginPath(); ctx.moveTo(0,s); ctx.lineTo(0,-s); ctx.moveTo(-s*0.5,-s*0.4); ctx.lineTo(0,-s); ctx.lineTo(s*0.5,-s*0.4); ctx.stroke(); ctx.restore();
+      // the ball
+      ctx.beginPath(); ctx.arc(a.x,a.y-r,r,0,6.2832); ctx.fillStyle='#d98a1f';
+      ctx.strokeStyle=dark?'rgba(11,8,22,0.9)':'rgba(255,255,255,0.9)'; ctx.lineWidth=Math.max(1,r*0.18); ctx.fill(); ctx.stroke(); });
+    // ---- the commitment lock, over the roped group ----
+    if(ropeC>0.02){ const gx=acts.reduce((s,a)=>s+a.x,0)/NB, gy=Math.min(...acts.map(a=>a.y))-SC*0.10;
+      ctx.globalAlpha=ropeC*(0.55+0.45*mC);
+      label(gx,gy,'🔒 credible commitment — cooperation is now binding',dark?'#8fe0a3':'#2f9e44',SC*0.045,'center',0,halo);
+      label(gx,gy+SC*0.05,'every arrow now points up · no one loses for moving first',dark?'rgba(143,224,163,.8)':'rgba(47,158,68,.85)',SC*0.036,'center',0,halo);
+      ctx.globalAlpha=1; }
+    // ---- the collective-success gauge ----
+    let sum=0; acts.forEach(a=>sum+=a.h); const sv=sum/NB, pct=Math.min(100,Math.round(sv*100));
+    hudN.textContent=pct; const c=sv<0.33?[224,66,79]:sv<0.62?[217,138,31]:[47,158,68];
+    hudN.style.color=`rgb(${c[0]},${c[1]},${c[2]})`;
+    hudL.innerHTML=sv<0.33?'collective success — <b>the trap</b>':sv<0.62?'collective success — <b>climbing</b>':'collective success — <b>the summit</b>';
   }
   const beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
   function scrollDrive(){
     const st=wrap.querySelector('.asmscroll'); if(!st) return;
-    const r=st.getBoundingClientRect();
-    if(r.bottom<0||r.top>innerHeight) return;
+    const r=st.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return;
     const line=innerHeight*0.45; let win=null,wd=1e9;
     beats.forEach(b=>{ const q=b.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
       if(q.bottom>0&&q.top<innerHeight&&d<wd){ wd=d; win=b; } });
@@ -6343,16 +6337,16 @@ function renderTrap(){
     const k=1-Math.pow(0.02,dt);
     mC+=(mT-mC)*k; ropeC+=(ropeT-ropeC)*k; wallC+=(wallT-wallC)*k;
     bx.forEach((_,i)=>bx[i]+=(bxT[i]-bx[i])*k);
-    paint(); trapRAF=requestAnimationFrame(raf);
+    camT+=dt; draw(0.62+0.10*Math.sin(camT*0.22)); trapRAF=requestAnimationFrame(raf);
   }
   if(trapScroll){ removeEventListener('scroll',trapScroll); removeEventListener('resize',trapScroll); }
   let sraf=0;
-  trapScroll=()=>{ if(sraf) return; sraf=requestAnimationFrame(()=>{ sraf=0; scrollDrive(); }); };
+  trapScroll=()=>{ if(sraf) return; sraf=requestAnimationFrame(()=>{ sraf=0; sizeCanvas(); scrollDrive(); }); };
   addEventListener('scroll',trapScroll,{passive:true});
   addEventListener('resize',trapScroll,{passive:true});
   scrollDrive();
   if(reduced){ mC=mT; ropeC=ropeT; wallC=wallT; bx.forEach((_,i)=>bx[i]=bxT[i]); }
-  paint();
+  draw(0.62);
   if(trapRAF) cancelAnimationFrame(trapRAF);
   trapRAF=requestAnimationFrame(raf);
 }
