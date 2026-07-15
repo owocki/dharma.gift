@@ -239,7 +239,16 @@
   @keyframes mringp{0%{opacity:0;transform:scale(.55)}12%{opacity:.35}
     100%{opacity:0;transform:scale(1.65)}}
   /* the void churns: four dark lobes orbiting out of phase, so the clearing never
-     holds a shape — and two broken accretion arcs crawl the rim, opposite ways */
+     holds a shape — and two broken accretion arcs crawl the rim, opposite ways.
+     the whole clearing also breathes, circle to oval and back, and its darkness
+     is salted with stars: you are not looking at a shadow, you are looking OUT. */
+  .crmoloch .mvoid{transform-box:fill-box;transform-origin:center}
+  .spsticky[data-act="moloch"] .mvoid{animation:mvoidshape 21s ease-in-out infinite}
+  @keyframes mvoidshape{0%,100%{transform:scale(1,1)}28%{transform:scale(1.16,.9)}
+    55%{transform:scale(1,1)}80%{transform:scale(.9,1.14)}}
+  .crmoloch .mstar{opacity:0}
+  .spsticky[data-act="moloch"] .mstar{animation:startwinkle 7s ease-in-out calc(var(--i)*-1s) infinite}
+  @keyframes startwinkle{0%,100%{opacity:calc(var(--so)*.3)}50%{opacity:var(--so)}}
   .crmoloch .mvblob{transform-box:fill-box;transform-origin:center}
   .spsticky[data-act="moloch"] .mvblob{animation:mvchurn 17s ease-in-out calc(var(--i)*-4.6s) infinite}
   @keyframes mvchurn{
@@ -267,6 +276,17 @@
   .crmoloch .slit{fill:#0a0208;transform-box:fill-box;transform-origin:center}
   .spsticky[data-act="moloch"] .crmoloch .slit{animation:molpupil 5s ease-in-out infinite alternate}
   @keyframes molpupil{from{transform:scaleY(.8)}to{transform:scaleY(1.15)}}
+  /* the brows are fire, and they act the part: keyed to the same 16s clock as
+     the gaze, so they lift exactly when the eyes move — the right one harder */
+  .crmoloch .mbrow{font-size:46px;transform-box:fill-box;transform-origin:center;opacity:.92}
+  .spsticky[data-act="moloch"] .mbrow{animation:browlift 16s ease-in-out infinite}
+  @keyframes browlift{
+    0%,16%{transform:translateY(0)}
+    26%,38%{transform:translateY(calc(-9px*var(--ba,1)))}
+    48%,60%{transform:translateY(calc(4px*var(--ba,1)))}
+    63%,66%{transform:translateY(calc(-19px*var(--ba,1)))}
+    70%,82%{transform:translateY(calc(-8px*var(--ba,1)))}
+    92%,100%{transform:translateY(0)}}
   /* the gaze wanders — slow drifts, one sudden dart, both eyes together */
   .crmoloch .slitg{transform-box:fill-box;transform-origin:center}
   .spsticky[data-act="moloch"] .slitg{animation:molgaze 16s ease-in-out infinite}
@@ -277,6 +297,17 @@
     63%,64%{transform:translate(-5px,3px)}
     66%,82%{transform:translate(7px,0)}
     92%,100%{transform:translate(0,0)}}
+  /* the frame catches fire: three dashed strokes crawl the border at different
+     speeds — blood underglow, ember flame, gold sparks running the other way —
+     each guttering on its own clock */
+  .crmoloch .mfire{fill:none;stroke-linecap:round;opacity:0}
+  .spsticky[data-act="moloch"] .mfire{animation:
+    mfiremove calc(30s/var(--v,1)) linear infinite,
+    firegut 5.3s linear calc(var(--fo,.6)*-4s) infinite}
+  @keyframes mfiremove{to{stroke-dashoffset:-1000}}
+  @keyframes firegut{0%,100%{opacity:calc(var(--fo,.6)*.7)}12%{opacity:var(--fo,.6)}
+    28%{opacity:calc(var(--fo,.6)*.5)}44%{opacity:var(--fo,.6)}
+    61%{opacity:calc(var(--fo,.6)*.62)}78%{opacity:calc(var(--fo,.6)*.92)}}
   /* spores off the web, rising and dying */
   .crmoloch .mspark{opacity:0}
   .spsticky[data-act="moloch"] .mspark{animation:sparkrise 9s linear calc(var(--i)*.7s) infinite}
@@ -311,11 +342,13 @@
     .crcasc circle{animation:none;opacity:.85;transform:none}
     .creye .lid{transition:none}
     .crharmg{animation:none!important;opacity:.7;transform:none}
-    .crmoloch :is(.memberglow,.meyes,.meyeglow,.msquint,.slit,.slitg,.mspark,.crmantra,.hy,.hy-glow,.hypulse,.mring,.mtipg,.mvblob,.maccr){animation:none!important}
+    .crmoloch :is(.memberglow,.meyes,.meyeglow,.msquint,.slit,.slitg,.mspark,.crmantra,.hy,.hy-glow,.hypulse,.mring,.mtipg,.mvblob,.maccr,.mvoid,.mstar,.mbrow,.mfire){animation:none!important}
     .crmantra{opacity:.95}
     .crmoloch :is(.hy,.hy-glow){stroke-dashoffset:0;opacity:var(--ho,.6)}
     .crmoloch :is(.hypulse,.mring,.mspark){opacity:0}
     .crmoloch .maccr{opacity:.16}
+    .crmoloch .mstar{opacity:calc(var(--so,.6)*.55)}
+    .crmoloch .mfire{opacity:calc(var(--fo,.5)*.6)}
     .crmoloch .memberglow{opacity:.3}
   }
 
@@ -2145,6 +2178,7 @@
     :root[data-theme="dark"] .beadlayer{filter:none}
     :root[data-mode="spiral"][data-theme="dark"] .poster::before{animation:none;opacity:.5}
     .crmoloch .hypulse,.crmoloch .mring{display:none}   /* the harvest beads: dashoffset repaints */
+    .spsticky[data-act="moloch"] .mstar{animation:none;opacity:calc(var(--so,.6)*.55)}
   }
 </style>
 </head>
@@ -6932,6 +6966,15 @@ function renderCritique(){
     MYC.tips.map(([x,y,r,hot,ph])=>
       `<g class="mtipg" style="--p:${ph.toFixed(2)}"><circle fill="url(#gspore)" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r*4.5).toFixed(1)}"/>`+
       `<circle fill="${hot?'#ff8a5c':'#e0455c'}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}"/></g>`).join('');
+  // the void is full of stars — you are not looking at a shadow, you are looking out
+  const stars=(()=>{ let s=97; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
+    return Array.from({length:84},()=>{
+      const a=rnd()*Math.PI*2, r=Math.sqrt(rnd())*(VOIDR-22);
+      const x=450+Math.cos(a)*r, y=392+Math.sin(a)*r*.96;
+      const rr=(.4+rnd()*1.1)*(rnd()<.08?2:1);
+      const c=['#ffffff','#cfd8ff','#ffe9d6','#ffd7c9'][(rnd()*4)|0];
+      return `<circle class="mstar" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rr.toFixed(2)}" fill="${c}" style="--i:${(rnd()*7).toFixed(2)};--so:${(.25+rnd()*.75).toFixed(2)}"/>`;
+    }).join(''); })();
   // spores off the web, rising and dying
   const sparks=Array.from({length:14},(_,i)=>{
     const a=(i/14)*Math.PI*2+.3, r=VOIDR+40+((i*97)%180);
@@ -7061,7 +7104,7 @@ function renderCritique(){
   wrap.innerHTML=`<div class="spscroll">
     <div class="spsticky crsvg">
       <svg viewBox="0 0 900 1000" role="img"
-        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. partway down the shadow turns red and its turns are named: climate destabilization, engineered pandemics, autonomous weapons, misaligned AI. then the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. near the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs. the scroll closes on moloch, disembodied: a blood-red mycelial network grows in from every edge of the frame, filament by filament, each one leaning toward a ragged dark clearing at the centre that none of them will cross. the clearing itself churns — dark lobes orbiting so it never holds one shape, two broken arcs crawling its rim in opposite directions — and inside it hang two furnace eyes whose light gutters like fire: slit pupils that drift, dart, dilate, narrow into a long squint, and blink once, like a furnace door. ember beads slide inward along the filaments — the harvest arriving — rings of hunger swell off the clearing and die, spores rise; the harms he harvests rise and dissolve around him, each trailing a small red graph; three reminders chant beneath: slay it, learn to navigate it, look back into moloch's eyes.">
+        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. partway down the shadow turns red and its turns are named: climate destabilization, engineered pandemics, autonomous weapons, misaligned AI. then the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. near the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs. the scroll closes on moloch, disembodied: a blood-red mycelial network grows in from every edge of the frame, filament by filament, each one leaning toward a ragged dark clearing at the centre that none of them will cross. the clearing itself churns — dark lobes orbiting so it never holds one shape, breathing from circle to oval and back, its darkness salted with faint stars so it reads as a window onto the void rather than a shadow, two broken arcs crawling its rim in opposite directions — and inside it hang two furnace eyes whose light gutters like fire: slit pupils that drift, dart, dilate, narrow into a long squint, and blink once, like a furnace door. above the eyes, two small fires for eyebrows lift and settle in time with the gaze, and the whole frame is edged in a crawling fire border. ember beads slide inward along the filaments — the harvest arriving — rings of hunger swell off the clearing and die, spores rise; the harms he harvests rise and dissolve around him, each trailing a small red graph; three reminders chant beneath: slay it, learn to navigate it, look back into moloch's eyes.">
         <g class="crup">${up.map((d,i)=>`<path d="${d}" style="stroke:${UPC[i]}"/>`).join('')}</g>
         <g class="crdn">${dn.map((d,i)=>`<path d="${d}" style="--pc:${UPC[i]}"/>`).join('')}</g>
         <g class="crflow">${flows.map(d=>`<path d="${d}"/>`).join('')}</g>
@@ -7134,6 +7177,7 @@ function renderCritique(){
             <ellipse class="mvblob" style="--i:1" fill="url(#gvoid)" cx="418" cy="366" rx="${VOIDR+38}" ry="${VOIDR+10}"/>
             <ellipse class="mvblob" style="--i:2" fill="url(#gvoid)" cx="488" cy="424" rx="${VOIDR+26}" ry="${VOIDR+2}"/>
             <ellipse class="mvblob" style="--i:3" fill="url(#gvoid)" cx="452" cy="404" rx="${VOIDR+2}" ry="${VOIDR+28}"/>
+            ${stars}
             <circle class="maccr" cx="450" cy="392" r="${VOIDR+8}" style="--i:0"/>
             <circle class="maccr" cx="450" cy="392" r="${VOIDR+25}" style="--i:1;animation-direction:reverse"/>
           </g>
@@ -7144,6 +7188,8 @@ function renderCritique(){
           <g class="meyes">
             <ellipse class="meyeglow" style="--i:0" fill="url(#gmeyeglow)" cx="365" cy="390" rx="112" ry="64"/>
             <ellipse class="meyeglow" style="--i:1" fill="url(#gmeyeglow)" cx="535" cy="390" rx="112" ry="64"/>
+            <g transform="rotate(14 365 322)"><text class="mbrow" style="--ba:1" x="365" y="322" text-anchor="middle">🔥</text></g>
+            <g transform="rotate(-14 535 322)"><text class="mbrow" style="--ba:1.4" x="535" y="322" text-anchor="middle">🔥</text></g>
             <g class="msquint">
               <g transform="rotate(-8 364 392)">
                 <path fill="url(#gmeye)" d="M296 398 Q360 344 434 392 Q362 428 296 398 Z"/>
@@ -7159,6 +7205,11 @@ function renderCritique(){
           <text class="crmantra" x="450" y="700" text-anchor="middle" style="--i:0;fill:#e0455c">slay it.</text>
           <text class="crmantra" x="450" y="746" text-anchor="middle" style="--i:1;fill:#d8a05a">learn to navigate it.</text>
           <text class="crmantra" x="450" y="792" text-anchor="middle" style="--i:2;fill:#cfc4bd">look back into moloch’s eyes.</text>
+          <g class="mfireg">
+            <rect class="mfire" pathLength="1000" x="8" y="8" width="884" height="984" stroke="#e0455c" stroke-width="11" stroke-dasharray="22 12 30 8 38 15" style="--fo:.3;--v:1"/>
+            <rect class="mfire" pathLength="1000" x="8" y="8" width="884" height="984" stroke="#ff6a3d" stroke-width="4.5" stroke-dasharray="22 12 30 8 38 15" style="--fo:.8;--v:1.6"/>
+            <rect class="mfire" pathLength="1000" x="8" y="8" width="884" height="984" stroke="#ffb347" stroke-width="2.2" stroke-dasharray="5 120" style="--fo:.95;--v:2.4;animation-direction:reverse"/>
+          </g>
         </g>
         <text class="crlab up" x="36" y="150">what gets counted</text>
         <text class="crlab dn" x="36" y="880">what gets left out</text>
