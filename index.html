@@ -396,11 +396,20 @@
   @media (prefers-reduced-motion:reduce){ :root[data-mode="spiral"] .epigraph{animation:none} }
   /* the threshold arrow: h1-sized, the hero's floor. muted at rest, era ramp under the cursor,
      and it bobs — once a breath, not a strobe. clicking it drops you into the page. */
-  .herodown{display:block;margin:clamp(18px,3.5vh,40px) auto 0;padding:0 26px;
+  .herodown{display:block;margin:clamp(18px,3.5vh,40px) auto 0;padding:0 26px;position:relative;
     font-family:var(--serif);font-weight:520;font-size:clamp(40px,5.4vw,76px);line-height:1;
     color:var(--muted);background:none;border:none;cursor:pointer;
     -webkit-tap-highlight-color:transparent;
     animation:herobob 3.2s ease-in-out 4;transition:color .25s}
+  /* the arrow stands in the same pool the quote does — sky-ink on the landing, frosted glass on
+     the posters — and the pool rides the bob, because it is the arrow's own shadow. */
+  .herodown::before{content:'';position:absolute;inset:-34% -60%;z-index:-1;
+    background:radial-gradient(50% 56% at 50% 50%,var(--bg) 18%,
+      color-mix(in srgb,var(--bg) 78%,transparent) 55%,transparent 78%)}
+  :root:not([data-mode="spiral"]) .herodown::before{background:rgba(0,0,0,.001);
+    -webkit-backdrop-filter:blur(10px) saturate(1.05);backdrop-filter:blur(10px) saturate(1.05);
+    -webkit-mask:radial-gradient(52% 58% at 50% 50%,#000 32%,transparent 76%);
+    mask:radial-gradient(52% 58% at 50% 50%,#000 32%,transparent 76%)}
   /* four breaths, then it holds still — the house rule: a click target that never stops moving
      is a target that never stops asking. */
   .herodown:hover{color:transparent;animation-play-state:paused;
