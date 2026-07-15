@@ -151,14 +151,21 @@
   /* the shadow: same geometry, grey ink — until the honest beat asks it to be counted, and it
      takes back its partner's colour. */
   .crdn path{stroke-width:6;stroke:color-mix(in srgb,var(--muted) 80%,transparent);transition:stroke .9s}
-  .crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.creye,.crq,.crnw{transition:opacity .9s}
-  .crdn,.crflow,.crcasc,.crlab.dn,.crlab.dn2,.crbill,.crmyth,.creye,.crq,.crnw{opacity:0}
-  .spsticky:is([data-act="shadow"],[data-act="export"],[data-act="receipts"],[data-act="haber"],[data-act="cascade"],[data-act="myths"],[data-act="honest"],[data-act="numb"],[data-act="witness"],[data-act="questions"],[data-act="remember"],[data-act="build"]) :is(.crdn,.crlab.dn){opacity:1}
+  .crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.crxr,.creye,.crq,.crnw{transition:opacity .9s}
+  .crdn,.crflow,.crcasc,.crlab.dn,.crlab.dn2,.crbill,.crmyth,.crxr,.creye,.crq,.crnw{opacity:0}
+  .spsticky:is([data-act="export"],[data-act="receipts"],[data-act="haber"],[data-act="cascade"],[data-act="myths"],[data-act="xrisk"],[data-act="honest"],[data-act="numb"],[data-act="witness"],[data-act="questions"],[data-act="remember"],[data-act="build"]) :is(.crdn,.crlab.dn){opacity:1}
   .spsticky:is([data-act="export"],[data-act="receipts"],[data-act="haber"],[data-act="cascade"],[data-act="build"]) .crflow{opacity:1}
   .spsticky:is([data-act="receipts"],[data-act="haber"]) .crbill{opacity:1}
   .spsticky[data-act="myths"] .crmyth{opacity:1}
-  .spsticky:is([data-act="haber"],[data-act="cascade"],[data-act="myths"],[data-act="honest"],[data-act="build"]) .crcasc{opacity:1}
+  .spsticky:is([data-act="haber"],[data-act="cascade"],[data-act="myths"],[data-act="xrisk"],[data-act="honest"],[data-act="build"]) .crcasc{opacity:1}
   .spsticky:is([data-act="honest"],[data-act="build"]) .crdn path{stroke:color-mix(in srgb,var(--pc) 60%,var(--muted))}
+  /* the shadow, gone existential: same geometry, red ink, and the bills that can
+     only be paid once named along its turns */
+  .spsticky[data-act="xrisk"] .crdn path{stroke:color-mix(in srgb,#e0455c 55%,var(--muted))}
+  .spsticky[data-act="xrisk"] .crcasc circle{stroke:#e0455c}
+  .spsticky[data-act="xrisk"] .crxr{opacity:1}
+  .crxr{font:600 17.5px/1 ui-monospace,"SF Mono",Menlo,monospace;
+    fill:color-mix(in srgb,#e0455c 62%,var(--muted))}
   /* the bills, sliding down the page forever */
   .crflow path{stroke:var(--muted);stroke-width:3;stroke-dasharray:7 10;animation:crflowdash 1.1s linear infinite}
   @keyframes crflowdash{to{stroke-dashoffset:-34}}
@@ -193,6 +200,14 @@
   .spsticky[data-act="build"] .crlab.dn{opacity:0}
   .spsticky[data-act="build"] .crlab.dn2{opacity:1}
   .spstep p a{color:var(--ink);font-weight:700}
+  /* lists inside a beat: one bullet per receipt, claim, risk, or tool */
+  .spstep ul{margin:10px 0 0;padding:0;list-style:none}
+  .spstep li{position:relative;margin:0 0 8px;padding-left:18px;
+    font-size:14px;line-height:1.6;color:var(--muted)}
+  .spstep li::before{content:'';position:absolute;left:2px;top:.55em;width:7px;height:7px;
+    border-radius:50%;background:linear-gradient(135deg,#2f9e44,#b535bb)}
+  .spstep li b{color:var(--ink);font-weight:700}
+  .spstep .p2{margin-top:10px}
   @media (prefers-reduced-motion:reduce){
     .crflow path{animation:none}
     .crcasc circle{animation:none;opacity:.85;transform:none}
@@ -6678,9 +6693,10 @@ function clearAsmTimers(){ asmTimers.forEach(t=>clearTimeout(t)); asmTimers=[]; 
 // ---------- critique of progress: the coil and its shadow ----------
 // after the consilience project's "development in progress": the climb is real, and so is the
 // bill — the same coil, upside down, booked to another place, another species, another
-// generation. three movements now: the ledger (the shine, the shadow, the export, the
-// receipts, the cascade, the myths, the honest sum), the feeling of it (the ledger dims and
-// an eye opens — the initiation, the questions, the vow), and the build (the bills reverse).
+// generation. three movements: the ledger (the shine, the shadow, the receipts, the cascade,
+// the four claims reread, the shadow gone existential — red — and the honest sum), the feeling
+// of it (the ledger dims and an eye opens — the initiation, the questions, the vow), and the
+// build (the bills reverse).
 let critIO=null;
 function renderCritique(){
   const wrap=document.getElementById('critiquewrap');
@@ -6706,39 +6722,51 @@ function renderCritique(){
      p:`and it is not a lie. <b>longer lives, less poverty, more learning, more peace</b> — the
         four great claims of progress, one for each turn of the coil. <b>the climb is real</b>,
         and this whole site is a monument to it.`},
-    {act:'shadow', h:'every turn casts a shadow',
-     p:`but every gain books a cost somewhere off the page — to another place, another species,
-        another generation. draw what the ledger leaves out, and it is <b>the same coil,
-        upside down</b>.`},
-    {act:'export', h:'costs are exported, not erased',
-     p:`the benefit lands here and now. the bill lands elsewhere, and later. topsoil, attention,
-        atmosphere: the shadow grows in exact step with the shine. <b>externalities are not an
-        accident of the race — they are how it is run.</b>`},
-    {act:'receipts', h:'the receipts have names',
-     p:`<b>leaded gasoline</b> solved engine knock in 1921. it cost humanity around <b>a billion
-        IQ points</b> and took a century to ban. asbestos still kills 255,000 people a year.
-        <b>PFAS is in the rain now.</b> each one legal, each below its limit — and no one is
-        exposed to just one.`},
+    {act:'export', h:'every turn casts a shadow',
+     p:`but every gain books a cost off the page — to another place, another species, another
+        generation. the benefit lands here and now; the bill lands elsewhere, later. draw what
+        the ledger leaves out, and it is <b>the same coil, upside down</b>.`},
+    {act:'receipts', h:'the shadow keeps receipts',
+     p:`each one was legal. each stayed below its limit. and no one is exposed to just one:`,
+     list:[
+      `<b>leaded gasoline</b> — solved engine knock in 1921, cost ~a billion IQ points, took a
+        century to ban`,
+      `<b>asbestos</b> — still kills 255,000 people a year`,
+      `<b>PFAS</b> — in the rain now, everywhere on earth`]},
     {act:'haber', h:'even the miracles cascade',
-     p:`<b>haber-bosch</b> pulled bread out of the air. <b>two in five people alive today exist
-        because of it</b> — half the nitrogen in your body passed through its reactors. it also
-        fed the population boom, industrial farming, ocean dead zones, spent soil. not a
-        villain — a miracle <b>whose full effects were never on the ledger</b>.`},
+     p:`<b>haber-bosch</b> pulled bread out of the air. two in five people alive today exist
+        because of it. it also fed the population boom, industrial farming, ocean dead zones,
+        spent soil. not a villain — a miracle <b>whose full effects were never on the
+        ledger</b>.`},
     {act:'cascade', h:'every solution breeds new problems',
      p:`the fix for horse manure was the tailpipe. the fix for the tailpipe is the lithium mine.
-        our biggest problems — climate, extinction, the bomb — are not failures to reach our
-        goals. <b>they are what succeeding at the last goals left behind.</b>`},
+        every solution starts the next problem — <b>and the problems grow with the power of the
+        solutions</b>.`},
     {act:'myths', h:'now reread the four claims',
-     p:`<b>longer lives?</b> mostly fewer infant deaths — and the added years arrive sicker and
-        lonelier. <b>less poverty?</b> raise the bar to $6.85 a day and thirty years of progress
-        nearly vanish. <b>more learning?</b> access is up, results are down. <b>more peace?</b>
-        conflicts have risen for two decades, and the weapons on the shelf are worse than ever.
-        not lies — <b>half-truths, counted generously</b>.`},
+     p:`hold each one up to the light:`,
+     list:[
+      `<b>longer lives?</b> mostly fewer infant deaths — the added years arrive sicker and
+        lonelier`,
+      `<b>less poverty?</b> raise the bar to $6.85 a day and thirty years of progress nearly
+        vanish`,
+      `<b>more learning?</b> access is up, results are down`,
+      `<b>more peace?</b> conflicts have risen for two decades`],
+     p2:`not lies — <b>half-truths, counted generously</b>.`},
+    {act:'xrisk', h:'the shadow goes existential',
+     p:`a century ago the bill was IQ points. now the externalities are the size of the
+        future:`,
+     list:[
+      `<b>climate destabilization</b> — the exhaust of the whole climb`,
+      `<b>engineered pandemics</b> — biology at software prices`,
+      `<b>autonomous weapons</b> — the kill decision, delegated`,
+      `<b>misaligned AI</b> — optimizing, hard, for the wrong ledger`],
+     p2:`these are not failures of progress. <b>they are its unpaid bills, compounding</b> —
+        and some bills can only be paid once.`},
     {act:'honest', h:'the ask is honest arithmetic',
-     p:`not doom, not cheerleading: <b>count both columns</b>. a person who sees the world only
-        through their own goals is called immature — and that is our civilization's relationship
-        to progress. progress that pays its own bills is the only kind that deserves the name.
-        the full argument: <a href="https://consilienceproject.org/development-in-progress/"
+     p:`not doom, not cheerleading: <b>count both columns</b>. a civilization that sees only its
+        own goals is an immature one. progress that pays its own bills is the only kind that
+        deserves the name. the full argument:
+        <a href="https://consilienceproject.org/development-in-progress/"
         target="_blank" rel="noopener">development in progress ↗</a>, from the consilience
         project.`},
     {act:'numb', h:'and still, nothing moves',
@@ -6748,31 +6776,34 @@ function renderCritique(){
     {act:'witness', h:'look until it looks back',
      p:`there is a practice for this: a candle, a locked door, and <b>two and a half hours of
         unflinching footage</b> of what the extraction economy does to animals, ecosystems, and
-        people. no escape hatch. watching it is <b>eye-gazing with moloch</b>. everything in you
-        wants to look away. the practice is to keep looking — and to stay in your body while
-        you do.`},
+        people. no escape hatch. it is <b>eye-gazing with moloch</b>. everything in you wants to
+        look away. keep looking — and stay in your body while you do.`},
     {act:'questions', h:'then, the questions',
      p:`<em>what can you not unsee? if these images never left your mind, how would you live
-        differently? you have seen images like this before — <b>what makes you forget?</b></em>
-        suffering that goes unwitnessed compounds. witnessed, it converts. and if you truly feel
-        the pain of others, <b>you cannot be the one causing it</b>.`},
+        differently? <b>what makes you forget?</b></em> suffering that goes unwitnessed
+        compounds. witnessed, it converts — because if you truly feel the pain of others,
+        <b>you cannot be the one causing it</b>.`},
     {act:'remember', h:'the week after: don’t forget',
      p:`read your answers daily. ask <em>what makes me forget</em>, and <em>how do i not
         forget</em>. aim rage at the system, not its conscripts. hold two truths at once:
-        <b>they do not know</b>, and <b>it must not continue</b>. the destruction only happens
-        because we let it. the point of feeling it is to arrive at <b>not on my watch</b>.`},
+        <b>they do not know</b>, and <b>it must not continue</b>. the point of feeling it is
+        to arrive at <b>not on my watch</b>.`},
     {act:'build', h:'build like it all counts',
-     p:`mature progress pays its bills <b>in advance</b>. before solving a problem, ask if it
-        is one — often the answer is less of something, not a new thing. <b>yellow-team</b> your
-        work: red teams ask how an enemy breaks the product; yellow teams ask <b>how the product
-        breaks the world</b>. design so one element feeds many needs. and build from desires
-        born of connection, not lack — they are the ones that <b>account for the whole</b>. an
-        economy whose side effects are gifts: <b>the upward spiral, earned.</b>`}
+     p:`mature progress pays its bills <b>in advance</b>:`,
+     list:[
+      `<b>ask if the problem is a problem</b> — often the answer is less of something, not a
+        new thing`,
+      `<b>yellow-team it</b> — red teams ask how an enemy breaks the product; yellow teams ask
+        how the product breaks the world`,
+      `<b>design for many needs at once</b> — so the side effects are gifts`,
+      `<b>build from connection, not lack</b> — those desires account for the whole`],
+     p2:`an economy that externalizes benefits instead of costs. <b>the upward spiral,
+        earned.</b>`}
   ];
   wrap.innerHTML=`<div class="spscroll">
     <div class="spsticky crsvg">
       <svg viewBox="0 0 900 1000" role="img"
-        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. midway the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. at the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs.">
+        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. partway down the shadow turns red and its turns are named: climate destabilization, engineered pandemics, autonomous weapons, misaligned AI. then the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. at the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs.">
         <g class="crup">${up.map((d,i)=>`<path d="${d}" style="stroke:${UPC[i]}"/>`).join('')}</g>
         <g class="crdn">${dn.map((d,i)=>`<path d="${d}" style="--pc:${UPC[i]}"/>`).join('')}</g>
         <g class="crflow">${flows.map(d=>`<path d="${d}"/>`).join('')}</g>
@@ -6781,6 +6812,12 @@ function renderCritique(){
           <text x="36" y="462">leaded gasoline · ~1B IQ points</text>
           <text x="36" y="497">asbestos · 255,000 a year, still</text>
           <text x="36" y="532">PFAS · in the rain now</text>
+        </g>
+        <g class="crxr">
+          <text x="36" y="600">climate destabilization</text>
+          <text x="36" y="635">engineered pandemics</text>
+          <text x="36" y="670">autonomous weapons</text>
+          <text x="36" y="705">misaligned AI</text>
         </g>
         <g class="crmyth">
           <text x="640" y="386" style="fill:${UPC[0]}">lives?</text>
@@ -6808,6 +6845,8 @@ function renderCritique(){
       ${STEPS.map((s,i)=>`<section class="spstep" data-act="${s.act}">
         <span class="stepn">${String(i).padStart(2,'0')}</span>
         <h3>${s.h}</h3><p>${s.p}</p>
+        ${s.list?`<ul>${s.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+        ${s.p2?`<p class="p2">${s.p2}</p>`:''}
       </section>`).join('')}
     </div>
   </div>`;
