@@ -155,9 +155,15 @@
   .molfsbtn:hover{border-color:#e0455c;color:#fff}
   .spsticky[data-act="moloch"] .molfsbtn{display:block}
   .spsticky:fullscreen{background:#0a0410;display:flex;align-items:center;justify-content:center}
-  .spsticky:fullscreen svg{width:auto;height:100%;max-height:100vh}
+  .spsticky:fullscreen svg{width:100%;height:100%;max-height:100vh}
   .spsticky:-webkit-full-screen{background:#0a0410;display:flex;align-items:center;justify-content:center}
-  .spsticky:-webkit-full-screen svg{width:auto;height:100%;max-height:100vh}
+  .spsticky:-webkit-full-screen svg{width:100%;height:100%;max-height:100vh}
+  /* fullscreen is for staring: the harms stop riding their elevator — the
+     scale re-rasters the type every frame and the words shimmer — and just
+     breathe in place instead */
+  .spsticky[data-act="moloch"]:fullscreen .crharmg{animation-name:harmbreathefs;transform:none}
+  .spsticky[data-act="moloch"]:-webkit-full-screen .crharmg{animation-name:harmbreathefs;transform:none}
+  @keyframes harmbreathefs{0%,100%{opacity:.12}22%{opacity:.85}68%{opacity:.55}}
   /* fullscreen is moloch's room and his alone: every other layer of the ledger
      — even the .03 ghost of the coil — goes fully dark */
   .spsticky:fullscreen :is(.crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.crxr,.creye,.crq,.crnw){opacity:0!important}
@@ -7288,8 +7294,12 @@ function renderCritique(){
       if(fsEl()) (document.exitFullscreen||document.webkitExitFullscreen).call(document);
       else (sticky.requestFullscreen||sticky.webkitRequestFullscreen).call(sticky);
     });
+    const sceneSvg=sticky.querySelector('svg');
     const sync=()=>{ const on=fsEl()===sticky;
       fsb.textContent=on?'✕ exit':'⛶ fullscreen';
+      // cover, not contain: in fullscreen the web reaches the room's sides and
+      // the top and bottom of the scene give themselves up to the crop
+      sceneSvg.setAttribute('preserveAspectRatio', on?'xMidYMid slice':'xMidYMid meet');
       if(on) sticky.dataset.act='moloch'; };
     document.addEventListener('fullscreenchange',sync);
     document.addEventListener('webkitfullscreenchange',sync);
