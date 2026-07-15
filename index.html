@@ -151,8 +151,8 @@
   /* the shadow: same geometry, grey ink — until the honest beat asks it to be counted, and it
      takes back its partner's colour. */
   .crdn path{stroke-width:6;stroke:color-mix(in srgb,var(--muted) 80%,transparent);transition:stroke .9s}
-  .crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.crxr,.creye,.crq,.crnw{transition:opacity .9s}
-  .crdn,.crflow,.crcasc,.crlab.dn,.crlab.dn2,.crbill,.crmyth,.crxr,.creye,.crq,.crnw{opacity:0}
+  .crup,.crdn,.crflow,.crcasc,.crlab,.crbill,.crmyth,.crxr,.creye,.crq,.crnw,.crmoloch{transition:opacity .9s}
+  .crdn,.crflow,.crcasc,.crlab.dn,.crlab.dn2,.crbill,.crmyth,.crxr,.creye,.crq,.crnw,.crmoloch{opacity:0}
   .spsticky:is([data-act="export"],[data-act="receipts"],[data-act="haber"],[data-act="cascade"],[data-act="myths"],[data-act="xrisk"],[data-act="honest"],[data-act="numb"],[data-act="witness"],[data-act="questions"],[data-act="remember"],[data-act="build"]) :is(.crdn,.crlab.dn){opacity:1}
   .spsticky:is([data-act="export"],[data-act="receipts"],[data-act="haber"],[data-act="cascade"],[data-act="build"]) .crflow{opacity:1}
   .spsticky:is([data-act="receipts"],[data-act="haber"]) .crbill{opacity:1}
@@ -199,6 +199,25 @@
   .spsticky[data-act="build"] .crcasc circle{stroke:#4ecb66;fill:color-mix(in srgb,#4ecb66 22%,transparent)}
   .spsticky[data-act="build"] .crlab.dn{opacity:0}
   .spsticky[data-act="build"] .crlab.dn2{opacity:1}
+  /* the coda: moloch himself. the ledger all but vanishes, a pair of demon eyes takes
+     the centre, and the harms he harvests drift up behind them — growing as they rise. */
+  .spsticky[data-act="moloch"] :is(.crup,.crlab.up){opacity:.07}
+  .spsticky[data-act="moloch"] .crmoloch{opacity:1}
+  .crmoloch .glow{fill:none;stroke:#e0455c;stroke-width:11;opacity:.16}
+  .crmoloch .rim{fill:none;stroke:#e0455c;stroke-width:3}
+  .crmoloch .brow{fill:none;stroke:#e0455c;stroke-width:5;stroke-linecap:round}
+  .crmoloch .iris{fill:color-mix(in srgb,#e0455c 26%,transparent);stroke:#e0455c;stroke-width:2.5}
+  .crmoloch .slit{fill:#12060a}
+  .crharm{font:700 18px/1 ui-monospace,"SF Mono",Menlo,monospace;
+    fill:color-mix(in srgb,#e0455c 55%,var(--muted));opacity:0;
+    transform-box:fill-box;transform-origin:center}
+  .spsticky[data-act="moloch"] .crharm{animation:harmrise 7s linear calc(var(--i)*.85s) infinite}
+  @keyframes harmrise{
+    0%{opacity:0;transform:translateY(26px) scale(.72)}
+    18%{opacity:.9}
+    70%{opacity:.72}
+    100%{opacity:0;transform:translateY(-42px) scale(1.3)}
+  }
   .spstep p a{color:var(--ink);font-weight:700}
   /* lists inside a beat: one bullet per receipt, claim, risk, or tool */
   .spstep ul{margin:10px 0 0;padding:0;list-style:none}
@@ -212,6 +231,7 @@
     .crflow path{animation:none}
     .crcasc circle{animation:none;opacity:.85;transform:none}
     .creye .lid{transition:none}
+    .crharm{animation:none!important;opacity:.7;transform:none}
   }
 
   /* ---- assembly's header: the bricks themselves ---- */
@@ -6798,12 +6818,18 @@ function renderCritique(){
       `<b>design for many needs at once</b> — so the side effects are gifts`,
       `<b>build from connection, not lack</b> — those desires account for the whole`],
      p2:`an economy that externalizes benefits instead of costs. <b>the upward spiral,
-        earned.</b>`}
+        earned.</b>`},
+    {act:'moloch', h:'eye-gazing with moloch',
+     p:`the demon has no face, so give it one. <b>moloch</b> is the game that makes everyone
+        play — the coordination failure that harvests every unpaid bill on this page. it has
+        one defense: <b>your gaze drifts</b>. the everyday trance is its kingdom.`,
+     p2:`so the last practice is steadfastness. hold its gaze. stay in your body.
+        <b>slay it, or learn to navigate it — but never stop looking.</b>`}
   ];
   wrap.innerHTML=`<div class="spscroll">
     <div class="spsticky crsvg">
       <svg viewBox="0 0 900 1000" role="img"
-        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. partway down the shadow turns red and its turns are named: climate destabilization, engineered pandemics, autonomous weapons, misaligned AI. then the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. at the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs.">
+        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. partway down the shadow turns red and its turns are named: climate destabilization, engineered pandemics, autonomous weapons, misaligned AI. then the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. near the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs. the scroll closes on a pair of red demon eyes — moloch — with the existential and social harms it harvests drifting up and growing behind them.">
         <g class="crup">${up.map((d,i)=>`<path d="${d}" style="stroke:${UPC[i]}"/>`).join('')}</g>
         <g class="crdn">${dn.map((d,i)=>`<path d="${d}" style="--pc:${UPC[i]}"/>`).join('')}</g>
         <g class="crflow">${flows.map(d=>`<path d="${d}"/>`).join('')}</g>
@@ -6836,6 +6862,30 @@ function renderCritique(){
           <text x="250" y="642">how would you live differently?</text>
         </g>
         <text class="crnw" x="450" y="712" text-anchor="middle">not on my watch.</text>
+        <g class="crmoloch">
+          <text class="crharm" x="316" y="238" style="--i:2;font-size:20px">climate collapse</text>
+          <text class="crharm" x="556" y="282" style="--i:1;font-size:17px">engineered pandemics</text>
+          <text class="crharm" x="142" y="312" style="--i:0;font-size:22px">misaligned AI</text>
+          <text class="crharm" x="652" y="392" style="--i:3;font-size:16px">autonomous weapons</text>
+          <text class="crharm" x="112" y="428" style="--i:4;font-size:16px">nuclear arsenals</text>
+          <text class="crharm" x="176" y="556" style="--i:11;font-size:15px">learned helplessness</text>
+          <text class="crharm" x="636" y="566" style="--i:5;font-size:18px">species extinction</text>
+          <text class="crharm" x="146" y="620" style="--i:6;font-size:17px">forever chemicals</text>
+          <text class="crharm" x="472" y="642" style="--i:7;font-size:16px">attention capture</text>
+          <text class="crharm" x="236" y="700" style="--i:8;font-size:19px">loneliness epidemic</text>
+          <text class="crharm" x="566" y="722" style="--i:9;font-size:16px">teen despair</text>
+          <text class="crharm" x="366" y="768" style="--i:10;font-size:17px">polarization</text>
+          <path class="glow" d="M275 480 Q350 442 425 480 Q350 518 275 480 Z"/>
+          <path class="glow" d="M475 480 Q550 442 625 480 Q550 518 475 480 Z"/>
+          <path class="rim" d="M275 480 Q350 442 425 480 Q350 518 275 480 Z"/>
+          <path class="rim" d="M475 480 Q550 442 625 480 Q550 518 475 480 Z"/>
+          <path class="brow" d="M272 436 L428 462"/>
+          <path class="brow" d="M628 436 L472 462"/>
+          <circle class="iris" cx="350" cy="480" r="21"/>
+          <circle class="iris" cx="550" cy="480" r="21"/>
+          <ellipse class="slit" cx="350" cy="480" rx="4.5" ry="15"/>
+          <ellipse class="slit" cx="550" cy="480" rx="4.5" ry="15"/>
+        </g>
         <text class="crlab up" x="36" y="150">what gets counted</text>
         <text class="crlab dn" x="36" y="880">what gets left out</text>
         <text class="crlab dn2" x="36" y="880">what gets given back</text>
