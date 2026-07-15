@@ -27,15 +27,15 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.upwardspiral.io/">
 <meta property="og:title" content="resource allocation through history">
-<meta property="og:description" content="12,000 years of deciding who gets what, who decides, how you eat, what is true, who you are, who you trust, who keeps the record, how you fight, what can be proven, and what you owe: 693 mechanisms as living art, potlatch to quadratic funding, songlines to zero-knowledge proofs, tally marks to zero-knowledge, the potlatch to the moral circle. ten tabs, every one explained. click around, it sparkles.">
+<meta property="og:description" content="12,000 years of deciding who gets what, who decides, how you eat, what is true, who you are, who you trust, who keeps the record, how you fight, what can be proven, and what you owe: 1,063 mechanisms as living art, potlatch to quadratic funding, songlines to zero-knowledge proofs, tally marks to zero-knowledge, the potlatch to the moral circle. ten tabs, every one explained. click around, it sparkles.">
 <meta property="og:image" content="https://www.upwardspiral.io/og.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="resource allocation through history">
-<meta name="twitter:description" content="12,000 years of civilization's ten questions: who gets what, who decides, how you eat, what is true, who you are, who you trust, who keeps the record, how you fight, what can be proven, what you owe. 693 mechanisms as living art, every one explained. click around, it sparkles.">
+<meta name="twitter:description" content="12,000 years of civilization's ten questions: who gets what, who decides, how you eat, what is true, who you are, who you trust, who keeps the record, how you fight, what can be proven, what you owe. 1,063 mechanisms as living art, every one explained. click around, it sparkles.">
 <meta name="twitter:image" content="https://www.upwardspiral.io/og.png?v=2">
-<meta name="description" content="an interactive remake of the gitcoin 'resource allocation through history' poster, with nine sibling tabs: power structures, livelihood, truth, identity, trust, the record, conflict, mathematics, and ethics. 693 mechanisms across 5 eras, each explained.">
+<meta name="description" content="an interactive remake of the gitcoin 'resource allocation through history' poster, with nine sibling tabs: power structures, livelihood, truth, identity, trust, the record, conflict, mathematics, and ethics. 1,063 mechanisms across 5 eras, each explained.">
 <style>
   :root{
     --bg:#f3effa; --ink:#1d1629; --muted:#645c78; --panel:#ffffff; --line:#dcd3ec;
@@ -1549,18 +1549,14 @@
   .tab.on.t-lineage{background:linear-gradient(90deg,#d98a1f,#e0455c,#2f9e44);box-shadow:0 6px 18px rgba(224,69,92,.4)}
   /* the stage: canvas strand, toured on scroll */
   #lg3d{width:100%;display:block;aspect-ratio:1/1;max-height:92vh}
+  /* the lighting runs on past the last card: ~1.5 pages of scroll where torches keep catching */
+  .lg-lightspace{height:150vh}
+  @media(max-width:900px){ .lg-lightspace{height:30vh} }
   /* the beat cards keep the page's serif voice, one size up from the trap's */
   #lineagewrap .asmbeat p{font-size:13.6px}
   #lineagewrap .asmbeat.on .tag{background:linear-gradient(90deg,#d98a1f,#e0455c,#2f9e44);
     -webkit-background-clip:text;background-clip:text;color:transparent;opacity:1}
-  /* the deck above the tour reads at one-pager width */
-  #lineagewrap .lg-prose{max-width:720px;margin:0 auto}
-  #lineagewrap .lg-head{padding:20px 0 8px}
-  #lineagewrap .lg-deck{margin:0;font-size:18px;color:var(--muted);font-style:italic;max-width:56ch}
   #lineagewrap q{font-style:italic}
-  /* where the telling and the public record diverge, both stay on the page */
-  #lineagewrap .lg-record{display:block;margin:10px 0 0;padding:8px 12px;border-left:2px solid var(--line);
-    font:400 12.5px/1.65 ui-monospace,Menlo,monospace;color:var(--muted)}
 
   /* ---------- 🕳️ the multipolar trap — a fitness landscape you slide down, then reshape ---------- */
   #trapwrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:1140px;--ac:#e0424f}
@@ -2740,7 +2736,7 @@
     <!-- the census moved down here from the hero: the measurements sit with the doors they
          measure. the two-click hint rides under the tabs now, where the clicking happens. -->
     <div class="herostats" id="herostats">
-      <span><b>12,000</b> years</span><span><b>many</b> vantage points</span><span><b>1,058</b> mechanisms</span><span><b>5</b> eras</span>
+      <span><b>12,000</b> years</span><span><b>many</b> vantage points</span><span><b>1,063</b> mechanisms</span><span><b>5</b> eras</span>
     </div>
   </div>
   <nav class="tabs" role="tablist" aria-label="poster">
@@ -2778,7 +2774,7 @@
         <button class="tab t-trap" role="tab" data-mode="trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></button>
         <button class="tab t-critique" role="tab" data-mode="critique"><span class="em">🪞</span>critique of progress<span class="tq">what the gains cost</span></button>
         <button class="tab t-super" role="tab" data-mode="superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></button>
-        <button class="tab t-lineage" role="tab" data-mode="lineage"><span class="em">🔥</span>the lineage<span class="tq">who carried the torch</span></button>
+        <button class="tab t-lineage" role="tab" data-mode="lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></button>
       </div>
     </div>
     <div class="tabgrp">
@@ -3893,6 +3889,7 @@ const TRUST_STATS={
 "Reputation Memory":{"basis":"track record","radius":"everyone you know","earned":"years of showing up","lost":"one scandal"},
 "Ostracism":{"basis":"the threat of exile","radius":"the band","earned":"compliance","lost":"the offense"},
 "Ritual Bonding":{"basis":"shared ordeal","radius":"the initiated","earned":"the ceremony","lost":"skipping it"},
+"Rituals of Tribal Warmth":{"basis":"repeated closeness","radius":"whoever the fire reaches","earned":"showing up, nightly","lost":"drifting from the circle"},
 "Blood Brotherhood":{"basis":"sworn kinship","radius":"the two of you","earned":"the rite","lost":"betrayal (and it is war)"},
 "Silent Trade":{"basis":"ritual convention","radius":"the boundary stone","earned":"fair exchanges","lost":"one theft"},
 "Sacred Oaths":{"basis":"fear of god","radius":"the faithful","earned":"swearing","lost":"perjury (and damnation)"},
@@ -3903,6 +3900,7 @@ const TRUST_STATS={
 "Collateral & Pawn":{"basis":"the pledge","radius":"the loan","earned":"posting it","lost":"defaulting"},
 "Letters of Credit":{"basis":"the banker's name","radius":"the banking network","earned":"correspondent ties","lost":"a dishonored letter"},
 "Hospitality Law":{"basis":"sacred custom","radius":"the road","earned":"being a guest","lost":"violating the roof"},
+"Feast Days":{"basis":"the shared table","radius":"the parish","earned":"a seat and a dish","lost":"eating apart"},
 "Contract Law":{"basis":"state enforcement","radius":"the jurisdiction","earned":"signing","lost":"breach (see you in court)"},
 "Insurance":{"basis":"pooled premiums","radius":"the policy","earned":"paying in","lost":"the excluded clause"},
 "Banks":{"basis":"the vault + the charter","radius":"national","earned":"deposits","lost":"the run"},
@@ -3911,6 +3909,7 @@ const TRUST_STATS={
 "Standardization":{"basis":"the spec","radius":"every factory","earned":"conformance","lost":"tolerance drift"},
 "Brands":{"basis":"repeat quality","radius":"the market","earned":"consistency","lost":"one recall"},
 "Regulatory Seals":{"basis":"state inspection","radius":"the rule's border","earned":"passing","lost":"the capture scandal"},
+"The Pub and the Lodge":{"basis":"the regular table","radius":"the regulars","earned":"rounds and dues","lost":"moving away"},
 "Seller Ratings":{"basis":"the score","radius":"the platform","earned":"good transactions","lost":"a bad streak"},
 "The Padlock":{"basis":"certificate authorities","radius":"the browser bar","earned":"buying a cert","lost":"a breached ca"},
 "Platform Escrow":{"basis":"the middleman's hold","radius":"both sides of the deal","earned":"listing","lost":"the chargeback"},
@@ -3918,6 +3917,7 @@ const TRUST_STATS={
 "Two-Sided Ratings":{"basis":"mutual hostage scores","radius":"the ride","earned":"five stars both ways","lost":"one three-star"},
 "Web of Trust":{"basis":"key signatures","radius":"the graph","earned":"signing parties","lost":"an unverifiable chain"},
 "Trust & Safety Teams":{"basis":"the platform's police","radius":"the walled garden","earned":"not triggering the model","lost":"a false positive"},
+"The Group Chat":{"basis":"ambient contact","radius":"the thread","earned":"replying, daily","lost":"leaving on read"},
 "Phishing & Social Engineering":{"basis":"your trust shortcuts","radius":"anyone with an inbox","earned":"a convincing costume","lost":"the click"},
 "Trustlessness":{"basis":"verifiable computation","radius":"anyone with a node","earned":"running the code","lost":"a bug"},
 "Staking & Slashing":{"basis":"burnable capital","radius":"the protocol","earned":"bonding","lost":"misbehavior"},
@@ -3926,7 +3926,8 @@ const TRUST_STATS={
 "Timelocks & Vesting":{"basis":"enforced patience","radius":"the contract","earned":"deploying it","lost":"nothing; that is the point"},
 "Atomic Swaps":{"basis":"all-or-nothing execution","radius":"the two chains","earned":"the protocol","lost":"nothing; it cannot half-happen"},
 "Transparent Treasuries":{"basis":"public books","radius":"anyone who looks","earned":"being onchain","lost":"offchain deals"},
-"Trust Graphs":{"basis":"signed vouches","radius":"friends-of-friends","earned":"vouching","lost":"a cascade of defaults"}
+"Trust Graphs":{"basis":"signed vouches","radius":"friends-of-friends","earned":"vouching","lost":"a cascade of defaults"},
+"GM Culture":{"basis":"the daily greeting","radius":"the discord","earned":"gm, every morning","lost":"going quiet"}
 };
 const RECORD_STATS={
 "Memory Specialists":{"keeper":"the rememberer","medium":"neurons","lifespan":"one lifetime","erasure":"death"},
@@ -4027,6 +4028,8 @@ const TRUST_ERAS=[
     "existential deterrence without violence","reintegration; the door barely reopens"),
   m('Ritual Bonding',0,"dance, ordeal, feast: synchronized experience as trust-glue between people who share no blood.",
     "welding strangers into a unit, fast","scale; the ritual fits around one fire"),
+  m('Rituals of Tribal Warmth',0,"the fire circle, the shared meal, the song at night: closeness rehearsed until it is infrastructure. belonging, reheated daily.",
+    "trust topped up before it is ever tested","absence; miss enough nights and you are a guest"),
   m('Blood Brotherhood',0,"trust manufactured: two strangers made kin by ceremony. the alliance gets a body.",
     "bonds beyond the bloodline","mass production; it is one bond at a time"),
   m('Silent Trade',0,"exchange without contact: goods left at the boundary, counter-offer or walk away. trust in the ritual instead of the trader.",
@@ -4059,6 +4062,8 @@ const TRUST_ERAS=[
     "moving value without moving gold","anyone outside the correspondent network"),
   m('Hospitality Law',0,"the guest is sacred: travelers and hosts protected by divine rule. violation is the darkest crime in half the world's epics.",
     "safe passage across a lawless map","enforcement past the reach of belief"),
+  m('Feast Days',0,"tribal warmth on a calendar: harvest feasts, saint's days, the long table where the whole parish eats as one body.",
+    "re-welding a village too big for one fire","the year between; belonging runs on scheduled doses"),
   x('Caravan Protocols',"strangers pooling security for the road: trust in numbers and shared fate.",
     "surviving the route together","the destination; the caravan disbands"),
   x('Hawala',"value transfer on pure trust: no documents a court could read, and it has worked for a millennium.",
@@ -4087,6 +4092,8 @@ const TRUST_ERAS=[
     "repeat-purchase trust at national scale","truth in advertising; the promise is the product"),
   m('Regulatory Seals',0,"the state pre-trusts on your behalf: fda approval, building codes, the health inspector's grade in the window.",
     "not personally auditing your own food","capture; the seal can be quietly bought"),
+  m('The Pub and the Lodge',0,"the local, the union hall, the friendly society: tribal warmth rebuilt on a weekly schedule after the factory scattered the village.",
+    "belonging for the uprooted, on tap","whoever the door policy quietly excludes"),
   x('The Handshake Deal',"pre-contract trust surviving industrialization: your word, in a small market with a long memory.",
     "speed among repeat players","courts; there is nothing to enforce"),
   x('Escrow Agents',"a neutral third party holds the money until both sides perform.",
@@ -4113,6 +4120,8 @@ const TRUST_ERAS=[
     "decentralized identity assurance","usability; the party was the security model"),
   m('Trust & Safety Teams',0,"the platform's private police: fraud models, moderation queues, account recovery.",
     "policing at software scale","appeal; the police report to the shareholder"),
+  m('The Group Chat',0,"the fire circle in your pocket: streaks, inside jokes, the good-morning message. tribal warmth as ambient contact, no bodies required.",
+    "keeping the circle warm across any distance","depth; presence thinned to a notification"),
   m('Phishing & Social Engineering',0,"the adversary: every trust shortcut, weaponized. the con artist, industrialized.",
     "attackers; the inbox is the perimeter","everyone else; hence the training videos"),
   x('Karma Systems',"reddit and its cousins: accumulated community trust as a number by your name.",
@@ -4143,6 +4152,8 @@ const TRUST_ERAS=[
     "embezzlement-resistant by default","privacy; the payroll is public too"),
   m('Trust Graphs',0,"onchain vouching networks: credit and identity extended along signed edges (circles, union, goldfinch).",
     "the kin-circle model, back at internet scale","cascade risk; a betrayal propagates down the graph"),
+  m('GM Culture',0,"the daily gm, the community call, the conference hug: tribal warmth rebuilt among pseudonyms who may never meet.",
+    "a fire circle for wallets; the coldest trust stack grew warm hands","sincerity at scale; the ritual is one keystroke deep"),
   x('Rug Pulls',"the adversary: trustlessness's confidence trick. the code was fine; the team was not.",
     "reminding everyone what trustless does not cover","the holders"),
   x('Formal Verification',"proving the code does what the spec says, mathematically.",
@@ -7293,7 +7304,7 @@ const ASM_SPACE=[
  {n:'the contingent', s:'what a path can reach from here', pct:40, bg:'linear-gradient(90deg,#2f9e44,#1f7d33)', frontier:true,
   d:"far smaller: only what you can get to from where history actually stands, because the next brick has to sit on the last one. this is where the poster's ✦ unbuilt ones live — reachable now, not yet built. specs waiting for a builder."},
  {n:'the observed', s:'what somebody actually built', pct:20, bg:'linear-gradient(90deg,#1c7ed6,#6247d6)',
-  d:"the 1,058 mechanisms in these tabs. a rounding error against the universe — and every one is a memory of its own construction. read its assembly index backwards and you read its history."}
+  d:"the 1,063 mechanisms in these tabs. a rounding error against the universe — and every one is a memory of its own construction. read its assembly index backwards and you read its history."}
 ];
 // the spiral as one rising number. the figures are rough and illustrative — the SHAPE is the claim.
 const ASM_ERA=[
@@ -11459,39 +11470,34 @@ document.getElementById('theme').onclick=()=>{ const r=document.documentElement;
   try{ localStorage.setItem('ra-theme',n); }catch(e){} };
 
 // ---------- 🔥 the lineage: the century, stood upright ----------
-// the one-pager rebuilt as a tour: the idea is a 3d strand climbing from 1927 (the water)
-// to 2026 (the merge), and scrolling walks the camera up it — the same pinned-hero machinery
-// as the trap and the assembly. amber where the idea is carried, ember where it breaks,
-// moss for the empirical line that arrives late and meets it at the top. the tour opens on
-// the dream itself (the peace room, drawn), closes the story on how it is stewarded — and
-// then keeps going: ten more lineages light up around the strand, satoshi to the whole
-// earth, every one converging on the same merge node.
+// a 3d strand climbing from 1927 (the water) to 2026 (the merge), toured on scroll — the
+// same pinned-hero machinery as the trap and the assembly. amber where the idea is carried,
+// ember where it breaks. ten more lineages light up around it, satoshi to the whole earth;
+// a fan of green empirical lines — gitcoin, open collective, github sponsors — sweeps in
+// near the end; and the tour closes on the torch itself, passing to the readers.
 let linRAF=0, linScroll=null;
 const LG_BEATS=[
  {tag:'the dream · a peace room as sophisticated as the war room.',
-  p:`<b>bucky's dream</b>: a room that maps opportunities for synergy and collaboration the way the war room maps threats — and figures out how to implement them. <b>barbara's dream</b>: an answer to the question nobody would answer for her — what is the good purpose of god-like power? <b>ANON's dream</b>, written down in one night in 2001: decentralized matching and social synergy, at scale.`,
-  p2:`one room, three dreamers, one century. the strand behind it is the idea, moving hand to hand.`,
+  p:`<b>bucky fuller's dream</b>: a room that maps the world's opportunities for synergy the way the war room maps its threats — and implements them. <b>barbara marx hubbard's dream</b>: a good use for god-like technological power. <b>ANON's dream</b>, written in one night in 2001: decentralized matching and social synergy, at scale.`,
+  p2:`one room, three dreamers, one century.`,
   note:`the strand stands the century upright: <b>1927 at the water, 2026 at the top</b>. amber where the idea is carried, ember where it breaks, green where the receipts arrive. the year in the corner is where you are. scroll to climb.`},
  {tag:'1927 · bucky walks into the lake.',
-  p:`bucky fuller, broken by his 5&nbsp;year old daughter's death from polio, walks into lake michigan with rocks in his pockets — and has a spiritual experience: his life wasn't made by him and doesn't belong to him. <q>there is still a vessel that has capabilities, and those capabilities need used for other beings.</q>`,
-  p2:`he runs the rest of his life as an experiment: what can a single human with no personal ambition, dedicated as a vessel in service of humanity's needs, become. <b>bucky was the result of that one experiment.</b>`},
- {tag:'1945–52 · barbara asks eisenhower.',
-  p:`barbara marx hubbard is a teenager when the bomb drops. her family was thanksgiving-close with eisenhower and the war room generals. years later she gets into the oval office and asks him: we have god-like technological power, i can see the bad purpose. <b>what's the good one?</b> <q>young lady, i have no idea.</q>`,
-  p2:`she asks everybody. nobody knows. so she becomes a student of the people closest to knowing: bucky fuller, jonas salk, teilhard de chardin, krishnamurti.`,
-  rec:`one telling has her at 18 when the bomb dropped; public record has her at 15.`},
- {tag:'1982–83 · the peace room. the strand breaks.',
-  p:`bucky asks barbara to run for vice president on one platform: build the <b>peace room</b>. she agrees on one condition: he provides the blueprint. <q>i've been working on it,</q> he says.`,
-  p2:`she runs, gets 200 delegate votes at the democratic convention. bucky dies 3&nbsp;days before their meeting to hand it over — flies home off his speaking tour, holds his dying wife's hand, dies at her bedside; he'd promised her he'd go first. <b>the blueprint is never found.</b>`,
-  rec:`bucky died july 1, 1983; barbara's 200-delegate run culminated at the 1984 democratic convention.`},
- {tag:'2001 · one night in santa barbara, ANON writes the spec.',
-  p:`ANON meets barbara. she downloads the whole vision — camp eve instead of camp david, the peace room, all of it. he asks what she has on paper. nothing. he stays up all night and writes the initial spec: profiles that identify a person's dharma, matching to work, school, volunteering, best-practice sharing across projects, donor–nonprofit matching with analytics — <b>decentralized matching and social synergy, at scale</b>.`,
-  p2:`she wakes up, reads it, and cries: <q>i've been waiting for this since 1983.</q> this is before facebook exists.`},
+  p:`buckminster fuller, thirty-two and bankrupt, loses his daughter to polio and walks to the edge of lake michigan intending not to come back. what he finds instead is a question: what could one ordinary life do, spent entirely as an experiment in service of everyone?`,
+  p2:`he spends the next fifty-six years running that experiment — the dymaxion designs, the geodesic dome, the world game — and becomes the century's loudest advocate for <b>making the world work for 100% of humanity</b>.`},
+ {tag:'1945 · barbara asks the question.',
+  p:`barbara marx hubbard is fifteen when the bomb drops, and the question it leaves never lets her go: we now have god-like technological power — <b>what is it for?</b> she eventually puts it to president eisenhower directly. he has no answer.`,
+  p2:`so she studies with the people closest to one — fuller, jonas salk, teilhard de chardin — and becomes a leading voice for conscious evolution, and fuller's closest ally in the search for the good use of power.`},
+ {tag:'1983 · the peace room. the strand breaks.',
+  p:`fuller's late proposal: build a <b>peace room</b> as sophisticated as the war room — map the world's resources and its openings for cooperation, then act on them. barbara agrees to carry it into politics on one condition: he writes the blueprint.`,
+  p2:`in july 1983, before handing it over, fuller dies at his dying wife's bedside; she follows within thirty-six hours. barbara takes the idea to the 1984 democratic convention and wins 200 delegate votes for vice president. <b>the blueprint is never found.</b>`},
+ {tag:'2001 · the spec, written overnight.',
+  p:`in santa barbara, barbara hands the whole vision to ANON — the peace room, all of it. it exists nowhere on paper. ANON stays up one night and writes the first spec: profiles that surface what a person is here to do, matching to work and projects, best practices shared across efforts, donors matched to outcomes — <b>decentralized matching and social synergy, at scale</b>.`,
+  p2:`it is 2001. facebook does not exist yet.`},
  {tag:'2000s · the failed attempts.',
-  p:`paul hawken's wiser earth gets funded, signs up 3&nbsp;million NGOs, and dies (UX <q>a million times worse than craigslist</q>). mini one, one portal, meta networks — ANON consulted for every one of them, and studied the wikimedia and craigslist people too.`,
-  p2:`the lesson bank is full; the platform never got built. <b>the strand runs dashed into the present.</b>`,
-  rec:`one telling has barbara at 95, vital, killed by a misprescription; public record has april 2019, at 89.`},
+  p:`the decade tries to build it and can't. wiser earth signs up three million organizations and dies of its interface. mini one, one portal, meta networks — funded, launched, gone. ANON consults for every one of them and keeps the lessons.`,
+  p2:`the lesson bank fills; the platform never ships. <b>the strand runs dashed into the present.</b>`},
  {tag:'and it is not one torch. satoshi. vitalik. open source.',
-  p:`the same shape keeps happening. <b>satoshi</b> — money without a state: chaum's digital cash, the cypherpunks, a pseudonym ships bitcoin (2008). <b>ethereum</b> — coordination you can program: szabo's contracts, made a world computer by vitalik (2015). <b>open source</b> — software owned by everyone: stallman's license, torvalds' kernel, a commons of code (1983).`,
+  p:`the same shape keeps happening. <b>bitcoin</b> — money without a state: chaum's digital cash, the cypherpunks' mailing list, then a pseudonym ships it (2008). <b>ethereum</b> — coordination you can program: szabo's smart contracts, made a world computer by vitalik buterin (2015). <b>open source</b> — software owned by everyone: stallman's license, torvalds' kernel, a global commons of code (1983).`,
   p2:`each one: an idea carried hand to hand, nearly dying, arriving. <b>watch them hook into the same merge.</b>`},
  {tag:'the tools-for-thought line.',
   p:`<b>the internet</b> — a network nobody owns: licklider's dream, arpanet, tcp/ip (1962). <b>hypertext</b> — augmenting human intellect: bush's memex, engelbart's demo, the web (1945). <b>cybernetics</b> — seeing the whole system: wiener, forrester, meadows (1948).`,
@@ -11500,24 +11506,20 @@ const LG_BEATS=[
   p:`<b>the commons</b> — governed, not tragic: ostrom's eight principles against hardin's trap (1990). <b>mechanism design</b> — math that moves money: vickrey's auction to quadratic funding (1961). <b>mutual aid</b> — survival of the cooperative: kropotkin, rochdale, the credit union (1902).`,
   p2:`the peace room needs rules that hold without a king. <b>these three wrote them.</b>`},
  {tag:'the whole picture: eleven torches, one room.',
-  p:`<b>the whole earth</b> — seeing the planet from outside: brand's button, the catalog, the overview effect (1966). and with it, every lineage lit at once — bucky's strand in the middle, ten more around it, all converging on the same node.`,
+  p:`<b>the whole earth</b> — seeing the planet from outside: brand's button, the catalog, the overview effect (1966). and with it, every lineage lit at once — the peace-room strand in the middle, ten more around it, all converging on the same node.`,
   p2:`the merge isn't one lineage's finale. <b>it is where the torches meet.</b>`},
- {tag:'and one line is not a priori at all. the gitcoin history.',
-  p:`while the a priori line was failing forward, a <b>green line</b> was climbing on its own, far from the story: <b>230 gitcoin campaigns</b> — ukraine aid, covid masks, climate rounds — a decade of receipts for decentralized matching, run in public. kevin carries this one.`,
-  p2:`ANON carries the a priori line; kevin carries the empirical one. <q>a demonstration of the empirical to ANON's a priori.</q> <b>the steward's job is the merge.</b>`},
- {tag:'how we now steward it · the exchange.',
-  p:`kevin, on the call: <q>it feels like something sacred and that we're carrying the ball forward on the legacy of buckminster fuller.</q>`,
-  p2:`ANON: <q>i think it's fair. were you born in 1983?</q>`,
-  rec:`kevin: 1984. barbara's delegate run culminated at the 1984 convention.`},
- {tag:'theory into practice · the window is open.',
-  p:`the story of the platform is <q>people who are practicing the third attractor.</q> catastrophe and dystopia are mapped; <b>this is the third option operationalized.</b>`,
-  p2:`kevin, in the debrief: <q>i didn't realize that that was the sort of like lineage of the ideas that we're bringing forward… it feels like we have an overton window to do something.</q>`},
- {tag:'the torch, and the posture.',
-  p:`ANON is the oracle and the torch. the job, explicitly: <q>light that torch of others</q> — build the case study library, make the hope transmissible without ANON in the room. <b>key man risk is the stewardship risk.</b>`,
-  p2:`and how bucky did it is part of what's stewarded: <q>that completely irrational, unreasonable love is actually the only way to do his work.</q> he rewrote the lord's prayer from his own gnosis every day — 50,000 of them. <b>stewarding the peace room means stewarding that posture too, not just the software.</b>`},
- {tag:"2026 · the merge. this is what we're focused on now.",
-  p:`every line on this page converges here: the a priori line, the empirical one, and the ten torches around them. ANON and kevin have kicked off the product sprint — <b>decentralized matching and social synergy, at scale</b>, starting local.`,
-  p2:`<b>that's what we're focused on now.</b>`}
+ {tag:'and the lines that were never a priori at all.',
+  p:`while the peace-room line kept failing, the empirical lines were shipping: <b>gitcoin</b> — 230 public-goods funding campaigns, ukraine aid to climate rounds. <b>open collective</b> — transparent budgets for thousands of open-source and mutual-aid groups. <b>github sponsors</b>, <b>patreon</b>, <b>kickstarter</b>, <b>wikimedia</b> — a whole generation of matching money to what people are here to do, running in public.`,
+  p2:`nobody wrote these from a blueprint. they grew from receipts. <b>watch them sweep in.</b>`},
+ {tag:'theory into practice.',
+  p:`catastrophe is mapped. dystopia is mapped. the third option — communities that can see, coordinate and commit — has to be <b>operationalized</b>, not argued.`,
+  p2:`that is what the merge is: the a priori line's blueprint finally meeting the empirical lines' receipts.`},
+ {tag:'the torch.',
+  p:`a century of carrying — bucky to barbara to ANON — ten lineages beside it, a fan of empirical lines beneath it, one merge. and all of it, right now, <b>held in one hand</b>.`,
+  p2:`a torch is not a monument. it exists to be passed.`},
+ {tag:'and it lights the others. yours.',
+  p:`the flame doesn't stay with the carrier. <b>the scroll ends; the torch doesn't.</b>`,
+  p2:`take it. <b>the next hand is yours.</b>`}
 ];
 // the ten other torches: name · one-liner · when it lights · ink (dark/light) · reveal group
 const LG_LIN=[
@@ -11532,19 +11534,24 @@ const LG_LIN=[
  {n:'mutual aid',       one:'survival of the cooperative',  y:1902, cD:'#e14fe1', cL:'#8a2a8a', g:2},
  {n:'the whole earth',  one:'seeing it from outside',       y:1966, cD:'#5ad0d0', cL:'#0e8189', g:3}
 ];
+// the empirical lines: funding-in-public, each with its own receipts. gitcoin leads the fan.
+const LG_EMP=[
+ {n:'gitcoin',         sub:'230 public-goods campaigns', y:2017, cD:'#4ecb66', cL:'#237e38', main:true},
+ {n:'open collective', y:2015, cD:'#37c9b0', cL:'#12806b'},
+ {n:'github sponsors', y:2019, cD:'#8fd14f', cL:'#5f7d1f'},
+ {n:'patreon',         y:2013, cD:'#57c785', cL:'#1f7d4a'},
+ {n:'kickstarter',     y:2009, cD:'#a3d977', cL:'#6f8f2f'},
+ {n:'wikimedia',       y:2001, cD:'#2fb59b', cL:'#0e8189'}
+];
 function renderLineage(){
   const wrap=document.getElementById('lineagewrap');
   wrap.innerHTML=`
-   <div class="lg-prose lg-head">
-     <p class="lg-deck">one idea — a peace room as sophisticated as the war room — carried hand to hand
-       for a century. and then ten more, hooking into the same merge.</p>
-   </div>
    <div class="asmintro"><b class="inl">scroll: climb the century, 1927 → 2026.</b></div>
    <div class="asmscroll">
      <div class="asmsticky">
        <div class="asmstage">
          <canvas id="lg3d" role="img"
-           aria-label="a century drawn as a three-dimensional strand spiralling upward: 1927 at the water, 2026 at the top. the tour opens on the dream itself — a domed peace room, a round table whose threads map synergies the way the war room maps threats — then climbs the strand: amber where the idea is carried hand to hand (bucky fuller from 1927, barbara marx hubbard from 1945, ANON from 2001), breaking red in 1983 when bucky dies and the blueprint is lost, red-dashed through the failed platforms of the 2000s. then ten more lineages light up around the strand — satoshi, ethereum, open source, the internet, hypertext, cybernetics, the commons, mechanism design, mutual aid, the whole earth — each rising from its own year and converging on the same node. a green strand — 230 gitcoin campaigns, the empirical line — sweeps in near the end, and the tour closes zoomed on the merge: the product sprint now underway."></canvas>
+           aria-label="a century drawn as a three-dimensional strand spiralling upward: 1927 at the water, 2026 at the top. the tour opens on the dream itself — a domed peace room, a round table whose threads map synergies the way the war room maps threats — then climbs the strand: amber where the idea is carried hand to hand (bucky fuller from 1927, barbara marx hubbard from 1945, ANON from 2001), breaking red in 1983 when fuller dies and the blueprint is lost, red-dashed through the failed platforms of the 2000s. ten more lineages then light up around the strand — satoshi, ethereum, open source, the internet, hypertext, cybernetics, the commons, mechanism design, mutual aid, the whole earth — followed by a fan of green empirical lines: gitcoin, open collective, github sponsors, patreon, kickstarter, wikimedia, all converging on the same node. the tour closes on a single torch, burning — and with one more scroll its flame passes outward to a field of readers' torches, catching one by one."></canvas>
          <div class="tp-hud"><div class="hn" id="lghud">✦</div><div class="hl" id="lghudl">the dream · the peace room</div></div>
        </div>
      </div>
@@ -11553,10 +11560,10 @@ function renderLineage(){
          <span class="bn">${String(i).padStart(2,'0')}</span>
          <span class="tag">${b.tag}</span>
          <p>${b.p}</p><p>${b.p2}</p>
-         ${b.rec?`<span class="lg-record">${b.rec}</span>`:''}
          ${b.note?`<div class="asmscrollnote">${b.note}</div>`:''}
          ${i===LG_BEATS.length-1?`<div class="asmprog">${LG_BEATS.map((_,j)=>`<i class="${j===0?'on':''}"></i>`).join('')}</div>`:''}
        </div>`).join('')}
+       <div class="lg-lightspace"></div>
      </div>
    </div>`;
 
@@ -11576,8 +11583,12 @@ function renderLineage(){
   const HY=1.55, MT=0.955;
   const TH=t=>-1.35+t*6.9, RD=t=>0.30+0.10*t;
   const P=t=>{ const th=TH(t), r=RD(t); return [r*Math.cos(th), t*HY, r*Math.sin(th)]; };
-  // the empirical line converges on the strand and meets it exactly at the 2026 node
-  const G=s=>{ const t=0.52+(MT-0.52)*s, th=TH(t)-2.3*(1-s), r=RD(t)+0.34*(1-s);
+  // the empirical fan: same bending as the torches, clustered on the green side of the sky
+  const ET0=LG_EMP.map(d=>Math.max(0,Math.min(0.92,(d.y-1927)/99)));
+  const EPHI=LG_EMP.map((_,j)=>-2.3+(j-2.5)*0.34);
+  const ERB=LG_EMP.map((_,j)=>0.60+0.05*((j*5)%3));
+  const E=(j,s)=>{ const t=ET0[j]+(MT-ET0[j])*s, e=1-s;
+    const th=TH(t)+EPHI[j]*Math.pow(e,1.15), r=RD(t)+(ERB[j]-RD(t))*Math.pow(e,1.2);
     return [r*Math.cos(th), t*HY, r*Math.sin(th)]; };
   // the other torches: each rises from its own year at its own bearing, and is bent
   // into the bucky strand's endpoint — every lineage meets at the one merge node.
@@ -11600,16 +11611,18 @@ function renderLineage(){
   // camera + reveal targets, one set per beat — the tour is these fifteen rows.
   // 0 the dream · 1–5 the story · 6–9 the other torches · 10 the gitcoin line ·
   // 11–13 the stewardship · 14 the merge, where it all lands.
-  const FOC =[0.34, 0.02,0.20,0.46,0.60,0.77,0.50,0.50,0.50,0.50,0.50,0.50,0.50,0.50,MT ];
-  const VIS =[-0.05,0.07,0.26,0.52,0.63,0.90,1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0];
-  const ZM  =[0.78, 1.30,1.32,1.42,1.42,1.16,0.62,0.62,0.62,0.55,0.62,0.72,0.74,0.76,1.20];
-  const MRG =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1,   1  ];
-  const DRM =[1,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ];
-  const LIT =[0,    0,   0,   0,   0,   0,   1,   2,   3,   4,   4,   4,   4,   4,   4  ];
-  const HUDL=['the dream · the peace room','the vessel experiment','the question nobody could answer','the blueprint is never found','ANON writes the spec','the failed attempts','satoshi · vitalik · open source','the tools-for-thought line','the governance line','eleven torches, one room','the empirical line · gitcoin','how we now steward it','theory into practice','the torch, handed on','the merge · now'];
+  const FOC =[0.34, 0.02,0.20,0.46,0.60,0.77,0.50,0.50,0.50,0.50,0.50,0.50,0.50,0.50];
+  const VIS =[-0.05,0.07,0.26,0.52,0.63,0.90,1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0];
+  const ZM  =[0.78, 1.30,1.32,1.42,1.42,1.16,0.62,0.62,0.62,0.55,0.62,0.72,0.62,0.62];
+  const MRG =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1  ];
+  const DRM =[1,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0  ];
+  const LIT =[0,    0,   0,   0,   0,   0,   1,   2,   3,   4,   4,   4,   4,   4  ];
+  const TOR =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1  ];
+  const CRD =[0,    0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1  ];
+  const HUDL=['the dream · the peace room','the vessel experiment','the question','the blueprint is never found','the spec, overnight','the failed attempts','satoshi · vitalik · open source','the tools-for-thought line','the governance line','eleven torches, one room','the empirical lines','theory into practice','the torch, held','the next hand'];
   const CAM_STEP=-Math.PI/9;
-  let foc=FOC[0],vis=VIS[0],zm=ZM[0],mrg=0,drm=DRM[0];
-  let focT=FOC[0],visT=VIS[0],zmT=ZM[0],mrgT=0,drmT=DRM[0];
+  let foc=FOC[0],vis=VIS[0],zm=ZM[0],mrg=0,drm=DRM[0],tor=0,crd=0;
+  let focT=FOC[0],visT=VIS[0],zmT=ZM[0],mrgT=0,drmT=DRM[0],torT=0,crdT=0;
   const gl=[0,0,0,0], glT=[0,0,0,0];
   let camA=0.62, camAT=0.62, camT=0, hudBi=0;
   const dk=()=>{ const dt=document.documentElement.getAttribute('data-theme');
@@ -11683,18 +11696,30 @@ function renderLineage(){
       ctx.beginPath(); for(let i=i0;i<=i1;i++){ const q=pts[i]; i===i0?ctx.moveTo(q.x,q.y):ctx.lineTo(q.x,q.y); } ctx.stroke();
       ctx.restore();
     });
-    // the empirical line, arriving from outside the story
-    if(mrg>0.02){ const M2=90, gp=[];
-      for(let i=0;i<=M2;i++) gp.push(pr(G(i/M2*mrg)));
+    // the empirical fan, arriving from outside the story — gitcoin leads it
+    if(mrg>0.02){ const fanLabels=[];
+      LG_EMP.forEach((d,j)=>{
+      const col=dark?d.cD:d.cL, M2=80, gp=[];
+      for(let i=0;i<=M2;i++) gp.push(pr(E(j,i/M2*mrg)));
       ctx.save(); ctx.lineCap='round';
-      ctx.globalAlpha=0.20; ctx.strokeStyle=MOSS; ctx.lineWidth=Math.max(6,S*0.034);
+      ctx.globalAlpha=d.main?0.20:0.14; ctx.strokeStyle=col; ctx.lineWidth=Math.max(d.main?6:4,S*(d.main?0.034:0.020));
       ctx.beginPath(); gp.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y)); ctx.stroke();
-      ctx.globalAlpha=1; ctx.lineWidth=Math.max(2.2,S*0.012);
+      ctx.globalAlpha=d.main?1:0.92; ctx.lineWidth=Math.max(d.main?2.2:1.5,S*(d.main?0.012:0.007));
       ctx.beginPath(); gp.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y)); ctx.stroke();
-      const tip=gp[gp.length-1];
-      if(mrg<0.98){ ctx.beginPath(); ctx.arc(tip.x,tip.y,Math.max(3,S*0.012),0,6.2832); ctx.fillStyle=MOSS; ctx.fill(); }
-      if(mrg>0.15&&hudBi===10){ const gp2=pr(G(mrg>0.9?0.30:0.08)); label(gp2.x+S*0.02,gp2.y+S*0.045,'the empirical line · 230 gitcoin campaigns → kevin',MOSS,Math.max(10,S*0.026)); }
-      ctx.restore(); }
+      const b0=gp[0];
+      ctx.beginPath(); ctx.arc(b0.x,b0.y,Math.max(2.2,S*0.010),0,6.2832); ctx.fillStyle=col; ctx.fill();
+      if(mrg<0.98){ const tp=gp[gp.length-1];
+        ctx.beginPath(); ctx.arc(tp.x,tp.y,Math.max(2,S*0.009),0,6.2832); ctx.fillStyle=col; ctx.fill(); }
+      ctx.restore();
+      if(mrg>0.4 && hudBi===10) fanLabels.push({d,col,x:b0.x,y:b0.y}); });
+      // the fan is named on its own beat — labels nudged apart so the roll call reads
+      if(fanLabels.length){ const fs=Math.max(10,S*0.028), gap=fs*1.6;
+        fanLabels.sort((a2,b2)=>a2.y-b2.y);
+        for(let i=1;i<fanLabels.length;i++) if(fanLabels[i].y-fanLabels[i-1].y<gap) fanLabels[i].y=fanLabels[i-1].y+gap;
+        fanLabels.forEach(({d,col,x,y})=>{
+          if(d.main){ label(x+S*0.014,y-fs*0.55,`${d.n} · ${d.y}`,col,fs,'left',800);
+            label(x+S*0.014,y+fs*0.62,d.sub,MUT,fs*0.72,'left'); }
+          else label(x+S*0.014,y,`${d.n} · ${d.y}`,col,fs*0.82,'left',800); }); } }
     // the water: ripples under the 1927 node while the camera is down there
     const prox0=Math.max(0,1-Math.abs(foc-ST[0].t)/0.18);
     if(prox0>0.02&&vis>0){ const n0=pr(P(ST[0].t)); ctx.save();
@@ -11720,7 +11745,7 @@ function renderLineage(){
       if(!linMode||i===5){ const fs=Math.max(10,S*0.030);
         label(q.x+r*2.4,q.y-fs*0.55,s.yr,col,fs,'left',800);
         if(!linMode) label(q.x+r*2.4,q.y+fs*0.62,s.lab,MUT,fs*0.72,'left');
-        else label(q.x+r*2.4,q.y+fs*0.62,'the merge · where the torches meet',MUT,fs*0.72,'left'); }
+        else if(hudBi===11) label(q.x+r*2.4,q.y+fs*0.62,'the merge · where the torches meet',MUT,fs*0.72,'left'); }
       ctx.restore(); });
     // the dream itself: the peace room, drawn — a domed situation room whose round table
     // maps synergies the way the war room maps threats. lit only at the door (drm).
@@ -11765,9 +11790,75 @@ function renderLineage(){
     }
     // the carried line's name, once there is enough of it to name
     if(vis>0.3&&!linMode){ const q=pr(P(0.30)); label(q.x-S*0.03,q.y-S*0.05,'the a priori line · bucky → barbara → ANON',TORCH,Math.max(10,S*0.026),'right'); }
+    // the ending: the braid dims to a whisper, and the torch itself burns centre stage.
+    // one more scroll and the flame jumps to the others' — the readers'.
+    if(tor>0.02){
+      ctx.save(); ctx.globalCompositeOperation='destination-out';
+      ctx.globalAlpha=Math.min(0.95,tor*0.95); ctx.fillRect(0,0,W,Ht); ctx.restore();
+      const x0=W*0.5, y0=Ht*0.58, TL=Math.min(W,Ht)*0.34, tilt=-0.10;
+      const flick=(f,a2)=>reduced?0:Math.sin(camT*f+a2);
+      // the flame — layered light, no filters. shared by the big torch and the small ones.
+      const fl=(fx,fy,fr,base)=>{ const w1=flick(7,fx)*fr*0.14, w2=flick(11,fy)*fr*0.10;
+        [[2.6,0.10],[1.7,0.16],[1.05,0.5]].forEach(([m,a2])=>{ ctx.globalAlpha=base*a2;
+          ctx.beginPath(); ctx.ellipse(fx+w1*0.3,fy-fr*m*0.35+w2*0.3,fr*m*0.55,fr*m,0,0,6.2832);
+          ctx.fillStyle=TORCH; ctx.fill(); });
+        ctx.globalAlpha=base*0.9; ctx.beginPath();
+        ctx.ellipse(fx+w1*0.2,fy-fr*0.30,fr*0.26,fr*0.5,0,0,6.2832);
+        ctx.fillStyle=dark?'#ffe9b0':'#fff3cf'; ctx.fill(); };
+      // the handle and head, drawn tilted; the flame rises upright from the cup
+      ctx.save(); ctx.translate(x0,y0); ctx.rotate(tilt);
+      ctx.globalAlpha=tor;
+      const hw1=TL*0.030, hw2=TL*0.018;
+      ctx.beginPath();
+      ctx.moveTo(-hw1,-TL*0.18); ctx.lineTo(hw1,-TL*0.18);
+      ctx.lineTo(hw2,TL*0.52); ctx.lineTo(-hw2,TL*0.52); ctx.closePath();
+      ctx.fillStyle=dark?'#5c3a16':'#6b4318'; ctx.fill();
+      ctx.strokeStyle='#8a5a2a'; ctx.lineWidth=Math.max(1,TL*0.006); ctx.stroke();
+      ctx.strokeStyle=dark?'#3d260e':'#4a2d10'; ctx.lineWidth=Math.max(2,TL*0.014);
+      [0.10,0.16,0.22].forEach(g2=>{ ctx.beginPath(); ctx.moveTo(-hw1*1.1,TL*g2); ctx.lineTo(hw1*1.1,TL*g2); ctx.stroke(); });
+      ctx.beginPath();
+      ctx.moveTo(-TL*0.055,-TL*0.30); ctx.lineTo(TL*0.055,-TL*0.30);
+      ctx.lineTo(TL*0.036,-TL*0.18); ctx.lineTo(-TL*0.036,-TL*0.18); ctx.closePath();
+      ctx.fillStyle=dark?'#2a1a08':'#3a2410'; ctx.fill();
+      ctx.strokeStyle=dark?'#ffb347':'#a86a00'; ctx.lineWidth=Math.max(1.5,TL*0.009); ctx.stroke();
+      ctx.globalAlpha=tor*0.9; ctx.beginPath(); ctx.ellipse(0,-TL*0.30,TL*0.055,TL*0.016,0,0,6.2832);
+      ctx.fillStyle=dark?'#ffd98a':'#e8b84a'; ctx.fill();
+      ctx.restore();
+      const fd=TL*0.32, fx0=x0+fd*Math.sin(tilt), fy0=y0-fd*Math.cos(tilt);
+      // ambience: two wide, faint halos behind the fire
+      [[3.6,0.05],[5.5,0.025]].forEach(([m,a2])=>{ ctx.globalAlpha=tor*a2; ctx.beginPath();
+        ctx.arc(fx0,fy0-TL*0.06,TL*0.13*m,0,6.2832); ctx.fillStyle=TORCH; ctx.fill(); });
+      fl(fx0,fy0,TL*0.13,tor);
+      fl(fx0-TL*0.045,fy0+TL*0.012,TL*0.055,tor*0.8);
+      fl(fx0+TL*0.050,fy0+TL*0.006,TL*0.060,tor*0.8);
+      // embers, rising off the flame
+      if(!reduced){ for(let k2=0;k2<8;k2++){ const ph=((camT*0.30)+k2/8)%1;
+        const ex=fx0+Math.sin(k2*2.4+camT*1.1)*TL*0.06*(0.4+ph), ey=fy0-TL*0.14-ph*TL*0.34;
+        ctx.globalAlpha=tor*(1-ph)*0.8; ctx.beginPath(); ctx.arc(ex,ey,Math.max(1.2,TL*0.008*(1-ph*0.5)),0,6.2832);
+        ctx.fillStyle=dark?'#ffd98a':'#d98a1f'; ctx.fill(); } }
+      // the readers' torches — a chaotic scatter, catching in random order as the scroll
+      // runs on. deterministic prng, so the crowd is the same crowd every frame.
+      if(crd>0.005){ const NT=60, pts2=[]; let sd=48271;
+        const R2=()=>((sd=(sd*16807)%2147483647)/2147483647);
+        for(let tries=0;tries<420&&pts2.length<NT;tries++){
+          const fx=W*(0.04+0.92*R2()), fy=Ht*(0.10+0.84*R2()), sc2=0.62+R2()*0.75;
+          if(Math.abs(fx-x0)<TL*0.20&&fy>y0-TL*0.78&&fy<y0+TL*0.60) continue;   // the handle
+          if(Math.hypot(fx-fx0,fy-fy0)<TL*0.40) continue;                        // the flame
+          if(pts2.some(o=>Math.hypot(fx-o.fx,fy-o.fy)<TL*0.15)) continue;        // each other
+          pts2.push({fx,fy,sc:sc2}); }
+        // no sort: they catch in the order the dice rolled them — all over the frame at once
+        pts2.forEach((p2,rank)=>{
+          const lit=Math.max(0,Math.min(1,crd*pts2.length*1.08-rank));
+          if(lit<=0.01) return;
+          const fr=Math.max(3.5,TL*0.030*p2.sc);
+          ctx.globalAlpha=lit*0.85; ctx.strokeStyle=dark?'#8a5a2a':'#7a4d20'; ctx.lineWidth=Math.max(1.5,fr*0.28);
+          ctx.beginPath(); ctx.moveTo(p2.fx,p2.fy+fr*1.6); ctx.lineTo(p2.fx,p2.fy+fr*0.4); ctx.stroke();
+          fl(p2.fx,p2.fy+fr*0.2,fr,lit*tor); });
+      }
+    }
     // hud: the year the camera is at — and, in the closing beats, the count of lit torches
     hudN.textContent=(hudBi===0)?'✦':(hudBi===6)?'4':(hudBi===7)?'7':(hudBi===8)?'10':(hudBi===9)?'11':
-      (hudBi===10)?'230':(hudBi>=11&&hudBi<=13)?'1927–2026':String(yearAt(foc));
+      (hudBi===10)?'+6':(hudBi===11)?'1927–2026':(hudBi===12)?'1':(hudBi===13)?'you':String(yearAt(foc));
     hudN.style.color=TORCH; hudL.textContent=HUDL[hudBi];
   }
   const beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
@@ -11777,20 +11868,30 @@ function renderLineage(){
     const line=innerHeight*0.45; let win=null,wd=1e9;
     beats.forEach(b=>{ const q=b.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
       if(q.bottom>0&&q.top<innerHeight&&d<wd){ wd=d; win=b; } });
+    // past the last card (deep in the lighting stretch) no card intersects — the last one wins
+    if(!win){ const spc=wrap.querySelector('.lg-lightspace');
+      if(spc&&spc.getBoundingClientRect().top<line) win=beats[beats.length-1]; }
     if(win){ const bi=+win.dataset.b; hudBi=bi;
-      focT=FOC[bi]; visT=VIS[bi]; zmT=ZM[bi]; mrgT=MRG[bi]; drmT=DRM[bi]; camAT=0.62+bi*CAM_STEP;
+      focT=FOC[bi]; visT=VIS[bi]; zmT=ZM[bi]; mrgT=MRG[bi]; drmT=DRM[bi]; torT=TOR[bi]; crdT=CRD[bi]; camAT=0.62+bi*CAM_STEP;
       for(let j=0;j<4;j++) glT[j]=LIT[bi]>j?1:0;
       beats.forEach(b=>b.classList.toggle('on',b===win));
       progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
-      if(reduced){ foc=focT; vis=visT; zm=zmT; mrg=mrgT; drm=drmT; camA=camAT;
+      if(reduced){ foc=focT; vis=visT; zm=zmT; mrg=mrgT; drm=drmT; tor=torT; crd=crdT; camA=camAT;
         for(let j=0;j<4;j++) gl[j]=glT[j]; }
     }
+    // the last stretch is continuous: torches keep catching for ~1.5 pages past the final
+    // card — even after the card itself has scrolled away, as long as the stage is pinned.
+    if(hudBi===LG_BEATS.length-1){ const spc=wrap.querySelector('.lg-lightspace');
+      if(spc){ const sr=spc.getBoundingClientRect();
+        crdT=Math.max(0,Math.min(1,(innerHeight*0.45-sr.top)/Math.max(1,sr.height*0.85)));
+        if(reduced) crd=crdT; } }
   }
   let last=0;
   function raf(now){
     const dt=Math.min(0.05,(now-(last||now))/1000); last=now;
     const k=1-Math.pow(0.02,dt);
     foc+=(focT-foc)*k; vis+=(visT-vis)*k; zm+=(zmT-zm)*k; mrg+=(mrgT-mrg)*k; drm+=(drmT-drm)*k;
+    tor+=(torT-tor)*k; crd+=(crdT-crd)*k;
     for(let j=0;j<4;j++) gl[j]+=(glT[j]-gl[j])*k;
     camT+=dt; camA+=(camAT-camA)*k;
     draw(camA+(reduced?0:0.10*Math.sin(camT*0.22)));
@@ -11802,7 +11903,7 @@ function renderLineage(){
   addEventListener('scroll',linScroll,{passive:true});
   addEventListener('resize',linScroll,{passive:true});
   scrollDrive();
-  if(reduced){ foc=focT; vis=visT; zm=zmT; mrg=mrgT; drm=drmT; camA=camAT;
+  if(reduced){ foc=focT; vis=visT; zm=zmT; mrg=mrgT; drm=drmT; tor=torT; crd=crdT; camA=camAT;
     for(let j=0;j<4;j++) gl[j]=glT[j]; }
   draw(camA);
   if(linRAF) cancelAnimationFrame(linRAF);
@@ -11810,6 +11911,8 @@ function renderLineage(){
 }
 
 // ---------- tabs + hash routing ----------
+
+
 
 
 
