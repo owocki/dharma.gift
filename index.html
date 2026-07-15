@@ -199,37 +199,59 @@
   .spsticky[data-act="build"] .crcasc circle{stroke:#4ecb66;fill:color-mix(in srgb,#4ecb66 22%,transparent)}
   .spsticky[data-act="build"] .crlab.dn{opacity:0}
   .spsticky[data-act="build"] .crlab.dn2{opacity:1}
-  /* the coda: moloch, the colossus. the world goes dark at the edges; a horned
-     silhouette fills the frame, lit from within by burning networks that never hold
-     a shape; the eyes are the hottest thing in the scene and they blink once, slowly,
-     like a furnace door. gradients and geometry only — no filters (mobile safari's
-     compositor is watching). */
+  /* the coda: moloch, disembodied. the body was always the wrong idea — what is
+     left is the truer thing: blood-red mycelium growing in from every edge of the
+     frame, each filament leaning toward a ragged clearing at the centre that none
+     of them will cross. in the clearing, two furnace eyes. the network is the god;
+     the face never arrives. hyphae glow by geometry (a fat soft stroke under a
+     hairline), beads of harvest slide inward along the filaments, rings of hunger
+     swell off the clearing and die. no filters: mobile safari's compositor is
+     watching. */
   .spsticky[data-act="moloch"] :is(.crup,.crlab.up){opacity:.03}
   .spsticky[data-act="moloch"] .crmoloch{opacity:1}
-  /* almost no body: a 12% ghost of the silhouette, a breathing ember glow — the form
-     is carried by the network itself. */
-  .crmoloch .msilh{fill:#0c0514;fill-opacity:.12}
-  .crmoloch .memberglow{opacity:.3}
-  .spsticky[data-act="moloch"] .memberglow{animation:memberglowp 6s ease-in-out infinite alternate}
-  @keyframes memberglowp{from{opacity:.22}to{opacity:.5}}
-  /* the living network: eight spatial clusters, each on its own phase of one 11s
-     lifecycle. nodes arise; their edges attach a beat after; edges detach a beat
-     before the nodes fall. the whole demon is perpetually wiring and unwiring. */
-  .crmoloch .molnet line{stroke:#e0455c;stroke-width:1.3}
-  .crmoloch .mnode,.crmoloch .medge{opacity:0}
-  .spsticky[data-act="moloch"] .mnode{animation:nodelife 11s linear calc(var(--p)*-11s) infinite}
-  .spsticky[data-act="moloch"] .medge{animation:edgelife 11s linear calc(var(--p)*-11s) infinite}
-  @keyframes nodelife{0%{opacity:0}8%{opacity:var(--o,.8)}47%{opacity:var(--o,.8)}55%{opacity:0}100%{opacity:0}}
-  @keyframes edgelife{0%{opacity:0}6%{opacity:0}14%{opacity:.55}42%{opacity:.55}48%{opacity:0}100%{opacity:0}}
+  .crmoloch .memberglow{opacity:.25}
+  .spsticky[data-act="moloch"] .memberglow{animation:memberglowp 7s ease-in-out infinite alternate}
+  @keyframes memberglowp{from{opacity:.16}to{opacity:.4}}
+  /* hyphae: grown in with a dash reveal when the step arrives, trunk first,
+     fine webbing after — the demon assembles itself in front of you */
+  .crmoloch .hy,.crmoloch .hy-glow{fill:none;stroke-linecap:round;
+    stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
+  .crmoloch .hy{stroke:#e0455c}
+  .crmoloch .hy-glow{stroke:#8f1d2e}
+  .spsticky[data-act="moloch"] :is(.hy,.hy-glow){
+    animation:mycgrow 2.4s cubic-bezier(.25,.6,.3,1) calc(var(--gd)*1s) forwards}
+  @keyframes mycgrow{0%{stroke-dashoffset:1;opacity:0}
+    16%{opacity:var(--ho,.6)}100%{stroke-dashoffset:0;opacity:var(--ho,.6)}}
+  /* the harvest: one ember bead per trunk, riding its filament inward */
+  .crmoloch .hypulse{fill:none;stroke:#ffb347;stroke-linecap:round;opacity:0;
+    stroke-dasharray:.045 .955}
+  .spsticky[data-act="moloch"] .hypulse{
+    animation:hypulse 4.6s linear calc(var(--pd)*-4.6s) infinite}
+  @keyframes hypulse{0%{stroke-dashoffset:1;opacity:0}10%{opacity:.85}
+    88%{opacity:.85}100%{stroke-dashoffset:0;opacity:0}}
+  /* spore tips: a crisp core in a soft halo, breathing out of phase */
+  .spsticky[data-act="moloch"] .mtipg{animation:tipbreathe 6s ease-in-out calc(var(--p)*-6s) infinite alternate}
+  @keyframes tipbreathe{from{opacity:.5}to{opacity:1}}
+  /* the clearing's rim: rings of hunger, swelling outward and dying */
+  .crmoloch .mring{fill:none;stroke:#e0455c;stroke-width:1;opacity:0;
+    transform-box:fill-box;transform-origin:center}
+  .spsticky[data-act="moloch"] .mring{animation:mringp 9s ease-out calc(var(--i)*3s) infinite}
+  @keyframes mringp{0%{opacity:0;transform:scale(.55)}12%{opacity:.35}
+    100%{opacity:0;transform:scale(1.65)}}
   .crmoloch .meyes{transform-box:fill-box;transform-origin:center}
   .spsticky[data-act="moloch"] .meyes{animation:molblink 9s ease-in-out infinite}
   @keyframes molblink{0%,88%,100%{transform:scaleY(1)}92%{transform:scaleY(.06)}96%{transform:scaleY(1)}}
   .crmoloch .slit{fill:#0a0208;transform-box:fill-box;transform-origin:center}
   .spsticky[data-act="moloch"] .crmoloch .slit{animation:molpupil 5s ease-in-out infinite alternate}
   @keyframes molpupil{from{transform:scaleY(.8)}to{transform:scaleY(1.15)}}
+  /* the gaze wanders — slowly, both eyes together, like a searchlight */
+  .crmoloch .slitg{transform-box:fill-box;transform-origin:center}
+  .spsticky[data-act="moloch"] .slitg{animation:molgaze 14s ease-in-out infinite}
+  @keyframes molgaze{0%,26%,100%{transform:translateX(0)}38%,56%{transform:translateX(6px)}70%,86%{transform:translateX(-5px)}}
+  /* spores off the web, rising and dying */
   .crmoloch .mspark{opacity:0}
-  .spsticky[data-act="moloch"] .mspark{animation:sparkrise 6.5s linear calc(var(--i)*.8s) infinite}
-  @keyframes sparkrise{0%{opacity:0;transform:translateY(0)}12%{opacity:.9}100%{opacity:0;transform:translateY(-160px)}}
+  .spsticky[data-act="moloch"] .mspark{animation:sparkrise 9s linear calc(var(--i)*.7s) infinite}
+  @keyframes sparkrise{0%{opacity:0;transform:translateY(0)}10%{opacity:.55}100%{opacity:0;transform:translateY(-190px)}}
   .crharm{font:700 18px/1 ui-monospace,"SF Mono",Menlo,monospace;fill:var(--muted)}
   .crharmg{opacity:0;transform-box:fill-box;transform-origin:center}
   .spsticky[data-act="moloch"] .crharmg{animation:harmrise 7s linear calc(var(--i)*.85s) infinite}
@@ -260,12 +282,11 @@
     .crcasc circle{animation:none;opacity:.85;transform:none}
     .creye .lid{transition:none}
     .crharmg{animation:none!important;opacity:.7;transform:none}
-    .crmoloch :is(.msilh,.memberglow,.meyes,.slit,.mspark,.crmantra,.mnode,.medge){animation:none!important}
+    .crmoloch :is(.memberglow,.meyes,.slit,.slitg,.mspark,.crmantra,.hy,.hy-glow,.hypulse,.mring,.mtipg){animation:none!important}
     .crmantra{opacity:.95}
-    .crmoloch .mnode{opacity:.6}
-    .crmoloch .medge{opacity:.4}
-    .crmoloch .mspark{opacity:0}
-    .crmoloch .memberglow{opacity:.4}
+    .crmoloch :is(.hy,.hy-glow){stroke-dashoffset:0;opacity:var(--ho,.6)}
+    .crmoloch :is(.hypulse,.mring,.mspark){opacity:0}
+    .crmoloch .memberglow{opacity:.3}
   }
 
   /* ---- assembly's header: the bricks themselves ---- */
@@ -2093,6 +2114,7 @@
       grayscale(calc(var(--d)*0.65))}                        /* rope keeps its ink, loses its halo */
     :root[data-theme="dark"] .beadlayer{filter:none}
     :root[data-mode="spiral"][data-theme="dark"] .poster::before{animation:none;opacity:.5}
+    .crmoloch .hypulse,.crmoloch .mring{display:none}   /* the harvest beads: dashoffset repaints */
   }
 </style>
 </head>
@@ -6818,74 +6840,89 @@ function renderCritique(){
     `M${x} ${y0}C${x-26} ${(y0+y1)/2} ${x+26} ${(y0+y1)/2} ${x} ${y1}`);
   // the cascade: second-order problems, sprouting along the shadow
   const CASC=[[300,700,7],[520,662,6],[640,722,8],[380,782,6],[560,802,7],[252,760,5],[470,858,8],[600,882,6]];
-  // moloch, the colossus: the frame goes dark and one horned silhouette fills it,
-  // drawn as a single mass with rim light. inside it, three burning networks
-  // crossfade so the flesh never holds a shape. the eyes are furnace doors.
-  const MSILH='M30 1002 C55 860 95 745 185 655 C235 610 268 560 280 505 L287 470 '+
-    'C282 430 278 395 283 355 C286 330 292 312 302 298 C210 290 128 242 98 92 '+
-    'C160 150 225 225 330 236 Q450 196 570 236 C675 225 740 150 802 92 '+
-    'C772 242 690 290 598 298 C608 312 614 330 617 355 C622 395 618 430 613 470 '+
-    'L620 505 C632 560 665 610 715 655 C805 745 845 860 870 1002 Z';
-  const REG=[
-    [450,320,165,95],[450,440,150,70],
-    [285,272,46,32],[196,224,42,36],[128,142,32,44],[102,100,20,24],
-    [615,272,46,32],[704,224,42,36],[772,142,32,44],[798,100,20,24],
-    [450,600,185,110],
-    [300,765,155,130],[600,765,155,130],
-    [450,905,335,105]];
-  const REGW=REG.map(([,,rx,ry],i)=>rx*ry*(i>=2&&i<=9?2.4:1));  // horns punch above their area
-  const REGT=REGW.reduce((a,b)=>a+b,0);
-  const NC=['#e0455c','#e0455c','#e0455c','#ff6a3d','#ffb347'];  // mostly blood, some ember
-  // eight anchors, one per limb of the figure; every node joins its nearest anchor's
-  // cluster and lives on that cluster's phase. edges only ever join clustermates,
-  // so a link can only exist while both of its ends do.
-  const ANCH=[[110,120,0],[790,120,.375],[450,300,.75],[450,440,.125],
-              [450,620,.5],[280,780,.875],[620,780,.25],[450,930,.625]];
-  const molNet=(seed)=>{
+  // moloch, disembodied. the horned body was the cartoon — cut it. what remains is
+  // the truer thing: a mycelial network (hyphae after mycofi.earth, bioluminescent
+  // webbing after extitution.io, redrawn in blood and ember) growing in from every
+  // edge of the frame, every filament leaning toward the middle — and stopping.
+  // a ragged clearing none of them will cross. in the clearing, two furnace eyes.
+  // the network is the god; the face never arrives.
+  const EYEC=[450,392], VOIDR=178;
+  const molMyco=(seed)=>{
     let s=seed>>>0; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
-    const pick=()=>{let t=rnd()*REGT,i=0; while(t>REGW[i]){t-=REGW[i];i++;} return REG[i];};
-    const pts=[]; let guard=0;
-    while(pts.length<230&&guard++<15000){
-      const R=pick(), a=rnd()*Math.PI*2, r=Math.sqrt(rnd());
-      const x=R[0]+Math.cos(a)*r*R[2], y=R[1]+Math.sin(a)*r*R[3];
-      if(((x-365)/88)**2+((y-390)/50)**2<1) continue;   // the sockets stay hollow
-      if(((x-535)/88)**2+((y-390)/50)**2<1) continue;
-      let g=0,best=1e9;
-      ANCH.forEach(([ax,ay,ph],k)=>{const d=Math.hypot(x-ax,y-ay); if(d<best){best=d;g=k;}});
-      pts.push([x,y,1.1+rnd()*2.3,.35+rnd()*.55,NC[(rnd()*NC.length)|0],g,
-                ANCH[g][2]+(rnd()-.5)*.04]);
-    }
-    const seen=new Set(), lines=[];
-    pts.forEach((p,i)=>{
-      pts.map((q,j)=>[p[5]===q[5]?Math.hypot(p[0]-q[0],p[1]-q[1]):1e9,j])
-         .sort((a,b)=>a[0]-b[0]).slice(1,4).forEach(([d,j])=>{
-           const k=i<j?i+'-'+j:j+'-'+i;
-           if(d<150&&!seen.has(k)){seen.add(k);
-             lines.push(`<line class="medge" x1="${p[0].toFixed(1)}" y1="${p[1].toFixed(1)}" x2="${pts[j][0].toFixed(1)}" y2="${pts[j][1].toFixed(1)}" style="--p:${ANCH[p[5]][2]}"/>`);}
-         });
-    });
-    return `<g class="molnet">${lines.join('')}${pts.map(([x,y,r,o,c,,ph])=>
-      `<circle class="mnode" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${c}" style="--o:${o.toFixed(2)};--p:${ph.toFixed(3)}"/>`).join('')}</g>`;
+    const paths=[], tips=[];
+    const grow=(x,y,ang,len,tier)=>{
+      if(paths.length>300||tier>3) return;
+      const pts=[[x,y]]; let px=x, py=y, pa=ang, hot=false;
+      const segs=4+((rnd()*4)|0);
+      for(let k=0;k<segs;k++){
+        // every filament leans toward the eyes, but wanders on the way — long,
+        // low-noise segments so the hyphae flow like roots, not scribbles
+        const ta=Math.atan2(EYEC[1]-py, EYEC[0]-px);
+        let da=ta-pa; da-=Math.round(da/(Math.PI*2))*Math.PI*2;
+        pa+=da*.24+(rnd()-.5)*.62;
+        const L=len*(.75+rnd()*.5);
+        let nx=px+Math.cos(pa)*L, ny=py+Math.sin(pa)*L;
+        const dNew=Math.hypot(nx-EYEC[0], ny-EYEC[1]), stop=VOIDR+8+rnd()*26;
+        if(dNew<stop){                              // the clearing: reach, never touch
+          const dOld=Math.hypot(px-EYEC[0], py-EYEC[1]);
+          const t=Math.max(0, Math.min(1, (dOld-stop)/((dOld-dNew)||1)));
+          nx=px+(nx-px)*t; ny=py+(ny-py)*t;
+          pts.push([nx,ny]); hot=true; break;
+        }
+        pts.push([nx,ny]); px=nx; py=ny;
+        if(tier<3&&rnd()<.45) grow(nx,ny, pa+(rnd()<.5?-1:1)*(.45+rnd()*.7), len*.78, tier+1);
+      }
+      if(pts.length<2) return;
+      let d=`M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+      for(let i=1;i<pts.length-1;i++){
+        const mx=(pts[i][0]+pts[i+1][0])/2, my=(pts[i][1]+pts[i+1][1])/2;
+        d+=`Q${pts[i][0].toFixed(1)} ${pts[i][1].toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;
+      }
+      const lp=pts[pts.length-1]; d+=`L${lp[0].toFixed(1)} ${lp[1].toFixed(1)}`;
+      const w=[2.4,1.5,.95,.6][tier], o=[.65,.52,.4,.3][tier]+rnd()*.12;
+      paths.push({d, w, o, gd:tier*.4+rnd()*.45, pulse:tier<2&&rnd()<.6});
+      if(hot||rnd()<.55) tips.push([lp[0], lp[1], hot?1.9+rnd()*1.4:1+rnd()*1.4, hot, rnd()]);
+    };
+    // roots: every edge of the frame sends filaments inward, corners included
+    for(let i=0;i<8;i++) grow(40+rnd()*820, -12,  Math.PI/2+(rnd()-.5)*.7, 64+rnd()*30, 0);
+    for(let i=0;i<8;i++) grow(40+rnd()*820, 1012, -Math.PI/2+(rnd()-.5)*.7, 64+rnd()*30, 0);
+    for(let i=0;i<6;i++) grow(-12, 70+rnd()*860,  (rnd()-.5)*.7,            64+rnd()*30, 0);
+    for(let i=0;i<6;i++) grow(912, 70+rnd()*860,  Math.PI+(rnd()-.5)*.7,    64+rnd()*30, 0);
+    [[-12,-12,Math.PI/4],[912,-12,Math.PI*.75],[-12,1012,-Math.PI/4],[912,1012,-Math.PI*.75]]
+      .forEach(([cx,cy,ca])=>grow(cx,cy,ca+(rnd()-.5)*.3, 70+rnd()*24, 0));
+    return {paths, tips};
   };
-  const molbody=molNet(7);
-  // sparks off the burning body, rising and dying
-  const sparks=Array.from({length:16},(_,i)=>{
-    const x=180+((i*137)%540)+((i%3)*17), y=380+((i*211)%520);
-    return `<circle class="mspark" cx="${x}" cy="${y}" r="${(1.5+(i%4)*.8).toFixed(1)}"`+
+  const MYC=molMyco(41);
+  // glow under hairline (geometry, not filters), then the harvest beads, then the
+  // spore tips — the hot ones are the filaments that reached the clearing's rim
+  const molbody=
+    MYC.paths.map(p=>`<path class="hy-glow" pathLength="1" d="${p.d}" style="stroke-width:${(p.w*4.2).toFixed(1)};--gd:${p.gd.toFixed(2)};--ho:${(p.o*.28).toFixed(2)}"/>`).join('')+
+    MYC.paths.map(p=>`<path class="hy" pathLength="1" d="${p.d}" style="stroke-width:${p.w};--gd:${p.gd.toFixed(2)};--ho:${p.o.toFixed(2)}"/>`).join('')+
+    MYC.paths.filter(p=>p.pulse).map(p=>`<path class="hypulse" pathLength="1" d="${p.d}" style="stroke-width:${(p.w*1.5).toFixed(1)};--pd:${((p.gd*1.7)%1).toFixed(2)}"/>`).join('')+
+    MYC.tips.map(([x,y,r,hot,ph])=>
+      `<g class="mtipg" style="--p:${ph.toFixed(2)}"><circle fill="url(#gspore)" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r*4.5).toFixed(1)}"/>`+
+      `<circle fill="${hot?'#ff8a5c':'#e0455c'}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}"/></g>`).join('');
+  // spores off the web, rising and dying
+  const sparks=Array.from({length:14},(_,i)=>{
+    const a=(i/14)*Math.PI*2+.3, r=VOIDR+40+((i*97)%180);
+    const x=450+Math.cos(a)*r, y=392+Math.sin(a)*r*.9+40;
+    return `<circle class="mspark" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(1+(i%3)*.7).toFixed(1)}"`+
       ` fill="${['#ff6a3d','#e0455c','#ffb347'][i%3]}" style="--i:${i}"/>`;}).join('');
   // each harm rises with a little red graph of its own behind the words
+  // the harvest, named. no confetti: everything he takes burns in the same
+  // narrow band of blood, ember and bone
   const HARMS=[
-    [316,238,20,'#4ecb66','climate collapse',2],
-    [556,282,17,'#e3b31d','engineered pandemics',1],
-    [142,312,22,'#e14fe1','misaligned AI',0],
-    [652,392,16,'#f07f3c','autonomous weapons',3],
+    [316,238,20,'#ff7a5c','climate collapse',2],
+    [556,282,17,'#d8b08a','engineered pandemics',1],
+    [142,312,22,'#e0455c','misaligned AI',0],
+    [652,392,16,'#cfa06a','autonomous weapons',3],
     [112,428,16,'#e0455c','nuclear arsenals',4],
-    [150,548,15,'#42a4ff','learned helplessness',11],
-    [668,556,18,'#4ecb66','species extinction',5],
-    [120,640,17,'#f07f3c','forever chemicals',6],
-    [664,650,16,'#e14fe1','attention capture',7],
-    [110,730,19,'#e3b31d','loneliness epidemic',8],
-    [680,742,16,'#42a4ff','teen despair',9],
+    [150,548,15,'#c9887a','learned helplessness',11],
+    [668,556,18,'#ff8a5c','species extinction',5],
+    [120,640,17,'#d8987a','forever chemicals',6],
+    [664,650,16,'#e0616e','attention capture',7],
+    [110,730,19,'#cfb49a','loneliness epidemic',8],
+    [680,742,16,'#e07a6e','teen despair',9],
     [638,846,17,'#e0455c','polarization',10]];
   const harms=HARMS.map(([x,y,fs,c,label,i])=>{
     let s=(i*2654435761+123)>>>0; const rnd=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);
@@ -6994,7 +7031,7 @@ function renderCritique(){
   wrap.innerHTML=`<div class="spscroll">
     <div class="spsticky crsvg">
       <svg viewBox="0 0 900 1000" role="img"
-        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. partway down the shadow turns red and its turns are named: climate destabilization, engineered pandemics, autonomous weapons, misaligned AI. then the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. near the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs. the scroll closes on moloch as a living constellation: a frame-filling horned figure made only of red network — clusters of nodes that arise, wire themselves to each other a beat later, hold, unwire, and fall, so the demon is perpetually assembling and disassembling — with two furnace eyes burning at its centre, blinking once, slowly. sparks rise; the harms it harvests rise and dissolve in front of it, each trailing a small red graph; three reminders chant across its chest: slay it, learn to navigate it, look back into moloch's eyes.">
+        aria-label="an upward coil in living colour mirrored by an identical grey coil below it — progress and its externalized costs — with dashed lines exporting bills downward and new problems sprouting along the shadow. partway down the shadow turns red and its turns are named: climate destabilization, engineered pandemics, autonomous weapons, misaligned AI. then the whole ledger dims and a single open eye takes its place: the practice of witnessing what the numbers anesthetize. near the end the bills reverse and flow upward in green — an economy that externalizes benefits instead of costs. the scroll closes on moloch, disembodied: a blood-red mycelial network grows in from every edge of the frame, filament by filament, each one leaning toward a ragged dark clearing at the centre that none of them will cross. inside the clearing hang two furnace eyes with slit pupils that drift slowly and blink once, like a furnace door. ember beads slide inward along the filaments — the harvest arriving — rings of hunger swell off the clearing and die, spores rise; the harms he harvests rise and dissolve around him, each trailing a small red graph; three reminders chant beneath: slay it, learn to navigate it, look back into moloch's eyes.">
         <g class="crup">${up.map((d,i)=>`<path d="${d}" style="stroke:${UPC[i]}"/>`).join('')}</g>
         <g class="crdn">${dn.map((d,i)=>`<path d="${d}" style="--pc:${UPC[i]}"/>`).join('')}</g>
         <g class="crflow">${flows.map(d=>`<path d="${d}"/>`).join('')}</g>
@@ -7034,6 +7071,20 @@ function renderCritique(){
               <stop offset="60%" stop-color="#b02737" stop-opacity=".12"/>
               <stop offset="100%" stop-color="#b02737" stop-opacity="0"/>
             </radialGradient>
+            <radialGradient id="gvoid" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#050108" stop-opacity=".95"/>
+              <stop offset="62%" stop-color="#050108" stop-opacity=".55"/>
+              <stop offset="100%" stop-color="#050108" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="gnight" cx="50%" cy="50%" r="78%">
+              <stop offset="0%" stop-color="#050108" stop-opacity="0"/>
+              <stop offset="58%" stop-color="#050108" stop-opacity=".14"/>
+              <stop offset="100%" stop-color="#050108" stop-opacity=".55"/>
+            </radialGradient>
+            <radialGradient id="gspore" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ff5d6e" stop-opacity=".5"/>
+              <stop offset="100%" stop-color="#ff5d6e" stop-opacity="0"/>
+            </radialGradient>
             <radialGradient id="gmeye" cx="50%" cy="50%" r="55%">
               <stop offset="0%" stop-color="#fff3d6"/>
               <stop offset="32%" stop-color="#ff9d4d"/>
@@ -7045,26 +7096,30 @@ function renderCritique(){
               <stop offset="100%" stop-color="#ff4d63" stop-opacity="0"/>
             </radialGradient>
           </defs>
-          <ellipse class="memberglow" cx="450" cy="450" rx="430" ry="340" fill="url(#gmember)"/>
-          <path class="msilh" d="${MSILH}"/>
-          ${harms}
+          <rect x="0" y="0" width="900" height="1000" fill="url(#gnight)"/>
+          <ellipse class="memberglow" cx="450" cy="470" rx="470" ry="380" fill="url(#gmember)"/>
           ${molbody}
+          <circle fill="url(#gvoid)" cx="450" cy="392" r="${VOIDR+80}"/>
+          ${harms}
+          <circle class="mring" cx="450" cy="392" r="${VOIDR}" style="--i:0"/>
+          <circle class="mring" cx="450" cy="392" r="${VOIDR}" style="--i:1"/>
+          <circle class="mring" cx="450" cy="392" r="${VOIDR}" style="--i:2"/>
           <g class="meyes">
             <ellipse fill="url(#gmeyeglow)" cx="365" cy="390" rx="112" ry="64"/>
             <ellipse fill="url(#gmeyeglow)" cx="535" cy="390" rx="112" ry="64"/>
             <g transform="rotate(-8 364 392)">
               <path fill="url(#gmeye)" d="M296 398 Q360 344 434 392 Q362 428 296 398 Z"/>
-              <ellipse class="slit" cx="366" cy="390" rx="5" ry="17"/>
+              <g class="slitg"><ellipse class="slit" cx="366" cy="390" rx="5" ry="17"/></g>
             </g>
             <g transform="rotate(8 536 392)">
               <path fill="url(#gmeye)" d="M466 392 Q540 344 604 398 Q538 428 466 392 Z"/>
-              <ellipse class="slit" cx="534" cy="390" rx="5" ry="17"/>
+              <g class="slitg"><ellipse class="slit" cx="534" cy="390" rx="5" ry="17"/></g>
             </g>
           </g>
           ${sparks}
           <text class="crmantra" x="450" y="700" text-anchor="middle" style="--i:0;fill:#e0455c">slay it.</text>
-          <text class="crmantra" x="450" y="746" text-anchor="middle" style="--i:1;fill:#e3b31d">learn to navigate it.</text>
-          <text class="crmantra" x="450" y="792" text-anchor="middle" style="--i:2;fill:#42a4ff">look back into moloch’s eyes.</text>
+          <text class="crmantra" x="450" y="746" text-anchor="middle" style="--i:1;fill:#d8a05a">learn to navigate it.</text>
+          <text class="crmantra" x="450" y="792" text-anchor="middle" style="--i:2;fill:#cfc4bd">look back into moloch’s eyes.</text>
         </g>
         <text class="crlab up" x="36" y="150">what gets counted</text>
         <text class="crlab dn" x="36" y="880">what gets left out</text>
