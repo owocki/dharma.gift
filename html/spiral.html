@@ -2471,6 +2471,10 @@
     background:color-mix(in srgb,var(--ae3) 6%,transparent)}
   #aboutwrap .ab-term h3{margin:0 0 8px;font:800 12px/1 ui-monospace,Menlo,monospace;
     letter-spacing:.3em;text-transform:uppercase;color:var(--ae3)}
+  #aboutwrap .ab-mq{margin:14px 0 0;font-family:var(--serif);font-style:italic;font-size:13.5px;
+    line-height:1.6;color:var(--muted)}
+  #aboutwrap .ab-mq span{display:block;margin-top:5px;font-family:ui-monospace,Menlo,monospace;
+    font-style:normal;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
   #aboutwrap .ab-term>p{margin:0;font-family:var(--serif);font-style:italic;font-size:16px;
     line-height:1.55;color:var(--ink);max-width:52ch}
   #aboutwrap .ab-ex{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:16px}
@@ -2627,6 +2631,9 @@
   :root[data-mode="crises"] .pfoot{margin-top:14px}
   #criseswrap .cr-intro{padding-top:26px}
   #criseswrap .cr-intro p{margin:0 0 18px;max-width:60ch}
+  #criseswrap .cr-intro a{color:inherit;font:inherit;text-decoration:underline;
+    text-underline-offset:3px;text-decoration-color:color-mix(in srgb,var(--ink) 35%,transparent)}
+  #criseswrap .cr-intro a:hover{text-decoration-color:var(--ink)}
   /* the mesh: twenty-four doors under three small headings. nobody reads a census top to bottom;
      people go straight to the fire they can already smell. */
   #criseswrap .cr-mesh{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
@@ -11679,10 +11686,10 @@ const MODES={
   foot:''},
  crises:{cri:true,stats:{},eras:[],fav:'🚨',
   h1:'THE&nbsp;CRISES',
-  sub:'WHAT THE HYPEROBJECT IS MADE OF',
-  title:'the crises · what the hyperobject is made of',
-  quote:{q:'Hyperobjects are entities of such vast temporal and spatial dimensions that they defeat traditional ideas about what a thing is in the first place.',by:'timothy morton · hyperobjects'},
-  lede:'twenty-four fires, three families, one hyperobject. the list is a census, not the point: the entries share generator functions, so putting one out in isolation tends to feed another.',
+  sub:'MANY CRISES AT ONCE',
+  title:'the crises · many crises at once',
+  quote:null,
+  lede:'twenty-four fires, three families — one metacrisis. the list is a census, not the point: the crises share generator functions, so putting one fire out alone tends to feed another.',
   foot:''},
  skills:{skl:true,stats:{},eras:[],fav:'🧗',
   h1:'THE&nbsp;SKILLS',
@@ -11697,7 +11704,7 @@ const MODES={
   h1:'THE&nbsp;METACRISIS',
   sub:'ONE PATTERN, MANY MASKS',
   title:'the metacrisis · one pattern, many masks',
-  quote:{q:'we are running exponential technology on rivalrous games with linear wisdom. the crises are the exhaust.',by:'after daniel schmachtenberger'},
+  quote:{q:'we are running exponential technology on rivalrous games with linear wisdom. the crises are the exhaust.',by:'daniel schmachtenberger'},
   lede:'',
   foot:''},
  about:{abt:true,stats:{},eras:[],fav:'🌀',
@@ -12801,7 +12808,7 @@ function renderMeta(){
     <a href="#crises/polarization">⚔️ polarization</a>
     <a href="#crises/trust-collapse">🏛️ trust collapse</a>
     <a href="#crises/sensemaking">🌫️ sensemaking</a>
-    <span class="mc-etc">…and eighteen more in <a href="#crises">the census</a></span>
+    <span class="mc-etc">…and eighteen more in <a href="#crises">the metacrisis</a></span>
   </div>
 </div></div>
 <div class="mc-beat" style="--bc:var(--malarm)"><div class="mc-card">
@@ -12814,7 +12821,7 @@ function renderMeta(){
   <span class="mc-k">03 · the machinery</span>
   <h3>the generator functions of existential risk</h3>
   <p>three cores, feeding every node — manufacturing crises faster than we patch them.</p>
-  <p class="mc-cite">after daniel schmachtenberger · <a href="#crises">the census</a></p>
+  <p class="mc-cite">daniel schmachtenberger · <a href="#crises">the census</a></p>
 </div></div>
 <div class="mc-beat" style="--bc:var(--me3)"><div class="mc-card">
   <span class="mc-k">04 · generator one</span>
@@ -12930,6 +12937,9 @@ function renderAbout(){
         <span class="us">humanity · 12,000 years of it</span>
         <span class="ab-exnote">← the one we're all inside of</span>
       </div>
+      <p class="ab-mq">"hyperobjects are entities of such vast temporal and spatial dimensions
+        that they defeat traditional ideas about what a thing is in the first place."
+        <span>— timothy morton · hyperobjects</span></p>
     </div>
     <p>you can't photograph a hyperobject. but you <em>can</em> render it — project slices of
       it down into pictures small enough to fit inside a head. every tab on this site is one
