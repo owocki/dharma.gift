@@ -1,6 +1,6 @@
 # resourceallo — DHARMA.GIFT 🧘 (wrapping GROVE 🌳)
 
-a wisdom school in alpha — the front door is now **dharma.gift** (a monk under the grove's trees; GROVE — grounded research on ontology, values & epistemics — lives on at `/grove`), wrapped around a living poster. no build step. ALL site files (pages, og cards, mocks) live in **`html/`**; routes stay at the root — `vercel.json` rewrites `/:path*` → `/html/:path*` with `cleanUrls: true` (so `/critique` serves `html/critique.html`), and forwards the old hosts `resource.gitcoin.co` and `upwardspiral.io` to https://dharma.gift. serve locally with `python3 serve.py` (it mimics the same rewrite). the repo is https://github.com/owocki/dharma.gift — the poster footer links it.
+a wisdom school in alpha — the front door is now **dharma.gift** (a monk under the grove's trees; GROVE — grounded research on ontology, values & epistemics — lives on at `/grove`), wrapped around a living poster. no build step. ALL site files (pages, og cards, mocks) live in **`html/`**; routes stay at the root — `vercel.json` sets `"outputDirectory": "html"` so vercel serves that dir AS the site root, with `cleanUrls: true` (so `/critique` serves `html/critique.html`); do NOT use rewrites into the subdirectory, they 404 on vercel, and forwards the old hosts `resource.gitcoin.co` and `upwardspiral.io` to https://dharma.gift. serve locally with `python3 serve.py` (it mimics the same rewrite). the repo is https://github.com/owocki/dharma.gift — the poster footer links it.
 
 the layers, outermost first:
 

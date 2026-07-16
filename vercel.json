@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "html",
   "cleanUrls": true,
   "redirects": [
     {
@@ -19,9 +20,5 @@
       "destination": "https://dharma.gift/:path*",
       "permanent": false
     }
-  ],
-  "rewrites": [
-    { "source": "/", "destination": "/html/index.html" },
-    { "source": "/:path*", "destination": "/html/:path*" }
   ]
 }

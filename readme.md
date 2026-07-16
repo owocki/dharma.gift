@@ -15,7 +15,7 @@ designed to help people understand civilization, find their deepest role (dharma
 
 ## how it's built
 
-no build step, no bundler, no external js. the whole site is static files in **`html/`**, served at the root by vercel (`vercel.json` rewrites `/orient` → `/html/orient.html`, with `cleanUrls`). each page is self-contained; the only network fetch is a google font.
+no build step, no bundler, no external js. the whole site is static files in **`html/`**, served as the site root by vercel (`"outputDirectory": "html"` + `cleanUrls`). each page is self-contained; the only network fetch is a google font.
 
 run it locally:
 
