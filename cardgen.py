@@ -88,6 +88,7 @@ CARDS = [
   ("og-lineage","🔥","the lineage","one idea, carried hand to hand for a century","the torch is burning now.","/lineage"),
   ("og-bargain","🍎","the bargain","what we lose with progress — four names for the deal",DEFAULT_TAG,"/bargain"),
   ("og-crises","🌪️","the crises","twenty-four crises, three families, one census","you're not crazy.","/crises"),
+  ("og-metacrisis","🕸️","the metacrisis","one pattern behind twenty-four crises","we have to find the third attractor.","/metacrisis"),
   ("og-skills","🧗","the skills","the inner game of the ai transition","dharma is the capstone.","/skills"),
   ("og-alloc", "✨","who gets what","resource allocation — the original poster",DEFAULT_TAG,"/alloc"),
   ("og-power", "👑","who decides","power structures, chiefdom to forkable state",DEFAULT_TAG,"/power"),

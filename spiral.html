@@ -2366,7 +2366,74 @@
     --ae1:#2f9e44;--ae2:#a17a00;--ae3:#b0561f;--ae4:#b535bb;--ae5:#1c7ed6}
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #aboutwrap{--ae1:#4ecb66;--ae2:#e3b31d;--ae3:#f07f3c;--ae4:#e14fe1;--ae5:#42a4ff} }
   :root[data-theme="dark"] #aboutwrap{--ae1:#4ecb66;--ae2:#e3b31d;--ae3:#f07f3c;--ae4:#e14fe1;--ae5:#42a4ff}
-  :root[data-mode="about"] #aboutwrap{display:block}
+:root[data-mode="about"] #aboutwrap{display:block}
+  /* ---------- 🕸️ the metacrisis: one pattern, many masks ---------- */
+  #metawrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:680px;
+    padding:0 6px;text-align:left;font-size:16px;line-height:1.72;color:var(--ink);
+    --me1:#2f9e44;--me2:#a17a00;--me3:#b0561f;--me4:#b535bb;--me5:#1c7ed6;--malarm:#c2334d}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #metawrap{--me1:#4ecb66;--me2:#e3b31d;--me3:#f07f3c;--me4:#e14fe1;--me5:#42a4ff;--malarm:#e8446f} }
+  :root[data-theme="dark"] #metawrap{--me1:#4ecb66;--me2:#e3b31d;--me3:#f07f3c;--me4:#e14fe1;--me5:#42a4ff;--malarm:#e8446f}
+  :root[data-mode="metacrisis"] #metawrap{display:block}
+  :root[data-mode="metacrisis"] #eras{display:none}
+  :root[data-mode="metacrisis"] #btnhome{display:none}
+  :root[data-mode="metacrisis"] .pfoot{margin-top:14px}
+  :root[data-mode="metacrisis"]{--pgrad:linear-gradient(175deg,#f2d3da 0%,#efe3c8 52%,#d6ecdc 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="metacrisis"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#20090f 0%,#161106 52%,#0b1d12 100%)} }
+  :root[data-mode="metacrisis"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#20090f 0%,#161106 52%,#0b1d12 100%)}
+  :root[data-mode="metacrisis"][data-theme="light"]{--pgrad:linear-gradient(175deg,#f2d3da 0%,#efe3c8 52%,#d6ecdc 100%)}
+  :root[data-mode="metacrisis"] .poster .sub{background:linear-gradient(90deg,#c2334d,#b0561f,#a17a00,#2f9e44);-webkit-background-clip:text;background-clip:text}
+  #metawrap .mc-beat{margin:56px 0 0}
+  #metawrap .mc-beat:first-child{margin-top:26px}
+  #metawrap .mc-k{display:block;font:700 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--bc,var(--malarm))}
+  #metawrap h3{margin:10px 0 12px;font:600 clamp(24px,4.2vw,32px)/1.18 var(--serif);color:var(--ink)}
+  #metawrap p{margin:0 0 12px;max-width:60ch;color:var(--muted)}
+  #metawrap p b{color:var(--ink);font-weight:650}
+  #metawrap .mc-sym{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 14px}
+  #metawrap .mc-sym a{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;
+    text-decoration:none;font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--muted);border:1px solid var(--line);
+    background:color-mix(in srgb,var(--panel) 70%,transparent);
+    transition:transform .2s,color .2s,border-color .2s}
+  #metawrap .mc-sym a:hover{transform:translateY(-2px);color:var(--ink);
+    border-color:color-mix(in srgb,var(--malarm) 55%,transparent)}
+  #metawrap .mc-etc{align-self:center;font:italic 400 13px/1.4 var(--serif);color:var(--muted);padding:7px 2px}
+  #metawrap .mc-etc a{color:inherit}
+  #metawrap .mc-gen{border:1px solid var(--line);border-radius:14px;padding:18px 20px 15px;
+    background:color-mix(in srgb,var(--panel) 72%,transparent);margin:0 0 12px}
+  #metawrap .mc-gk{font:700 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.26em;text-transform:uppercase;color:var(--gc)}
+  #metawrap .mc-gen h4{margin:7px 0 6px;font:600 19px/1.25 var(--serif);color:var(--ink)}
+  #metawrap .mc-gen p{margin:0;font-size:14px;line-height:1.65}
+  #metawrap .mc-cite{font:italic 400 12.5px/1.6 var(--serif);color:var(--muted)}
+  #metawrap .mc-cite a{color:inherit}
+  #metawrap .mc-attr{border:1px solid var(--line);border-radius:16px;padding:20px 22px 17px;
+    background:color-mix(in srgb,var(--panel) 72%,transparent);margin:0 0 12px}
+  #metawrap .mc-ak{font:700 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.26em;text-transform:uppercase;color:var(--ac)}
+  #metawrap .mc-attr h4{margin:8px 0 7px;font:600 clamp(20px,3.4vw,24px)/1.2 var(--serif);color:var(--ink)}
+  #metawrap .mc-attr p{margin:0;font-size:14.5px;line-height:1.66}
+  #metawrap .mc-a1{--ac:#e0574a;border-color:color-mix(in srgb,#e0574a 32%,transparent)}
+  #metawrap .mc-a2{--ac:#7d93b8;border-color:color-mix(in srgb,#7d93b8 34%,transparent)}
+  #metawrap .mc-a3{--ac:var(--me1);border-color:color-mix(in srgb,var(--me1) 42%,transparent);
+    background:linear-gradient(100deg,color-mix(in srgb,var(--me1) 9%,transparent),color-mix(in srgb,var(--me5) 7%,transparent)),color-mix(in srgb,var(--panel) 72%,transparent)}
+  #metawrap .mc-blast{border:1px solid var(--line);border-radius:16px;
+    background:color-mix(in srgb,var(--panel) 72%,transparent);padding:16px 12px 4px;overflow:hidden;margin:14px 0 14px}
+  #metawrap .mc-blast svg{display:block;width:100%;height:auto}
+  #metawrap .mc-blast .ring{fill:none;stroke:var(--malarm);opacity:.55}
+  #metawrap .mc-blast .ring.dash{stroke-dasharray:6 8;opacity:.4;transform-box:fill-box;transform-origin:center;
+    animation:mcgrow 3.2s ease-out infinite}
+  @keyframes mcgrow{0%{transform:scale(.55);opacity:.55}100%{transform:scale(1.25);opacity:0}}
+  @media (prefers-reduced-motion:reduce){ #metawrap .mc-blast .ring.dash{animation:none;opacity:.35} }
+  #metawrap .mc-blast .wlab{font:600 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:var(--muted);text-anchor:middle}
+  #metawrap .mc-blast .wem{font-size:22px;text-anchor:middle}
+  #metawrap .mc-blast .bcap{font:italic 12px Georgia,serif;fill:var(--muted);text-anchor:middle}
+  #metawrap .mc-drs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  #metawrap .mc-drs a{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;
+    text-decoration:none;font:600 12.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);border:1px solid color-mix(in srgb,var(--me1) 45%,transparent);
+    background:color-mix(in srgb,var(--me1) 10%,transparent);
+    transition:transform .2s,background .2s,box-shadow .2s}
+  #metawrap .mc-drs a:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--me1) 20%,transparent);
+    box-shadow:0 8px 22px color-mix(in srgb,var(--me1) 25%,transparent)}
   :root[data-mode="about"] #eras{display:none}
   :root[data-mode="about"] #btnhome{display:none}   /* a letter has nothing to play */
   :root[data-mode="about"] .pfoot{margin-top:14px}
@@ -2976,6 +3043,7 @@
     <div id="aboutwrap"></div>
     <div id="criseswrap"></div>
     <div id="skillswrap"></div>
+    <div id="metawrap"></div>
     <div id="critiquewrap"></div>
     <div id="superwrap"></div>
     <div id="bargainwrap"></div>
@@ -3036,6 +3104,7 @@
         <button class="tab t-assembly" role="tab" data-mode="assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></button>
         <button class="tab t-trap" role="tab" data-mode="trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></button>
         <button class="tab t-critique" role="tab" data-mode="critique"><span class="em">🪞</span>critique of progress<span class="tq">what the gains cost</span></button>
+        <button class="tab t-metacrisis" role="tab" data-mode="metacrisis"><span class="em">🕸️</span>the metacrisis<span class="tq">one pattern, many masks</span></button>
         <button class="tab t-bargain" role="tab" data-mode="bargain"><span class="em">🍎</span>the bargain<span class="tq">what we lose with progress</span></button>
         <button class="tab t-super" role="tab" data-mode="superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></button>
         <button class="tab t-lineage" role="tab" data-mode="lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></button>
@@ -11619,6 +11688,13 @@ const MODES={
   // no emdashes below this line: the skills section speaks in periods, commas and parentheses.
   lede:'eleven practices for the inner game. the rest of this site maps the outer one (who gets what, who decides, who you trust). this section is the substrate those moves sit on.',
   foot:''},
+ metacrisis:{mc:true,stats:{},eras:[],fav:'🕸️',
+  h1:'THE&nbsp;METACRISIS',
+  sub:'ONE PATTERN, MANY MASKS',
+  title:'the metacrisis · one pattern, many masks',
+  quote:{q:'we are running exponential technology on rivalrous games with linear wisdom. the crises are the exhaust.',by:'after daniel schmachtenberger'},
+  lede:'',
+  foot:''},
  about:{abt:true,stats:{},eras:[],fav:'🌀',
   h1:'WHY&nbsp;THIS&nbsp;SITE&nbsp;EXISTS',
   sub:'A NOTE FROM THE MAKER',
@@ -12505,6 +12581,121 @@ function setURL(mode,slug){
 // the headshot rides inline as a data uri: the poster stays self-contained, and the photo
 // cannot break, whatever path the file travels by.
 const OWOCKI_JPG='data:image/jpeg;base64,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';
+function renderMeta(){
+  const wrap=document.getElementById('metawrap');
+  if(wrap.firstChild) return;
+  wrap.innerHTML=`
+<div class="mc-beat" style="--bc:var(--malarm)">
+  <span class="mc-k">the masks</span>
+  <h3>you already know the symptoms</h3>
+  <p>each one has its own experts, its own conferences, its own doomscroll.
+    each one is treated as if solving it alone would help.</p>
+  <div class="mc-sym">
+    <a href="#crises/climate">🌡️ climate destabilization</a>
+    <a href="#crises/misaligned-ai">🤖 misaligned ai</a>
+    <a href="#crises/biorisk">🧫 engineered plagues</a>
+    <a href="#crises/polarization">⚔️ polarization</a>
+    <a href="#crises/trust-collapse">🏛️ trust collapse</a>
+    <a href="#crises/financial-fragility">🫧 financial fragility</a>
+    <a href="#crises/sensemaking">🌫️ sensemaking collapse</a>
+    <span class="mc-etc">…and seventeen more in <a href="#crises">the census</a></span>
+  </div>
+  <p>but squeeze one and the harm bulges out of another. solve energy with fission and
+    you've bought proliferation. solve biorisk with surveillance and you've bought
+    dystopia. they are coupled because they are being <b>generated by the same machinery</b>.</p>
+</div>
+<div class="mc-beat" style="--bc:var(--me2)">
+  <span class="mc-k">the machinery</span>
+  <h3>the generator functions of existential risk</h3>
+  <p>underneath the masks, a small set of dynamics keeps manufacturing new ones:</p>
+  <div class="mc-gen" style="--gc:var(--me3)">
+    <div class="mc-gk">generator one</div>
+    <h4>rivalrous games</h4>
+    <p>win-lose competitions where anyone who slows down loses to whoever doesn't —
+      arms races, attention races, extraction races. <b>the multipolar trap</b>:
+      everyone rational, everyone worse off.</p>
+  </div>
+  <div class="mc-gen" style="--gc:var(--me2)">
+    <div class="mc-gk">generator two</div>
+    <h4>externalized harm</h4>
+    <p>every game scores wins in a narrow metric and ships the costs somewhere off the
+      balance sheet — the atmosphere, the topsoil, the attention of children, the
+      future. <b>the bill always arrives</b>; it just arrives somewhere else.</p>
+  </div>
+  <div class="mc-gen" style="--gc:var(--me4)">
+    <div class="mc-gk">generator three</div>
+    <h4>exponential tech on linear wisdom</h4>
+    <p>rivalrous games and externalized harm are ancient. what's new is running them with
+      <b>exponentially more powerful tools</b> on a finite substrate — the same
+      incentives, suddenly planet-sized.</p>
+  </div>
+  <p class="mc-cite">after daniel schmachtenberger's generator functions — the same
+    frame that organizes <a href="#crises">the census</a>.</p>
+</div>
+<div class="mc-beat" style="--bc:#e0574a">
+  <span class="mc-k">where it pulls</span>
+  <h3>the two attractors</h3>
+  <p>left alone, this machinery doesn't wander randomly. it slides toward one of two basins:</p>
+  <div class="mc-attr mc-a1">
+    <div class="mc-ak">the first attractor · chaos</div>
+    <h4>cascading failure</h4>
+    <p>the games run until something load-bearing snaps — climate, food, finance,
+      peace — and the failures <b>cascade through the couplings</b>. collapse doesn't
+      need to be total to be unrecoverable.</p>
+  </div>
+  <div class="mc-attr mc-a2">
+    <div class="mc-ak">the second attractor · control</div>
+    <h4>dystopia</h4>
+    <p>the only obvious way to stop catastrophic tech in everyone's hands is surveillance
+      and control strong enough to see everyone's hands — <b>the cure that's a
+      crisis</b>. avoiding collapse by building a panopticon is not an escape; it's the
+      other basin.</p>
+  </div>
+</div>
+<div class="mc-beat" style="--bc:var(--me3)">
+  <span class="mc-k">why now</span>
+  <h3>the blast radius is going up</h3>
+  <p>this is why the metacrisis is a now problem and not a someday problem. catastrophic
+    capability keeps getting cheaper and wider:</p>
+  <div class="mc-blast" role="img" aria-label="five weapons in a row with growing blast-radius circles: a sword harms one person, a gun a room, a tank a street, a nuke a city — and ai's circle is drawn dashed and still expanding, because it has no fixed edge.">
+    <svg viewBox="0 0 700 240">
+      <line x1="30" y1="185" x2="670" y2="185" stroke="currentColor" opacity=".18" stroke-width="1.5"/>
+      <g><circle class="ring" cx="80" cy="185" r="10" stroke-width="1.5"/><text class="wem" x="80" y="172">🗡️</text><text class="wlab" x="80" y="212">a person</text></g>
+      <g><circle class="ring" cx="200" cy="185" r="22" stroke-width="1.5"/><text class="wem" x="200" y="172">🔫</text><text class="wlab" x="200" y="224">a room</text></g>
+      <g><circle class="ring" cx="330" cy="185" r="40" stroke-width="1.5"/><text class="wem" x="330" y="172">🪖</text><text class="wlab" x="330" y="238">a street</text></g>
+      <g><circle class="ring" cx="480" cy="185" r="68" stroke-width="1.8"/><text class="wem" x="480" y="172">☢️</text><text class="wlab" x="480" y="130">a city</text></g>
+      <g><circle class="ring dash" cx="620" cy="185" r="95" stroke-width="2"/><circle class="ring dash" cx="620" cy="185" r="95" stroke-width="2" style="animation-delay:-1.6s"/><text class="wem" x="620" y="172">🤖</text><text class="wlab" x="620" y="80">no edge</text></g>
+      <text class="bcap" x="350" y="24">blast radius, by era of weapon</text>
+    </svg>
+  </div>
+  <p>a sword ends a life. a gun ends a few. a tank ends a street, a nuke a city — and
+    each step took a state to wield. <b>engineered biology and ai have no fixed edge and
+    shrinking price tags.</b> when the blast radius is unbounded, "we'll clean up after
+    the first mistake" stops being a strategy. exponential tech turns every unsolved
+    coordination problem into an existential one.</p>
+</div>
+<div class="mc-beat" style="--bc:var(--me1)">
+  <span class="mc-k">the way through</span>
+  <h3>so we have to find the third attractor</h3>
+  <div class="mc-attr mc-a3">
+    <div class="mc-ak">the third attractor · neither chaos nor control</div>
+    <h4>a civilization that can hold its own power</h4>
+    <p>not collapse, not the panopticon — a world with <b>wisdom proportional to its
+      technology</b>: games that internalize their costs, coordination that doesn't need
+      a tyrant, and people doing the inner work that makes both possible. nobody has
+      built it yet. that's the work — and it takes <b>all of us, each at our own door</b>.</p>
+  </div>
+  <p>this whole site is a map of that search — 12,000 years of the games we've played,
+    what they cost, and what survived. start anywhere the tug takes you:</p>
+  <div class="mc-drs">
+    <a href="#trap">🕳️ the trap — how basins reshape</a>
+    <a href="#critique">🪞 the critique — the honest ledger</a>
+    <a href="#skills">🧗 the skills — your part of it</a>
+    <a href="#lineage">🔥 the lineage — d/acc and the peace room</a>
+    <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 the others</a>
+  </div>
+</div>`;
+}
 function renderAbout(){
   const wrap=document.getElementById('aboutwrap');
   if(wrap.firstChild) return;
@@ -13452,6 +13643,9 @@ function setMode(mode,user){
   } else if(M.bar){
     giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout(); clearSkills(); clearCrises();
     renderBargain();
+  } else if(M.mc){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
+    renderMeta();
   } else if(M.abt){
     giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearSkills(); clearCrises();
     renderAbout();
@@ -13495,7 +13689,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|bargain|crises|skills|about)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|bargain|metacrisis|crises|skills|about)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};

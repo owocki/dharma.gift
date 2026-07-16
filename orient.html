@@ -87,6 +87,13 @@
   .lede b{color:var(--ink);font-style:italic;font-weight:600}
   .lede .attrib{display:block;margin-top:8px;font:400 11px/1 var(--mono);font-style:normal;
     letter-spacing:.24em;text-transform:uppercase;color:var(--muted);opacity:.75}
+  .lede .attrib a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25);
+    padding-bottom:1px;transition:color .2s,border-color .2s}
+  .lede .attrib a:hover{color:var(--ink);border-color:var(--e2)}
+  .whatis{max-width:680px;margin:20px auto 0;text-align:center;
+    padding:22px 26px 20px;border-radius:20px;
+    background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
   .steps{display:flex;gap:10px;margin-top:24px;text-align:left}
   @media(max-width:640px){ .steps{flex-direction:column} }
   .step{flex:1;border:1px solid var(--line);border-radius:14px;padding:16px 16px 15px;
@@ -193,16 +200,6 @@
     transition:color .2s,background .2s}
   .ix a:hover,.ix a:focus-visible{color:var(--ink);background:color-mix(in srgb,var(--ga,#e8446f) 16%,transparent)}
   .ix .sep{opacity:.35;margin:0 1px}
-  /* the jump strip: the shape of the whole depth in one glance, five hops */
-  .jump{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:20px auto 0;max-width:760px}
-  .jump a{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;
-    text-decoration:none;font:650 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    color:var(--muted);border:1px solid var(--line);background:var(--panel);
-    transition:transform .2s,color .2s,border-color .2s}
-  .jump a:hover{transform:translateY(-2px);color:var(--ink);
-    border-color:color-mix(in srgb,var(--jc,#e14fe1) 55%,transparent)}
-  .jump a:nth-child(1){--jc:#4ecb66} .jump a:nth-child(2){--jc:#e14fe1}
-  .jump a:nth-child(3){--jc:#e8446f} .jump a:nth-child(4){--jc:#e3b31d} .jump a:nth-child(5){--jc:#42a4ff}
   @media(max-width:720px){
     .tabs{gap:6px 10px}
     .tabgrp{padding:8px 8px 10px}
@@ -252,15 +249,13 @@
     </div>
   </section>
 
-  <!-- the shape of the depth, at a glance -->
-  <nav class="jump" aria-label="sections of the depth">
-    <a href="#questions">🌳 how we coordinate</a>
-    <a href="#views">🧿 zoom out</a>
-    <a href="#crises">🌪️ the crises</a>
-    <a href="#skills">🧗 the skills</a>
-    <a href="#admin">🌀 about</a>
-  </nav>
-
+  <!-- what this is, in one sentence — and whose hand is on it -->
+  <section class="whatis" aria-label="what this site is">
+    <p class="lede">"this is a <b>visual map of humanity's deepest patterns</b>, designed to help
+      people understand civilization, find their deepest role <b>(dharma)</b>, and work
+      together to <b>steer the future upward</b>."
+      <span class="attrib">— kevin owocki &nbsp;·&nbsp; <a href="/about">read more →</a></span></p>
+  </section>
 
   <nav class="tabs" aria-label="every door in the depth">
     <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
@@ -333,6 +328,7 @@
         <a class="tab" href="/assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></a>
         <a class="tab" href="/trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></a>
         <a class="tab" href="/critique"><span class="em">🪞</span>the critique<span class="tq">what the gains cost</span></a>
+        <a class="tab" href="/metacrisis"><span class="em">🕸️</span>the metacrisis<span class="tq">one pattern, many masks</span></a>
         <a class="tab" href="/bargain"><span class="em">🍎</span>the bargain<span class="tq">what we lose with progress</span></a>
         <a class="tab" href="/superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></a>
         <a class="tab" href="/lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></a>
@@ -340,7 +336,8 @@
     </div>
 
     <div class="tabgrp crgrp" id="crises">
-      <a class="grplab" href="/crises">the crises<em>what the spiral is up against — twenty-four, in three families, one census</em></a>
+      <a class="grplab" href="/crises">the crises</a>
+      <p class="ix"><a href="/metacrisis">🕸️ the metacrisis</a></p>
       <p class="ix"><b class="ixk" style="--gk:#4ecb66">ecological</b>
         <a href="/crises#climate">🌡️ climate</a><span class="sep">·</span>
         <a href="/crises#extinction">🦋 extinction</a><span class="sep">·</span>
