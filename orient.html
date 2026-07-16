@@ -37,6 +37,7 @@
     --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
   }
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);
     font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -74,18 +75,6 @@
     padding:24px 26px 22px;border-radius:20px;
     background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
     backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
-  /* the census: the measurements sit right on top of the doors they measure */
-  .herostats{display:flex;flex-wrap:wrap;justify-content:center;
-    gap:10px 0;margin:52px auto 0;max-width:760px}
-  .herostats span{display:flex;align-items:baseline;gap:7px;padding:0 22px;position:relative;
-    font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:650}
-  .herostats span+span::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);
-    width:1px;height:22px;background:rgba(255,255,255,.16)}
-  .herostats b{font-family:var(--serif);font-weight:560;font-size:24px;letter-spacing:0;
-    color:var(--ink);line-height:1;font-variation-settings:"opsz" 40}
-  .herostats span:nth-child(1) b{color:var(--e1)} .herostats span:nth-child(2) b{color:var(--e2)}
-  .herostats span:nth-child(3) b{color:var(--e3)} .herostats span:nth-child(4) b{color:var(--e4)}
-  @media(max-width:720px){ .herostats span{padding:0 12px} .herostats b{font-size:19px} }
 
   /* ---- the compass: how to walk this page toward your deepest dharma.
      a calm instruction plaque bolted to the cave wall — the doors below own the sparkle.
@@ -155,19 +144,17 @@
       filter:blur(26px);opacity:0;transition:opacity .3s;pointer-events:none}
     .tabgrp:hover::after{opacity:.3}
   }
-  /* the whole-picture card leads and takes the ramp; each question-kind wears one ink;
-     the skills take the gold; the crises burn the alarm red the ramp never uses */
-  .tabgrp:nth-of-type(1){background:rgba(8,14,9,.66);
-    border-color:color-mix(in srgb,#e14fe1 28%,var(--line));flex-basis:100%;max-width:760px}
-  .qgrp{flex-basis:100%;max-width:980px}
+  /* each card wears one ink: the questions lead (their four kinds carry the ramp),
+     the views take magenta, the crises the alarm red, the skills the gold */
+  .tabgrp{flex-basis:100%;border-color:color-mix(in srgb,var(--ga,var(--ink)) 26%,transparent)}
+  .tabgrp .grplab{color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink))}
+  .qgrp{max-width:1000px}
   .qgrp .subgrp:nth-of-type(1){--ga:#4ecb66} .qgrp .subgrp:nth-of-type(2){--ga:#f07f3c}
   .qgrp .subgrp:nth-of-type(3){--ga:#e14fe1} .qgrp .subgrp:nth-of-type(4){--ga:#42a4ff}
-  .crgrp{--ga:#e8446f;flex-basis:100%;max-width:980px}
-  .crgrp .subgrp:nth-of-type(1){--ga:#4ecb66} .crgrp .subgrp:nth-of-type(2){--ga:#e8446f}
-  .crgrp .subgrp:nth-of-type(3){--ga:#e14fe1}
-  .skgrp{--ga:#e3b31d;flex-basis:100%;max-width:980px}
-  .tabgrp:not(:nth-of-type(1)){border-color:color-mix(in srgb,var(--ga,var(--ink)) 26%,transparent)}
-  .tabgrp:not(:nth-of-type(1)) .grplab{color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink))}
+  .wpgrp{--ga:#e14fe1;max-width:900px}
+  .crgrp{--ga:#e8446f;max-width:880px}
+  .skgrp{--ga:#e3b31d;max-width:880px}
+  .admgrp{flex-basis:auto}
   .grplab{display:flex;flex-direction:column;align-items:center;gap:3px;
     font-size:10.5px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.8}
   .grplab em{font-style:normal;font-weight:500;font-size:10px;letter-spacing:.02em;
@@ -183,18 +170,39 @@
     color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink));opacity:.85}
   .sublab em{font-style:normal;font-weight:500;font-size:9.5px;letter-spacing:.02em;
     text-transform:none;color:var(--muted);opacity:.9}
-  /* every chip is the same species here: an anchor, dressed like the poster's tabs */
-  a.tab{display:inline-flex;align-items:center;font:inherit;font-weight:800;font-size:12.5px;
-    letter-spacing:.04em;padding:9px 18px;border-radius:999px;cursor:pointer;text-decoration:none;
+  /* every chip is the same species: a small two-line tile — emoji, name, whisper */
+  a.tab{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;
+    font:inherit;font-weight:800;font-size:12px;letter-spacing:.03em;
+    padding:10px 13px 9px;border-radius:12px;cursor:pointer;text-decoration:none;
+    min-width:104px;max-width:172px;
     border:1.5px solid rgba(255,255,255,.13);
-    background:rgba(8,14,9,.88);color:var(--muted);
-    transition:transform .25s,box-shadow .25s,color .25s,border-color .25s}
-  a.tab:hover,a.tab:focus-visible{transform:translateY(-2px);color:var(--ink);
+    background:rgba(8,14,9,.88);color:var(--ink);
+    transition:transform .25s,box-shadow .25s,border-color .25s}
+  a.tab:hover,a.tab:focus-visible{transform:translateY(-2px);
     border-color:color-mix(in srgb,var(--ga,#e14fe1) 60%,transparent);
     box-shadow:0 8px 24px color-mix(in srgb,var(--ga,#e14fe1) 28%,transparent)}
-  a.tab .em{margin-right:7px;font-size:14px}
-  a.tab .tq{font-weight:600;opacity:.6;text-transform:none;letter-spacing:.02em}
-  a.tab .tq::before{content:"—";margin:0 5px;opacity:.55}
+  a.tab .em{margin:0;font-size:19px;line-height:1}
+  a.tab .tq{font-weight:500;font-size:10px;line-height:1.35;letter-spacing:.01em;
+    text-transform:none;color:var(--muted)}
+  a.tab .tq::before{content:none}
+  /* the one-page groups (crises, skills) fold their stations into a small index */
+  .ix{margin:2px 0 0;max-width:820px;font-size:12px;line-height:2.15;color:var(--muted);text-align:center}
+  .ix .ixk{display:inline-block;margin-right:10px;font-family:var(--mono);font-weight:800;font-size:9.5px;
+    letter-spacing:.15em;text-transform:uppercase;color:color-mix(in srgb,var(--gk,var(--ink)) 62%,var(--ink))}
+  .ix a{color:var(--muted);text-decoration:none;white-space:nowrap;padding:2px 6px;border-radius:7px;
+    transition:color .2s,background .2s}
+  .ix a:hover,.ix a:focus-visible{color:var(--ink);background:color-mix(in srgb,var(--ga,#e8446f) 16%,transparent)}
+  .ix .sep{opacity:.35;margin:0 1px}
+  /* the jump strip: the shape of the whole depth in one glance, five hops */
+  .jump{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:20px auto 0;max-width:760px}
+  .jump a{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;
+    text-decoration:none;font:650 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--muted);border:1px solid var(--line);background:var(--panel);
+    transition:transform .2s,color .2s,border-color .2s}
+  .jump a:hover{transform:translateY(-2px);color:var(--ink);
+    border-color:color-mix(in srgb,var(--jc,#e14fe1) 55%,transparent)}
+  .jump a:nth-child(1){--jc:#4ecb66} .jump a:nth-child(2){--jc:#e14fe1}
+  .jump a:nth-child(3){--jc:#e8446f} .jump a:nth-child(4){--jc:#e3b31d} .jump a:nth-child(5){--jc:#42a4ff}
   @media(max-width:720px){
     .tabs{gap:6px 10px}
     .tabgrp{padding:8px 8px 10px}
@@ -244,10 +252,15 @@
     </div>
   </section>
 
-  <!-- the census sits right on top of the doors it measures -->
-  <div class="herostats">
-    <span><b>12,000</b> years</span><span><b>many</b> vantage points</span><span><b>1,063</b> mechanisms</span><span><b>5</b> eras</span>
-  </div>
+  <!-- the shape of the depth, at a glance -->
+  <nav class="jump" aria-label="sections of the depth">
+    <a href="#questions">🌳 how we coordinate</a>
+    <a href="#views">🧿 zoom out</a>
+    <a href="#crises">🌪️ the crises</a>
+    <a href="#skills">🧗 the skills</a>
+    <a href="#admin">🌀 about</a>
+  </nav>
+
 
   <nav class="tabs" aria-label="every door in the depth">
     <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
@@ -269,24 +282,8 @@
       </g>
     </svg>
 
-    <div class="tabgrp">
-      <a class="grplab" href="/whole">the whole picture<em>step back</em></a>
-      <div class="grpchips">
-        <a class="tab" href="/spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></a>
-        <a class="tab" href="/syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></a>
-        <a class="tab" href="/turn"><span class="em">⚙️</span>one turn<span class="tq">the loop, up close</span></a>
-        <a class="tab" href="/ratchet"><span class="em">🪜</span>the ratchet<span class="tq">what survives collapse</span></a>
-        <a class="tab" href="/assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></a>
-        <a class="tab" href="/trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></a>
-        <a class="tab" href="/critique"><span class="em">🪞</span>critique of progress<span class="tq">what the gains cost</span></a>
-        <a class="tab" href="/bargain"><span class="em">🍎</span>the bargain<span class="tq">what we lose with progress</span></a>
-        <a class="tab" href="/superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></a>
-        <a class="tab" href="/lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></a>
-      </div>
-    </div>
-
-    <div class="tabgrp qgrp">
-      <span class="grplab">the fifteen questions<em>every civilization answers all of them</em></span>
+    <div class="tabgrp qgrp" id="questions">
+      <span class="grplab">how we coordinate</span>
       <div class="subrow">
         <div class="subgrp">
           <span class="sublab">how you live<em>the business of not dying</em></span>
@@ -326,70 +323,71 @@
       </div>
     </div>
 
-    <div class="tabgrp crgrp">
-      <a class="grplab" href="/crises">the crises<em>what the spiral is up against</em></a>
-      <div class="subrow">
-        <div class="subgrp">
-          <span class="sublab">ecological<em>the planetary boundaries</em></span>
-          <div class="grpchips">
-            <a class="tab" href="/crises#climate"><span class="em">🌡️</span>climate<span class="tq">the heat</span></a>
-            <a class="tab" href="/crises#extinction"><span class="em">🦋</span>extinction<span class="tq">the sixth</span></a>
-            <a class="tab" href="/crises#oceans"><span class="em">🐟</span>oceans<span class="tq">acid and empty nets</span></a>
-            <a class="tab" href="/crises#topsoil"><span class="em">🏜️</span>topsoil<span class="tq">the ground itself</span></a>
-            <a class="tab" href="/crises#freshwater"><span class="em">💧</span>freshwater<span class="tq">fossil water</span></a>
-            <a class="tab" href="/crises#nutrient-cycles"><span class="em">🧪</span>nutrient cycles<span class="tq">the loudest boundary</span></a>
-            <a class="tab" href="/crises#toxicity"><span class="em">☠️</span>toxicity<span class="tq">forever chemicals</span></a>
-            <a class="tab" href="/crises#deforestation"><span class="em">🪓</span>deforestation<span class="tq">the lungs</span></a>
-          </div>
-        </div>
-        <div class="subgrp">
-          <span class="sublab">technological<em>the catastrophic risks</em></span>
-          <div class="grpchips">
-            <a class="tab" href="/crises#misaligned-ai"><span class="em">🤖</span>misaligned ai<span class="tq">the runaway optimizer</span></a>
-            <a class="tab" href="/crises#biorisk"><span class="em">🧫</span>biorisk<span class="tq">printed plagues</span></a>
-            <a class="tab" href="/crises#nukes"><span class="em">☢️</span>nukes<span class="tq">the old one</span></a>
-            <a class="tab" href="/crises#cyber"><span class="em">🔌</span>cyber<span class="tq">the grid's soft belly</span></a>
-            <a class="tab" href="/crises#autonomous-weapons"><span class="em">🛩️</span>autonomous weapons<span class="tq">war below the vote</span></a>
-            <a class="tab" href="/crises#surveillance"><span class="em">👁️</span>surveillance<span class="tq">the cure that's a crisis</span></a>
-          </div>
-        </div>
-        <div class="subgrp">
-          <span class="sublab">social<em>the coordination layer</em></span>
-          <div class="grpchips">
-            <a class="tab" href="/crises#sensemaking"><span class="em">🌫️</span>sensemaking<span class="tq">the broken map</span></a>
-            <a class="tab" href="/crises#polarization"><span class="em">⚔️</span>polarization<span class="tq">the auto-immune war</span></a>
-            <a class="tab" href="/crises#trust-collapse"><span class="em">🏛️</span>trust collapse<span class="tq">nobody believes the referee</span></a>
-            <a class="tab" href="/crises#financial-fragility"><span class="em">🫧</span>financial fragility<span class="tq">claims without a planet</span></a>
-            <a class="tab" href="/crises#supply-chains"><span class="em">⛓️</span>supply chains<span class="tq">four firms, one strait</span></a>
-            <a class="tab" href="/crises#meaning"><span class="em">🕯️</span>meaning<span class="tq">the vacancy</span></a>
-            <a class="tab" href="/crises#the-feed"><span class="em">📱</span>the feed<span class="tq">the outrage engine</span></a>
-            <a class="tab" href="/crises#migration"><span class="em">🧳</span>migration<span class="tq">people follow the weather</span></a>
-            <a class="tab" href="/crises#state-failure"><span class="em">🏚️</span>state failure<span class="tq">order is optional</span></a>
-            <a class="tab" href="/crises#pandemics"><span class="em">😷</span>pandemics<span class="tq">the dress rehearsal</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="tabgrp skgrp">
-      <a class="grplab" href="/skills">the skills<em>what one person can practice</em></a>
+    <div class="tabgrp wpgrp" id="views">
+      <a class="grplab" href="/whole">zoom out<em>the whole picture</em></a>
       <div class="grpchips">
-        <a class="tab" href="/skills#healing"><span class="em">🫀</span>healing<span class="tq">yourself first, somatically</span></a>
-        <a class="tab" href="/skills#curiosity"><span class="em">🔍</span>curiosity<span class="tq">becoming curious</span></a>
-        <a class="tab" href="/skills#intentional-tech"><span class="em">📵</span>intentional tech<span class="tq">using tools on purpose</span></a>
-        <a class="tab" href="/skills#sacred-economy"><span class="em">🎁</span>sacred economy<span class="tq">moving your income to it</span></a>
-        <a class="tab" href="/skills#source"><span class="em">⛲</span>source<span class="tq">working with it</span></a>
-        <a class="tab" href="/skills#extitutions"><span class="em">⛺</span>extitutions<span class="tq">working outside the walls</span></a>
-        <a class="tab" href="/skills#metacogsec"><span class="em">🧠</span>metacogsec<span class="tq">guarding your own mind</span></a>
-        <a class="tab" href="/skills#lucid-oracle"><span class="em">🔮</span>lucid oracle<span class="tq">a well of truth you can trust</span></a>
-        <a class="tab" href="/skills#dharma"><span class="em">🧭</span>dharma<span class="tq">the work that is yours</span></a>
-        <a class="tab" href="/skills#bridging"><span class="em">🌉</span>ontological bridging<span class="tq">crossing between worlds</span></a>
-        <a class="tab" href="/skills#culture-wars"><span class="em">🎭</span>culture war ontology<span class="tq">the war under the war</span></a>
+        <a class="tab" href="/spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></a>
+        <a class="tab" href="/syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></a>
+        <a class="tab" href="/turn"><span class="em">⚙️</span>one turn<span class="tq">the loop, up close</span></a>
+        <a class="tab" href="/ratchet"><span class="em">🪜</span>the ratchet<span class="tq">what survives collapse</span></a>
+        <a class="tab" href="/assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></a>
+        <a class="tab" href="/trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></a>
+        <a class="tab" href="/critique"><span class="em">🪞</span>the critique<span class="tq">what the gains cost</span></a>
+        <a class="tab" href="/bargain"><span class="em">🍎</span>the bargain<span class="tq">what we lose with progress</span></a>
+        <a class="tab" href="/superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></a>
+        <a class="tab" href="/lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></a>
       </div>
     </div>
 
-    <div class="tabgrp">
-      <span class="grplab">administrative stuff<em>who made this, and why</em></span>
+    <div class="tabgrp crgrp" id="crises">
+      <a class="grplab" href="/crises">the crises<em>what the spiral is up against — twenty-four, in three families, one census</em></a>
+      <p class="ix"><b class="ixk" style="--gk:#4ecb66">ecological</b>
+        <a href="/crises#climate">🌡️ climate</a><span class="sep">·</span>
+        <a href="/crises#extinction">🦋 extinction</a><span class="sep">·</span>
+        <a href="/crises#oceans">🐟 oceans</a><span class="sep">·</span>
+        <a href="/crises#topsoil">🏜️ topsoil</a><span class="sep">·</span>
+        <a href="/crises#freshwater">💧 freshwater</a><span class="sep">·</span>
+        <a href="/crises#nutrient-cycles">🧪 nutrient cycles</a><span class="sep">·</span>
+        <a href="/crises#toxicity">☠️ toxicity</a><span class="sep">·</span>
+        <a href="/crises#deforestation">🪓 deforestation</a></p>
+      <p class="ix"><b class="ixk" style="--gk:#e8446f">technological</b>
+        <a href="/crises#misaligned-ai">🤖 misaligned ai</a><span class="sep">·</span>
+        <a href="/crises#biorisk">🧫 biorisk</a><span class="sep">·</span>
+        <a href="/crises#nukes">☢️ nukes</a><span class="sep">·</span>
+        <a href="/crises#cyber">🔌 cyber</a><span class="sep">·</span>
+        <a href="/crises#autonomous-weapons">🛩️ autonomous weapons</a><span class="sep">·</span>
+        <a href="/crises#surveillance">👁️ surveillance</a></p>
+      <p class="ix"><b class="ixk" style="--gk:#e14fe1">social</b>
+        <a href="/crises#sensemaking">🌫️ sensemaking</a><span class="sep">·</span>
+        <a href="/crises#polarization">⚔️ polarization</a><span class="sep">·</span>
+        <a href="/crises#trust-collapse">🏛️ trust collapse</a><span class="sep">·</span>
+        <a href="/crises#financial-fragility">🫧 financial fragility</a><span class="sep">·</span>
+        <a href="/crises#supply-chains">⛓️ supply chains</a><span class="sep">·</span>
+        <a href="/crises#meaning">🕯️ meaning</a><span class="sep">·</span>
+        <a href="/crises#the-feed">📱 the feed</a><span class="sep">·</span>
+        <a href="/crises#migration">🧳 migration</a><span class="sep">·</span>
+        <a href="/crises#state-failure">🏚️ state failure</a><span class="sep">·</span>
+        <a href="/crises#pandemics">😷 pandemics</a></p>
+    </div>
+
+    <div class="tabgrp skgrp" id="skills">
+      <a class="grplab" href="/skills">the skills<em>what one person can practice — eleven trailheads, dharma the capstone</em></a>
+      <p class="ix">
+        <a href="/skills#healing">🫀 healing</a><span class="sep">·</span>
+        <a href="/skills#curiosity">🔍 curiosity</a><span class="sep">·</span>
+        <a href="/skills#intentional-tech">📵 intentional tech</a><span class="sep">·</span>
+        <a href="/skills#sacred-economy">🎁 sacred economy</a><span class="sep">·</span>
+        <a href="/skills#source">⛲ source</a><span class="sep">·</span>
+        <a href="/skills#extitutions">⛺ extitutions</a><span class="sep">·</span>
+        <a href="/skills#metacogsec">🧠 metacogsec</a><span class="sep">·</span>
+        <a href="/skills#lucid-oracle">🔮 lucid oracle</a><span class="sep">·</span>
+        <a href="/skills#dharma">🧭 dharma</a><span class="sep">·</span>
+        <a href="/skills#bridging">🌉 ontological bridging</a><span class="sep">·</span>
+        <a href="/skills#culture-wars">🎭 culture war ontology</a></p>
+    </div>
+
+    <div class="tabgrp admgrp" id="admin">
+      <span class="grplab">etc</span>
       <div class="grpchips">
         <a class="tab" href="/about"><span class="em">🌀</span>about<span class="tq">why this exists</span></a>
         <a class="tab" href="/orbit" title="orbit the hyperobject"><span class="em">🔭</span>3d view<span class="tq">the hyperobject</span></a>
