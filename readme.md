@@ -39,4 +39,4 @@ not sure where to start? come say hi in the [telegram](https://t.me/+JeffHeYyATM
 
 ## lineage
 
-live at [dharma.gift](https://dharma.gift) · a [gitcoin](https://gitcoin.co) artifact — the old homes, [resource.gitcoin.co](https://resource.gitcoin.co) and upwardspiral.io, redirect here · voice, colors and conventions: `CLAUDE.md`
+live at [dharma.gift](https://dharma.gift) · a [gitcoin](https://gitcoin.co) artifact · voice, colors and conventions: `CLAUDE.md`
