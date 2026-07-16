@@ -3,36 +3,25 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "resource.gitcoin.co"
-        }
-      ],
+      "has": [{ "type": "host", "value": "resource.gitcoin.co" }],
       "destination": "https://dharma.gift/:path*",
       "permanent": false
     },
     {
       "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.upwardspiral.io"
-        }
-      ],
+      "has": [{ "type": "host", "value": "www.upwardspiral.io" }],
       "destination": "https://dharma.gift/:path*",
       "permanent": false
     },
     {
       "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "upwardspiral.io"
-        }
-      ],
+      "has": [{ "type": "host", "value": "upwardspiral.io" }],
       "destination": "https://dharma.gift/:path*",
       "permanent": false
     }
+  ],
+  "rewrites": [
+    { "source": "/", "destination": "/html/index.html" },
+    { "source": "/:path*", "destination": "/html/:path*" }
   ]
 }

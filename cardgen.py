@@ -4,7 +4,7 @@
 import os, html
 
 SP = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(SP, 'cards')
+OUT = os.path.join(SP, 'cards')  # screenshot each cards/<name>.html to html/og-<name>.png
 os.makedirs(OUT, exist_ok=True)
 
 TPL = """<!doctype html>
