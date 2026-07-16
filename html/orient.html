@@ -121,12 +121,13 @@
     backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
   .lede{margin:0;font:italic 400 clamp(16px,2.4vw,18px)/1.7 var(--serif);color:var(--muted)}
   .lede b{color:var(--ink);font-style:italic;font-weight:600}
+  .lede-b{margin-top:12px}
   .lede .attrib{display:block;margin-top:8px;font:400 11px/1 var(--mono);font-style:normal;
     letter-spacing:.24em;text-transform:uppercase;color:var(--muted);opacity:.75}
   .lede .attrib a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25);
     padding-bottom:1px;transition:color .2s,border-color .2s}
   .lede .attrib a:hover{color:var(--ink);border-color:var(--e2)}
-  .whatis{max-width:680px;margin:26px auto 0;text-align:center;
+  .whatis{max-width:680px;margin:34px auto 0;text-align:center;
     padding:22px 26px 20px;border-radius:20px;
     background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
     backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
@@ -318,14 +319,6 @@
     <h1>orient</h1>
   </header>
 
-  <!-- what this is, in one sentence — and whose hand is on it -->
-  <details class="whatis fold" id="fold-whatis" open>
-    <summary><span>what this is</span><span class="chev">⌄</span></summary>
-    <p class="lede">"this is a <b>visual map of humanity's deepest patterns</b>, designed to help
-      people understand civilization, find their deepest role <b>(dharma)</b>, and work
-      together to <b>steer the future upward</b>."
-      <span class="attrib">— kevin owocki &nbsp;·&nbsp; <a href="/about">read more →</a></span></p>
-  </details>
 
 
   <!-- the compass: what to do with the pull you already feel. it folds shut once you know it. -->
@@ -494,6 +487,16 @@
       </div>
     </div>
     </nav>
+
+    <!-- whose hand drew the map — revealed only with the adventure -->
+    <section class="whatis" aria-label="what this site is">
+      <p class="lede">"this is a <b>visual map of humanity's deepest patterns</b>, designed to help
+        people understand civilization, find their deepest role <b>(dharma)</b>, and work
+        together to <b>steer the future upward</b>.</p>
+      <p class="lede lede-b">a picture is worth <b>1000 words</b>, so i've designed this to give
+        you a visual download of the mental models you'll need on your journey."
+        <span class="attrib">— kevin owocki &nbsp;·&nbsp; <a href="/about">read more →</a></span></p>
+    </section>
   </details>
 
   <!-- dewey, at the door on the way out -->
