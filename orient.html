@@ -14,17 +14,17 @@
   gtag('config', 'G-882JMLBJG9');
 </script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
-<title>navigate the DEPTH · orientation for the dharma seeker</title>
+<title>ORIENT · navigate the depth</title>
 <link rel="canonical" href="https://www.upwardspiral.io/orient">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.upwardspiral.io/orient">
-<meta property="og:title" content="navigate the DEPTH">
+<meta property="og:title" content="ORIENT — navigate the depth">
 <meta property="og:description" content="orientation for the dharma seeker: what we hope you'll see — you're not crazy, we've climbed out before, here is what is yours to do, and here are the others — then every door in the depth on one page. 12,000 years, 1,063 mechanisms, 5 eras. start where the pull is strongest.">
 <meta property="og:image" content="https://www.upwardspiral.io/og-orient.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="navigate the DEPTH">
+<meta name="twitter:title" content="ORIENT — navigate the depth">
 <meta name="twitter:description" content="orientation for the dharma seeker: four things we hope you'll see, then every door in the depth on one page.">
 <meta name="twitter:image" content="https://www.upwardspiral.io/og-orient.png">
 <meta name="description" content="orientation for the dharma seeker: you're not crazy, we've climbed out before, here is what is yours to do, and here are the others — then every door in the depth, on one page.">
@@ -59,13 +59,14 @@
   a.back .bx{transition:transform .2s}
   a.back:hover .bx{transform:translateX(-3px)}
 
-  header{text-align:center;margin:26px 0 10px}
+  /* orient now closes the page: the doors first, the compass reading last */
+  header{text-align:center;margin:110px 0 10px}
   /* the name of the page wears the whole ramp */
   h1{margin:14px 0 8px;font:640 clamp(48px,9vw,84px)/1.05 var(--serif);letter-spacing:.06em;
     background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5));
     -webkit-background-clip:text;background-clip:text;color:transparent}
-  /* the depth gets its own signpost, down where its doors begin */
-  .depthhead{text-align:center;margin:72px 0 0}
+  /* the depth gets its own signpost, right where its doors begin */
+  .depthhead{text-align:center;margin:26px 0 0}
   .depthhead h2{margin:0;font:640 clamp(34px,6vw,56px)/1.05 var(--serif);letter-spacing:-.01em}
   .depthhead .g1{color:var(--e1)} .depthhead .g2{color:var(--e2)} .depthhead .g3{color:var(--e3)}
   .depthhead .g4{color:var(--e4)} .depthhead .g5{color:var(--e5)}
@@ -107,11 +108,23 @@
 
   /* ---- the depth itself: the poster's grouped index, moved up here where the
      seeker orients. every chip is a door — clean urls and deep links, no apparatus. ---- */
-  .tabs{display:flex;justify-content:center;gap:14px 16px;margin:64px auto 0;flex-wrap:wrap;
+  .tabs{display:flex;justify-content:center;gap:14px 16px;margin:30px auto 0;flex-wrap:wrap;
     align-items:flex-start;position:relative}
-  /* the index wears the grove it indexes: five faint trees, roots braided under the chips */
-  .navgrove{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:min(94vw,900px);pointer-events:none;z-index:-1;opacity:.55}
+  /* the index wears the thing it indexes: one faint spiral, seen from above, era ramp
+     for ink. it turns once every couple of minutes — geology, not animation. */
+  .navswirl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(94vw,980px);aspect-ratio:1;pointer-events:none;z-index:-1;opacity:.78}
+  .navswirl path{fill:none;stroke:url(#navswg);stroke-width:6.5;stroke-linecap:round}
+  @media (pointer:fine){ .navswirl path{filter:drop-shadow(0 0 12px rgba(181,53,187,.45))} }
+  .navswirl .nsg{transform-origin:500px 500px;animation:navspin 160s linear infinite}
+  @keyframes navspin{to{transform:rotate(360deg)}}
+  /* a grain of light rides the spiral, center outward, forever */
+  .navswirl .navcomet{fill:none;stroke:currentColor;color:#fff;stroke-width:4.5;stroke-linecap:round;
+    stroke-dasharray:16 984;stroke-dashoffset:1016;opacity:.85;animation:cometrun 18s linear infinite}
+  @keyframes cometrun{to{stroke-dashoffset:16}}
+  @media (pointer:fine){ .navswirl .navcomet{filter:drop-shadow(0 0 8px currentColor)} }
+  @media (prefers-reduced-motion:reduce){ .navswirl .nsg{animation:none}
+    .navswirl .navcomet{animation:none;opacity:0} }
   .tabgrp{display:flex;flex-direction:column;align-items:center;gap:9px;
     padding:14px 18px 16px;border-radius:18px;position:relative;
     border:1px solid rgba(255,255,255,.09);
@@ -188,110 +201,33 @@
     <a class="back" href="/"><span class="bx">←</span>🧘 dharma.gift</a>
   </div>
 
-  <header>
-    <h1>orient</h1>
-  </header>
 
-  <!-- the descent: four things, in the order a seeker needs them -->
-  <section class="descent" aria-label="the four things">
-    <div class="stations">
-      <div class="station s1">
-        <div class="k">first · sensemaking</div>
-        <h3>you're not crazy</h3>
-        <p>the scary feeling is measuring something real. here it gets <b>counted</b> —
-          and the overwhelm becomes a map.</p>
-        <div class="drs">
-          <a class="d" href="/crises">🌪️ the crises census</a>
-          <a class="d" href="/critique">🪞 the critique</a>
-        </div>
-      </div>
 
-      <div class="station s2">
-        <div class="k">second · load-bearing hope</div>
-        <h3>we've climbed out before</h3>
-        <p>12,000 years of reinventing who-gets-what, and the coil keeps turning upward.
-          the <b>spiral</b> is the whole climb at once; the <b>ratchet</b> is what survives
-          each collapse. hope, but grounded in history rather than vibes — hope you can
-          put weight on.</p>
-        <div class="drs">
-          <a class="d" href="/spiral">🧬 the upward spiral</a>
-          <a class="d" href="/ratchet">🪜 the ratchet</a>
-        </div>
-      </div>
-
-      <div class="station s3">
-        <div class="k">third · your move</div>
-        <h3>here is what is yours to do</h3>
-        <p>a map is not a life. the <b>skills</b> are the inner game of the AI transition —
-          seven trailheads, with dharma as the capstone: the map grows a door
-          with <b>your name on it</b>.</p>
-        <div class="drs">
-          <a class="d" href="/skills">🧗 the skills</a>
-        </div>
-      </div>
-
-      <div class="station s4">
-        <div class="k">fourth · belonging</div>
-        <h3>and here are the others</h3>
-        <p>you are not the first to carry this, and you won't be the last. the <b>lineage</b>
-          is one idea handed person to person for a century; the <b>school</b> is where the
-          torch is burning now. come sit down.</p>
-        <div class="drs">
-          <a class="d" href="/lineage">🔥 the lineage</a>
-          <a class="d" href="/grove">🌳 the school</a>
-          <a class="d" href="/about">🌀 why this exists</a>
-        </div>
-      </div>
+  <!-- the depth: every door, grouped the way the poster groups them. the signpost and
+       the census sit right on top of the doors they measure. -->
+  <div class="depthhead">
+    <h2>navigate the <span class="g1">D</span><span class="g2">E</span><span class="g3">P</span><span class="g4">T</span><span class="g5">H</span></h2>
+    <div class="herostats">
+      <span><b>12,000</b> years</span><span><b>many</b> vantage points</span><span><b>1,063</b> mechanisms</span><span><b>5</b> eras</span>
     </div>
-  </section>
-
-  <!-- the depth: every door, grouped the way the poster groups them. the faint grove
-       stands behind the cards — the index wears the thing it indexes. -->
+  </div>
   <nav class="tabs" aria-label="every door in the depth">
-    <svg class="navgrove" aria-hidden="true" viewBox="0 0 900 640" focusable="false">
-      <g opacity=".9">
-        <line x1="60" y1="332" x2="840" y2="332" stroke="rgba(138,106,72,.5)" stroke-width="2"/>
-        <g>
-          <g transform="translate(140,30)">
-            <path d="M0 302 C3 252 -7 226 -2 192" stroke="#8a6a48" stroke-width="11" fill="none" stroke-linecap="round"/>
-            <circle cx="-4" cy="156" r="50" fill="#4ecb66" opacity=".5"/>
-            <circle cx="-40" cy="182" r="30" fill="#4ecb66" opacity=".4"/>
-            <circle cx="32" cy="180" r="32" fill="#4ecb66" opacity=".4"/>
-          </g>
-          <g transform="translate(310,12)">
-            <path d="M0 320 C-4 262 6 228 1 186" stroke="#8a6a48" stroke-width="12" fill="none" stroke-linecap="round"/>
-            <circle cx="2" cy="144" r="56" fill="#e3b31d" opacity=".5"/>
-            <circle cx="-42" cy="176" r="33" fill="#e3b31d" opacity=".4"/>
-            <circle cx="44" cy="172" r="35" fill="#e3b31d" opacity=".4"/>
-          </g>
-          <g transform="translate(462,2)">
-            <path d="M0 330 C5 260 -5 226 0 176" stroke="#8a6a48" stroke-width="13" fill="none" stroke-linecap="round"/>
-            <circle cx="0" cy="124" r="63" fill="#f07f3c" opacity=".5"/>
-            <circle cx="-50" cy="162" r="36" fill="#f07f3c" opacity=".4"/>
-            <circle cx="50" cy="158" r="38" fill="#f07f3c" opacity=".4"/>
-          </g>
-          <g transform="translate(618,18)">
-            <path d="M0 314 C-3 262 7 232 2 190" stroke="#8a6a48" stroke-width="12" fill="none" stroke-linecap="round"/>
-            <circle cx="4" cy="150" r="54" fill="#e14fe1" opacity=".5"/>
-            <circle cx="-38" cy="180" r="32" fill="#e14fe1" opacity=".4"/>
-            <circle cx="44" cy="176" r="33" fill="#e14fe1" opacity=".4"/>
-          </g>
-          <g transform="translate(772,36)">
-            <path d="M0 296 C3 254 -6 234 -1 198" stroke="#8a6a48" stroke-width="10" fill="none" stroke-linecap="round"/>
-            <circle cx="-3" cy="166" r="46" fill="#42a4ff" opacity=".5"/>
-            <circle cx="-36" cy="190" r="28" fill="#42a4ff" opacity=".4"/>
-            <circle cx="30" cy="188" r="29" fill="#42a4ff" opacity=".4"/>
-          </g>
-        </g>
-        <g fill="none" stroke-linecap="round" stroke-dasharray="5 8">
-          <path d="M140 332 C200 420 260 430 310 336" stroke="#4ecb66" stroke-width="1.6" opacity=".55"/>
-          <path d="M310 332 C360 450 420 456 462 338" stroke="#e3b31d" stroke-width="1.6" opacity=".55"/>
-          <path d="M462 332 C510 460 570 452 618 336" stroke="#f07f3c" stroke-width="1.6" opacity=".55"/>
-          <path d="M618 332 C670 434 726 436 772 334" stroke="#e14fe1" stroke-width="1.6" opacity=".55"/>
-          <path d="M140 332 C300 560 620 560 772 334" stroke="#42a4ff" stroke-width="1.6" opacity=".5"/>
-          <path d="M310 332 C330 520 420 590 450 632" stroke="#e3b31d" stroke-width="1.3" opacity=".4"/>
-          <path d="M618 332 C590 520 500 590 462 634" stroke="#e14fe1" stroke-width="1.3" opacity=".4"/>
-        </g>
+    <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
+      <defs>
+        <linearGradient id="navswg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#2f9e44"/><stop offset="25%" stop-color="#a17a00"/>
+          <stop offset="50%" stop-color="#b0561f"/><stop offset="75%" stop-color="#b535bb"/>
+          <stop offset="100%" stop-color="#1c7ed6"/>
+        </linearGradient>
+        <radialGradient id="navsr" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff"/><stop offset="62%" stop-color="#fff"/>
+          <stop offset="100%" stop-color="#000"/>
+        </radialGradient>
+        <mask id="navsm"><rect x="-270" y="-270" width="1680" height="1680" fill="url(#navsr)"/></mask>
+      </defs>
+      <g class="nsg" mask="url(#navsm)">
+        <path id="navspiralp" pathLength="1000" d="M530 500L538 506L543 515L546 527L546 539L542 552L535 565L523 577L508 587L490 595L469 599L446 598L422 593L398 583L376 569L357 549L342 525L331 498L326 468L328 436L337 404L353 373L377 344L407 319L443 299L483 285L528 278L574 280L621 289L666 308L708 334L745 369L774 410L796 457L808 508L809 562L798 616L777 669L744 718L701 762L648 799L588 826L521 843L451 848L380 841L309 821L243 789L183 745L132 691L93 628L66 557L54 482L57 405L76 329L111 255L161 188L225 130L301 83L386 49L478 29L574 26L670 40L764 70L851 117L928 178L992 253L1041 338L1073 432L1084 531L1076 631L1047 730L999 823L931 908L846 980L747 1038L637 1078L519 1098L397 1099L276 1078L160 1037L52 975L-42 896L-119 800L-176 692L-211 575L-222 452L-208 329L-169 208L-106 95L-20 -6L86 -92L209 -159L345 -205L489 -226L636 -223L782 -195L920 -141L1047 -65L1158 33L1247 150L1313 281L1351 422L1360 568L1339 715L1289 857L1211 989L1106 1107L978 1206L831 1282L670 1332L500 1354"/>
+        <use href="#navspiralp" class="navcomet"/>
       </g>
     </svg>
 
@@ -422,6 +358,58 @@
       </div>
     </div>
   </nav>
+
+  <header>
+    <h1>orient</h1>
+  </header>
+
+  <!-- the descent: four things, in the order a seeker needs them -->
+  <section class="descent" aria-label="the four things">
+    <div class="stations">
+      <div class="station s1">
+        <div class="k">first · sensemaking</div>
+        <h3>you're not crazy</h3>
+        <p>the scary feeling is measuring something real. here it gets <b>counted</b> —
+          and the overwhelm becomes a map.</p>
+        <div class="drs">
+          <a class="d" href="/crises">🌪️ the crises census</a>
+          <a class="d" href="/critique">🪞 the critique</a>
+        </div>
+      </div>
+
+      <div class="station s2">
+        <div class="k">second · load-bearing hope</div>
+        <h3>we've climbed out before</h3>
+        <p>humans have climbed out of collapse for <b>12,000 years</b>. that's hope you
+          can put weight on.</p>
+        <div class="drs">
+          <a class="d" href="/spiral">🧬 the upward spiral</a>
+          <a class="d" href="/ratchet">🪜 the ratchet</a>
+        </div>
+      </div>
+
+      <div class="station s3">
+        <div class="k">third · your move</div>
+        <h3>here is what is yours to do</h3>
+        <p>a map is not a life. the skills open a door with <b>your name on it</b>.</p>
+        <div class="drs">
+          <a class="d" href="/skills">🧗 the skills</a>
+        </div>
+      </div>
+
+      <div class="station s4">
+        <div class="k">fourth · belonging</div>
+        <h3>and here are the others</h3>
+        <p>you are not alone. the torch has been carried for a century — <b>come sit down</b>.</p>
+        <div class="drs">
+          <a class="d" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a>
+          <a class="d" href="/lineage">🔥 the lineage</a>
+          <a class="d" href="/grove">🌳 the school</a>
+          <a class="d" href="/about">🌀 why this exists</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <script>

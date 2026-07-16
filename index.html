@@ -193,6 +193,14 @@
     mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#000 calc(100% - 2px),#000 100%,transparent 100%)}
   @keyframes spin1{to{transform:rotate(360deg)}}
   @keyframes spin2{to{transform:rotate(-360deg)}}
+  /* the sun behind the head: a warm, peaceful light that was always there —
+     it just needed someone to sit still enough to see it */
+  .sun{position:absolute;left:50%;top:4%;transform:translate(-50%,-32%);width:160%;aspect-ratio:1;
+    border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(255,228,156,.6) 0%,rgba(255,204,116,.3) 28%,rgba(255,182,92,.12) 52%,transparent 70%);
+    animation:sunbreathe 6s ease-in-out infinite}
+  @keyframes sunbreathe{0%,100%{opacity:.65;transform:translate(-50%,-32%) scale(.94)}
+    50%{opacity:1;transform:translate(-50%,-32%) scale(1.07)}}
   /* the pulse: rings of warmth leaving the heart on each beat, reaching further now */
   .shimmer{position:absolute;inset:0;border-radius:50%;pointer-events:none;
     animation:shim 1.75s ease-out infinite}
@@ -229,7 +237,7 @@
   @keyframes qidrip{to{background-position:0 20px}}
   @keyframes qibreathe{0%,100%{opacity:.35}50%{opacity:1}}
   @media (prefers-reduced-motion:reduce){
-    .breath,.shimmer,.heart,.ring,.halo,.qi,.qi::before{animation:none}
+    .breath,.shimmer,.heart,.ring,.halo,.qi,.qi::before,.sun{animation:none}
     .breath{transform:scaleX(.8) scaleY(.7);opacity:.6}
     .shimmer{opacity:0}}
 
@@ -465,6 +473,7 @@
     <div class="shimmer" aria-hidden="true"></div>
     <div class="shimmer d" aria-hidden="true"></div>
     <div class="qi" aria-hidden="true"></div>
+    <div class="sun" aria-hidden="true"></div>
     <div class="heart"><span id="monkface">🧘</span></div>
   </div>
 
@@ -495,7 +504,7 @@
          been heading. one door, no small print. -->
     <div class="gate" aria-label="enter">
       <div class="doorhalo">
-        <a class="enter" href="/orient"><span class="emj">🧘</span>enter dharma.gift<span class="aro">→</span></a>
+        <a class="enter" href="/threshold"><span class="emj">🧘</span>enter dharma.gift<span class="aro">→</span></a>
       </div>
     </div>
 

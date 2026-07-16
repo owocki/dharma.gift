@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-882JMLBJG9');
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+<title>the threshold · if you want to</title>
+<link rel="canonical" href="https://www.upwardspiral.io/threshold">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.upwardspiral.io/threshold">
+<meta property="og:title" content="the threshold — if you want to">
+<meta property="og:description" content="a room below the roots, lit by crystals. if you want to find your purpose, find your peace, find your dharma, explore new mental models — then this site is for you. continue.">
+<meta property="og:image" content="https://www.upwardspiral.io/og-threshold.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="the threshold — if you want to">
+<meta name="twitter:description" content="purpose, peace, dharma, new mental models. a crystal room below the roots. continue.">
+<meta name="twitter:image" content="https://www.upwardspiral.io/og-threshold.png">
+<meta name="description" content="the threshold of dharma.gift: a crystal cave below the roots. if you want to find your purpose, your peace, your dharma, or new mental models — this site is for you.">
+<style>
+  :root{
+    --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
+    --ink:#eef3ee; --muted:#9aa89c;
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);
+    font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+    /* the cave: soil overhead, deep dark middle, a crystal-lit floor */
+    background:linear-gradient(180deg,#191106 0%,#0b0909 16%,#060409 45%,#0a0714 72%,#140b22 100%);
+    min-height:100svh}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
+  .rainbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:95;
+    background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5))}
+
+  .room{position:relative;min-height:100svh;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;overflow:hidden;
+    padding:90px 18px 130px}
+
+  /* the roots you just came down through, still overhead */
+  .roots{position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(1100px,120vw);
+    pointer-events:none;opacity:.85}
+  .roots svg{display:block;width:100%;height:auto}
+  /* the crystals: grown from the floor, glow by geometry — a soft pool behind each
+     cluster and bright facet lines on top, no blur filters anywhere */
+  .crystals{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:min(1240px,130vw);pointer-events:none}
+  .crystals svg{display:block;width:100%;height:auto}
+  .cr .glowpool{opacity:.5;animation:crpulse 5s ease-in-out infinite}
+  .cr.c2 .glowpool{animation-delay:-1.6s;animation-duration:6.2s}
+  .cr.c3 .glowpool{animation-delay:-3.1s;animation-duration:4.4s}
+  .cr.c4 .glowpool{animation-delay:-2.2s;animation-duration:7s}
+  .cr.c5 .glowpool{animation-delay:-4s;animation-duration:5.6s}
+  @keyframes crpulse{0%,100%{opacity:.32}50%{opacity:.75}}
+  .cr .facet{animation:facet 3.8s ease-in-out infinite}
+  .cr.c2 .facet{animation-delay:-1.2s} .cr.c3 .facet{animation-delay:-2.4s}
+  .cr.c4 .facet{animation-delay:-.7s} .cr.c5 .facet{animation-delay:-3s}
+  @keyframes facet{0%,100%{opacity:.25}50%{opacity:.95}}
+  @media (prefers-reduced-motion:reduce){ .cr .glowpool,.cr .facet{animation:none;opacity:.5} }
+
+  /* the words: an offer, line by line */
+  .copy{position:relative;z-index:2;max-width:720px}
+  .if{margin:0 0 18px;font:italic 400 clamp(17px,2.6vw,22px)/1.4 var(--serif);color:var(--muted)}
+  .wants{margin:0;display:flex;flex-direction:column;gap:10px;
+    font:600 clamp(30px,6vw,54px)/1.12 var(--serif);letter-spacing:-.012em}
+  .wants span{opacity:0;transform:translateY(16px);animation:arrive .8s cubic-bezier(.2,.8,.2,1) forwards}
+  .wants .w1{color:var(--e2);animation-delay:.15s}
+  .wants .w2{color:var(--e5);animation-delay:.5s}
+  .wants .w3{color:var(--e4);animation-delay:.85s}
+  .wants .w4{color:var(--e1);animation-delay:1.2s}
+  .then{margin:26px 0 0;font:italic 480 clamp(19px,3vw,26px)/1.4 var(--serif);color:var(--ink);
+    opacity:0;animation:arrive .8s cubic-bezier(.2,.8,.2,1) 1.7s forwards}
+  @keyframes arrive{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){ .wants span,.then{animation:none;opacity:1;transform:none} }
+
+  /* the way onward */
+  .go{position:relative;z-index:2;margin-top:44px;
+    opacity:0;animation:arrive .8s cubic-bezier(.2,.8,.2,1) 2.2s forwards}
+  @media (prefers-reduced-motion:reduce){ .go{animation:none;opacity:1} }
+  a.cta{position:relative;display:inline-flex;align-items:center;gap:13px;
+    padding:22px 54px;border-radius:999px;text-decoration:none;isolation:isolate;
+    font:640 24px/1 var(--serif);letter-spacing:.01em;color:#0b1508;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:flow 5s linear infinite;
+    box-shadow:0 12px 46px rgba(78,203,102,.30),0 12px 46px rgba(225,79,225,.22),
+      0 3px 14px rgba(66,164,255,.26),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1),box-shadow .3s}
+  @keyframes flow{to{background-position:-320% 0}}
+  a.cta:hover{transform:translateY(-4px) scale(1.03);
+    box-shadow:0 22px 66px rgba(78,203,102,.42),0 22px 66px rgba(225,79,225,.32),
+      0 6px 22px rgba(66,164,255,.36),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25)}
+  a.cta .aro{font-size:21px;transition:transform .3s}
+  a.cta:hover .aro{transform:translateX(6px)}
+  @media (prefers-reduced-motion:reduce){ a.cta{animation:none} }
+  @media(max-width:520px){ a.cta{padding:17px 36px;font-size:20px} }
+</style>
+</head>
+<body>
+<div class="rainbar" aria-hidden="true"></div>
+
+<main class="room">
+
+  <!-- the roots overhead: you came in through them -->
+  <div class="roots" aria-hidden="true">
+    <svg viewBox="0 0 1100 300">
+      <g fill="none" stroke-linecap="round">
+        <path d="M80 0 C90 70 60 110 85 170 M85 170 C70 210 90 240 80 268" stroke="rgba(138,106,72,.55)" stroke-width="7"/>
+        <path d="M85 170 C110 190 120 210 118 228" stroke="rgba(138,106,72,.4)" stroke-width="4"/>
+        <path d="M300 0 C290 60 320 100 305 160 M305 160 C320 200 300 230 312 252" stroke="rgba(138,106,72,.5)" stroke-width="8"/>
+        <path d="M305 160 C280 184 268 206 270 224" stroke="rgba(78,203,102,.35)" stroke-width="3.5"/>
+        <path d="M550 0 C560 80 530 130 552 200 M552 200 C540 236 560 262 552 288" stroke="rgba(138,106,72,.6)" stroke-width="10"/>
+        <path d="M552 200 C580 220 592 240 590 258" stroke="rgba(255,214,130,.4)" stroke-width="4"/>
+        <path d="M552 120 C520 140 505 158 500 176" stroke="rgba(227,179,29,.3)" stroke-width="3.5"/>
+        <path d="M800 0 C810 55 785 95 800 150 M800 150 C815 190 795 222 805 244" stroke="rgba(138,106,72,.5)" stroke-width="8"/>
+        <path d="M800 150 C775 172 765 192 766 210" stroke="rgba(225,79,225,.32)" stroke-width="3.5"/>
+        <path d="M1020 0 C1010 60 1035 100 1020 155 M1020 155 C1032 195 1015 225 1025 246" stroke="rgba(138,106,72,.55)" stroke-width="7"/>
+        <path d="M1020 155 C1000 175 990 194 992 212" stroke="rgba(66,164,255,.32)" stroke-width="3.5"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- the crystals: five clusters, one per era ink, lighting the floor -->
+  <div class="crystals" aria-hidden="true">
+    <svg viewBox="0 0 1240 320" preserveAspectRatio="xMidYMax meet" role="img"
+      aria-label="clusters of glowing crystals in the five era colors grow up from the cave floor">
+      <g class="cr c1">
+        <ellipse class="glowpool" cx="120" cy="308" rx="150" ry="60" fill="rgba(78,203,102,.16)"/>
+        <g>
+          <polygon points="80,320 100,180 128,320" fill="rgba(78,203,102,.55)"/>
+          <polygon points="100,180 114,320 128,320" fill="rgba(140,230,160,.35)"/>
+          <polygon points="120,320 152,220 180,320" fill="rgba(78,203,102,.42)"/>
+          <polygon points="152,220 168,320 180,320" fill="rgba(140,230,160,.3)"/>
+          <polygon points="52,320 62,252 84,320" fill="rgba(78,203,102,.35)"/>
+          <polyline class="facet" points="100,180 108,240 106,320" fill="none" stroke="rgba(220,255,228,.8)" stroke-width="1.6"/>
+        </g>
+      </g>
+      <g class="cr c2">
+        <ellipse class="glowpool" cx="380" cy="310" rx="130" ry="52" fill="rgba(227,179,29,.15)"/>
+        <g>
+          <polygon points="340,320 362,214 388,320" fill="rgba(227,179,29,.5)"/>
+          <polygon points="362,214 376,320 388,320" fill="rgba(245,215,120,.32)"/>
+          <polygon points="392,320 416,258 438,320" fill="rgba(227,179,29,.38)"/>
+          <polyline class="facet" points="362,214 370,266 368,320" fill="none" stroke="rgba(255,244,200,.8)" stroke-width="1.5"/>
+        </g>
+      </g>
+      <g class="cr c3">
+        <ellipse class="glowpool" cx="620" cy="304" rx="190" ry="72" fill="rgba(240,127,60,.16)"/>
+        <g>
+          <polygon points="560,320 598,140 640,320" fill="rgba(240,127,60,.55)"/>
+          <polygon points="598,140 622,320 640,320" fill="rgba(255,178,120,.35)"/>
+          <polygon points="648,320 678,230 706,320" fill="rgba(240,127,60,.42)"/>
+          <polygon points="678,230 692,320 706,320" fill="rgba(255,178,120,.3)"/>
+          <polygon points="532,320 544,254 566,320" fill="rgba(240,127,60,.35)"/>
+          <polyline class="facet" points="598,140 610,230 606,320" fill="none" stroke="rgba(255,232,210,.85)" stroke-width="1.8"/>
+        </g>
+      </g>
+      <g class="cr c4">
+        <ellipse class="glowpool" cx="880" cy="310" rx="130" ry="54" fill="rgba(225,79,225,.15)"/>
+        <g>
+          <polygon points="836,320 860,208 888,320" fill="rgba(225,79,225,.5)"/>
+          <polygon points="860,208 876,320 888,320" fill="rgba(240,150,240,.32)"/>
+          <polygon points="894,320 916,262 938,320" fill="rgba(225,79,225,.36)"/>
+          <polyline class="facet" points="860,208 870,264 866,320" fill="none" stroke="rgba(252,224,252,.8)" stroke-width="1.5"/>
+        </g>
+      </g>
+      <g class="cr c5">
+        <ellipse class="glowpool" cx="1120" cy="308" rx="150" ry="58" fill="rgba(66,164,255,.16)"/>
+        <g>
+          <polygon points="1074,320 1098,186 1126,320" fill="rgba(66,164,255,.52)"/>
+          <polygon points="1098,186 1112,320 1126,320" fill="rgba(140,200,255,.34)"/>
+          <polygon points="1132,320 1158,240 1184,320" fill="rgba(66,164,255,.4)"/>
+          <polygon points="1158,240 1172,320 1184,320" fill="rgba(140,200,255,.28)"/>
+          <polyline class="facet" points="1098,186 1106,244 1104,320" fill="none" stroke="rgba(216,240,255,.8)" stroke-width="1.6"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="copy">
+    <p class="if">if you want to</p>
+    <h1 class="wants" aria-label="find your purpose, find your peace, find your dharma, explore new mental models">
+      <span class="w1">find your purpose</span>
+      <span class="w2">find your peace</span>
+      <span class="w3">find your dharma</span>
+      <span class="w4">explore new mental models</span>
+    </h1>
+    <p class="then">then this site is for you.</p>
+  </div>
+
+  <div class="go">
+    <a class="cta" href="/orient">continue<span class="aro">→</span></a>
+  </div>
+
+</main>
+</body>
+</html>
