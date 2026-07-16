@@ -280,6 +280,14 @@
   .expansion .ddef:hover{color:#cfe3cf}
   .expansion .ddef.out{opacity:0}
   .expansion .ddef.quick{transition-duration:.18s}
+  /* the invitation: a small hand-drawn arrow under the definitions, begging a click */
+  .clickme{display:flex;justify-content:center;align-items:flex-start;gap:5px;margin:10px 0 0;
+    transform:translateX(-72px);color:#8fa892;font:italic 400 13px/1.3 var(--serif)}
+  .clickme svg{animation:nudge 2.2s ease-in-out infinite}
+  @keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  @media (prefers-reduced-motion:reduce){ .clickme svg{animation:none} }
+  @media(max-width:560px){ .clickme{transform:none} }
+
   /* the small print: alpha, mentioned the way a friend would — right under the door */
   .btw{margin:26px auto 0;max-width:420px;font:italic 400 13.5px/1.6 var(--serif);color:#8fa892}
 
@@ -501,7 +509,14 @@
       </h1>
       <div class="expansion">
         <span class="w1">dharma</span> · <span class="ddef" id="ddef" title="the word has more than one translation — click for the next">what is yours to do</span> &nbsp;✦&nbsp;
-        <span class="w5">gift</span> · handed to you
+        <span class="w5">gift</span> · <span class="ddef" id="gdef" title="a gift has more than one move — click for the next">handed to you</span>
+      </div>
+      <div class="clickme" aria-hidden="true">
+        <svg width="18" height="22" viewBox="0 0 18 22" fill="none">
+          <path d="M6 21 C12 15 13 9 9.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M5.5 7 L9.5 2 L13.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span>click me</span>
       </div>
     </div>
 
@@ -536,28 +551,34 @@ const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of th
   });
 })();
 
-// ---------- dharma, translated nine ways ----------
-// the word refuses one english line, so the page rotates through its best attempts —
-// and clicking the line flies through them by hand.
+// ---------- dharma translated nine ways, gift translated six ----------
+// neither word fits one english line, so both rotate — dharma on its own clock,
+// gift only when you click it. clicking either flies to the next.
 (function(){
-  const defs=['what is yours to do','your right action',
+  const DHARMA=['what is yours to do','your right action',
     'living in alignment with your nature','the role only you can play',
     'your path of right action','your deepest responsibility',
     'the order you are here to serve','what the moment asks of you',
     'your unique path of right action'];
-  const el=document.getElementById('ddef'); if(!el) return;
-  let i=0, timer=0, busy=false;
-  function advance(quick){
-    if(busy) return; busy=true;
-    el.classList.toggle('quick',!!quick);
-    el.classList.add('out');
-    setTimeout(()=>{ i=(i+1)%defs.length; el.textContent=defs[i];
-      el.classList.remove('out'); busy=false; }, quick?190:620);
+  const GIFT=['handed to you','pay it forward',"make someone's day",
+    'spread joy','show appreciation','express gratitude'];
+  function wire(id,defs,auto){
+    const el=document.getElementById(id); if(!el) return;
+    let i=0, timer=0, busy=false;
+    function advance(quick){
+      if(busy) return; busy=true;
+      el.classList.toggle('quick',!!quick);
+      el.classList.add('out');
+      setTimeout(()=>{ i=(i+1)%defs.length; el.textContent=defs[i];
+        el.classList.remove('out'); busy=false; }, quick?190:620);
+    }
+    function arm(){ if(REDUCE||!auto) return; clearInterval(timer);
+      timer=setInterval(()=>advance(false),4600); }
+    el.addEventListener('click',()=>{ advance(true); arm(); });
+    arm();
   }
-  function arm(){ if(REDUCE) return; clearInterval(timer);
-    timer=setInterval(()=>advance(false),4600); }
-  el.addEventListener('click',()=>{ advance(true); arm(); });
-  arm();
+  wire('ddef',DHARMA,true);
+  wire('gdef',GIFT,false);
 })();
 
 // ---------- the stars ----------
