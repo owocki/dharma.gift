@@ -254,7 +254,15 @@
   .wpgrp{--ga:#e14fe1;max-width:900px}
   .crgrp{--ga:#e8446f;max-width:880px}
   .skgrp{--ga:#e3b31d;max-width:880px}
-  .admgrp{flex-basis:auto}
+  .admgrp{flex-basis:100%;max-width:420px;margin:0 auto}
+  details.grpfold{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%}
+  details.grpfold>summary{list-style:none;cursor:pointer;user-select:none;-webkit-user-select:none}
+  details.grpfold>summary::-webkit-details-marker{display:none}
+  .grplab .chev,.glt .chev{display:inline-block;font-size:12px;margin-left:7px;letter-spacing:0;
+    opacity:.7;transition:transform .25s}
+  details.grpfold[open]>summary .chev{transform:rotate(180deg)}
+  .glt{display:flex;align-items:center;justify-content:center;font:inherit;font-weight:inherit}
+  details.grpfold:not([open]){gap:0}
   .grplab{display:flex;flex-direction:column;align-items:center;gap:3px;
     font-size:10.5px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.8}
   .grplab em{font-style:normal;font-weight:500;font-size:10px;letter-spacing:.02em;
@@ -399,8 +407,9 @@
       </g>
     </svg>
 
-    <div class="tabgrp qgrp" id="questions">
-      <span class="grplab">how we coordinate</span>
+    <div class="tabgrp qgrp">
+      <details class="grpfold" id="questions" open>
+      <summary class="grplab">how we coordinate<span class="chev">⌄</span></summary>
       <div class="subrow">
         <div class="subgrp">
           <span class="sublab">how you live<em>the business of not dying</em></span>
@@ -438,10 +447,12 @@
           </div>
         </div>
       </div>
+    </details>
     </div>
 
-    <div class="tabgrp wpgrp" id="views">
-      <span class="grplab">zoom out<em>the whole picture</em></span>
+    <div class="tabgrp wpgrp">
+      <details class="grpfold" id="views" open>
+      <summary class="grplab"><b class="glt">zoom out<span class="chev">⌄</span></b><em>the whole picture</em></summary>
       <div class="grpchips">
         <a class="tab" href="/spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></a>
         <a class="tab" href="/syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></a>
@@ -454,10 +465,12 @@
         <a class="tab" href="/superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></a>
         <a class="tab" href="/lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></a>
       </div>
+    </details>
     </div>
 
-    <div class="tabgrp crgrp" id="crises">
-      <a class="grplab" href="/crises">the crises</a>
+    <div class="tabgrp crgrp">
+      <details class="grpfold" id="crises" open>
+      <summary class="grplab">the crises<span class="chev">⌄</span></summary>
       <p class="ix"><a href="/metacrisis">🕸️ the metacrisis</a></p>
       <p class="ix"><b class="ixk" style="--gk:#4ecb66">ecological</b>
         <a href="/crises#climate">🌡️ climate</a><span class="sep">·</span>
@@ -486,10 +499,12 @@
         <a href="/crises#migration">🧳 migration</a><span class="sep">·</span>
         <a href="/crises#state-failure">🏚️ state failure</a><span class="sep">·</span>
         <a href="/crises#pandemics">😷 pandemics</a></p>
+    </details>
     </div>
 
-    <div class="tabgrp skgrp" id="skills">
-      <a class="grplab" href="/skills">the skills<em>what one person can practice — eleven trailheads, dharma the capstone</em></a>
+    <div class="tabgrp skgrp">
+      <details class="grpfold" id="skills" open>
+      <summary class="grplab"><b class="glt">the skills<span class="chev">⌄</span></b><em>what one person can practice — eleven trailheads, dharma the capstone</em></summary>
       <p class="ix">
         <a href="/skills#healing">🫀 healing</a><span class="sep">·</span>
         <a href="/skills#curiosity">🔍 curiosity</a><span class="sep">·</span>
@@ -502,14 +517,17 @@
         <a href="/skills#dharma">🧭 dharma</a><span class="sep">·</span>
         <a href="/skills#bridging">🌉 ontological bridging</a><span class="sep">·</span>
         <a href="/skills#culture-wars">🎭 culture war ontology</a></p>
+    </details>
     </div>
 
-    <div class="tabgrp admgrp" id="admin">
-      <span class="grplab">etc</span>
+    <div class="tabgrp admgrp">
+      <details class="grpfold" id="admin" open>
+      <summary class="grplab">etc<span class="chev">⌄</span></summary>
       <div class="grpchips">
         <a class="tab" href="/about"><span class="em">🌀</span>about<span class="tq">why this exists</span></a>
         <a class="tab" href="/orbit" title="orbit the hyperobject"><span class="em">🔭</span>3d view<span class="tq">the hyperobject</span></a>
       </div>
+    </details>
     </div>
     </nav>
 
@@ -643,7 +661,7 @@ try{ if(localStorage.getItem('dg-mc-read'))
 })();
 
 // the folds remember whether you left them open
-document.querySelectorAll('details.fold').forEach(d=>{
+document.querySelectorAll('details.fold, details.grpfold').forEach(d=>{
   try{
     const k='or-'+d.id, v=localStorage.getItem(k);
     if(v==='closed') d.open=false;
