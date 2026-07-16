@@ -19,7 +19,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.upwardspiral.io/orbit">
 <meta property="og:title" content="the hyperobject · the spiral from all angles">
-<meta property="og:description" content="12,000 years as one shape you can spin, zoom, and look straight down the core of. nine grey apertures float around it — the loop, the ratchet, the critique — and fifteen question chips light up single strands: who gets what, who decides, what is true. swarms of capital mob the core. take the tour, it sparkles.">
+<meta property="og:description" content="12,000 years as one shape you can spin, zoom, and look straight down the core of. nine grey apertures float around it — the loop, the ratchet, the critique — and fifteen question chips light up single strands: who gets what, who decides, what is true. swarms of capital mob the core. a menu up top swaps the structure entirely: the vessel of eight nested scales, the multipolar trap's fitness landscape, the critique's inverted coil over a blood-red moloch floor. take the tour, it sparkles.">
 <meta property="og:image" content="https://www.upwardspiral.io/og-orbit.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -27,7 +27,7 @@
 <meta name="twitter:title" content="the hyperobject · the spiral from all angles">
 <meta name="twitter:description" content="spin the whole coil of history: nine grey apertures, fifteen glowing questions, swarms of capital climbing the core. take the tour, it sparkles.">
 <meta name="twitter:image" content="https://www.upwardspiral.io/og-orbit.png?v=2">
-<meta name="description" content="an exploratory companion to the upward spirals poster: the coil in true 3d — pan, zoom, spin — with clickable apertures, fifteen question strands, and a guided tour.">
+<meta name="description" content="an exploratory companion to the upward spirals poster: the coil in true 3d — pan, zoom, spin — with clickable apertures, fifteen question strands, a guided tour, and three more structures on the menu: the vessel of nested scales, the multipolar trap's fitness landscape, and the critique — the coil upside down over moloch.">
 
 <!-- the theme, settled before first paint -->
 <script>
@@ -72,6 +72,18 @@ canvas.overbox{cursor:pointer}
   padding:7px 12px;cursor:pointer}
 #tools button:hover{color:var(--ink)}
 #tools #tourbtn{color:var(--ink);border-color:var(--ink)}
+
+/* the structure menu: the page used to hold one shape; now it holds three, and
+   this is the hand that swaps them. same chrome as everything else — a pill of
+   mono chips, the open one carrying the ink. */
+#structs{top:18px;left:50%;transform:translateX(-50%);display:flex;gap:4px;
+  background:var(--panel);border:1px solid var(--line);border-radius:999px;
+  padding:5px 6px;backdrop-filter:blur(10px);pointer-events:auto}
+#structs button{font:500 10.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.1em;color:var(--dim);background:transparent;border:1px solid transparent;
+  border-radius:999px;padding:7px 12px;cursor:pointer;white-space:nowrap;text-transform:lowercase}
+#structs button:hover{color:var(--ink)}
+#structs button.on{color:var(--ink);border-color:var(--chipline);background:var(--chip)}
 #hint{bottom:16px;right:20px;max-width:min(46ch,40vw);text-align:right;
   font:500 10px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;color:var(--dim)}
 
@@ -93,12 +105,12 @@ canvas.overbox{cursor:pointer}
 #takes button:hover{color:var(--ink)}
 #takes button.on{color:var(--ink);border-color:var(--ink);
   background:color-mix(in srgb,var(--ink) 12%,transparent)}
-#qrow{display:flex;flex-wrap:wrap;gap:5px;max-width:min(88vw,1060px)}
-#qrow button{pointer-events:auto;font:500 9.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+#qrow,#rrow,#brow{display:flex;flex-wrap:wrap;gap:5px;max-width:min(88vw,1060px)}
+#qrow button,#rrow button,#brow button{pointer-events:auto;font:500 9.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
   letter-spacing:.06em;color:var(--dim);background:var(--chip);border:1px solid var(--chipline);
   border-radius:999px;padding:5px 9px;cursor:pointer;text-transform:lowercase;white-space:nowrap}
-#qrow button:hover{color:var(--ink)}
-#qrow button.on{color:var(--ink);border-color:var(--qc,var(--ink));
+#qrow button:hover,#rrow button:hover,#brow button:hover{color:var(--ink)}
+#qrow button.on,#rrow button.on,#brow button.on{color:var(--ink);border-color:var(--qc,var(--ink));
   background:color-mix(in srgb,var(--qc,var(--ink)) 24%,transparent)}
 
 #panel{left:22px;bottom:215px;max-width:min(48ch,86vw);background:var(--panel);
@@ -135,9 +147,12 @@ canvas.overbox{cursor:pointer}
   #panel{left:12px;right:12px;bottom:140px;max-width:none}
   #hdr{top:14px;left:14px;max-width:52vw}
   #tools{top:14px;right:12px;flex-direction:column;align-items:flex-end;gap:5px}
+  #structs{top:104px;left:14px;transform:none;flex-direction:column;align-items:flex-start;
+    gap:5px;background:transparent;border:none;padding:0;backdrop-filter:none}
+  #structs button{background:var(--chip);border-color:var(--chipline)}
   #rails{padding:8px 10px;max-width:96vw}
   .raillab{display:none}
-  #qrow,#takes{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;max-width:92vw;
+  #qrow,#rrow,#brow,#takes{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;max-width:92vw;
     -webkit-overflow-scrolling:touch;scrollbar-width:none;pointer-events:auto}
 }
 </style>
@@ -145,7 +160,7 @@ canvas.overbox{cursor:pointer}
 <body>
 
 <canvas id="sky" role="img"
-  aria-label="a three-dimensional coil of fifteen coloured strands climbing through five eras, with swarms of capital — dozens of jittering coloured spheres in loose clusters — mobbing up its core, and grey aperture boxes floating around it. each aperture is a different way of reading the same shape — from above it is a loop, from the side a staircase, from below a cargo lift. fifteen question chips each light up a single strand and pin its five era answers along the climb, and a guided tour walks the whole argument stop by stop."></canvas>
+  aria-label="a three-dimensional coil of fifteen coloured strands climbing through five eras, with swarms of capital — dozens of jittering coloured spheres in loose clusters — mobbing up its core, and grey aperture boxes floating around it. each aperture is a different way of reading the same shape — from above it is a loop, from the side a staircase, from below a cargo lift. fifteen question chips each light up a single strand and pin its five era answers along the climb, and a guided tour walks the whole argument stop by stop. a menu at the top swaps the structure entirely: the vessel — eight nested rings from the cell to the star, threaded by meridians, with energy climbing through them and three regimes (entropy, extropy, syntropy) reshaping the whole solid — and the trap — a fitness landscape whose seven actors walk downhill into a basin, then climb out together once a commitment reshapes the terrain — and the critique — the same coil hung upside down in reds, dripping ember beads onto a floor that is itself a creature: a blood-red mycelial network growing in from every edge toward a clearing where two slit-pupil furnace eyes drift and blink, the embers riding the filaments in to feed it."></canvas>
 
 <div class="chrome" id="hdr">
   <h1><span class="emj">🔭</span> the hyperobject</h1>
@@ -159,21 +174,37 @@ canvas.overbox{cursor:pointer}
   <button id="theme" type="button">light / dark</button>
 </div>
 
+<div class="chrome" id="structs" role="group" aria-label="the structures — swap what floats here">
+  <button type="button" data-s="spiral" class="on">🧬 the spiral</button>
+  <button type="button" data-s="vessel">🌀 the vessel</button>
+  <button type="button" data-s="trap">🕳️ the trap</button>
+  <button type="button" data-s="critique">🪞 the critique</button>
+</div>
+
 <div class="chrome" id="hint">
   drag to spin &middot; scroll or pinch to zoom &middot; right-drag or two fingers to pan<br>
   grey boxes are apertures &mdash; ways of reading the shape. the small chips are the
   fifteen questions the rope is braided from &mdash; click one and its strand lights up.<br>
+  the menu up top swaps the structure &mdash; the spiral, the vessel, the trap, the critique.
   or just take the tour.
 </div>
 
 <div class="chrome" id="rails">
-  <div class="rail">
+  <div class="rail" id="rail-q">
     <span class="raillab" id="lab-q">the questions<em>light one strand</em></span>
     <div id="qrow" role="group" aria-label="the fifteen questions, as buttons"></div>
   </div>
-  <div class="rail">
+  <div class="rail" id="rail-a">
     <span class="raillab" id="lab-a">the apertures<em>ways of reading it</em></span>
     <div id="takes" role="group" aria-label="the apertures, as buttons"></div>
+  </div>
+  <div class="rail" id="rail-r" style="display:none">
+    <span class="raillab on" id="lab-r">the regimes<em>three shapes of order</em></span>
+    <div id="rrow" role="group" aria-label="the three regimes, as buttons"></div>
+  </div>
+  <div class="rail" id="rail-b" style="display:none">
+    <span class="raillab on" id="lab-b">the beats<em>the story, stop by stop</em></span>
+    <div id="brow" role="group" aria-label="the eight beats of the trap, as buttons"></div>
   </div>
 </div>
 
@@ -375,8 +406,10 @@ const APS=[
 // where each grey box floats: hand-set in the HOME view's own camera plane, a
 // ring of doors around the coil when you arrive. orbit away and they swing with
 // the world — from other angles they scatter, which is honest: they are places.
+// the organism used to crown the ring at [0,505]; the structure menu now lives
+// at the top of the screen, so it steps down inside the arc instead
 const BOXOFF=[[-420,380],[460,380],[-660,80],[670,80],[-540,-300],[560,-300],
-              [0,505],[-330,470],[340,470]];
+              [0,300],[-330,470],[340,470]];
 {const rt=[0.751,0,0.661];              // HOME's right vector, precomputed
  APS.forEach((a,k)=>{const [sx,sy]=BOXOFF[k];
    a.pos=[rt[0]*sx, 330+sy, rt[2]*sx];});}
@@ -532,16 +565,17 @@ const flyBtn=document.getElementById('p-fly');
 flyBtn.addEventListener('click',()=>{if(vantage)flyTo(vantage,1150);});
 function closePanel(){panel.classList.remove('open');activeAp=null;hiQ=-1;markButtons();
   vantage=null;flyBtn.style.display='none';
-  history.replaceState(null,'',location.pathname);}
+  history.replaceState(null,'',struct==='spiral'?location.pathname:'#'+struct);}
 panel.querySelector('.x').addEventListener('click',()=>{if(tourAt>=0)endTour();else closePanel();});
 document.getElementById('reset').addEventListener('click',()=>{
-  if(tourAt>=0)endTour();closePanel();flyTo(HOME,900);});
+  if(tourAt>=0)endTour();closePanel();flyTo(HOMES[struct],900);});
 document.getElementById('theme').addEventListener('click',()=>{
   const next=dark()?'light':'dark';
   document.documentElement.setAttribute('data-theme',next);
   localStorage.setItem('ra-theme',next);markButtons();
 });
 function clickAt(x,y){
+  if(struct!=='spiral')return;              // the boxes belong to the coil
   // nearest box first
   const hits=APS.filter(a=>a.rect).sort((p,q)=>p.rect.z-q.rect.z);
   for(const a of hits){const r=a.rect;
@@ -592,10 +626,193 @@ function endTour(keep){
   tourAt=-1;panel.classList.remove('touring');
   if(!keep){closePanel();flyTo(HOME,900);}
 }
-document.getElementById('tourbtn').addEventListener('click',()=>tourGo(0));
+document.getElementById('tourbtn').addEventListener('click',()=>{
+  if(struct!=='spiral')setStruct('spiral',false);   // the tour is the coil's; come home first
+  tourGo(0);
+});
 tPrev.addEventListener('click',()=>tourGo(tourAt-1));
 tNext.addEventListener('click',()=>tourGo(tourAt+1));
 document.getElementById('texit').addEventListener('click',()=>endTour());
+
+// ---------------------------------------------------------------------------
+// the structures. the page used to hold one object; now it holds three, and the
+// menu at the top swaps them. each is the landing page's own build, ported
+// faithfully into world space — same formulas, same palettes, same copy — with
+// the one difference this page always makes: the camera is yours.
+// ---------------------------------------------------------------------------
+let struct='spiral';
+const HOMES={
+  spiral:HOME,
+  vessel:{yaw:-0.85,pitch:0.16,dist:1850,ty:330,tx:0,tz:0},
+  trap:  {yaw:-0.55,pitch:0.52,dist:1600,ty:200,tx:0,tz:0},
+  critique:{yaw:-0.72,pitch:0.50,dist:2050,ty:300,tx:0,tz:0}
+};
+const SINFO={
+  vessel:{h:'🌀 the vessel',
+    body:'eight rings, one inside the next — <b>the cell at the centre, the star at the rim</b>. from the side it is a stack; look straight down the axis and it is the <b>holarchy</b>, every ring a whole made of the ring inside it. starlight enters at the wide end and climbs through every scale above it. the chips below set what the whole stack does with what it is fed.',
+    href:'/#syntropy',link:'open the full build → syntropy & extropy'},
+  trap:{h:'🕳️ the trap',
+    body:'a <b>fitness landscape</b>: the flat grid is the design space — every policy, rule, or choice we could make — and the height is how well everyone does under it. seven actors, one basin, one summit. the story runs on its own, beat by beat — or take the chips below and walk it yourself.',
+    href:'/#trap',link:'open the full build → the multipolar trap'},
+  critique:{h:'🪞 the critique',
+    body:'the honest ledger: <b>the same coil, upside down</b> — the gains reread as bills, dripping off the newest turn. and the floor it drips onto is <b>moloch</b>: a blood-red mycelial network growing in from every edge, every filament leaning toward a clearing none of them will cross, two furnace eyes waiting in the middle. the bills land, become embers, and ride the filaments in. <b>the god at the floor eats what falls.</b>',
+    href:'/#critique',link:'open the full build → critique of progress'}
+};
+
+// ---- the vessel: the syntropy section's holarchy, in the round -------------
+// same bones as index.html's renderSyntropy: exponential radii (each scale a
+// real order of magnitude on from the last), meridians threading every ring
+// into one wireframe solid, energy as streaks that climb, and three regimes —
+// S = circulate · E = starved outright · G = the core captures.
+const VLEV=[
+ {n:'the cell',    s:'10⁻⁵ m'},   {n:'the body',    s:'~1 m'},
+ {n:'the band',    s:'~150 people'},{n:'the city',   s:'10⁴–10⁶'},
+ {n:'the state',   s:'10⁶–10⁸'},  {n:'civilization',s:'10⁹'},
+ {n:'the planet',  s:'10¹⁰'},     {n:'the star',    s:'10²⁶ W'}
+];
+const VNL=VLEV.length, VMER=14, VRAD=VLEV.map((_,i)=>34*Math.pow(1.42,i)); // 34 … ~396
+// the stack: the cell smallest at the top, the star widest at the bottom —
+// energy enters where the light does. rows spread apart as the rings grow.
+const vY=(()=>{const gaps=[];for(let i=0;i<VNL-1;i++)gaps.push((VRAD[i]+VRAD[i+1])*0.30+26);
+  const total=gaps.reduce((a,b)=>a+b,0);const ys=[];let acc=0;
+  for(let i=0;i<VNL;i++){ys.push(330+total/2-acc);if(i<VNL-1)acc+=gaps[i];}
+  return ys;})();
+// climb coordinate: u=0 at the star, u=1 at the cell — phase-locked to the real
+// (uneven) row spacing, so the energy never lingers in the gaps between scales
+const vLU=Array.from({length:VNL},(_,j)=>(vY[VNL-1-j]-vY[VNL-1])/(vY[0]-vY[VNL-1]));
+const vRadLU=Array.from({length:VNL},(_,j)=>VRAD[VNL-1-j]);
+function vAtU(u,arrY){const x=Math.max(0,Math.min(1,u));
+  for(let j=0;j<VNL-1;j++)if(x<=vLU[j+1]){const f=(x-vLU[j])/((vLU[j+1]-vLU[j])||1);
+    return arrY?vY[VNL-1-j]+(vY[VNL-2-j]-vY[VNL-1-j])*f:vRadLU[j]+(vRadLU[j+1]-vRadLU[j])*f;}
+  return arrY?vY[0]:vRadLU[VNL-1];}
+const VREG={en:{S:0.5,E:1,G:0}, ex:{S:0,E:0,G:1}, sy:{S:1,E:0,G:0}};
+const VCARD={
+ en:{h:'entropy · things fall apart',
+  body:'not a third shape — the <b>absence</b> of one. nothing is fed, so nothing is held together: the rings fray, the dots wither, and there is no core, because a core is a thing that eats and <b>there is nothing left to eat.</b> <em>the default. it costs nothing and it is always on.</em>'},
+ ex:{h:'extropy · things get better',
+  body:'one centre, swallowing everything. the energy runs <b>straight through</b> every scale without stopping — it does no work on the way, because it is not for any of them. it is for the core. <b>it grows by absorbing.</b> <em>the dyson sphere. the data centre. the black hole with good branding.</em>'},
+ sy:{h:'syntropy · things come together',
+  body:'many dots, organised, alive. the energy <b>circulates</b> — round and round the ring it is on, doing work again and again, before what is left of it passes up to the next. <b>the cycling <em>is</em> the order.</b> <em>a forest. a neighbourhood that knows itself. life, basically.</em>'}
+};
+let vRegime='sy', vS=VREG.sy.S, vE=VREG.sy.E, vG=VREG.sy.G, vSpin=0;
+const VFLOW=coarse?34:56;
+const vsparks=Array.from({length:VFLOW},(_,i)=>({
+  u:hsh(i*3.7),a:hsh(i*9.1+2)*TAU,v:0.075+hsh(i*5.3+7)*0.13,w:0.55+hsh(i*7.9+11)*0.8}));
+const vRegBtns={};
+{const rrow=document.getElementById('rrow');
+ [['en','entropy · things fall apart','#9b95b0'],
+  ['ex','extropy · things get better','#e8446f'],
+  ['sy','syntropy · things come together','#12a37a']].forEach(([r,lab,qc])=>{
+   const b=document.createElement('button');b.type='button';b.textContent=lab;
+   b.style.setProperty('--qc',qc);
+   b.addEventListener('click',()=>setRegime(r));
+   vRegBtns[r]=b;rrow.appendChild(b);
+ });
+ vRegBtns.sy.classList.add('on');}
+function setRegime(r){
+  vRegime=r;
+  Object.entries(vRegBtns).forEach(([k,b])=>b.classList.toggle('on',k===r));
+  const c=VCARD[r];
+  setPanel(c.h,c.body,'/#syntropy','open the full build → syntropy & extropy');
+  vantage=HOMES.vessel;flyBtn.style.display='inline-block';
+  if(reduce){vS=VREG[r].S;vE=VREG[r].E;vG=VREG[r].G;}
+  lastAct=performance.now()+3000;
+}
+
+// ---- the trap: the fitness landscape, in the round --------------------------
+// the exact heightfield from index.html's renderTrap (after multipolartrap.xyz):
+// a deep basin and a high summit with a wall of low ground between them, and the
+// commitment morph that lifts the basin into a ramp. seven actors, one rope.
+const alerp=(a,b,t)=>a+(b-a)*t;
+const tpSmooth=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t);};
+const tpG2=(u,v,cu,cv,w,ev)=>Math.exp(-(((u-cu)**2+((v-cv)*ev)**2)/w));
+const tpHtrap=(u,v)=>0.34+0.60*tpG2(u,v,0.82,0.5,0.030,0.85)-0.52*tpG2(u,v,0.30,0.5,0.055,0.75)+0.20*Math.exp(-(((u-0.58)**2)/0.010));
+const tpHcoop=(u,v)=>0.30+0.60*tpSmooth(0.10,0.90,u)+0.16*tpG2(u,v,0.82,0.5,0.030,0.85);
+const trapH=(u,v,m)=>Math.max(0.02,Math.min(1.05,alerp(tpHtrap(u,v),tpHcoop(u,v),m)));
+const TP_BX=[
+ [0.52,0.55,0.60,0.57,0.63,0.58,0.54],
+ [0.44,0.41,0.38,0.40,0.37,0.42,0.45],
+ [0.28,0.32,0.30,0.34,0.29,0.31,0.33],
+ [0.28,0.32,0.30,0.34,0.29,0.55,0.33],
+ [0.29,0.32,0.30,0.335,0.31,0.30,0.325],
+ [0.48,0.52,0.55,0.58,0.60,0.62,0.64],
+ [0.80,0.83,0.855,0.875,0.845,0.815,0.83],
+ [0.80,0.83,0.855,0.875,0.845,0.815,0.83]
+];
+const TP_AV=[0.50,0.44,0.57,0.47,0.53,0.41,0.60];
+const TP_MO=[0,0,0,0,0.16,0.72,1,1], TP_ROPE=[0,0,0,0,1,1,1,1], TP_WALL=[0,0,0,1,0,0,0,0];
+const TP_NB=7, TP_GN=coarse?14:22, TP_SZ=1100, TP_HGT=440;
+const TP_STEPS=[
+ {k:'the map',tag:'a map of every future we could choose.',
+  p:'this is a <b>fitness landscape</b>. the flat grid is the <b>design space</b> — every policy, rule, or choice we could make. the <b>height</b> is how well everyone does under it: up is flourishing, down is collapse.',
+  p2:'the seven actors start up on a ridge. and each one can see a step <em>downhill</em> that pays it, personally, right now.'},
+ {k:'downhill',tag:'so everyone walks downhill.',
+  p:'each actor follows the steepest local incentive — the move that helps <em>it</em> most: cut the price, skip the safety review, take the extra fish. on the landscape that is, literally, down the slope.',
+  p2:'every one of them is being reasonable. and reasonable, repeated by everyone, runs <b>one way</b> — down.'},
+ {k:'the basin',tag:'into the basin. the trap.',
+  p:'the downhill paths all drain to the same place — a deep <b>basin</b>, low on the success axis, where everyone has defected, everyone is worse off, and no one can move.',
+  p2:'climate inaction, open-source underfunding, the engagement economy, the AI race — all the same shape. <b>“no one can unilaterally fix it.”</b>'},
+ {k:'the lone climber',tag:'the summit is a different hill entirely.',
+  p:'cooperation is the <b>summit</b>, high on the success axis — better for everyone. but a wall of low ground sits between the basin and it: whoever climbs first, alone, spends success everyone else keeps.',
+  p2:'so the lone climber slides back. the trap isn’t that people are bad. it’s the <em>shape of the landscape</em> — it punishes whoever moves first.'},
+ {k:'see · coordinate · commit',tag:'the way out is three moves.',
+  p:'<b>see</b> — everyone watching the same shared truth. <b>coordinate</b> — signalling intent, aligning on the goal. <b>commit</b> — making cooperation <em>binding</em>, so the temptation to defect is off the table.',
+  p2:'tie the climbers together and the calculus changes: no one moves first, so no one loses for moving first.'},
+ {k:'the commitment',tag:'a credible commitment reshapes the land itself.',
+  p:'this is the move. a binding commitment doesn’t fight the slope — it <b>redraws the terrain</b>. the basin lifts, the wall between it and the summit flattens into a ramp that wasn’t there.',
+  p2:'change the payoffs and you change the ground. the trap was never destiny — it was a shape.'},
+ {k:'the climb together',tag:'and they climb it together.',
+  p:'roped together and pulling the same way, the actors walk up the ridge they could never take alone. the height — the collective success — goes up for <b>everyone</b> at once.',
+  p2:'that is what coordination <em>is</em>: not everyone being nicer, but a landscape where the cooperative move is finally the rational one.'},
+ {k:'the tools',tag:'the tools already exist — and this whole poster is full of them.',
+  p:'shared ledgers make everyone <b>see</b>. peer networks let people <b>coordinate</b> without permission. smart contracts let a crowd <b>commit</b>. every mechanism in the spiral is somebody’s escape from a trap.',
+  p2:'quadratic funding, attestations, DAOs, retro funding — these are commitment devices with better branding.'}
+];
+let tpBeat=0, tpM=0, tpRope=0, tpWall=0, tpT=0;
+const tpBx=TP_BX[0].slice();
+const tpBtns=[];
+{const brow=document.getElementById('brow');
+ TP_STEPS.forEach((s,i)=>{
+   const b=document.createElement('button');b.type='button';
+   b.textContent=String(i).padStart(2,'0')+' '+s.k;
+   b.style.setProperty('--qc','#d98a1f');
+   b.addEventListener('click',()=>setBeat(i,true));
+   tpBtns.push(b);brow.appendChild(b);
+ });
+ tpBtns[0].classList.add('on');}
+function setBeat(i,user){
+  tpBeat=i;
+  tpBtns.forEach((b,j)=>b.classList.toggle('on',j===i));
+  const s=TP_STEPS[i];
+  if(user||panel.classList.contains('open')){
+    setPanel('🕳️ '+s.k,'<b>'+s.tag+'</b> '+s.p+' '+s.p2,'/#trap','open the full build → the multipolar trap');
+    vantage=HOMES.trap;flyBtn.style.display='inline-block';
+  }
+  if(user){tpT=-12;lastAct=performance.now()+3000;}   // a hand on the story pauses its clock
+  if(reduce){tpM=TP_MO[i];tpRope=TP_ROPE[i];tpWall=TP_WALL[i];TP_BX[i].forEach((x,j)=>tpBx[j]=x);}
+}
+
+// ---- the switch itself ------------------------------------------------------
+const structBtns=[...document.querySelectorAll('#structs button')];
+structBtns.forEach(b=>b.addEventListener('click',()=>setStruct(b.dataset.s)));
+function setStruct(id,fly=true,ms){
+  if(struct===id){if(fly)flyTo(HOMES[id],ms===undefined?1150:ms);return;}
+  if(tourAt>=0)endTour(true);
+  struct=id;
+  activeAp=null;hiQ=-1;
+  document.getElementById('rail-q').style.display=id==='spiral'?'flex':'none';
+  document.getElementById('rail-a').style.display=id==='spiral'?'flex':'none';
+  document.getElementById('rail-r').style.display=id==='vessel'?'flex':'none';
+  document.getElementById('rail-b').style.display=id==='trap'?'flex':'none';
+  structBtns.forEach(b=>b.classList.toggle('on',b.dataset.s===id));
+  markButtons();
+  if(id==='spiral'){panel.classList.remove('open');vantage=null;flyBtn.style.display='none';}
+  else{const s=SINFO[id];setPanel(s.h,s.body,s.href,s.link);
+    vantage=HOMES[id];flyBtn.style.display='inline-block';}
+  if(fly)flyTo(HOMES[id],ms===undefined?1150:ms);
+  history.replaceState(null,'',id==='spiral'?location.pathname:'#'+id);
+  lastAct=performance.now()+3000;
+}
 
 // ---------------------------------------------------------------------------
 // the stars — screen-anchored, deterministic, gently twinkling
@@ -667,6 +884,13 @@ function render(now,dt){
   const depthA=zc=>Math.max(0.15,Math.min(1,1.12-(zc-cam.dist+340)/760));
 
   const Q=[];                                            // the draw queue
+  if(struct!=='spiral'){
+    // the other structures build their own queue; the coil's machinery sleeps
+    cv.classList.toggle('overbox',false);
+    if(struct==='vessel')buildVessel(Q,proj,depthA,now,dt,dk);
+    else if(struct==='critique')buildCritique(Q,proj,depthA,now,dt,dk);
+    else buildTrap(Q,proj,depthA,now,dt,dk);
+  } else {
   // strands — when a question is lit, its strand carries the light and the
   // other fourteen step back into silhouette
   const cols=dk?strandColD:strandColL;
@@ -757,6 +981,7 @@ function render(now,dt){
     Q.push({z:p[2],t:4,x,y,w:bw,h:bh,s:p[3],hov,on:activeAp===a,lab:a.label,a:depthA(p[2])});
   }
   cv.classList.toggle('overbox',overbox);
+  }                                                      // /spiral
 
   // paint, far to near
   Q.sort((p,q)=>q.z-p.z);
@@ -816,6 +1041,29 @@ function render(now,dt){
       ctx.strokeText(d.txt,d.x+8,d.y);
       ctx.fillStyle=d.col;
       ctx.fillText(d.txt,d.x+8,d.y);}
+    else if(d.t===6){
+      // a terrain quad — the trap's landscape is built from these
+      ctx.globalAlpha=d.a;
+      ctx.beginPath();ctx.moveTo(d.p[0][0],d.p[0][1]);
+      for(let m=1;m<4;m++)ctx.lineTo(d.p[m][0],d.p[m][1]);
+      ctx.closePath();ctx.fillStyle=d.fill;ctx.fill();
+      if(d.stroke){ctx.strokeStyle=d.stroke;ctx.lineWidth=d.lw||0.6;ctx.stroke();}}
+    else if(d.t===7){
+      // a halo'd label, optionally rotated to lie along a projected edge
+      ctx.globalAlpha=d.a;ctx.save();ctx.translate(d.x,d.y);if(d.rot)ctx.rotate(d.rot);
+      ctx.font=(d.fw||'800')+' '+Math.round(d.fs)+'px '+
+        (d.f==='mono'?'ui-monospace,SFMono-Regular,Menlo,monospace':'-apple-system,BlinkMacSystemFont,sans-serif');
+      ctx.textAlign=d.align||'center';ctx.textBaseline='middle';ctx.lineJoin='round';
+      ctx.lineWidth=Math.max(3,d.fs*0.30);
+      ctx.strokeStyle=dk?'rgba(8,5,15,.85)':'rgba(245,241,232,.85)';
+      ctx.strokeText(d.txt,0,0);ctx.fillStyle=d.col;ctx.fillText(d.txt,0,0);ctx.restore();}
+    else if(d.t===8){
+      // a soft radial pool — the vessel's warmth, and its white-hot cores
+      const g=ctx.createRadialGradient(d.x,d.y,0,d.x,d.y,Math.max(1,d.r));
+      g.addColorStop(0,'rgba('+d.rgb+','+(d.a0!==undefined?d.a0:0.8)+')');
+      g.addColorStop(1,'rgba('+d.rgb+',0)');
+      ctx.globalAlpha=d.a;ctx.fillStyle=g;
+      ctx.beginPath();ctx.arc(d.x,d.y,Math.max(1,d.r),0,TAU);ctx.fill();}
   }
   ctx.globalAlpha=1;
   // a ✦ or two, because it should sparkle
@@ -823,10 +1071,393 @@ function render(now,dt){
     ctx.fillText('✦',W*0.12,H*0.18);ctx.fillText('✦',W*0.88,H*0.72);}
 }
 
-// arriving with a take in the url — /orbit#loop, /orbit#q-alloc, /orbit#tour —
-// starts you at that aperture, that question, or on the tour
+// ---------------------------------------------------------------------------
+// the vessel, built each frame. the syntropy section's one object, in the
+// round: eight rings at exponential radii, meridians threading them into a
+// wireframe solid, energy climbing from the star toward the cell. the regime
+// dials are the landing page's own — S circulate · E starved · G captured —
+// and the camera does what the scrollytell's tilt used to: look down the axis
+// and the stack IS the holarchy, concentric and nested.
+// ---------------------------------------------------------------------------
+function buildVessel(Q,proj,depthA,now,dt,dk){
+  const ke=reduce?1:1-Math.pow(0.03,dt);
+  vS+=(VREG[vRegime].S-vS)*ke; vE+=(VREG[vRegime].E-vE)*ke; vG+=(VREG[vRegime].G-vG)*ke;
+  if(!reduce)vSpin+=dt*0.16;
+  const sq=0.30+0.70*vS;                     // extropy crushes every ring in toward the axis
+  const input=1-vE;                          // energy enters at the star — or nothing does
+  // what is left by the time it arrives at each ring: a capturing ring takes its cut
+  const reach=new Array(VNL);let carry=input;
+  for(let i=VNL-1;i>=0;i--){reach[i]=carry;carry*=(1-vG);}
+  const escapes=carry*vS;                    // what makes it out of the top, degraded
+  const fed=VLEV.map((_,i)=>reach[i]*vS*(1-vE));
+  const secs=vSpin/0.16;
+  const syc=dk?'#34d0a6':'#12a37a', exc='#e8446f', mut=dk?'#8f8aa4':'#7d7691';
+  const shape=mix(exc,syc,Math.max(0,Math.min(1,vS))), vc=mix(mut,shape,Math.max(0,Math.min(1,1-vE)));
+  const frayed=vE>0.5;                       // starved rings fray — drawn dashed, by skipping
+  for(let i=0;i<VNL;i++){
+    const R=VRAD[i]*sq, y=vY[i], live=0.12+0.88*fed[i];
+    const warm=fed[i]*(0.84+0.16*Math.sin(secs*0.85+i*0.8));
+    const cp=proj([0,y,0]);
+    // the warmth: a pool that only lights when the ring is both fed and circulating
+    if(cp&&warm>0.03)
+      Q.push({z:cp[2]+4,t:8,x:cp[0],y:cp[1],r:R*1.25*cp[3],rgb:'255,180,94',a0:0.5,
+        a:0.55*warm*depthA(cp[2])});
+    // the ring
+    const SEG=coarse?28:40;let prev=null;
+    for(let s2=0;s2<=SEG;s2++){
+      const a2=s2/SEG*TAU;
+      const p=proj([Math.cos(a2)*R,y,Math.sin(a2)*R]);
+      if(prev&&p&&!(frayed&&s2%4===0)){
+        const zc=(prev[2]+p[2])/2;
+        Q.push({z:zc,t:1,ax:prev[0],ay:prev[1],bx:p[0],by:p[1],
+          w:Math.max(0.5,3.0*p[3]),col:vc,a:(0.28+0.62*live)*depthA(zc)});
+      }
+      prev=p;
+    }
+    // the parts: bigger scales are made of more of them; starved dots wither
+    const N=5+i, nr=(3.2+4.3*vS)*(0.85+i*0.045)*(0.42+0.58*live);
+    for(let k2=0;k2<N;k2++){
+      const a2=k2/N*TAU-Math.PI/2+vSpin;
+      const p=proj([Math.cos(a2)*R,y,Math.sin(a2)*R]);
+      if(p)Q.push({z:p[2]-0.5,t:2,x:p[0],y:p[1],s:p[3],r:Math.max(1,nr*p[3]*1.6),
+        col:vc,lab:null,a:(0.30+0.70*live)*depthA(p[2])});
+    }
+    // the name, riding the rim like the coil's era labels
+    const LA=2.55;
+    const lp=proj([Math.cos(LA)*(R+46),y,Math.sin(LA)*(R+46)]);
+    if(lp)Q.push({z:lp[2],t:3,x:lp[0],y:lp[1],s:lp[3],col:vc,
+      big:VLEV[i].n,small:VLEV[i].s,a:(0.35+0.55*live)*depthA(lp[2])});
+    // the core, where a ring captures — eight of them stacked is the white-hot spindle
+    if(vG>0.02&&cp){
+      Q.push({z:cp[2]-2,t:8,x:cp[0],y:cp[1],r:Math.max(2,55*vG*cp[3]),rgb:'255,122,160',a0:0.85,
+        a:vG*depthA(cp[2])});
+      Q.push({z:cp[2]-3,t:2,x:cp[0],y:cp[1],s:cp[3],r:Math.max(1,15*vG*cp[3]),
+        col:'#ffffff',lab:null,a:vG*depthA(cp[2])});
+    }
+  }
+  // the meridians: the skin that joins eight diagrams into one solid — under
+  // entropy they slacken toward nothing rather than winking out
+  for(let m=0;m<VMER;m++){
+    const a2=m/VMER*TAU;let prev=null;
+    for(let i=0;i<VNL;i++){
+      const R=VRAD[i]*sq;
+      const p=proj([Math.cos(a2)*R,vY[i],Math.sin(a2)*R]);
+      if(prev&&p){
+        const zc=(prev[2]+p[2])/2, lv=(fed[i]+fed[Math.max(0,i-1)])/2;
+        Q.push({z:zc+0.5,t:1,ax:prev[0],ay:prev[1],bx:p[0],by:p[1],
+          w:Math.max(0.4,2.1*p[3]),col:vc,
+          a:(0.14+0.40*(0.12+0.88*lv))*(1-0.72*vE)*depthA(zc)});
+      }
+      prev=p;
+    }
+  }
+  // the energy: streaks, not dots — a dot is a thing, a streak is a thing MOVING.
+  // syntropy circulates it around every ring; extropy runs it straight up the
+  // axis into the core; entropy never feeds it in at all.
+  if(input>0.02){
+    const du0=0.5+3.0*(1-vS), da0=0.35+2.6*vS;
+    for(const sp of vsparks){
+      const du=sp.v*du0, da=sp.w*da0;
+      if(!reduce){sp.u+=dt*du;sp.a+=dt*da;}
+      if(vG>0.5&&sp.u>0.47)sp.u=0.001;         // the core drags it in and eats it
+      if(sp.u>1.02)sp.u=0.001;                 // …or it leaves at the top, as heat
+      const at=(uu,aa)=>{const y2=vAtU(uu,true),r2=vAtU(uu,false)*sq*vS+9*(1-vS);
+        return [Math.cos(aa)*r2,y2,Math.sin(aa)*r2];};
+      const p1=proj(at(Math.max(0,sp.u-du*0.22),sp.a-da*0.22)), p2=proj(at(sp.u,sp.a));
+      if(p1&&p2){const zc=(p1[2]+p2[2])/2;
+        Q.push({z:zc-1,t:1,ax:p1[0],ay:p1[1],bx:p2[0],by:p2[1],
+          w:Math.max(0.8,2.2*p2[3]),col:mix(shape,'#ffffff',0.35),a:0.9*input*depthA(zc)});}
+    }
+  }
+  // both ends are labelled, because the direction is the whole claim
+  const inP=proj([0,vY[VNL-1]-120,0]);
+  if(inP)Q.push({z:inP[2],t:3,x:inP[0],y:inP[1],s:inP[3],col:vc,
+    big:'⚡ in · starlight',small:'fusion — the only new energy in the stack',
+    a:(0.30+0.60*input)*depthA(inP[2])});
+  const outP=proj([0,vY[0]+110,0]);
+  if(outP&&escapes>0.03)Q.push({z:outP[2],t:3,x:outP[0],y:outP[1],s:outP[3],col:vc,
+    big:'⚡ out · waste heat',small:'…what is left leaves, degraded',
+    a:0.9*escapes*depthA(outP[2])});
+  if(vG>0.3){
+    const cl=proj([0,(vY[3]+vY[4])/2,0]);
+    if(cl)Q.push({z:cl[2]-6,t:3,x:cl[0]+120*cl[3],y:cl[1],s:cl[3],col:'#ff7aa0',
+      big:'▚ the compute',small:'chips · data centres — the energy never leaves',
+      a:vG*depthA(cl[2])});
+  }
+}
+
+// ---------------------------------------------------------------------------
+// the trap, built each frame. the landing page's fitness landscape freed from
+// its fixed camera: the same heightfield, the same seven actors following the
+// same downhill incentive, the same commitment morph lifting the basin into a
+// ramp — running on its own clock, beat by beat, while you orbit it.
+// ---------------------------------------------------------------------------
+function buildTrap(Q,proj,depthA,now,dt,dk){
+  const ke=reduce?1:1-Math.pow(0.02,dt);
+  tpM+=(TP_MO[tpBeat]-tpM)*ke; tpRope+=(TP_ROPE[tpBeat]-tpRope)*ke; tpWall+=(TP_WALL[tpBeat]-tpWall)*ke;
+  for(let i=0;i<TP_NB;i++)tpBx[i]+=(TP_BX[tpBeat][i]-tpBx[i])*ke;
+  if(!reduce){tpT+=dt;
+    if(tpT>(tpBeat===TP_STEPS.length-1?11:6.5)){tpT=0;setBeat((tpBeat+1)%TP_STEPS.length,false);}}
+  const P3=(u,v,h)=>[(u-0.5)*TP_SZ,(h===undefined?trapH(u,v,tpM):h)*TP_HGT,(v-0.5)*TP_SZ];
+  // the height→colour ramp, exactly the landing page's: red basin, amber slopes, green summit
+  const hrgb=h=>{const t=Math.max(0,Math.min(1,(h-0.05)/0.92));
+    if(t<0.5){const f=t/0.5;return [alerp(224,217,f),alerp(66,138,f),alerp(79,31,f)];}
+    const f=(t-0.5)/0.5;return [alerp(217,47,f),alerp(138,158,f),alerp(31,68,f)];};
+  const hcol=(h,sh)=>{const c=hrgb(h);
+    return 'rgb('+((c[0]*sh)|0)+','+((c[1]*sh)|0)+','+((c[2]*sh)|0)+')';};
+  const liftc=c=>dk?'rgb('+((c[0]+(255-c[0])*0.45)|0)+','+((c[1]+(255-c[1])*0.45)|0)+','+((c[2]+(255-c[2])*0.45)|0)+')'
+                   :'rgb('+(c[0]|0)+','+(c[1]|0)+','+(c[2]|0)+')';
+  // the terrain, quad by quad, painter-sorted with everything else
+  const V=[];
+  for(let j=0;j<=TP_GN;j++){V[j]=[];
+    for(let i=0;i<=TP_GN;i++){const u=i/TP_GN,v=j/TP_GN,h=trapH(u,v,tpM);
+      const p=proj(P3(u,v,h));if(p)p.h=h;V[j][i]=p;}}
+  for(let j=0;j<TP_GN;j++)for(let i=0;i<TP_GN;i++){
+    const a=V[j][i],b=V[j][i+1],c=V[j+1][i+1],e=V[j+1][i];
+    if(!a||!b||!c||!e)continue;
+    const zc=(a[2]+b[2]+c[2]+e[2])/4, h=(a.h+b.h+c.h+e.h)/4;
+    const sh=0.60+0.40*depthA(zc);
+    Q.push({z:zc,t:6,p:[[a[0],a[1]],[b[0],b[1]],[c[0],c[1]],[e[0],e[1]]],
+      fill:hcol(h,sh),stroke:dk?'rgba(0,0,0,0.28)':'rgba(255,255,255,0.30)',lw:0.5,a:1});
+  }
+  // peak + trap + wall, labelled on the surface
+  const climbed=Math.max(0,Math.min(1,(tpBx.reduce((a,b)=>a+b,0)/TP_NB-0.58)/0.20));
+  const pk=proj(P3(0.82,0.5));
+  if(pk&&1-climbed>0.02){
+    Q.push({z:pk[2]-2,t:7,x:pk[0],y:pk[1]-58*pk[3]-24,txt:'▲ the summit',
+      col:dk?'#8fe0a3':'#2f9e44',fs:Math.max(10,Math.min(20,30*pk[3])),a:1});
+    Q.push({z:pk[2]-2,t:7,x:pk[0],y:pk[1]-58*pk[3]-4,txt:'everyone cooperates',
+      col:dk?'rgba(143,224,163,.9)':'rgba(47,158,68,.95)',fs:Math.max(8,Math.min(14,20*pk[3])),a:1});
+  }
+  if(1-tpM>0.02){const tp=proj(P3(0.30,0.5));
+    if(tp)Q.push({z:tp[2]-2,t:7,x:tp[0],y:tp[1]+46*tp[3],txt:'▼ the trap · everyone defects',
+      col:'#e0424f',fs:Math.max(9,Math.min(18,28*tp[3])),a:1-tpM});}
+  if(tpWall>0.02){const wl=proj(P3(0.58,0.5));
+    if(wl)Q.push({z:wl[2]-2,t:7,x:wl[0],y:wl[1]-34*wl[3],txt:'the first to cooperate, alone, loses',
+      col:dk?'#d9cfe6':'#665e78',fs:Math.max(8,Math.min(14,22*wl[3])),a:tpWall});}
+  // the inherited axes: the design space hugs its own edge, success runs up the corner
+  const keepUp=a=>Math.abs(a)>Math.PI/2?a+(a>0?-Math.PI:Math.PI):a;
+  const e0=proj(P3(1.06,0.05,trapH(1,0.05,tpM)-0.06)),
+        e1=proj(P3(1.06,0.95,trapH(1,0.95,tpM)-0.06)),
+        em=proj(P3(1.06,0.5,trapH(1,0.5,tpM)-0.06));
+  if(e0&&e1&&em){
+    const ea=keepUp(Math.atan2(e1[1]-e0[1],e1[0]-e0[0]));
+    const edgeL=Math.hypot(e1[0]-e0[0],e1[1]-e0[1]);
+    Q.push({z:em[2]-2,t:7,x:em[0],y:em[1],txt:'◄  the design space — every choice we could make  ►',
+      col:liftc(hrgb(trapH(1,0.5,tpM))),fs:Math.max(8,Math.min(14,edgeL/46)),rot:ea,a:0.9});
+  }
+  const z0=proj(P3(-0.06,-0.06,0.02)), z1=proj(P3(-0.06,-0.06,1.02));
+  if(z0&&z1){
+    Q.push({z:(z0[2]+z1[2])/2,t:1,ax:z0[0],ay:z0[1],bx:z1[0],by:z1[1],w:1.6,
+      col:dk?'rgba(230,223,242,.8)':'rgba(34,28,48,.75)',a:0.8});
+    const zl=Math.hypot(z1[0]-z0[0],z1[1]-z0[1])||1,
+          zdx=(z1[0]-z0[0])/zl, zdy=(z1[1]-z0[1])/zl;
+    Q.push({z:z0[2]-2,t:7,x:(z0[0]+z1[0])/2+zdy*16,y:(z0[1]+z1[1])/2-zdx*16,
+      txt:'collective success ↑',col:liftc(hrgb(1)),fs:11,rot:keepUp(Math.atan2(zdy,zdx)),a:0.85});
+  }
+  // the actors, on the surface — and the rope, once there is one
+  const acts=[];
+  for(let i=0;i<TP_NB;i++){const u=tpBx[i],v=TP_AV[i],h=trapH(u,v,tpM);
+    const p=proj(P3(u,v,h));if(p)acts.push({p,u,h});}
+  if(tpRope>0.02&&acts.length>1){
+    const rope=[...acts].sort((a,b)=>a.u-b.u);
+    for(let i=1;i<rope.length;i++){
+      const a=rope[i-1].p,b=rope[i].p,zc=(a[2]+b[2])/2;
+      Q.push({z:zc-3,t:1,ax:a[0],ay:a[1]-10*a[3],bx:b[0],by:b[1]-10*b[3],
+        w:Math.max(1.4,(4+7*tpRope)*b[3]),col:dk?'#4ecb66':'#2f9e44',a:tpRope*0.95});
+    }
+  }
+  // incentive arrow: down+red (defect pays) → up+green (cooperate pays) as the slope redraws
+  const acol='rgb('+Math.round(alerp(224,47,tpM))+','+Math.round(alerp(66,158,tpM))+','+Math.round(alerp(79,68,tpM))+')';
+  for(const a of acts){
+    const r=Math.max(3.5,16*a.p[3]);
+    Q.push({z:a.p[2]-4,t:2,x:a.p[0],y:a.p[1]-r,s:a.p[3],r,col:'#d98a1f',lab:null,a:1});
+    Q.push({z:a.p[2]-5,t:7,x:a.p[0],y:a.p[1]-r*3.1,txt:'↑',col:acol,
+      fs:Math.max(8,r*2.1),rot:(1-tpM)*Math.PI,a:0.45+0.5*Math.abs(tpM-0.5)*2});
+  }
+  // the commitment lock, over the roped group
+  if(tpRope>0.02&&acts.length){
+    const gx=acts.reduce((s,a)=>s+a.p[0],0)/acts.length;
+    const gy=Math.min(...acts.map(a=>a.p[1]))-46;
+    Q.push({z:-9997,t:7,x:gx,y:gy,txt:'🔒 credible commitment — cooperation is now binding',
+      col:dk?'#8fe0a3':'#2f9e44',fs:13,a:tpRope*(0.55+0.45*tpM)});
+    Q.push({z:-9997,t:7,x:gx,y:gy+18,txt:'every arrow now points up · no one loses for moving first',
+      col:dk?'rgba(143,224,163,.85)':'rgba(47,158,68,.9)',fs:10.5,f:'mono',fw:'500',
+      a:tpRope*(0.55+0.45*tpM)});
+  }
+  // the collective-success gauge — the number to watch crater, then climb
+  const sv=acts.length?acts.reduce((s,a)=>s+a.h,0)/acts.length:0;
+  const pct=Math.min(100,Math.round(sv*100));
+  const hc=sv<0.33?'#e0424f':sv<0.62?'#d98a1f':(dk?'#8fe0a3':'#2f9e44');
+  const hy=coarse?128:80;                    // below the stacked mobile chrome
+  Q.push({z:-9999,t:7,x:W/2,y:hy,txt:String(pct),col:hc,fs:30,a:0.95});
+  Q.push({z:-9999,t:7,x:W/2,y:hy+22,txt:'collective success — '+(sv<0.33?'the trap':sv<0.62?'climbing':'the summit'),
+    col:dk?'rgba(239,234,255,.75)':'rgba(33,28,46,.75)',fs:10,f:'mono',fw:'500',a:0.9});
+}
+
+// ---------------------------------------------------------------------------
+// the critique: the coil upside down, over moloch. the landing page's critique
+// closes eye-to-eye with a blood-red mycelial network leaning toward a clearing
+// it will not cross; here the god IS the floor. the honest ledger hangs
+// inverted above it — the gains reread as bills — and the bills drip down,
+// land as embers, and ride the filaments in. everything red on purpose.
+// ---------------------------------------------------------------------------
+const MO_R=640, MO_CL=118, MO_FN=coarse?20:32, MO_SEG=coarse?10:16;
+const moFil=[];                                   // trunks: rim → the clearing's edge
+for(let i=0;i<MO_FN;i++){
+  const a0=i/MO_FN*TAU+hsh(i*7.3)*0.16;
+  const rin=MO_CL+10+hsh(i*3.1+4)*26;             // where it stops — short of the god
+  const pts=[];
+  for(let s=0;s<=MO_SEG;s++){
+    const t=s/MO_SEG;
+    const r=MO_R-(MO_R-rin)*Math.pow(t,0.9);
+    const a=a0+0.55*fbm(t*2.6+i*11,i+61)*(0.3+t); // wanders more the closer it gets
+    pts.push([Math.cos(a)*r, 2+5*fbm(t*5+i*3,i+91), Math.sin(a)*r]);
+  }
+  moFil.push(pts);
+}
+const moBr=[];                                    // side branches, dimmer, going nowhere
+for(let i=0;i<MO_FN;i++)for(let b=0;b<2;b++){
+  const s0=3+Math.floor(hsh(i*13+b*5)*(MO_SEG-6));
+  const p0=moFil[i][s0], p1=moFil[i][s0+1];
+  const dx=p1[0]-p0[0], dz=p1[2]-p0[2], L=Math.hypot(dx,dz)||1, sd=b?1:-1;
+  const bl=26+hsh(i*5+b*9)*44;
+  moBr.push([p0,[p0[0]+(dx/L)*bl*0.6-(dz/L)*sd*bl*0.8, 2, p0[2]+(dz/L)*bl*0.6+(dx/L)*sd*bl*0.8],s0/MO_SEG]);
+}
+const MO_EMB=coarse?16:30;                        // the harvest, riding the filaments in
+const moEmb=Array.from({length:MO_EMB},(_,k)=>({
+  f:Math.floor(hsh(k*3.3)*MO_FN)%MO_FN, t:hsh(k*7.7), v:0.05+hsh(k*5.1)*0.09}));
+// the inverted coil: same formulas as the strands, flipped — newest turn lowest,
+// widest, hanging just over the clearing. five red sub-strands read as one rope.
+const CR_TOP=760, CR_N=coarse?140:220;
+const crPts=[];
+for(let i=0;i<5;i++){
+  const P=[];
+  for(let k=0;k<=CR_N;k++){
+    const u=k/CR_N*5, th=u*TAU, f=spFil(i*3,u), sg=spSag(u);
+    const r=spR(u)-sg*0.45+f[0]*0.7;
+    P.push([r*Math.cos(th), CR_TOP-(spClimb(u)-sg-f[1]*0.7), r*Math.sin(th)]);
+  }
+  crPts.push(P);
+}
+const CR_BILLS=coarse?10:18;                      // the bills: down the rope, then the drop
+const crBills=Array.from({length:CR_BILLS},(_,k)=>({
+  u:hsh(k*9.1)*5.9, v:0.10+hsh(k*3.7)*0.16, str:Math.floor(hsh(k*11.3)*5)}));
+function buildCritique(Q,proj,depthA,now,dt,dk){
+  const sec=now*0.001;
+  const cold=dk?'#571016':'#6d1418', hot=dk?'#ff4d3d':'#c22a20', emb=dk?'#ffb057':'#e07a2a';
+  // the floor: moloch's filaments, thick at the rim, fine and bright near the clearing
+  for(let i=0;i<MO_FN;i++){
+    const P=moFil[i]; let prev=proj(P[0]);
+    const pulse=reduce?0.8:0.62+0.38*Math.abs(Math.sin(sec*0.7+i*1.7));
+    for(let s=1;s<=MO_SEG;s++){
+      const cur=proj(P[s]);
+      if(prev&&cur){
+        const t=s/MO_SEG, zc=(prev[2]+cur[2])/2;
+        Q.push({z:zc,t:1,ax:prev[0],ay:prev[1],bx:cur[0],by:cur[1],
+          w:Math.max(0.5,(3.6-2.3*t)*cur[3]),col:mix(cold,hot,0.25+0.75*t),
+          a:(0.30+0.60*t)*pulse*depthA(zc)});
+      }
+      prev=cur;
+    }
+  }
+  for(const [p0,p1,tb] of moBr){
+    const a2=proj(p0), b2=proj(p1);
+    if(a2&&b2){const zc=(a2[2]+b2[2])/2;
+      Q.push({z:zc,t:1,ax:a2[0],ay:a2[1],bx:b2[0],by:b2[1],
+        w:Math.max(0.4,1.4*b2[3]),col:mix(cold,hot,tb),a:0.30*depthA(zc)});}
+  }
+  // the clearing: a dark pool none of the filaments will cross
+  const cp=proj([0,3,0]);
+  if(cp){
+    Q.push({z:cp[2]+6,t:8,x:cp[0],y:cp[1],r:MO_CL*1.5*cp[3],rgb:dk?'96,10,18':'140,24,30',a0:0.8,
+      a:0.5*depthA(cp[2])});
+    Q.push({z:cp[2]-14,t:3,x:cp[0],y:cp[1]+MO_CL*1.9*cp[3],s:cp[3],col:hot,
+      big:'moloch',small:'the god at the floor — it eats what falls',a:0.85*depthA(cp[2])});
+  }
+  // the eyes: slit-pupil, furnace-orange, drifting the clearing, blinking
+  const ex=reduce?0:Math.cos(sec*0.11)*30, ez=reduce?0:Math.sin(sec*0.07)*22;
+  for(let e=0;e<2;e++){
+    const px=ex+(e?26:-26), pz=ez;
+    const blink=reduce?1:(((sec+e*0.03+1.7)%4.6)<0.16?0:1);
+    const gp=proj([px,9,pz]);
+    if(gp&&blink){
+      Q.push({z:gp[2]-1,t:8,x:gp[0],y:gp[1],r:36*gp[3],rgb:'255,110,60',a0:0.85,
+        a:0.55*depthA(gp[2])});
+      Q.push({z:gp[2]-2,t:2,x:gp[0],y:gp[1],s:gp[3],r:Math.max(2,8*gp[3]),
+        col:'#ff8a3c',lab:null,a:depthA(gp[2])});
+      const s0=proj([px,3,pz]), s1=proj([px,16,pz]);
+      if(s0&&s1)Q.push({z:gp[2]-3,t:1,ax:s0[0],ay:s0[1],bx:s1[0],by:s1[1],
+        w:Math.max(1,3.2*gp[3]),col:'#1a0505',a:depthA(gp[2])});
+    }
+  }
+  // the embers: what fell, riding the filaments in — the harvest, arriving
+  for(const m of moEmb){
+    if(!reduce){m.t+=dt*m.v;if(m.t>1)m.t=0;}
+    const P=moFil[m.f], x=m.t*MO_SEG, s0=Math.min(MO_SEG-1,Math.floor(x)), f2=x-s0;
+    const p0=P[s0], p1=P[s0+1];
+    const p=proj([p0[0]+(p1[0]-p0[0])*f2, 5, p0[2]+(p1[2]-p0[2])*f2]);
+    if(p)Q.push({z:p[2]-1,t:2,x:p[0],y:p[1],s:p[3],r:Math.max(1,2.4*p[3]),
+      col:mix(emb,'#ffd23f',0.3+0.4*Math.abs(Math.sin(sec*3+m.f))),lab:null,
+      a:(0.35+0.65*m.t)*depthA(p[2])});
+  }
+  const hv=proj([Math.cos(0.8)*MO_R*0.62,10,Math.sin(0.8)*MO_R*0.62]);
+  if(hv)Q.push({z:hv[2]-2,t:7,x:hv[0],y:hv[1],txt:'the harvest, arriving →',
+    col:mix(cold,hot,0.8),fs:Math.max(8,Math.min(13,18*hv[3])),f:'mono',fw:'500',
+    a:(reduce?0.7:0.45+0.35*Math.abs(Math.sin(sec*0.9)))*depthA(hv[2])});
+  // the coil, upside down — the same shape the spiral climbs, reread as a bill
+  const ERAC=dk?ERAC_D:ERAC_L;
+  for(let i=0;i<5;i++){
+    const P=crPts[i]; let prev=proj(P[0]);
+    for(let k=1;k<=CR_N;k++){
+      const cur=proj(P[k]);
+      if(prev&&cur){
+        const u=k/CR_N*5, zc=(prev[2]+cur[2])/2;
+        const w=Math.max(0.4,Math.min(7,spW(u)*cur[3]*0.5));
+        Q.push({z:zc,t:1,ax:prev[0],ay:prev[1],bx:cur[0],by:cur[1],
+          w,col:mix(mix(cold,hot,0.18+0.82*(u/5)),ERAC[Math.min(4,Math.floor(u))],0.14),
+          a:0.85*depthA(zc)});
+      }
+      prev=cur;
+    }
+  }
+  // the era labels ride the inverted coil too — the reread, era by era
+  for(let e2=0;e2<5;e2++){
+    const u=e2+0.55, th=u*TAU, r=spR(u)+95;
+    const lp=proj([r*Math.cos(th),CR_TOP-(spClimb(u)-spSag(u)),r*Math.sin(th)]);
+    if(lp)Q.push({z:lp[2],t:3,x:lp[0],y:lp[1],s:lp[3],col:mix(hot,ERAC[e2],0.25),
+      big:TURNS[e2].era,small:TURNS[e2].years,a:0.55*depthA(lp[2])});
+  }
+  const tp2=proj([0,CR_TOP+120,0]);
+  if(tp2)Q.push({z:tp2[2],t:3,x:tp2[0],y:tp2[1],s:tp2[3],col:mix(cold,hot,0.6),
+    big:'▼ the honest ledger',small:'the same coil, upside down — the gains, reread as bills',
+    a:0.8*depthA(tp2[2])});
+  // the bills: beads walking DOWN the rope, then dropping the last gap to the floor
+  const endTh=5*TAU, endR=spR(5)-spSag(5)*0.45, endY=CR_TOP-(spClimb(5)-spSag(5));
+  for(const b of crBills){
+    if(!reduce){b.u+=dt*b.v*(b.u>5?2.6:1);if(b.u>5.9)b.u-=5.9;}
+    let p;
+    if(b.u<=5){
+      const th=b.u*TAU, f=spFil(b.str*3,b.u), sg=spSag(b.u);
+      const r=spR(b.u)-sg*0.45+f[0]*0.7;
+      p=proj([r*Math.cos(th), CR_TOP-(spClimb(b.u)-sg-f[1]*0.7)+6, r*Math.sin(th)]);
+    } else {
+      const t=(b.u-5)/0.9;
+      const r=endR*(1-t)+MO_CL*1.3*t;
+      p=proj([r*Math.cos(endTh+t*1.8), endY*(1-t*t), r*Math.sin(endTh+t*1.8)]);
+    }
+    if(p)Q.push({z:p[2]-2,t:2,x:p[0],y:p[1],s:p[3],r:Math.max(1.2,3.1*p[3]),
+      col:emb,lab:null,a:(b.u>5?0.95:0.75)*depthA(p[2])});
+  }
+}
+
+// arriving with a take in the url — /orbit#loop, /orbit#q-alloc, /orbit#tour,
+// /orbit#vessel, /orbit#trap, /orbit#critique — starts you at that aperture,
+// question, tour, or structure (the critique hash now means the structure;
+// its aperture of the same name is still one click away on the coil)
 {const h=location.hash.slice(1);
  if(h==='tour')tourGo(0);
+ else if(h==='vessel'||h==='trap'||h==='critique')setStruct(h,true,0);
  else if(h.startsWith('q-')){const qi=QUESTIONS.findIndex(q=>q.mode===h.slice(2));
    if(qi>=0)openQ(qi,0,true);}   // a shared deep link still arrives framed
  else{const a0=APS.find(a=>a.id===h);if(a0)openAp(a0,0,true);}}

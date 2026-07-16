@@ -875,11 +875,39 @@
     .tabgrp:hover::after{opacity:.3}
     :root[data-theme="light"] .tabgrp:hover::after{opacity:.22}
   }
-  /* each question-group wears one ink of the ramp — the nav is the spiral, flattened and labeled */
-  .tabgrp:nth-of-type(2){--ga:#2f9e44} .tabgrp:nth-of-type(3){--ga:#b0561f}
-  .tabgrp:nth-of-type(4){--ga:#b535bb} .tabgrp:nth-of-type(5){--ga:#1c7ed6}
+  /* each question-kind wears one ink of the ramp — the nav is the spiral, flattened and labeled.
+     the inks moved down a level: they belong to the sub-groups now, inside the one questions card.
+     the skills card takes the ramp's gold, the one ink the four kinds left on the table. */
+  .qgrp .subgrp:nth-of-type(1){--ga:#2f9e44} .qgrp .subgrp:nth-of-type(2){--ga:#b0561f}
+  .qgrp .subgrp:nth-of-type(3){--ga:#b535bb} .qgrp .subgrp:nth-of-type(4){--ga:#1c7ed6}
+  .skgrp{--ga:#a17a00;flex-basis:100%;max-width:980px}
+  :root:not([data-theme="light"]) .skgrp{--ga:#e3b31d}
   .tabgrp:not(:nth-of-type(1)){border-color:color-mix(in srgb,var(--ga,var(--ink)) 26%,transparent)}
   .tabgrp:not(:nth-of-type(1)) .grplab{color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink))}
+  /* one card, four rooms: the questions group spans the row, its kinds sit side by side and wrap */
+  .qgrp{flex-basis:100%;max-width:980px}
+  .subrow{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px}
+  .subgrp{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .sublab{display:flex;flex-direction:column;align-items:center;gap:2px;
+    font-size:9.5px;font-weight:850;letter-spacing:.15em;text-transform:uppercase;
+    color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink));opacity:.85}
+  .sublab em{font-style:normal;font-weight:500;font-size:9.5px;letter-spacing:.02em;
+    text-transform:none;color:var(--muted);opacity:.9}
+  /* a skill chip is shaped like a tab but it is an anchor into one page — seven doors, one room.
+     kept off the .tab class so the mode-switching javascript never reads a missing data-mode. */
+  a.sktab{display:inline-flex;align-items:center;font:inherit;font-weight:800;font-size:12.5px;
+    letter-spacing:.04em;padding:9px 18px;border-radius:999px;cursor:pointer;text-decoration:none;
+    border:1.5px solid color-mix(in srgb,var(--ink) 13%,transparent);
+    background:color-mix(in srgb,var(--panel) 88%,transparent);color:var(--muted);
+    transition:transform .25s,box-shadow .25s,color .25s,border-color .25s}
+  a.sktab:hover,a.sktab:focus-visible{transform:translateY(-2px);color:var(--ink);
+    border-color:color-mix(in srgb,var(--ga,#a17a00) 60%,transparent);
+    box-shadow:0 8px 24px color-mix(in srgb,var(--ga,#a17a00) 28%,transparent)}
+  a.sktab .em{margin-right:7px;font-size:14px}
+  a.sktab .tq{font-weight:600;opacity:.6;text-transform:none;letter-spacing:.02em}
+  a.sktab .tq::before{content:"—";margin:0 5px;opacity:.55}
+  /* on the skills page, the whole card lights: seven chips, one door, all of them home */
+  a.sktab.on{color:var(--ink);border-color:color-mix(in srgb,var(--ga,#a17a00) 55%,transparent)}
   .grplab{display:flex;flex-direction:column;align-items:center;gap:3px;
     font-size:10.5px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.8}
   .grplab em{font-style:normal;font-weight:500;font-size:10px;letter-spacing:.02em;
@@ -895,7 +923,8 @@
   @media(max-width:720px){
     .tabs{gap:6px 10px}
     .tabgrp{padding:8px 8px 10px}
-    .grplab em{display:none}
+    .grplab em,.sublab em{display:none}
+    .subrow{gap:10px 18px}
   }
   /* the landing page is the coil. the credits, the store link and the github link are not part of
      the argument — they belong on the tabs that are actually posters. */
@@ -2405,6 +2434,65 @@
   @media(max-width:560px){ #aboutwrap .ab-bio{flex-direction:column;align-items:center;text-align:center}
     #aboutwrap .ab-bio p{text-align:left} #aboutwrap .ab-links{justify-content:center} }
 
+  /* ---- 🧗 the skills: the inner game, seven trailheads ---- */
+  /* the questions are what civilizations do; this page is what one person can practice.
+     prose column like the letter, but seven stations, each wearing its own ink. */
+  #skillswrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:680px;
+    padding:0 6px;text-align:left;font-size:16.5px;line-height:1.75;color:var(--ink);
+    --sk1:#2f9e44;--sk2:#a17a00;--sk3:#b0561f;--sk4:#b535bb;--sk5:#1c7ed6;--sk6:#12a37a;--sk7:#c94077}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #skillswrap{--sk1:#4ecb66;--sk2:#e3b31d;--sk3:#f07f3c;--sk4:#e14fe1;--sk5:#42a4ff;--sk6:#34d0a6;--sk7:#e8446f} }
+  :root[data-theme="dark"] #skillswrap{--sk1:#4ecb66;--sk2:#e3b31d;--sk3:#f07f3c;--sk4:#e14fe1;--sk5:#42a4ff;--sk6:#34d0a6;--sk7:#e8446f}
+  :root[data-mode="skills"] #skillswrap{display:block}
+  :root[data-mode="skills"] #eras{display:none}
+  :root[data-mode="skills"] #btnhome{display:none}   /* practice has nothing to play */
+  :root[data-mode="skills"] .pfoot{margin-top:14px}
+  #skillswrap .sk-intro{padding-top:26px}
+  #skillswrap .sk-intro p{margin:0 0 18px;max-width:60ch}
+  /* the mesh: seven doors in a grid, deliberately unordered-looking. people enter where it hurts. */
+  #skillswrap .sk-mesh{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:10px;margin:14px 0 56px}
+  #skillswrap .sk-mesh a{display:block;padding:14px 16px;border-radius:14px;text-decoration:none;
+    color:var(--ink);border:1px solid color-mix(in srgb,var(--mc) 36%,var(--line));
+    background:color-mix(in srgb,var(--mc) 7%,transparent);
+    transition:transform .2s,box-shadow .2s}
+  #skillswrap .sk-mesh a:hover{transform:translateY(-2px);
+    box-shadow:0 10px 26px color-mix(in srgb,var(--mc) 26%,transparent)}
+  #skillswrap .sk-mesh b{display:block;font-family:var(--serif);font-weight:640;font-size:17px;
+    text-transform:lowercase}
+  #skillswrap .sk-mesh i{display:block;margin-top:4px;font-style:normal;font-size:12px;
+    color:var(--muted);line-height:1.5}
+  /* each skill is a station on the same spine the letter walks, wearing its own ink */
+  #skillswrap .sk{position:relative;padding:0 0 48px 54px;scroll-margin-top:18px}
+  #skillswrap .sk::before{content:'';position:absolute;left:8px;top:9px;bottom:-4px;width:2px;
+    background:linear-gradient(to bottom,var(--skc),color-mix(in srgb,var(--skc) 22%,transparent))}
+  #skillswrap .sk:last-of-type{padding-bottom:10px}
+  #skillswrap .sk:last-of-type::before{bottom:auto;height:34px}
+  #skillswrap .sk::after{content:'';position:absolute;left:3px;top:5px;width:12px;height:12px;
+    border-radius:50%;border:2.5px solid var(--skc);
+    background:color-mix(in srgb,var(--skc) 16%,transparent)}
+  #skillswrap .sk-k{display:block;font:700 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--skc);margin-bottom:10px}
+  #skillswrap .sk h3{margin:0 0 14px;font-family:var(--serif);font-weight:640;text-transform:lowercase;
+    font-size:clamp(23px,3.6vw,29px);letter-spacing:-.005em}
+  #skillswrap .sk-lede{font-family:var(--serif);font-style:italic;font-size:17.5px;line-height:1.6;
+    margin:0 0 18px;max-width:56ch}
+  #skillswrap .sk h4{margin:22px 0 8px;font:700 11px/1 ui-monospace,Menlo,monospace;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  #skillswrap .sk p{margin:0 0 14px;max-width:60ch}
+  #skillswrap .sk ul{margin:0 0 14px;padding:0;list-style:none;max-width:60ch}
+  #skillswrap .sk li{position:relative;padding:0 0 8px 22px}
+  #skillswrap .sk li::before{content:'·';position:absolute;left:4px;color:var(--skc);font-weight:900}
+  #skillswrap .sk a{color:inherit}
+  #skillswrap .sk-adj{font-size:13px;color:var(--muted)}
+  #skillswrap .sk-note{font-size:12.5px;color:var(--muted);font-style:italic}
+  #skillswrap .sk-dots{display:flex;justify-content:center;gap:14px;margin:8px 0 52px;align-items:center}
+  #skillswrap .sk-dots i{width:9px;height:9px;border-radius:50%}
+  #skillswrap .sk-dots i:nth-child(1){background:var(--sk1)}#skillswrap .sk-dots i:nth-child(2){background:var(--sk2)}
+  #skillswrap .sk-dots i:nth-child(3){background:var(--sk3)}#skillswrap .sk-dots i:nth-child(4){background:var(--sk4)}
+  #skillswrap .sk-dots i:nth-child(5){background:var(--sk5)}#skillswrap .sk-dots i:nth-child(6){background:var(--sk6)}
+  #skillswrap .sk-dots i:nth-child(7){background:var(--sk7)}
+  @media(max-width:560px){ #skillswrap .sk{padding-left:36px} }
+
   /* ---- the superorganism: the pulse, and the thing perched on it, eating ---- */
   /* after nate hagens' great simplification: gdp is the mask, energy is the face.
      same theatre as the critique — one svg, and the scroll turns its layers on. */
@@ -2785,6 +2873,7 @@
     <div id="trapwrap"></div>
     <div id="lineagewrap"></div>
     <div id="aboutwrap"></div>
+    <div id="skillswrap"></div>
     <div id="critiquewrap"></div>
     <div id="superwrap"></div>
     <div id="bargainwrap"></div>
@@ -2807,9 +2896,9 @@
   <!-- the nav lives OUTSIDE the frame, underneath it: the poster is the object, and the tabs are
        the hand reaching in to turn it over. they are apparatus, not artwork — so they sit off the
        print, below the mount, where the label card would go. -->
-  <!-- nineteen chips in one row is a wall. the honest structure under it: FOUR of these are views of
-       everything at once, and the other fifteen are questions — and the fifteen come in four kinds.
-       the chips and their behaviour are untouched; they are only grouped and named. -->
+  <!-- dozens of chips in one row is a wall. the honest structure under it: some are views of
+       everything at once, fifteen are questions (in four kinds, one card, four sub-labels),
+       seven are skills (one page, seven deep links), and one is the credits. -->
   <div class="navlab"><span class="nsp">✨</span>navigate <b>the spiral</b>
     <!-- the census moved down here from the hero: the measurements sit with the doors they
          measure. the two-click hint rides under the tabs now, where the clicking happens. -->
@@ -2856,39 +2945,60 @@
         <button class="tab t-lineage" role="tab" data-mode="lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></button>
       </div>
     </div>
-    <div class="tabgrp">
-      <span class="grplab">how you live<em>the business of not dying</em></span>
-      <div class="grpchips">
-        <button class="tab t-alloc" role="tab" data-mode="alloc"><span class="em">✨</span>resources<span class="tq">who gets what</span></button>
-        <button class="tab t-live" role="tab" data-mode="live"><span class="em">🌾</span>livelihood<span class="tq">how you eat</span></button>
-        <button class="tab t-care" role="tab" data-mode="care"><span class="em">🩺</span>care<span class="tq">who heals you</span></button>
+    <!-- the fifteen questions used to be four separate cards; they are one thing, so they get one
+         card, and the four kinds become sub-labels inside it. chips untouched — only regrouped. -->
+    <div class="tabgrp qgrp">
+      <span class="grplab">the fifteen questions<em>every civilization answers all of them</em></span>
+      <div class="subrow">
+        <div class="subgrp">
+          <span class="sublab">how you live<em>the business of not dying</em></span>
+          <div class="grpchips">
+            <button class="tab t-alloc" role="tab" data-mode="alloc"><span class="em">✨</span>resources<span class="tq">who gets what</span></button>
+            <button class="tab t-live" role="tab" data-mode="live"><span class="em">🌾</span>livelihood<span class="tq">how you eat</span></button>
+            <button class="tab t-care" role="tab" data-mode="care"><span class="em">🩺</span>care<span class="tq">who heals you</span></button>
+          </div>
+        </div>
+        <div class="subgrp">
+          <span class="sublab">how we coordinate<em>and how it breaks</em></span>
+          <div class="grpchips">
+            <button class="tab t-power" role="tab" data-mode="power"><span class="em">👑</span>power<span class="tq">who decides</span></button>
+            <button class="tab t-trust" role="tab" data-mode="trust"><span class="em">🤝</span>trust<span class="tq">who you trust</span></button>
+            <button class="tab t-identity" role="tab" data-mode="identity"><span class="em">🪪</span>identity<span class="tq">who you are</span></button>
+            <button class="tab t-conflict" role="tab" data-mode="conflict"><span class="em">⚖️</span>conflict<span class="tq">how you fight</span></button>
+          </div>
+        </div>
+        <div class="subgrp">
+          <span class="sublab">what it runs on<em>nothing else happens until these do</em></span>
+          <div class="grpchips">
+            <button class="tab t-energy" role="tab" data-mode="energy"><span class="em">⚡</span>energy<span class="tq">what powers you</span></button>
+            <button class="tab t-math" role="tab" data-mode="math"><span class="em">🔢</span>mathematics<span class="tq">what can be proven</span></button>
+            <button class="tab t-land" role="tab" data-mode="land"><span class="em">🗺️</span>land<span class="tq">who owns the place</span></button>
+            <button class="tab t-time" role="tab" data-mode="time"><span class="em">⏳</span>time<span class="tq">who sets the clock</span></button>
+          </div>
+        </div>
+        <div class="subgrp">
+          <span class="sublab">what we know<em>and what we owe</em></span>
+          <div class="grpchips">
+            <button class="tab t-truth" role="tab" data-mode="truth"><span class="em">📖</span>truth<span class="tq">what is true</span></button>
+            <button class="tab t-record" role="tab" data-mode="record"><span class="em">💾</span>the record<span class="tq">who keeps the record</span></button>
+            <button class="tab t-ontology" role="tab" data-mode="ontology"><span class="em">🗂️</span>ontology<span class="tq">what exists</span></button>
+            <button class="tab t-ethics" role="tab" data-mode="ethics"><span class="em">🕊️</span>ethics<span class="tq">what you owe</span></button>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="tabgrp">
-      <span class="grplab">how we coordinate<em>and how it breaks</em></span>
+    <!-- the questions are what civilizations do; the skills are what one person can practice.
+         seven chips, one page: each anchor deep-links into its own station on /skills. -->
+    <div class="tabgrp skgrp">
+      <a class="grplab" href="#skills">the skills<em>what one person can practice</em></a>
       <div class="grpchips">
-        <button class="tab t-power" role="tab" data-mode="power"><span class="em">👑</span>power<span class="tq">who decides</span></button>
-        <button class="tab t-trust" role="tab" data-mode="trust"><span class="em">🤝</span>trust<span class="tq">who you trust</span></button>
-        <button class="tab t-identity" role="tab" data-mode="identity"><span class="em">🪪</span>identity<span class="tq">who you are</span></button>
-        <button class="tab t-conflict" role="tab" data-mode="conflict"><span class="em">⚖️</span>conflict<span class="tq">how you fight</span></button>
-      </div>
-    </div>
-    <div class="tabgrp">
-      <span class="grplab">what it runs on<em>nothing else happens until these do</em></span>
-      <div class="grpchips">
-        <button class="tab t-energy" role="tab" data-mode="energy"><span class="em">⚡</span>energy<span class="tq">what powers you</span></button>
-        <button class="tab t-math" role="tab" data-mode="math"><span class="em">🔢</span>mathematics<span class="tq">what can be proven</span></button>
-        <button class="tab t-land" role="tab" data-mode="land"><span class="em">🗺️</span>land<span class="tq">who owns the place</span></button>
-        <button class="tab t-time" role="tab" data-mode="time"><span class="em">⏳</span>time<span class="tq">who sets the clock</span></button>
-      </div>
-    </div>
-    <div class="tabgrp">
-      <span class="grplab">what we know<em>and what we owe</em></span>
-      <div class="grpchips">
-        <button class="tab t-truth" role="tab" data-mode="truth"><span class="em">📖</span>truth<span class="tq">what is true</span></button>
-        <button class="tab t-record" role="tab" data-mode="record"><span class="em">💾</span>the record<span class="tq">who keeps the record</span></button>
-        <button class="tab t-ontology" role="tab" data-mode="ontology"><span class="em">🗂️</span>ontology<span class="tq">what exists</span></button>
-        <button class="tab t-ethics" role="tab" data-mode="ethics"><span class="em">🕊️</span>ethics<span class="tq">what you owe</span></button>
+        <a class="sktab" href="#skills/healing"><span class="em">🫀</span>healing<span class="tq">yourself first, somatically</span></a>
+        <a class="sktab" href="#skills/curiosity"><span class="em">🔍</span>curiosity<span class="tq">becoming curious</span></a>
+        <a class="sktab" href="#skills/intentional-tech"><span class="em">📵</span>intentional tech<span class="tq">using tools on purpose</span></a>
+        <a class="sktab" href="#skills/sacred-economy"><span class="em">🎁</span>sacred economy<span class="tq">moving your income to it</span></a>
+        <a class="sktab" href="#skills/source"><span class="em">⛲</span>source<span class="tq">working with it</span></a>
+        <a class="sktab" href="#skills/extitutions"><span class="em">⛺</span>extitutions<span class="tq">working outside the walls</span></a>
+        <a class="sktab" href="#skills/metacogsec"><span class="em">🧠</span>metacogsec<span class="tq">guarding your own mind</span></a>
       </div>
     </div>
     <div class="tabgrp">
@@ -11343,6 +11453,14 @@ const MODES={
   // no lede: the scroll opens on the line civilization watches, then takes the mask off it.
   lede:'',
   foot:''},
+ skills:{skl:true,stats:{},eras:[],fav:'🧗',
+  h1:'THE&nbsp;SKILLS',
+  sub:'THE INNER GAME OF THE AI TRANSITION',
+  title:'the skills · the inner game of the AI transition',
+  quote:{q:'the ladder for surviving AI: 1. don’t lose your ability to feed your family 2. don’t get head-fucked by the tools 3. learn to use the ones that aren’t slop. we keep skipping to step 3.',by:'kevin owocki · the ladder'},
+  // no emdashes below this line: the skills section speaks in periods, commas and parentheses.
+  lede:'seven practices for the inner game. the rest of this site maps the outer one (who gets what, who decides, who you trust). this section is the substrate those moves sit on.',
+  foot:''},
  about:{abt:true,stats:{},eras:[],fav:'🌀',
   h1:'WHY&nbsp;THIS&nbsp;SITE&nbsp;EXISTS',
   sub:'A NOTE FROM THE MAKER',
@@ -11715,6 +11833,9 @@ let rto; window.addEventListener('resize',()=>{ clearTimeout(rto); rto=setTimeou
 const PAGERSEQ=[...document.querySelectorAll('.tabs .tab')].map(b=>({mode:b.dataset.mode,
   label:((b.querySelector('.em')||{}).textContent||'')+' '+
         [...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim()}));
+// the skills page rides the pager too, even though its seven chips share one door
+{ const i=PAGERSEQ.findIndex(s=>s.mode==='about');
+  PAGERSEQ.splice(i<0?PAGERSEQ.length:i,0,{mode:'skills',label:'🧗 the skills'}); }
 const prevBtn=document.getElementById('prevtab'), nextBtn=document.getElementById('nexttab');
 function paintPager(){
   const i=PAGERSEQ.findIndex(s=>s.mode===MODE);
@@ -12318,6 +12439,300 @@ function renderAbout(){
 </div>`;
 }
 
+// ---------- 🧗 skills: the inner game — seven trailheads, held as a mesh ----------
+// voice contract for everything in here: lowercase, no emdashes, short paragraphs, named
+// lineages, no promised outcomes. these are trailheads. the courses come later, via curation.
+function renderSkills(){
+  const wrap=document.getElementById('skillswrap');
+  if(wrap.firstChild) return;
+  wrap.innerHTML=`
+<div class="sk-intro">
+  <p>the seven run roughly inner to outer: heal the nervous system, restore curiosity, get right
+    with your tools, get right with your money, get right with your creative source, learn the
+    new organizational form, and defend the whole stack.</p>
+  <p>they form a mesh. there is no required order. enter wherever you're bleeding.</p>
+  <p>everything here is curation. the lineages predate this site by decades (some by centuries),
+    and the names are cited so you can go to the source.</p>
+</div>
+<nav class="sk-mesh" aria-label="the seven skills">
+  <a href="#skills/healing" style="--mc:var(--sk1)"><b>🫀 healing</b><i>yourself first, somatically</i></a>
+  <a href="#skills/curiosity" style="--mc:var(--sk2)"><b>🔍 curiosity</b><i>becoming curious</i></a>
+  <a href="#skills/intentional-tech" style="--mc:var(--sk3)"><b>📵 intentional tech</b><i>using tools on purpose</i></a>
+  <a href="#skills/sacred-economy" style="--mc:var(--sk4)"><b>🎁 sacred economy</b><i>moving your income to it</i></a>
+  <a href="#skills/source" style="--mc:var(--sk5)"><b>⛲ source</b><i>working with it</i></a>
+  <a href="#skills/extitutions" style="--mc:var(--sk6)"><b>⛺ extitutions</b><i>working outside the walls</i></a>
+  <a href="#skills/metacogsec" style="--mc:var(--sk7)"><b>🧠 metacogsec</b><i>guarding your own mind</i></a>
+</nav>
+
+<section class="sk" id="sk-healing" style="--skc:var(--sk1)">
+  <span class="sk-k">skill 01 · 🫀</span>
+  <h3>healing yourself first</h3>
+  <p class="sk-lede">the AI transition is a nervous system event before it's an economic one.
+    you can't strategize your way out of a freeze response. this skill is learning to work with
+    your body directly: breath, sensation, movement, felt sense. everything else on this list
+    sits on top of it.</p>
+  <h4>what it is</h4>
+  <p>trauma and chronic stress live in the body. an unregulated nervous system struggles to
+    think clearly, rest, or build. somatic healing works bottom up, through breath, sensation,
+    movement, and felt sense, with analysis riding along behind.</p>
+  <h4>why now</h4>
+  <p>job loss and job fear hit the body first. people in threat response doomscroll, grind,
+    freeze, or lash out. every other skill on this list requires a regulated baseline. you
+    can't get curious while you're in fight or flight.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>a daily body scan or focusing session</li>
+    <li>name the sensation before the story ("tight chest" before "i'm doomed")</li>
+    <li>breathwork, slow and boring on purpose</li>
+    <li>co-regulation: healing happens faster in relationship than alone</li>
+    <li>track what you actually feel vs what you've inferred</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li>peter levine, <em>waking the tiger</em> (somatic experiencing)</li>
+    <li>bessel van der kolk, <em>the body keeps the score</em></li>
+    <li>gabor maté, <em>when the body says no</em> and <em>the myth of normal</em></li>
+    <li>resmaa menakem, <em>my grandmother's hands</em> (collective and inherited trauma)</li>
+    <li>eugene gendlin, <em>focusing</em> (the original felt sense method)</li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/curiosity">becoming curious</a>. a regulated body
+    is what makes curiosity possible.</p>
+  <p class="sk-note">this page points at practices and practitioners. it is not therapy or
+    medical advice.</p>
+</section>
+
+<section class="sk" id="sk-curiosity" style="--skc:var(--sk2)">
+  <span class="sk-k">skill 02 · 🔍</span>
+  <h3>becoming curious</h3>
+  <p class="sk-lede">fear narrows your attention. curiosity widens it. in a world where the jobs
+    change faster than the certifications, the durable skill is staying genuinely interested.
+    this is trainable. it's also more fun.</p>
+  <h4>what it is</h4>
+  <p>curiosity as a trainable capacity: the deliberate move from threat response to exploration.
+    beginner's mind, applied to a world changing faster than anyone can certify into.</p>
+  <h4>why now</h4>
+  <p>retraining is a dead loop when AI roles change faster than humans can credential into them.
+    so the durable skill is the meta skill. the people navigating this transition best treat the
+    new tools and the new economy with curiosity instead of dread.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>follow one genuine interest per week with no monetization agenda</li>
+    <li>ask "what is this?" before "is this good or bad?"</li>
+    <li>keep a questions log instead of a to-do list</li>
+    <li>play with a new tool for 30 minutes with zero stakes</li>
+    <li>notice when you're pattern-matching from fear, and re-open the question</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li>shunryu suzuki, <em>zen mind, beginner's mind</em></li>
+    <li>richard feynman, <em>the pleasure of finding things out</em></li>
+    <li>john dewey and the learning-by-doing tradition</li>
+    <li>first-principles reasoning: asking why until you hit mechanism</li>
+    <li>carol dweck, <em>mindset</em> (use sparingly, linkedin flattened it)</li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/healing">healing yourself first</a>. regulation
+    enables curiosity.</p>
+</section>
+
+<section class="sk" id="sk-intentional-tech" style="--skc:var(--sk3)">
+  <span class="sk-k">skill 03 · 📵</span>
+  <h3>intentional usage of technology</h3>
+  <p class="sk-lede">some tools you use. some tools use you. the access an algorithm has to your
+    brain is proportional to your screentime, and in the AI era that access is getting smarter.
+    this skill is the audit, the defaults, and the discipline to keep your tools convivial.</p>
+  <h4>what it is</h4>
+  <p>getting into right relationship with your tools: using technology on purpose, for your
+    purposes. the discipline of noticing which tools serve you and which ones farm you.</p>
+  <h4>why now</h4>
+  <p>step 2 of the ladder is "don't get head-fucked by the tools." the feeds are getting more
+    persuasive, the slop more abundant, and the same tools that can 100x you can also hollow
+    you out.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>a screentime audit: for each app, ask who the customer is</li>
+    <li>intentional defaults: notifications off, feeds behind friction, tools one tap away</li>
+    <li>a weekly tech sabbath</li>
+    <li>the slop test before adopting any AI tool: does this extend my agency or replace it?</li>
+    <li>create more than you consume, and check the ratio</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li>ivan illich, <em>tools for conviviality</em> (the deepest root: tools should extend
+      human capability)</li>
+    <li>neil postman, <em>amusing ourselves to death</em></li>
+    <li>cal newport, <em>digital minimalism</em></li>
+    <li>douglas rushkoff, <em>program or be programmed</em></li>
+    <li>tristan harris and the <a href="https://www.humanetech.com" target="_blank" rel="noopener">center for humane technology</a></li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/metacogsec">metacogsec</a>. this skill is about
+    the tools. that one is about the mind the tools are pointed at.</p>
+</section>
+
+<section class="sk" id="sk-sacred-economy" style="--skc:var(--sk4)">
+  <span class="sk-k">skill 04 · 🎁</span>
+  <h3>finding sacred economy</h3>
+  <p class="sk-lede">markets price scarcity. the things that will carry you through this
+    transition (care, trust, place, community) mostly aren't priced at all. sacred economy is
+    learning to see those economies, join them, and over time move your livelihood into them.
+    it's a migration, so start before you have to.</p>
+  <h4>what it is</h4>
+  <p>charles eisenstein's frame: money as relationship, economy as gift. the skill is twofold.
+    first, learning to see the economies that already run on gift, trust, and commons (they're
+    everywhere, they're just unpriced). second, deliberately migrating your income toward work
+    aligned with them.</p>
+  <h4>why now</h4>
+  <p>when AI can price and replicate most market labor, the defensible ground is exactly what
+    markets can't price: care, trust, place, community, meaning. capital you own, communities
+    that have your back, work that AI can't price. moving your income there takes years, so
+    start now.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>map your income: what percent comes from work you'd do anyway?</li>
+    <li>one gift-economy act per week, with no reciprocity tracking</li>
+    <li>find the commons near you (mutual aid, tool libraries, community land) and participate
+      before theorizing</li>
+    <li>a 3-year income migration plan: shrink the extractive slice, grow the relational slice</li>
+    <li>practice asking for and receiving support (harder than giving, and load-bearing)</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li>charles eisenstein, <em>sacred economics</em> (free online at
+      <a href="https://sacred-economics.com" target="_blank" rel="noopener">sacred-economics.com</a>)</li>
+    <li>lewis hyde, <em>the gift</em></li>
+    <li>marcel mauss, <em>the gift</em> (the anthropological root)</li>
+    <li>elinor ostrom, <em>governing the commons</em></li>
+    <li>will ruddick, <a href="https://grassrootseconomics.org" target="_blank" rel="noopener">grassroots economics</a> (community currencies)</li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/source">working with source</a>. your money
+    patterns and your source patterns are the same patterns.</p>
+</section>
+
+<section class="sk" id="sk-source" style="--skc:var(--sk5)">
+  <span class="sk-k">skill 05 · ⛲</span>
+  <h3>working with source</h3>
+  <p class="sk-lede">every initiative has a source: the person who took the first risk on the
+    idea. knowing whether that's you (and serving the vision either way) is a learnable skill.
+    so is working from the place your ideas actually come from instead of from fear. when the
+    job wrapper dissolves, this is what's left.</p>
+  <h4>what it is</h4>
+  <p>two readings, held together. the initiative reading: every initiative has a source, the
+    person who took the first vulnerable step to realize an idea. peter koenig mapped this over
+    30 years, and tom nixon operationalized it. the skill is knowing when you're the source of
+    something vs joining someone else's initiative, serving the vision accordingly, and handing
+    off source cleanly when it's time.</p>
+  <p>the inner reading: working from the place ideas actually come from, with fear, status, and
+    obligation set aside. koenig's money work lives here too. your beliefs about money and your
+    relationship to source turn out to be the same material.</p>
+  <h4>why now</h4>
+  <p>when the job wrapper dissolves, what's left is initiative. people who've only ever executed
+    inside institutions need to learn what it feels like to source something, or to consciously
+    serve someone else's source. torch-passing (receiving a lineage, stewarding it, handing it
+    on) is source succession, and movements live or die on doing it cleanly.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>for any project you touch, ask: who is the source here? is it me?</li>
+    <li>name your relationship to it honestly: source, successor, helper</li>
+    <li>koenig's money exercise: write your beliefs about money, then ask which ones you
+      inherited</li>
+    <li>before starting anything, sit with whether the impulse comes from source or from
+      anxiety</li>
+    <li>practice clean handoffs: source transfers by explicit acknowledgment, and everyone can
+      feel when it wasn't</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li>tom nixon, <em>work with source</em></li>
+    <li>peter koenig, <em>30 lies about money</em> and the source principles</li>
+    <li>otto scharmer, <em>theory u</em> (presencing)</li>
+    <li>rick rubin, <em>the creative act</em> (the inner reading)</li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/sacred-economy">sacred economy</a> (the money
+    side of the same material) and <a href="#skills/extitutions">extitutions</a> (where new
+    initiatives get sourced now).</p>
+</section>
+
+<section class="sk" id="sk-extitutions" style="--skc:var(--sk6)">
+  <span class="sk-k">skill 06 · ⛺</span>
+  <h3>working in extitutions</h3>
+  <p class="sk-lede">institutions are walls. extitutions are surfaces: networks that assemble
+    around a purpose without asking permission. the employers and credentials that used to wrap
+    a livelihood around you are dissolving, and the coordination replacing them is extitutional.
+    working in one is a skill you can practice today, for free, in public.</p>
+  <h4>what it is</h4>
+  <p>michel serres coined "extitution" as the inverse of institution. institutions organize
+    through walls: buildings, org charts, credentials, membership boundaries. extitutions
+    organize through surfaces: open networks that assemble around a purpose, do the work, and
+    recombine. primavera de filippi and collaborators built it into a working framework. daos,
+    hackathons, group chats that turn into movements, pop-up cities: all extitutions.</p>
+  <h4>why now</h4>
+  <p>working in one is a different skill from having a job. there is no boss, no title, no
+    permission structure. reputation, contribution, and relationships are the interface.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>join one extitution and contribute before asking for a role</li>
+    <li>build a portable reputation: public work, public writing, verifiable contributions</li>
+    <li>learn to start things without permission, and to let others fork them</li>
+    <li>practice governance in the small: run a group chat, steward a commons, facilitate a
+      decision among peers</li>
+    <li>hold membership lightly: extitutions breathe, people flow in and out, that's the
+      feature</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li>primavera de filippi et al, <a href="https://extitutions.org" target="_blank" rel="noopener">extitutional theory</a></li>
+    <li>michel serres (the coinage)</li>
+    <li>elinor ostrom, <em>governing the commons</em> (the operating system)</li>
+    <li>frederic laloux, <em>reinventing organizations</em> (the bridge from the institutional
+      world)</li>
+    <li>a decade of empirical evidence from crypto: daos, hackathons, guilds, quadratic
+      funding</li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/source">working with source</a>. extitutions run
+    on sourced initiative rather than assigned roles.</p>
+</section>
+
+<section class="sk" id="sk-metacogsec" style="--skc:var(--sk7)">
+  <span class="sk-k">skill 07 · 🧠</span>
+  <h3>metacogsec</h3>
+  <p class="sk-lede">your beliefs are an attack surface, and the adversaries now have models of
+    your brain proportional to your screentime. cogsec is defending what you believe. metacogsec
+    is defending how you come to believe it: the meaning-making layer itself. this field is
+    being invented right now, in the open. these are the first practices.</p>
+  <h4>what it is</h4>
+  <p>metacognitive security. cogsec defends your beliefs from manipulation. metacogsec defends
+    the layer above: the apparatus that decides what to believe, how you make meaning, and which
+    ontologies you let in. the base move is learning to defend against ontological capture.</p>
+  <h4>why now</h4>
+  <p>AI-generated persuasion, synthetic media, and algorithmic feeds put your meaning-making
+    under continuous, personalized, adversarial pressure. this is the security layer for every
+    other skill on this list.</p>
+  <h4>practices</h4>
+  <ul>
+    <li>daily cogsec hygiene: know your top 3 emotional triggers (they're your attack surface),
+      trace one strong opinion back to where you got it, and ask who benefits from you
+      believing it</li>
+    <li>diversify your epistemic diet across tribes</li>
+    <li>notice ontological shock when it hits, and metabolize it slowly instead of converting
+      instantly</li>
+    <li>keep one meaning-making practice that no algorithm mediates (journal, sit, walk,
+      pray)</li>
+    <li>treat any content that makes you feel both righteous and rushed as hostile until proven
+      otherwise</li>
+  </ul>
+  <h4>further reading</h4>
+  <ul>
+    <li><a href="https://metacogsec.com" target="_blank" rel="noopener">metacogsec.com</a> (the live node)</li>
+    <li>gregory bateson, <em>steps to an ecology of mind</em> (the cybernetic root)</li>
+    <li>ontological design: the things we make make us back</li>
+    <li>the contemplative traditions, which have been mapping meaning-states for centuries</li>
+    <li>classic epistemology of trust: who do you believe, and why?</li>
+  </ul>
+  <p class="sk-adj">adjacent: <a href="#skills/intentional-tech">intentional tech</a>. that one
+    audits the tools. this one guards the mind they're pointed at.</p>
+</section>
+<div class="sk-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>`;
+}
+
 function setMode(mode,user){
   if(MODE===mode) return;
   stopPlay();
@@ -12344,6 +12759,8 @@ function setMode(mode,user){
   ledeEl.classList.toggle('spiralede',!!M.spiral);
   footL.innerHTML=M.foot;
   document.querySelectorAll('.tab').forEach(b=>{ const on=b.dataset.mode===mode; b.classList.toggle('on',on); b.setAttribute('aria-selected',on); });
+  // the skills card has seven doors into one room: on the skills page, all seven light
+  document.querySelectorAll('.sktab').forEach(a=>a.classList.toggle('on',mode==='skills'));
   paintPager();
   playBtn.classList.toggle('build',!!M.spiral);
   if(M.spiral){ growth=0; decay=0; gPips=-1; dPips=-1; paintBuild(); paintDecay(); }
@@ -12373,46 +12790,50 @@ function setMode(mode,user){
     if(linRAF){ cancelAnimationFrame(linRAF); linRAF=0; }
     if(linScroll){ removeEventListener('scroll',linScroll); removeEventListener('resize',linScroll); linScroll=null; } };
   const clearAbout=()=>{ document.getElementById('aboutwrap').innerHTML=''; };
+  const clearSkills=()=>{ document.getElementById('skillswrap').innerHTML=''; };
   const clearPoster=()=>{ WHAT={}; BYSLUG={}; erasEl.innerHTML=''; arcWrap.innerHTML='';
     hardWrap.innerHTML=''; lsvg.innerHTML=''; };
   // a custom view, like the spiral: no eras, no discs, no lifeline. give the buttons back first
   // (the spiral borrows them for its last step).
   const giveBack=()=>document.getElementById('btnhome').append(playBtn, document.getElementById('decay'));
   if(M.syn){
-    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
     renderSyntropy();
   } else if(M.ratchet){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
     renderRatchet();
   } else if(M.turn){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
     renderTurn();
   } else if(M.asm){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
     renderAssembly();
   } else if(M.trap){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
     renderTrap();
   } else if(M.crit){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
     renderCritique();
   } else if(M.sup){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearLineage(); clearBargain(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
     renderSuper();
   } else if(M.lin){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearBargain(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearBargain(); clearAbout(); clearSkills();
     renderLineage();
   } else if(M.bar){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearAbout(); clearSkills();
     renderBargain();
   } else if(M.abt){
-    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain();
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearSkills();
     renderAbout();
+  } else if(M.skl){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
+    renderSkills();
   } else if(M.spiral){
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearPoster();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearPoster();
     renderSpiral();
   } else {
-    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout();
+    clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills();
     giveBack();
     clearSpiral();
     renderEras(M); bindPoster(); renderArc(M); renderHard(M);
@@ -12442,7 +12863,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|bargain|about)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|critique|superorganism|lineage|bargain|skills|about)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};
@@ -12454,6 +12875,12 @@ function applyHash(){
   if(switched) setMode(mode,false);
   setURL(mode,slug);
   if(slug){
+    // skills deep links land on sections, not mechanism discs — no pin, no burst, just arrive
+    if(mode==='skills'){
+      const el=document.getElementById('sk-'+slug); if(!el) return;
+      setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),60);
+      return;
+    }
     const el=BYSLUG[slug]; if(!el) return;
     if(el.classList.contains('hard')) setHard(true);
     if(el.classList.contains('extra')) expandEra(el.closest('.era'));
