@@ -122,6 +122,32 @@
   .step a.d:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--sc) 22%,transparent)}
   .step.n1{--sc:var(--e2)} .step.n2{--sc:var(--e5)} .step.n3{--sc:var(--e4)}
 
+  /* the first read: the metacrisis is the on-ramp, so it gets the river */
+  .firstread{text-align:center;margin:40px auto 0}
+  a.bigcta{position:relative;display:inline-flex;align-items:center;gap:12px;
+    padding:20px 46px;border-radius:999px;text-decoration:none;isolation:isolate;
+    font:640 23px/1 var(--serif);letter-spacing:.01em;color:#0b1508;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:flow 5s linear infinite;
+    box-shadow:0 12px 46px rgba(78,203,102,.28),0 12px 46px rgba(225,79,225,.20),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1),box-shadow .3s}
+  @keyframes flow{to{background-position:-320% 0}}
+  a.bigcta:hover{transform:translateY(-4px) scale(1.03);
+    box-shadow:0 22px 66px rgba(78,203,102,.4),0 22px 66px rgba(225,79,225,.3),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25)}
+  a.bigcta .emj{font-size:25px}
+  a.bigcta .aro{font-size:21px;transition:transform .3s}
+  a.bigcta:hover .aro{transform:translateX(6px)}
+  @media (prefers-reduced-motion:reduce){ a.bigcta{animation:none} }
+  @media(max-width:520px){ a.bigcta{padding:16px 30px;font-size:19px} }
+  .cyoa{display:flex;align-items:center;gap:14px;max-width:560px;margin:30px auto 0;
+    font:700 10.5px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .cyoa::before,.cyoa::after{content:'';height:1px;flex:1;
+    background:linear-gradient(90deg,transparent,var(--line))}
+  .cyoa::after{background:linear-gradient(90deg,var(--line),transparent)}
+  .cyoa span{white-space:nowrap}
+
   /* ---- the depth itself: the poster's grouped index, moved up here where the
      seeker orients. every chip is a door — clean urls and deep links, no apparatus. ---- */
   .tabs{display:flex;justify-content:center;gap:14px 16px;margin:30px auto 0;flex-wrap:wrap;
@@ -271,6 +297,12 @@
   </details>
 
 
+  <!-- the first read: one big door before all the small ones -->
+  <div class="firstread">
+    <a class="bigcta" href="/metacrisis"><span class="emj">🕸️</span>first read: the metacrisis<span class="aro">→</span></a>
+    <p class="cyoa"><span>then — choose your own adventure</span></p>
+  </div>
+
   <nav class="tabs" aria-label="every door in the depth">
     <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
       <defs>
@@ -342,7 +374,6 @@
         <a class="tab" href="/assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></a>
         <a class="tab" href="/trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></a>
         <a class="tab" href="/critique"><span class="em">🪞</span>the critique<span class="tq">what the gains cost</span></a>
-        <a class="tab" href="/metacrisis"><span class="em">🕸️</span>the metacrisis<span class="tq">one pattern, many masks</span></a>
         <a class="tab" href="/bargain"><span class="em">🍎</span>the bargain<span class="tq">what we lose with progress</span></a>
         <a class="tab" href="/superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></a>
         <a class="tab" href="/lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></a>

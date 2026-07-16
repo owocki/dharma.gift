@@ -2436,6 +2436,19 @@
     transition:transform .2s,background .2s,box-shadow .2s}
   #metawrap .mc-drs a:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--me1) 20%,transparent);
     box-shadow:0 8px 22px color-mix(in srgb,var(--me1) 25%,transparent)}
+  #metawrap .mc-cta{display:inline-flex;align-items:center;gap:11px;margin-top:26px;
+    padding:17px 38px;border-radius:999px;text-decoration:none;
+    font:640 19px/1 var(--serif);color:#0b1508;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:mcflow 5s linear infinite;
+    box-shadow:0 10px 38px rgba(78,203,102,.28),0 10px 38px rgba(225,79,225,.2),
+      inset 0 2px 6px rgba(255,255,255,.3), inset 0 -3px 9px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1)}
+  @keyframes mcflow{to{background-position:-320% 0}}
+  #metawrap .mc-cta:hover{transform:translateY(-3px) scale(1.02)}
+  #metawrap .mc-cta .aro{font-size:18px;transition:transform .3s}
+  #metawrap .mc-cta:hover .aro{transform:translateX(5px)}
+  @media (prefers-reduced-motion:reduce){ #metawrap .mc-cta{animation:none} }
     box-shadow:0 8px 22px color-mix(in srgb,var(--me1) 25%,transparent)}
   :root[data-mode="about"] #eras{display:none}
   :root[data-mode="about"] #btnhome{display:none}   /* a letter has nothing to play */
@@ -12078,7 +12091,8 @@ let rto; window.addEventListener('resize',()=>{ clearTimeout(rto); rto=setTimeou
 // order comes from the nav itself, so regrouping the tabs re-orders the book for free.
 const PAGERSEQ=[...document.querySelectorAll('.tabs .tab')].map(b=>({mode:b.dataset.mode,
   label:((b.querySelector('.em')||{}).textContent||'')+' '+
-        [...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim()}));
+        [...b.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim()}))
+  .filter(s=>s.mode!=='metacrisis');   // the metacrisis stands alone: back only, no ‹›
 // the skills page rides the pager too, even though its seven chips share one door
 { const i=PAGERSEQ.findIndex(s=>s.mode==='about');
   PAGERSEQ.splice(i<0?PAGERSEQ.length:i,0,{mode:'skills',label:'🧗 the skills'}); }
@@ -12883,6 +12897,7 @@ function renderMeta(){
     <a href="#lineage">🔥 the lineage</a>
     <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 the others</a>
   </div>
+  <a class="mc-cta" href="/orient">🧭 back to orientation<span class="aro">→</span></a>
 </div></div>
 </div>`;
     const bs=wrap.querySelectorAll('.mc-beat');
