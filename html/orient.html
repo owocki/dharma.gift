@@ -368,15 +368,16 @@
   <!-- the adventure waits behind its own fold: you have to choose to choose -->
   <details class="fold cyoafold" id="fold-cyoa">
     <summary class="cyoa"><span>then — choose your own adventure</span><span class="chev">⌄</span></summary>
-    <!-- whose hand drew the map — revealed only with the adventure -->
-    <section class="whatis" aria-label="what this site is">
+    <!-- whose hand drew the map — revealed with the adventure, foldable on its own -->
+    <details class="whatis fold" id="fold-whatis" open>
+      <summary><span>what this is</span><span class="chev">⌄</span></summary>
       <p class="lede">"this is a <b>visual map of humanity's deepest patterns</b>, designed to help
         people understand civilization, find their deepest role <b>(dharma)</b>, and work
         together to <b>steer the future upward</b>.</p>
       <p class="lede lede-b">a picture is worth <b>1000 words</b>, so i've designed this to give
         you a visual download of the mental models you'll need on your journey."
         <span class="attrib">— kevin owocki &nbsp;·&nbsp; <a href="/about">read more →</a></span></p>
-    </section>
+    </details>
 
     <nav class="tabs" aria-label="every door in the depth">
     <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
