@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-882JMLBJG9');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>the respawn curve · mock 2 of 3</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛟</text></svg>">
+<!-- the theme, settled before first paint -->
+<script>try{var t=new URLSearchParams(location.search).get('theme')||localStorage.getItem('ra-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3effa; --ink:#1d1629; --muted:#645c78; --panel:#ffffff; --line:#dcd3ec;
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --ae1:#2f9e44;--ae2:#a17a00;--ae3:#b0561f;--ae4:#b535bb;--ae5:#1c7ed6}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --bg:#07040e; --ink:#f0e9fc; --muted:#a89cc6; --panel:#150e24; --line:#2c2148;
+    --ae1:#4ecb66;--ae2:#e3b31d;--ae3:#f07f3c;--ae4:#e14fe1;--ae5:#42a4ff}}
+  :root[data-theme="dark"]{
+    --bg:#07040e; --ink:#f0e9fc; --muted:#a89cc6; --panel:#150e24; --line:#2c2148;
+    --ae1:#4ecb66;--ae2:#e3b31d;--ae3:#f07f3c;--ae4:#e14fe1;--ae5:#42a4ff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+    radial-gradient(120% 90% at 78% -10%,color-mix(in srgb,#b535bb 16%,transparent),transparent 60%),
+    radial-gradient(110% 100% at 12% 8%,color-mix(in srgb,#6247d6 20%,transparent),transparent 55%),
+    radial-gradient(90% 70% at 50% 110%,color-mix(in srgb,#1c7ed6 11%,transparent),transparent 60%)}
+  :root[data-theme="light"] body::before{opacity:.5}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
+  .page{max-width:1060px;margin:0 auto;padding:26px 14px 70px}
+  .topbar{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;
+    margin-bottom:14px;color:var(--muted);font-size:12px}
+  .topbar a,.topbar button{font:inherit;font-weight:650;font-size:12px;padding:5px 12px;border-radius:999px;
+    cursor:pointer;text-decoration:none;color:var(--ink);
+    border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
+    background:color-mix(in srgb,var(--panel) 55%,transparent)}
+  .topbar a.here{border-color:color-mix(in srgb,#b535bb 60%,transparent);
+    box-shadow:0 0 0 1px color-mix(in srgb,#b535bb 40%,transparent)}
+  .poster{background:color-mix(in srgb,var(--panel) 82%,transparent);border:1px solid var(--line);
+    border-radius:18px;padding:clamp(16px,4vw,44px)}
+  .kicker{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--muted);text-align:center}
+  h1{font-family:var(--serif);font-weight:640;font-size:clamp(30px,6vw,54px);line-height:1.04;
+    margin:.35em 0 .1em;text-align:center;letter-spacing:.01em;
+    background:linear-gradient(92deg,var(--ae1),var(--ae2),var(--ae3),var(--ae4),var(--ae5));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  h1 .emj{background:none;-webkit-background-clip:initial;background-clip:initial;color:initial;
+    -webkit-text-fill-color:initial}
+  .sub{font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px}
+  blockquote{margin:18px auto 6px;max-width:600px;text-align:center;font-family:var(--serif);
+    font-style:italic;font-size:15px;color:var(--muted)}
+  blockquote i{display:block;font-style:normal;font-size:11px;margin-top:6px;letter-spacing:.08em}
+  .lede{max-width:660px;margin:14px auto 6px;text-align:center;color:var(--muted);font-size:14.5px}
+  figure{margin:10px 0 0}
+  svg{display:block;width:100%;height:auto}
+  svg text{font:600 12px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;fill:var(--ink)}
+  svg text.q{font-weight:500;font-size:11px;fill:var(--muted)}
+  svg text.note{font:500 10.5px ui-monospace,SFMono-Regular,Menlo,monospace;fill:var(--muted);letter-spacing:.05em}
+  .dips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 0;padding:0;list-style:none}
+  .dips button{font:600 12px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink);
+    padding:6px 12px;border-radius:999px;cursor:pointer;
+    border:1px solid color-mix(in srgb,var(--dc) 45%,var(--line));
+    background:color-mix(in srgb,var(--panel) 60%,transparent)}
+  .dips button i{font-style:normal;font:600 10px ui-monospace,Menlo,monospace;color:var(--dc);
+    letter-spacing:.12em;margin-right:6px}
+  .dips button:hover,.dips button.on{box-shadow:0 0 0 1px var(--dc);transform:translateY(-1px)}
+  .dip-dot{cursor:pointer}
+  .dip-dot circle.halo{opacity:.18;transition:opacity .25s}
+  .dip-dot.on circle.halo,.dip-dot:hover circle.halo{opacity:.5}
+  #card{margin:16px auto 0;max-width:720px;min-height:118px;border:1px solid var(--line);
+    border-left:4px solid var(--cc,var(--line));border-radius:12px;padding:14px 18px;
+    background:color-mix(in srgb,var(--panel) 70%,transparent)}
+  #card .ck{font:600 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--cc,var(--muted))}
+  #card h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:6px 0 6px}
+  #card p{margin:4px 0;color:var(--muted);font-size:13.5px}
+  #card p b{color:var(--ink);font-weight:650}
+  .closing{max-width:600px;margin:26px auto 0;text-align:center;font-family:var(--serif);
+    font-style:italic;font-size:17px}
+  .mocknote{margin-top:26px;text-align:center;font-size:11px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <span>mock · a candidate view</span>
+    <a href="blast.html">💥 the blast radius</a>
+    <a class="here" href="respawn.html">🛟 the respawn curve</a>
+    <a href="corridor.html">🪡 the corridor</a>
+    <button id="theme">◐ theme</button>
+  </div>
+  <div class="poster">
+    <div class="kicker">upwardspiral.io · whole-picture view</div>
+    <h1>THE&nbsp;RESPAWN&nbsp;CURVE&nbsp;<span class="emj">🛟</span></h1>
+    <div class="sub">every collapse so far had a save point</div>
+    <blockquote>“Collapse is not a fall into primordial chaos, but a return to the normal human
+      condition of lower complexity.” <i>joseph tainter · the collapse of complex societies</i></blockquote>
+    <p class="lede">collapse used to be tuition. the bronze age fell and the shang kept casting;
+      rome fell and the maya never heard. every dip so far bottomed out above the respawn line —
+      enough survivors, enough seed-knowledge, an untouched elsewhere to rebuild from.
+      the dips are getting wider than the world.</p>
+    <figure>
+      <svg id="viz" viewBox="0 0 920 600" role="img"
+        aria-label="twelve thousand years of civilizational complexity climbing through five eras, with five historical collapses drawn as dips — the 4.2-kiloyear event, the bronze age collapse, the fall of rome, the black death, the world wars. each dip bottoms out above a dashed respawn line, because somewhere untouched remained to rebuild from. after the present day the line forks: one dashed branch keeps climbing, and one plunges below the respawn line and off the bottom of the chart — the first reset with no save point."></svg>
+    </figure>
+    <ul class="dips" id="dips"></ul>
+    <div id="card">
+      <span class="ck">the dips</span>
+      <h3>hover a numbered dip — or the fork at the end</h3>
+      <p>five resets, each annotated with what fell, how long the climb back took, and the
+        question that decides everything: <b>who didn't notice?</b></p>
+    </div>
+    <p class="closing">the ratchet holds what survives collapse.<br>
+      this chart asks the other question: how much collapse can the ratchet survive?</p>
+    <p class="mocknote">mock 2 of 3 · the complexity line and its save points · candidate names: #respawn · #resets</p>
+  </div>
+</div>
+<script>
+(function(){
+  document.getElementById('theme').onclick=function(){
+    var r=document.documentElement;
+    var dark=r.getAttribute('data-theme')==='dark'||
+      (!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);
+    var next=dark?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('ra-theme',next)}catch(e){}
+  };
+
+  var NS='http://www.w3.org/2000/svg';
+  function el(t,a,parent){var e=document.createElementNS(NS,t);
+    for(var k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e}
+
+  var svg=document.getElementById('viz');
+  var card=document.getElementById('card');
+  var defs=el('defs',{},svg);
+  // the line wears the era ramp, like the coil does
+  var grad=el('linearGradient',{id:'ramp',x1:0,y1:0,x2:1,y2:0},defs);
+  [['0%','--ae1'],['18%','--ae2'],['60%','--ae3'],['74%','--ae4'],['90%','--ae5']]
+    .forEach(function(s){el('stop',{offset:s[0],'stop-color':'var('+s[1]+')'},grad)});
+
+  // era bands along the floor — time runs compressed, the way the coil compresses it
+  var BANDS=[
+   ['hunter-gatherer',50,160,'--ae1'],['agrarian',160,560,'--ae2'],
+   ['industrial',560,680,'--ae3'],['information',680,800,'--ae4'],['ai',800,890,'--ae5']];
+  BANDS.forEach(function(b){
+    el('rect',{x:b[1],y:500,width:b[2]-b[1],height:32,rx:5,fill:'var('+b[3]+')',opacity:.14},svg);
+    var t=el('text',{x:(b[1]+b[2])/2,y:520,'text-anchor':'middle','class':'note'},svg);
+    t.textContent=b[0];
+  });
+
+  // the respawn line: the floor under every recovery so far
+  el('line',{x1:50,y1:470,x2:890,y2:470,stroke:'var(--muted)','stroke-width':1.4,
+    'stroke-dasharray':'7 6',opacity:.75},svg);
+  var rl=el('text',{x:54,y:488,'class':'note'},svg);
+  rl.textContent='the respawn line · survivors + seed-knowledge + an untouched elsewhere';
+
+  var yx=el('text',{x:26,y:400,'class':'note',transform:'rotate(-90 26 400)'},svg);
+  yx.textContent='civilizational complexity →';
+
+  // the climb, with its dips — hand-laid like the coil's collapses (no two the same size)
+  var PTS=[[50,462],[110,458],[160,450],[250,420],[292,404],[304,432],[330,408],[352,388],
+    [366,428],[410,398],[448,342],[470,402],[500,384],[515,370],[528,358],[538,388],[556,352],
+    [580,300],[612,262],[622,286],[640,252],[680,220],[730,172],[795,112]];
+  var d='M'+PTS.map(function(p){return p[0]+' '+p[1]}).join(' L ');
+  // glow is geometry: fat soft stroke under the crisp one
+  el('path',{d:d,fill:'none',stroke:'url(#ramp)','stroke-width':9,opacity:.18,
+    'stroke-linejoin':'round','stroke-linecap':'round'},svg);
+  var line=el('path',{d:d,fill:'none',stroke:'url(#ramp)','stroke-width':2.4,
+    'stroke-linejoin':'round','stroke-linecap':'round'},svg);
+
+  // now, and the fork: the same two futures the coil ends in
+  el('line',{x1:795,y1:60,x2:795,y2:500,stroke:'var(--muted)','stroke-width':1,
+    'stroke-dasharray':'2 5',opacity:.6},svg);
+  var nowt=el('text',{x:788,y:72,'text-anchor':'end','class':'note'},svg);
+  nowt.textContent='now';
+  el('path',{d:'M795 112 L 830 92 L 880 62',fill:'none',stroke:'var(--ae5)',
+    'stroke-width':2,'stroke-dasharray':'6 6',opacity:.9},svg);
+  var up=el('text',{x:888,y:48,'text-anchor':'end','class':'q'},svg);
+  up.textContent='the climb continues?';
+  el('path',{d:'M800 118 C 825 170, 842 320, 852 468 L 860 585',fill:'none',stroke:'var(--ae5)',
+    'stroke-width':2,'stroke-dasharray':'6 6',opacity:.9},svg);
+  el('path',{d:'M860 585 l -7 -12 l 13 -2 z',fill:'var(--ae5)'},svg);
+  var dn=el('text',{x:846,y:558,'text-anchor':'end','class':'q'},svg);
+  dn.textContent='the first dip below the line?';
+
+  // the five resets
+  var DIPS=[
+   {x:304,y:432,v:'--ae2',yr:'2200 bce',n:'the 4.2-kiloyear event',
+    fell:'a megadrought. akkad falls, egypt’s old kingdom falls, the indus cities begin to empty.',
+    back:'about two centuries.',
+    notice:'most of humanity — the world was still mostly elsewhere.'},
+   {x:366,y:428,v:'--ae2',yr:'1177 bce',n:'the bronze age collapse',
+    fell:'eight civilizations in about fifty years. greece forgets how to write for four hundred of them.',
+    back:'roughly four centuries of dark age.',
+    notice:'the shang dynasty, casting ritual bronzes on schedule.'},
+   {x:470,y:402,v:'--ae2',yr:'476 ce',n:'the fall of the roman west',
+    fell:'cities empty; the recipe for concrete is lost for 1,300 years. london doesn’t match rome’s population until about 1800.',
+    back:'centuries — and the eastern half never fell at all.',
+    notice:'china between dynasties, and the maya at their classic peak.'},
+   {x:538,y:388,v:'--ae2',yr:'1347',n:'the black death',
+    fell:'a third of europe in five years.',
+    back:'about 150 years for population — and wages doubled, and serfdom broke. the reset that taught.',
+    notice:'the americas, entirely.'},
+   {x:622,y:286,v:'--ae3',yr:'1914–45',n:'the world wars',
+    fell:'around one hundred million people across the pair; two near-misses with something worse.',
+    back:'a decade and a plan — the marshall plan priced a continent’s reset.',
+    notice:'nobody. that is the new part: the coupling had arrived.'}
+  ];
+  var NEXT={v:'--ae5',yr:'next?',n:'the dip that is wider than the world',
+    fell:'a dip that starts anywhere arrives everywhere: one supply web, one grid, one genome database. and the blast radius of the tools is now larger than the map.',
+    back:'unknown — the dashed branch is the first candidate to cross the respawn line.',
+    notice:'there is no elsewhere left to not-notice from.'};
+
+  var dipsUl=document.getElementById('dips');
+  var allDots=[],allBtns=[];
+  function activate(i,data){
+    allDots.forEach(function(g,j){g&&g.classList.toggle('on',j===i)});
+    allBtns.forEach(function(b,j){b.classList.toggle('on',j===i)});
+    card.style.setProperty('--cc','var('+data.v+')');
+    card.innerHTML='<span class="ck">'+data.yr+'</span><h3>'+data.n+'</h3>'+
+      '<p><b>what fell:</b> '+data.fell+'</p>'+
+      '<p><b>the climb back:</b> '+data.back+'</p>'+
+      '<p><b>who didn’t notice:</b> '+data.notice+'</p>';
+  }
+  DIPS.forEach(function(dp,i){
+    var g=el('g',{'class':'dip-dot'},svg);
+    el('circle',{cx:dp.x,cy:dp.y,r:13,fill:'var('+dp.v+')','class':'halo'},g);
+    el('circle',{cx:dp.x,cy:dp.y,r:4.5,fill:'var('+dp.v+')',stroke:'var(--bg)','stroke-width':1.5},g);
+    var t=el('text',{x:dp.x,y:dp.y+24,'text-anchor':'middle','class':'q'},g);
+    t.textContent='0'+(i+1);
+    el('circle',{cx:dp.x,cy:dp.y,r:20,fill:'transparent',cursor:'pointer'},g);
+    g.addEventListener('mouseenter',function(){activate(i,dp)});
+    g.addEventListener('click',function(){activate(i,dp)});
+    allDots.push(g);
+
+    var li=document.createElement('li');
+    var b=document.createElement('button');
+    b.style.setProperty('--dc','var('+dp.v+')');
+    b.innerHTML='<i>0'+(i+1)+' · '+dp.yr+'</i>'+dp.n;
+    b.addEventListener('mouseenter',function(){activate(i,dp)});
+    b.addEventListener('click',function(){activate(i,dp)});
+    li.appendChild(b);dipsUl.appendChild(li);
+    allBtns.push(b);
+  });
+  // the fork gets a pill too
+  (function(){
+    var li=document.createElement('li');
+    var b=document.createElement('button');
+    b.style.setProperty('--dc','var(--ae5)');
+    b.innerHTML='<i>?? · next</i>'+NEXT.n;
+    b.addEventListener('mouseenter',function(){activate(5,NEXT)});
+    b.addEventListener('click',function(){activate(5,NEXT)});
+    li.appendChild(b);dipsUl.appendChild(li);
+    allDots.push(null);allBtns.push(b);
+  })();
+
+  // draw the climb in, unless motion is unwelcome
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+    var L=line.getTotalLength();
+    line.style.strokeDasharray=L;line.style.strokeDashoffset=L;
+    line.getBoundingClientRect();
+    line.style.transition='stroke-dashoffset 2.6s cubic-bezier(.3,.6,.3,1)';
+    line.style.strokeDashoffset='0';
+  }
+})();
+</script>
+</body>
+</html>

@@ -834,6 +834,10 @@
     position:relative}
   .navswirl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
     width:min(94vw,980px);aspect-ratio:1;pointer-events:none;z-index:-1;opacity:.78}
+  /* the index wears the grove it belongs to: five faint trees, roots braided under the chips */
+  .navgrove{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(94vw,900px);pointer-events:none;z-index:-1;opacity:.55}
+  :root[data-theme="light"] .navgrove{opacity:.42}
   :root[data-theme="light"] .navswirl{opacity:.55}
   /* a ribbon now, not a hairline: crisp rainbow stroke over its own fat soft under-stroke —
      glow by geometry, same trick as the hero coil, so the phone pays nothing for it */
@@ -2767,9 +2771,9 @@
          last page has no forward; setMode repaints the labels from the tab strip itself.
          the whole cluster rides centered; the theme switch keeps its corner. -->
     <button class="plain backbtn" id="back"><span class="bx">←</span><span class="dna">🧬</span>home</button>
-    <!-- the door out. the coil used to be the outermost room; now the crows' porch is.
+    <!-- the door out. the coil used to be the outermost room; now the grove is.
          this button exists only on the coil, exactly where the old back button refused to. -->
-    <button class="plain backbtn" id="crowsback" title="back to the crows landing"><span class="bx">←</span><span class="dna">🐦‍⬛</span>crows</button>
+    <button class="plain backbtn" id="crowsback" title="back to the grove"><span class="bx">←</span><span class="dna">🌳</span>grove</button>
     <button class="plain stepbtn" id="prevtab" style="display:none"><span class="sx">‹</span><span class="sl"></span></button>
     <!-- the nav lives at the very bottom of a long page. from the top, that is a scroll away and out
          of sight — so there is a door to it up here, next to the door back to the coil. -->
@@ -2971,7 +2975,7 @@
        everything at once, fifteen are questions (in four kinds, one card, four sub-labels),
        twenty-four are crises (one census, three families), eleven are skills (one page,
        eleven deep links), and one is the credits. -->
-  <div class="navlab"><span class="nsp">✨</span>navigate <b>the spiral</b>
+  <div class="navlab"><span class="nsp">🌳</span>navigate <b>the GROVE</b>
     <!-- the census moved down here from the hero: the measurements sit with the doors they
          measure. the two-click hint rides under the tabs now, where the clicking happens. -->
     <div class="herostats" id="herostats">
@@ -2981,23 +2985,50 @@
   <nav class="tabs" role="tablist" aria-label="poster">
     <!-- the index wears the thing it indexes: one faint spiral, seen from above, era ramp for ink.
          it turns once every couple of minutes — geology, not animation. -->
-    <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
-      <defs>
-        <linearGradient id="navswg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#4ecb66"/><stop offset="25%" stop-color="#e3b31d"/>
-          <stop offset="50%" stop-color="#f07f3c"/><stop offset="75%" stop-color="#e14fe1"/>
-          <stop offset="100%" stop-color="#42a4ff"/>
-        </linearGradient>
-        <radialGradient id="navsr" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fff"/><stop offset="62%" stop-color="#fff"/>
-          <stop offset="100%" stop-color="#000"/>
-        </radialGradient>
-        <mask id="navsm"><rect x="-270" y="-270" width="1680" height="1680" fill="url(#navsr)"/></mask>
-      </defs>
-      <g class="nsg" mask="url(#navsm)">
-        <use href="#navspiralp" class="navglow"/>
-        <path id="navspiralp" pathLength="1000" d="M530 500L538 506L543 515L546 527L546 539L542 552L535 565L523 577L508 587L490 595L469 599L446 598L422 593L398 583L376 569L357 549L342 525L331 498L326 468L328 436L337 404L353 373L377 344L407 319L443 299L483 285L528 278L574 280L621 289L666 308L708 334L745 369L774 410L796 457L808 508L809 562L798 616L777 669L744 718L701 762L648 799L588 826L521 843L451 848L380 841L309 821L243 789L183 745L132 691L93 628L66 557L54 482L57 405L76 329L111 255L161 188L225 130L301 83L386 49L478 29L574 26L670 40L764 70L851 117L928 178L992 253L1041 338L1073 432L1084 531L1076 631L1047 730L999 823L931 908L846 980L747 1038L637 1078L519 1098L397 1099L276 1078L160 1037L52 975L-42 896L-119 800L-176 692L-211 575L-222 452L-208 329L-169 208L-106 95L-20 -6L86 -92L209 -159L345 -205L489 -226L636 -223L782 -195L920 -141L1047 -65L1158 33L1247 150L1313 281L1351 422L1360 568L1339 715L1289 857L1211 989L1106 1107L978 1206L831 1282L670 1332L500 1354"/>
-        <use href="#navspiralp" class="navcomet"/>
+    <svg class="navgrove" aria-hidden="true" viewBox="0 0 900 640" focusable="false">
+      <g opacity=".9">
+        <line x1="60" y1="332" x2="840" y2="332" stroke="rgba(138,106,72,.5)" stroke-width="2"/>
+        <g>
+          <g transform="translate(140,30)">
+            <path d="M0 302 C3 252 -7 226 -2 192" stroke="#8a6a48" stroke-width="11" fill="none" stroke-linecap="round"/>
+            <circle cx="-4" cy="156" r="50" fill="#4ecb66" opacity=".5"/>
+            <circle cx="-40" cy="182" r="30" fill="#4ecb66" opacity=".4"/>
+            <circle cx="32" cy="180" r="32" fill="#4ecb66" opacity=".4"/>
+          </g>
+          <g transform="translate(310,12)">
+            <path d="M0 320 C-4 262 6 228 1 186" stroke="#8a6a48" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <circle cx="2" cy="144" r="56" fill="#e3b31d" opacity=".5"/>
+            <circle cx="-42" cy="176" r="33" fill="#e3b31d" opacity=".4"/>
+            <circle cx="44" cy="172" r="35" fill="#e3b31d" opacity=".4"/>
+          </g>
+          <g transform="translate(462,2)">
+            <path d="M0 330 C5 260 -5 226 0 176" stroke="#8a6a48" stroke-width="13" fill="none" stroke-linecap="round"/>
+            <circle cx="0" cy="124" r="63" fill="#f07f3c" opacity=".5"/>
+            <circle cx="-50" cy="162" r="36" fill="#f07f3c" opacity=".4"/>
+            <circle cx="50" cy="158" r="38" fill="#f07f3c" opacity=".4"/>
+          </g>
+          <g transform="translate(618,18)">
+            <path d="M0 314 C-3 262 7 232 2 190" stroke="#8a6a48" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <circle cx="4" cy="150" r="54" fill="#e14fe1" opacity=".5"/>
+            <circle cx="-38" cy="180" r="32" fill="#e14fe1" opacity=".4"/>
+            <circle cx="44" cy="176" r="33" fill="#e14fe1" opacity=".4"/>
+          </g>
+          <g transform="translate(772,36)">
+            <path d="M0 296 C3 254 -6 234 -1 198" stroke="#8a6a48" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <circle cx="-3" cy="166" r="46" fill="#42a4ff" opacity=".5"/>
+            <circle cx="-36" cy="190" r="28" fill="#42a4ff" opacity=".4"/>
+            <circle cx="30" cy="188" r="29" fill="#42a4ff" opacity=".4"/>
+          </g>
+        </g>
+        <g fill="none" stroke-linecap="round" stroke-dasharray="5 8">
+          <path d="M140 332 C200 420 260 430 310 336" stroke="#4ecb66" stroke-width="1.6" opacity=".55"/>
+          <path d="M310 332 C360 450 420 456 462 338" stroke="#e3b31d" stroke-width="1.6" opacity=".55"/>
+          <path d="M462 332 C510 460 570 452 618 336" stroke="#f07f3c" stroke-width="1.6" opacity=".55"/>
+          <path d="M618 332 C670 434 726 436 772 334" stroke="#e14fe1" stroke-width="1.6" opacity=".55"/>
+          <path d="M140 332 C300 560 620 560 772 334" stroke="#42a4ff" stroke-width="1.6" opacity=".5"/>
+          <path d="M310 332 C330 520 420 590 450 632" stroke="#e3b31d" stroke-width="1.3" opacity=".4"/>
+          <path d="M618 332 C590 520 500 590 462 634" stroke="#e14fe1" stroke-width="1.3" opacity=".4"/>
+        </g>
       </g>
     </svg>
     <div class="tabgrp">

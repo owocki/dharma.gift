@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-882JMLBJG9');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>the narrowing corridor · mock 3 of 3</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪡</text></svg>">
+<!-- the theme, settled before first paint -->
+<script>try{var t=new URLSearchParams(location.search).get('theme')||localStorage.getItem('ra-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3effa; --ink:#1d1629; --muted:#645c78; --panel:#ffffff; --line:#dcd3ec;
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --ae1:#2f9e44;--ae2:#a17a00;--ae3:#b0561f;--ae4:#b535bb;--ae5:#1c7ed6;
+    --dyst:#6247d6; --cata:#b53a35}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --bg:#07040e; --ink:#f0e9fc; --muted:#a89cc6; --panel:#150e24; --line:#2c2148;
+    --ae1:#4ecb66;--ae2:#e3b31d;--ae3:#f07f3c;--ae4:#e14fe1;--ae5:#42a4ff;
+    --dyst:#8f7bff; --cata:#ff7a72}}
+  :root[data-theme="dark"]{
+    --bg:#07040e; --ink:#f0e9fc; --muted:#a89cc6; --panel:#150e24; --line:#2c2148;
+    --ae1:#4ecb66;--ae2:#e3b31d;--ae3:#f07f3c;--ae4:#e14fe1;--ae5:#42a4ff;
+    --dyst:#8f7bff; --cata:#ff7a72}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+    radial-gradient(120% 90% at 78% -10%,color-mix(in srgb,#b535bb 16%,transparent),transparent 60%),
+    radial-gradient(110% 100% at 12% 8%,color-mix(in srgb,#6247d6 20%,transparent),transparent 55%),
+    radial-gradient(90% 70% at 50% 110%,color-mix(in srgb,#1c7ed6 11%,transparent),transparent 60%)}
+  :root[data-theme="light"] body::before{opacity:.5}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
+  .page{max-width:1060px;margin:0 auto;padding:26px 14px 70px}
+  .topbar{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;
+    margin-bottom:14px;color:var(--muted);font-size:12px}
+  .topbar a,.topbar button{font:inherit;font-weight:650;font-size:12px;padding:5px 12px;border-radius:999px;
+    cursor:pointer;text-decoration:none;color:var(--ink);
+    border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
+    background:color-mix(in srgb,var(--panel) 55%,transparent)}
+  .topbar a.here{border-color:color-mix(in srgb,#b535bb 60%,transparent);
+    box-shadow:0 0 0 1px color-mix(in srgb,#b535bb 40%,transparent)}
+  .poster{background:color-mix(in srgb,var(--panel) 82%,transparent);border:1px solid var(--line);
+    border-radius:18px;padding:clamp(16px,4vw,44px)}
+  .kicker{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--muted);text-align:center}
+  h1{font-family:var(--serif);font-weight:640;font-size:clamp(28px,5.6vw,52px);line-height:1.04;
+    margin:.35em 0 .1em;text-align:center;letter-spacing:.01em;
+    background:linear-gradient(92deg,var(--ae1),var(--ae2),var(--ae3),var(--ae4),var(--ae5));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  h1 .emj{background:none;-webkit-background-clip:initial;background-clip:initial;color:initial;
+    -webkit-text-fill-color:initial}
+  .sub{font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px}
+  blockquote{margin:18px auto 6px;max-width:560px;text-align:center;font-family:var(--serif);
+    font-style:italic;font-size:15px;color:var(--muted)}
+  blockquote i{display:block;font-style:normal;font-size:11px;margin-top:6px;letter-spacing:.08em}
+  .lede{max-width:660px;margin:14px auto 6px;text-align:center;color:var(--muted);font-size:14.5px}
+  figure{margin:10px 0 0}
+  svg{display:block;width:100%;height:auto}
+  svg text{font:600 12.5px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;fill:var(--ink)}
+  svg text.q{font-weight:500;font-size:11px;fill:var(--muted)}
+  svg text.note{font:500 10.5px ui-monospace,SFMono-Regular,Menlo,monospace;fill:var(--muted);letter-spacing:.05em}
+  svg text.zone{font-family:var(--serif);font-style:italic;font-weight:600;font-size:16px}
+  .pool{fill:color-mix(in srgb,var(--panel) 74%,transparent)}
+  .zonefill{cursor:pointer;transition:opacity .25s}
+  .zonefill:hover{opacity:.9}
+  .eradot{cursor:pointer}
+  .eradot circle.halo{opacity:.16;transition:opacity .25s}
+  .eradot:hover circle.halo,.eradot.on circle.halo{opacity:.5}
+  #card{margin:16px auto 0;max-width:720px;min-height:112px;border:1px solid var(--line);
+    border-left:4px solid var(--cc,var(--line));border-radius:12px;padding:14px 18px;
+    background:color-mix(in srgb,var(--panel) 70%,transparent)}
+  #card .ck{font:600 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--cc,var(--muted))}
+  #card h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:6px 0 6px}
+  #card p{margin:4px 0;color:var(--muted);font-size:13.5px}
+  #card p b{color:var(--ink);font-weight:650}
+  .closing{max-width:560px;margin:26px auto 0;text-align:center;font-family:var(--serif);
+    font-style:italic;font-size:17px}
+  .mocknote{margin-top:26px;text-align:center;font-size:11px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <span>mock · a candidate view</span>
+    <a href="blast.html">💥 the blast radius</a>
+    <a href="respawn.html">🛟 the respawn curve</a>
+    <a class="here" href="corridor.html">🪡 the corridor</a>
+    <button id="theme">◐ theme</button>
+  </div>
+  <div class="poster">
+    <div class="kicker">upwardspiral.io · whole-picture view</div>
+    <h1>THE&nbsp;NARROWING&nbsp;CORRIDOR&nbsp;<span class="emj">🪡</span></h1>
+    <div class="sub">between the two attractors</div>
+    <blockquote>“the catastrophes and the dystopias are both attractors.
+      the design problem is a third.” <i>daniel schmachtenberger · paraphrased</i></blockquote>
+    <p class="lede">as the blast radius grows, the coordination needed to keep the peace rises —
+      and the control that much coordination implies creeps toward the panopticon. the room
+      between the two is the whole habitable zone of the future, and it is narrowing.
+      hover the zones, the era dots on the floor, and the thread.</p>
+    <figure>
+      <svg id="viz" viewBox="0 0 920 600" role="img"
+        aria-label="a corridor between two attractors, drawn across five eras of growing technological power. the floor — the minimum coordination that keeps each era's weapons sheathed — rises as blast radius grows. the ceiling — the point where control itself becomes the harm — falls as surveillance gets cheap. the corridor between them, wide for all of history, pinches to a narrow gap at the present day, through which a single thin thread continues: the third road."></svg>
+    </figure>
+    <div id="card">
+      <span class="ck">the walls</span>
+      <h3>hover anything</h3>
+      <p>the floor and the ceiling are not sides in an argument — they are <b>attractors</b>:
+        places the system falls toward when nobody steers. the corridor is the only part of
+        the picture where anyone gets to keep choosing.</p>
+    </div>
+    <p class="closing">the walls are not the choice.<br>the walls are what happens when we don’t choose.</p>
+    <p class="mocknote">mock 3 of 3 · two attractors and a thread · candidate names: #corridor · #thirdroad</p>
+  </div>
+</div>
+<script>
+(function(){
+  document.getElementById('theme').onclick=function(){
+    var r=document.documentElement;
+    var dark=r.getAttribute('data-theme')==='dark'||
+      (!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);
+    var next=dark?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('ra-theme',next)}catch(e){}
+  };
+
+  var NS='http://www.w3.org/2000/svg';
+  function el(t,a,parent){var e=document.createElementNS(NS,t);
+    for(var k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e}
+
+  var svg=document.getElementById('viz');
+  var card=document.getElementById('card');
+  var defs=el('defs',{},svg);
+  var grad=el('linearGradient',{id:'ramp',x1:0,y1:0,x2:1,y2:0},defs);
+  [['0%','--ae1'],['30%','--ae2'],['58%','--ae3'],['78%','--ae4'],['95%','--ae5']]
+    .forEach(function(s){el('stop',{offset:s[0],'stop-color':'var('+s[1]+')'},grad)});
+  // hand-drawn hatch, one direction per attractor
+  [['hatchD','var(--dyst)','M -2 6 L 6 -2 M 2 10 L 10 2'],
+   ['hatchC','var(--cata)','M -2 2 L 6 10 M 2 -2 L 10 6']].forEach(function(h){
+    var p=el('pattern',{id:h[0],width:8,height:8,patternUnits:'userSpaceOnUse'},defs);
+    el('path',{d:h[2],stroke:h[1],'stroke-width':1,opacity:.25},p);
+  });
+
+  // the walls: ceiling falls, floor rises — sampled to build the zone fills
+  var CEIL='M60 95 C 220 100, 420 135, 560 160 C 660 178, 730 205, 790 225 C 830 234, 860 236, 890 238';
+  var FLOOR='M60 445 C 220 442, 420 415, 560 392 C 650 372, 730 315, 790 272 C 825 262, 860 259, 890 258';
+  var ceil=el('path',{d:CEIL,fill:'none',stroke:'none'},svg);
+  var floor=el('path',{d:FLOOR,fill:'none',stroke:'none'},svg);
+  function sample(path){var L=path.getTotalLength(),pts=[];
+    for(var i=0;i<=60;i++){var p=path.getPointAtLength(L*i/60);pts.push(p.x+','+p.y)}return pts}
+  var cp=sample(ceil), fp=sample(floor);
+
+  // three regions, each a character in the story
+  var ZONES=[
+   {pts:'60,40 890,40 '+cp.slice().reverse().join(' '),fill:'url(#hatchD)',tint:'var(--dyst)',
+    k:'the dystopia attractor · the ceiling',n:'the cure that is the disease',
+    body:'<p>total surveillance, one hand on every switch, a lock on every ledger. it prevents the fires by becoming one.</p><p><b>why the ceiling falls:</b> watching gets cheaper every era — the control needed to stop every bad actor arrives before the wisdom to hold it.</p>'},
+   {pts:fp.join(' ')+' 890,490 60,490',fill:'url(#hatchC)',tint:'var(--cata)',
+    k:'the catastrophe attractor · the floor',n:'the fires',
+    body:'<p>nuclear exchange, engineered pandemic, cascading grid and ecology failures.</p><p><b>why the floor rises:</b> every growth in blast radius raises the minimum coordination that keeps the era’s weapons sheathed. below the line, the fires eventually win.</p>'},
+   {pts:cp.join(' ')+' '+fp.slice().reverse().join(' '),fill:'url(#ramp)',op:.07,tint:'var(--ae4)',
+    k:'the corridor',n:'where every society so far has lived',
+    body:'<p>for twelve thousand years the walls were so far apart that steering was optional — whole civilizations lived and died without knowing the corridor had walls.</p><p><b>the pinch:</b> the first moment the corridor is narrower than our turning radius.</p>'}
+  ];
+  ZONES.forEach(function(z){
+    var tint=el('polygon',{points:z.pts,fill:z.tint,opacity:.05},svg);
+    var poly=el('polygon',{points:z.pts,fill:z.fill,opacity:z.op!=null?z.op:1,'class':'zonefill'},svg);
+    function show(){card.style.setProperty('--cc',z.tint);
+      card.innerHTML='<span class="ck">'+z.k+'</span><h3>'+z.n+'</h3>'+z.body}
+    poly.addEventListener('mouseenter',show);poly.addEventListener('click',show);
+  });
+
+  // the walls themselves, glow under crisp
+  [[CEIL,'var(--dyst)'],[FLOOR,'var(--cata)']].forEach(function(w){
+    el('path',{d:w[0],fill:'none',stroke:w[1],'stroke-width':8,opacity:.16},svg);
+    el('path',{d:w[0],fill:'none',stroke:w[1],'stroke-width':2.2},svg);
+  });
+
+  // the path we actually walked — wandering, because nobody had to steer
+  var WALK='M60 280 C 100 300, 180 240, 240 295 C 300 340, 360 250, 430 300 C 490 340, 540 255, 600 292 C 650 320, 700 262, 745 254 L 790 248';
+  el('path',{d:WALK,fill:'none',stroke:'url(#ramp)','stroke-width':9,opacity:.16,
+    'stroke-linecap':'round'},svg);
+  el('path',{d:WALK,fill:'none',stroke:'url(#ramp)','stroke-width':2.4,'stroke-linecap':'round'},svg);
+  // …and the thread it must become
+  el('path',{d:'M790 248 L 890 248',fill:'none',stroke:'url(#ramp)','stroke-width':2.4,
+    'stroke-dasharray':'6 6'},svg);
+  var thr=el('g',{cursor:'pointer'},svg);
+  el('rect',{x:770,y:230,width:130,height:36,fill:'transparent'},thr);
+  function showThread(){card.style.setProperty('--cc','var(--ae5)');
+    card.innerHTML='<span class="ck">the third road</span><h3>through the needle</h3>'+
+      '<p>not a compromise between the walls — a redesign. defense favored over offense (d/acc), transparency pointed at the powerful instead of the weak, coordination without a coordinator.</p>'+
+      '<p><b>elsewhere on the site:</b> the multipolar trap is why the floor rises; the lineage page holds d/acc; the rest of the site is a search for this line.</p>'}
+  thr.addEventListener('mouseenter',showThread);thr.addEventListener('click',showThread);
+
+  // now: the pinch
+  el('line',{x1:790,y1:60,x2:790,y2:490,stroke:'var(--muted)','stroke-width':1,
+    'stroke-dasharray':'2 5',opacity:.6},svg);
+  var nowt=el('text',{x:790,y:50,'text-anchor':'middle','class':'note'},svg);
+  nowt.textContent='now · the pinch';
+
+  // labels, each on a legibility pool
+  function label(x,y,lines,cls,anchor){
+    var w=Math.max.apply(null,lines.map(function(l){return l.t.length*(l.c==='zone'?8.2:6)}))+20;
+    var g=el('g',{},svg);
+    el('rect',{x:anchor==='middle'?x-w/2:x-10,y:y-16,width:w,height:lines.length*17+10,rx:8,'class':'pool'},g);
+    lines.forEach(function(l,i){
+      var t=el('text',{x:x,y:y+i*17,'text-anchor':anchor||'start','class':l.c||''},g);
+      if(l.fill)t.setAttribute('fill',l.fill);
+      t.textContent=l.t;
+    });
+    return g}
+  label(300,78,[{t:'the dystopia attractor',c:'zone',fill:'var(--dyst)'},
+    {t:'enough control to catch every bad actor is itself the bad actor',c:'q'}],null,'middle');
+  label(300,468,[{t:'the catastrophe attractor',c:'zone',fill:'var(--cata)'},
+    {t:'too little coordination for weapons this big — the fires win',c:'q'}],null,'middle');
+  label(150,205,[{t:'the corridor',c:'zone'},
+    {t:'so wide, for so long, that nobody',c:'q'},{t:'knew it had walls',c:'q'}],null,'middle');
+  label(600,140,[{t:'the ceiling falls: watching gets cheap',c:'q',fill:'var(--dyst)'}],null,'middle');
+  label(620,418,[{t:'the floor rises: the blast radius grows',c:'q',fill:'var(--cata)'}],null,'middle');
+  var thrl=el('text',{x:886,y:226,'text-anchor':'end','class':'q'},svg);
+  thrl.textContent='the third road ?';
+
+  // era bands along the bottom, and the floor's reasons for rising
+  var BANDS=[
+   ['hunter-gatherer',60,220,'--ae1'],['agrarian',220,480,'--ae2'],
+   ['industrial',480,660,'--ae3'],['information',660,790,'--ae4'],['ai',790,890,'--ae5']];
+  BANDS.forEach(function(b){
+    el('rect',{x:b[1],y:500,width:b[2]-b[1],height:32,rx:5,fill:'var('+b[3]+')',opacity:.14},svg);
+    var t=el('text',{x:(b[1]+b[2])/2,y:520,'text-anchor':'middle','class':'note'},svg);
+    t.textContent=b[0];
+  });
+  var FL=floor.getTotalLength();
+  function floorAt(x){ // walk the floor path to the x we want
+    var lo=0,hi=FL;for(var i=0;i<24;i++){var mid=(lo+hi)/2;
+      (floor.getPointAtLength(mid).x<x)?lo=mid:hi=mid}
+    return floor.getPointAtLength((lo+hi)/2)}
+  var DOTS=[
+   {x:140,v:'--ae1',em:'✊',n:'a raid can take a camp',
+    body:'custom and kin are coordination enough. the floor barely exists.'},
+   {x:350,v:'--ae2',em:'⚔️',n:'a warband can take a granary',
+    body:'now you need walls, kings, and law — the first mandatory coordination.'},
+   {x:570,v:'--ae3',em:'🏭',n:'a state can take a continent',
+    body:'now you need treaties, leagues, and a balance of powers.'},
+   {x:730,v:'--ae4',em:'☢️',n:'a dozen officers can end a hemisphere',
+    body:'now you need hotlines, inspections, and mutually assured restraint.'},
+   {x:820,v:'--ae5',em:'🧬',n:'one person can reach everyone',
+    body:'the floor rises to meet the ceiling. this is the pinch.'}];
+  DOTS.forEach(function(dp){
+    var p=floorAt(dp.x);
+    var g=el('g',{'class':'eradot'},svg);
+    el('circle',{cx:p.x,cy:p.y,r:12,fill:'var('+dp.v+')','class':'halo'},g);
+    el('circle',{cx:p.x,cy:p.y,r:4.5,fill:'var('+dp.v+')',stroke:'var(--bg)','stroke-width':1.5},g);
+    el('circle',{cx:p.x,cy:p.y,r:18,fill:'transparent'},g);
+    function show(){
+      Array.prototype.forEach.call(svg.querySelectorAll('.eradot'),function(x){x.classList.remove('on')});
+      g.classList.add('on');
+      card.style.setProperty('--cc','var('+dp.v+')');
+      card.innerHTML='<span class="ck">why the floor rose · '+dp.em+'</span><h3>'+dp.n+'</h3><p>'+dp.body+'</p>'}
+    g.addEventListener('mouseenter',show);g.addEventListener('click',show);
+  });
+})();
+</script>
+</body>
+</html>

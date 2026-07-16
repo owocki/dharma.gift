@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-882JMLBJG9');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>the blast radius · mock 1 of 3</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💥</text></svg>">
+<!-- the theme, settled before first paint -->
+<script>try{var q=new URLSearchParams(location.search),t=q.get('theme')||localStorage.getItem('ra-theme');if(t)document.documentElement.setAttribute('data-theme',t);if(q.get('motion')==='off')document.documentElement.setAttribute('data-motion','off')}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3effa; --ink:#1d1629; --muted:#645c78; --panel:#ffffff; --line:#dcd3ec;
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --ae1:#2f9e44;--ae2:#a17a00;--ae3:#b0561f;--ae4:#b535bb;--ae5:#1c7ed6}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --bg:#07040e; --ink:#f0e9fc; --muted:#a89cc6; --panel:#150e24; --line:#2c2148;
+    --ae1:#4ecb66;--ae2:#e3b31d;--ae3:#f07f3c;--ae4:#e14fe1;--ae5:#42a4ff}}
+  :root[data-theme="dark"]{
+    --bg:#07040e; --ink:#f0e9fc; --muted:#a89cc6; --panel:#150e24; --line:#2c2148;
+    --ae1:#4ecb66;--ae2:#e3b31d;--ae3:#f07f3c;--ae4:#e14fe1;--ae5:#42a4ff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+    radial-gradient(120% 90% at 78% -10%,color-mix(in srgb,#b535bb 16%,transparent),transparent 60%),
+    radial-gradient(110% 100% at 12% 8%,color-mix(in srgb,#6247d6 20%,transparent),transparent 55%),
+    radial-gradient(90% 70% at 50% 110%,color-mix(in srgb,#1c7ed6 11%,transparent),transparent 60%)}
+  :root[data-theme="light"] body::before{opacity:.5}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
+  .page{max-width:1060px;margin:0 auto;padding:26px 14px 70px}
+  .topbar{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;
+    margin-bottom:14px;color:var(--muted);font-size:12px}
+  .topbar a,.topbar button{font:inherit;font-weight:650;font-size:12px;padding:5px 12px;border-radius:999px;
+    cursor:pointer;text-decoration:none;color:var(--ink);
+    border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
+    background:color-mix(in srgb,var(--panel) 55%,transparent)}
+  .topbar a.here{border-color:color-mix(in srgb,#b535bb 60%,transparent);
+    box-shadow:0 0 0 1px color-mix(in srgb,#b535bb 40%,transparent)}
+  .poster{background:color-mix(in srgb,var(--panel) 82%,transparent);border:1px solid var(--line);
+    border-radius:18px;padding:clamp(16px,4vw,44px)}
+  .kicker{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--muted);text-align:center}
+  h1{font-family:var(--serif);font-weight:640;font-size:clamp(30px,6vw,54px);line-height:1.04;
+    margin:.35em 0 .1em;text-align:center;letter-spacing:.01em;
+    background:linear-gradient(92deg,var(--ae1),var(--ae2),var(--ae3),var(--ae4),var(--ae5));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  h1 .emj{background:none;-webkit-background-clip:initial;background-clip:initial;color:initial;
+    -webkit-text-fill-color:initial}
+  .sub{font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px}
+  blockquote{margin:18px auto 6px;max-width:560px;text-align:center;font-family:var(--serif);
+    font-style:italic;font-size:15px;color:var(--muted)}
+  blockquote i{display:block;font-style:normal;font-size:11px;margin-top:6px;letter-spacing:.08em}
+  .lede{max-width:640px;margin:14px auto 6px;text-align:center;color:var(--muted);font-size:14.5px}
+  figure{margin:10px 0 0}
+  svg{display:block;width:100%;height:auto}
+  svg text{font:600 13px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;fill:var(--ink)}
+  svg text.q{font-weight:500;font-size:11px;fill:var(--muted)}
+  svg text.note{font:500 11px ui-monospace,SFMono-Regular,Menlo,monospace;fill:var(--muted);letter-spacing:.06em}
+  .pool{fill:color-mix(in srgb,var(--panel) 78%,transparent);stroke:none}
+  .ringglow{fill:none;opacity:.16;transition:opacity .25s}
+  .ring{fill:none;stroke-width:2.2;transition:stroke-width .25s}
+  .hit{fill:none;stroke:transparent;stroke-width:30;pointer-events:stroke;cursor:pointer}
+  g.era.on .ringglow{opacity:.42}
+  g.era.on .ring{stroke-width:4}
+  g.era{transition:opacity .25s}
+  svg.dim g.era:not(.on){opacity:.35}
+  /* the rings arrive one power of ten at a time — a css animation, so no script has to
+     remember to start it; reduced motion gets the finished frame */
+  g.era{transform-origin:460px 360px;animation:bloom 1.1s cubic-bezier(.2,.7,.2,1) backwards}
+  @keyframes bloom{from{transform:scale(.2);opacity:0}}
+  @media (prefers-reduced-motion:reduce){ g.era{animation:none} }
+  /* headless renderers pin animations at frame zero — ?motion=off hands them the finished frame */
+  :root[data-motion="off"] g.era{animation:none}
+  #card{margin:16px auto 0;max-width:720px;min-height:118px;border:1px solid var(--line);
+    border-left:4px solid var(--cc,var(--line));border-radius:12px;padding:14px 18px;
+    background:color-mix(in srgb,var(--panel) 70%,transparent)}
+  #card .ck{font:600 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--cc,var(--muted))}
+  #card h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:6px 0 6px}
+  #card p{margin:4px 0;color:var(--muted);font-size:13.5px}
+  #card p b{color:var(--ink);font-weight:650}
+  .closing{max-width:560px;margin:26px auto 0;text-align:center;font-family:var(--serif);
+    font-style:italic;font-size:17px}
+  .mocknote{margin-top:26px;text-align:center;font-size:11px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="topbar">
+    <span>mock · a candidate view</span>
+    <a class="here" href="blast.html">💥 the blast radius</a>
+    <a href="respawn.html">🛟 the respawn curve</a>
+    <a href="corridor.html">🪡 the corridor</a>
+    <button id="theme">◐ theme</button>
+  </div>
+  <div class="poster">
+    <div class="kicker">upwardspiral.io · whole-picture view</div>
+    <h1>THE&nbsp;BLAST&nbsp;RADIUS&nbsp;<span class="emj">💥</span></h1>
+    <div class="sub">what one bad day can break</div>
+    <blockquote>“We have Paleolithic emotions, medieval institutions, and god-like technology.”
+      <i>e.o. wilson</i></blockquote>
+    <p class="lede">every era forged a sharper knife. each circle is what the era's worst day could
+      reach — it grows by powers of ten, while the hands required to draw it shrink toward one.
+      hover a circle: each one had a worst day.</p>
+    <figure>
+      <svg id="viz" viewBox="0 0 920 700" role="img"
+        aria-label="five concentric circles on a log scale, one per era, showing the reach of the era's deadliest technology growing from one body to everyone on earth, while the number of people needed to wield it shrinks from an army to possibly one person. the fifth circle is larger than the frame of the picture."></svg>
+    </figure>
+    <div id="card">
+      <span class="ck">the circles</span>
+      <h3>hover a ring</h3>
+      <p>every circle here has already had its worst day — except the last one, which is still
+        deciding. the fifth ring doesn't fit inside the picture. that is not a rendering bug.</p>
+    </div>
+    <p class="closing">a reset you can walk away from is a teacher.<br>the last circle has nowhere to walk to.</p>
+    <p class="mocknote">mock 1 of 3 · concentric rings, log scale · candidate names: #blast · #radius</p>
+  </div>
+</div>
+<script>
+(function(){
+  // theme toggle, mirrored from the site: an explicit choice is remembered
+  document.getElementById('theme').onclick=function(){
+    var r=document.documentElement;
+    var dark=r.getAttribute('data-theme')==='dark'||
+      (!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme:dark)').matches);
+    var next=dark?'light':'dark';
+    r.setAttribute('data-theme',next);
+    try{localStorage.setItem('ra-theme',next)}catch(e){}
+  };
+
+  var NS='http://www.w3.org/2000/svg';
+  function el(t,a,parent){var e=document.createElementNS(NS,t);
+    for(var k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e}
+
+  var CX=460, CY=360;
+  // radius rides log10 of the reach; the last ring is drawn honestly, which is why it
+  // leaves the frame — a circle of eight billion does not fit inside any picture
+  var ERAS=[
+   {v:'--ae1',r:42, em:'✊', big:'one body', small:'a flint edge · one arm',
+    name:'hunter-gatherer era', tech:'flint, fire, ambush',
+    worst:'a raid at dawn. ötzi died around 3300 bce with an arrowhead in his shoulder and blood from four other people on his knife.',
+    hands:'one arm', rec:'a season of grief; the band moves on'},
+   {v:'--ae2',r:122,em:'⚔️', big:'a city, over a season', small:'an army of tens of thousands',
+    name:'agrarian era', tech:'bronze, cavalry, siege works',
+    worst:'1258 — the sack of baghdad. the house of wisdom goes into the tigris; chroniclers say the river ran black with ink.',
+    hands:'an army, fed and marched for months', rec:'a generation — or never; mesopotamia’s canals did not come back'},
+   {v:'--ae3',r:188,em:'🏭', big:'a city, in one night', small:'a few hundred airmen',
+    name:'industrial era', tech:'the bomber wing, incendiaries, an assembly line pointed at war',
+    worst:'march 9–10, 1945 — operation meetinghouse. around 100,000 people in tokyo, between midnight and sunrise.',
+    hands:'a few hundred crewmen and one order', rec:'a decade and a plan; the marshall plan priced a continent’s reset'},
+   {v:'--ae4',r:272,em:'☢️', big:'a hemisphere, in forty minutes', small:'a dozen officers',
+    name:'information era', tech:'the icbm; warheads a thousand times hiroshima',
+    worst:'hasn’t happened. september 26, 1983 — stanislav petrov decides the satellites are lying and does not pass the alert up the chain.',
+    hands:'a dozen officers in two capitals; arguably one', rec:'never tested. the models say decades of winter; nobody has run the experiment'},
+   {v:'--ae5',r:380,em:'🧬', big:'everyone, everywhere', small:'maybe one person',
+    name:'ai / bio era', tech:'an engineered pathogen; a self-improving optimizer; things that replicate',
+    worst:'unwritten.',
+    hands:'possibly one lab. possibly one person with a laptop and a benchtop synthesizer',
+    rec:'none on file — every previous reset was rebuilt from somewhere untouched, and this radius has no somewhere'}
+  ];
+
+  var svg=document.getElementById('viz');
+  var card=document.getElementById('card');
+
+  ERAS.forEach(function(e,i){
+    var g=el('g',{'class':'era','data-i':i},svg);
+    g.style.animationDelay=(0.25+i*0.45)+'s';
+    var c='var('+e.v+')';
+    // glow is geometry: a fat soft stroke under a crisp one, never a filter
+    el('circle',{cx:CX,cy:CY,r:e.r,'class':'ringglow',stroke:c,'stroke-width':12},g);
+    el('circle',{cx:CX,cy:CY,r:e.r,'class':'ring',stroke:c},g);
+    // the label chip sits in the ring's band on the upward vertical, on a legibility pool
+    var by=[336,276,203,130,40][i];
+    var w=e.big.length*7.6+34;
+    el('rect',{x:CX-w/2,y:by-14,width:w,height:36,rx:9,'class':'pool'},g);
+    var t1=el('text',{x:CX,y:by,'text-anchor':'middle'},g);
+    t1.textContent=e.em+' '+e.big;
+    var t2=el('text',{x:CX,y:by+16,'text-anchor':'middle','class':'q'},g);
+    t2.textContent=e.small;
+    el('circle',{cx:CX,cy:CY,r:e.r,'class':'hit'},g);
+
+    function show(){
+      svg.classList.add('dim');
+      Array.prototype.forEach.call(svg.querySelectorAll('g.era'),function(x){x.classList.remove('on')});
+      g.classList.add('on');
+      card.style.setProperty('--cc','var('+e.v+')');
+      card.innerHTML='<span class="ck">'+e.name+' · '+e.em+'</span><h3>'+e.big+'</h3>'+
+        '<p><b>the knife:</b> '+e.tech+'</p>'+
+        '<p><b>the worst day:</b> '+e.worst+'</p>'+
+        '<p><b>hands required:</b> '+e.hands+'</p>'+
+        '<p><b>recovery:</b> '+e.rec+'</p>';
+    }
+    g.addEventListener('mouseenter',show);
+    g.addEventListener('click',show);
+  });
+
+  // the two exponentials, named in the margins
+  var n1=el('text',{x:24,y:392,'class':'note',transform:'rotate(-90 24 392)'},svg);
+  n1.textContent='reach: each ring ≈ ×10 the people inside it →';
+  var n2=el('text',{x:896,y:392,'class':'note',transform:'rotate(90 896 392)'},svg);
+  n2.textContent='hands: an army → a state → a dozen → one? →';
+
+  // hover off the rings: undim
+  svg.addEventListener('mouseleave',function(){
+    svg.classList.remove('dim');
+    Array.prototype.forEach.call(svg.querySelectorAll('g.era'),function(x){x.classList.remove('on')});
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- legacy deep links: for a year the coil lived at the bare root, and the internet still
+     believes it. any hash that arrives here is somebody's old bookmark — forward it inside
+     before the page even paints. -->
+<script>if(location.hash.length>1)location.replace('/spiral'+location.hash);</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-882JMLBJG9');
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌳</text></svg>">
+<!-- the theme, settled before first paint: groves keep their own shade. the hero is night
+     either way — stars don't check the toggle. -->
+<script>(function(){var t;try{t=localStorage.getItem('ra-theme')}catch(e){}
+  document.documentElement.setAttribute('data-theme',(t==='light'||t==='dark')?t:'dark');})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
+<title>grove · a visual learning system for civilizational wisdom</title>
+<link rel="canonical" href="https://www.upwardspiral.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.upwardspiral.io/">
+<meta property="og:title" content="GROVE — grounded research on ontology, values & epistemics">
+<meta property="og:description" content="a visual learning system for civilizational wisdom, planted where schools began: in the trees. five trees under a starry sky, a glistening city behind them, one mycelial web below — resources moving through the roots. ontology is the map of what exists, epistemics is how we check what's true, values is how we choose what matters. alpha mode: saplings everywhere. enter anyway.">
+<meta property="og:image" content="https://www.upwardspiral.io/og-grove.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GROVE — grounded research on ontology, values & epistemics">
+<meta name="twitter:description" content="a wisdom school planted where schools began: in the trees. many trees, one root system, resources moving through the dark. alpha mode — enter anyway.">
+<meta name="twitter:image" content="https://www.upwardspiral.io/og-grove.png">
+<meta name="description" content="GROVE — grounded research on ontology, values & epistemics. trees under a starry night, a glistening city behind them, mycelium below the fold, and a door into 12,000 years of resource allocation as living art.">
+<style>
+  :root{
+    --bg:#f1f5ee; --ink:#18241a; --muted:#5c6f5e; --panel:#ffffff; --line:#d3e0d0;
+    --e1:#2f9e44; --e2:#a17a00; --e3:#b0561f; --e4:#b535bb; --e5:#1c7ed6;
+    --warn:#8a6d00; --warnbg:#fbf5dc; --warnline:#e3c94e;
+    --soil:#241a0e; --deep:#0a0d08;
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  :root[data-theme="dark"]{
+    --bg:#050b06; --ink:#eaf5ea; --muted:#94ad96; --panel:#0d1a10; --line:#1e3322;
+    --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
+    --warn:#e3b31d; --warnbg:#161105; --warnline:#5c4a10;
+    --soil:#191106; --deep:#04070a;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --bg:#050b06; --ink:#eaf5ea; --muted:#94ad96; --panel:#0d1a10; --line:#1e3322;
+    --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
+    --warn:#e3b31d; --warnbg:#161105; --warnline:#5c4a10;
+    --soil:#191106; --deep:#04070a;
+  }}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
+
+  /* the era ramp as a hairline across the top — the family mark */
+  .rainbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:95;
+    background:linear-gradient(90deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff)}
+
+  /* ================= above the fold: night, a far city, five trees ================= */
+  /* the fold is the ground line. the hero keeps its own weather: night, regardless of theme. */
+  .hero{position:relative;height:100svh;min-height:560px;display:flex;flex-direction:column;
+    align-items:center;overflow:hidden;color:#dfe6f6;
+    background:linear-gradient(180deg,#03040c 0%,#070a1a 42%,#0d1026 68%,#181231 88%,#20163a 100%)}
+  .kicker{position:relative;z-index:6;margin-top:clamp(40px,7vh,84px);
+    font:600 11px/1.8 var(--mono);letter-spacing:.42em;
+    text-transform:uppercase;color:#8f9ac2;text-align:center;padding:0 14px}
+  .kicker b{color:#e3b31d;font-weight:600}
+  .subline{position:relative;z-index:6;margin:14px auto 0;max-width:560px;text-align:center;padding:0 18px;
+    font:italic 480 clamp(17px,2.8vw,23px)/1.45 var(--serif);color:#eef1fb}
+  @media(max-width:560px){ .kicker{letter-spacing:.26em;font-size:10px} }
+
+  /* stars: three phase groups so the sky breathes instead of blinking */
+  .stars{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .stars i{position:absolute;border-radius:50%;background:#dfe8ff}
+  .stars i.p1{animation:tw1 3.4s ease-in-out infinite}
+  .stars i.p2{animation:tw1 4.6s ease-in-out infinite;animation-delay:-1.4s}
+  .stars i.p3{animation:tw1 5.8s ease-in-out infinite;animation-delay:-2.9s}
+  @keyframes tw1{0%,100%{opacity:.18}50%{opacity:.95}}
+  @media (prefers-reduced-motion:reduce){ .stars i{animation:none;opacity:.55} }
+
+  /* the city: it towers over the grove now — lit windows all the way up, a warm aura
+     around the skyline. the trees hold their ground anyway. */
+  .cityglow{position:absolute;left:0;right:0;bottom:0;height:74%;z-index:2;pointer-events:none;
+    background:radial-gradient(76% 96% at 50% 106%,rgba(255,178,84,.22),rgba(181,53,187,.10) 52%,transparent 78%)}
+  .city{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:3;
+    width:max(100vw,1000px);pointer-events:none;opacity:.96}
+  .city svg{display:block;width:100%;height:auto}
+  .city .win{fill:#ffd98a}
+  .city .win.c{fill:#9fd8ff}
+  .city .w1{animation:wink 3.2s ease-in-out infinite}
+  .city .w2{animation:wink 4.1s ease-in-out infinite;animation-delay:-1.3s}
+  .city .w3{animation:wink 5.3s ease-in-out infinite;animation-delay:-2.6s}
+  @keyframes wink{0%,100%{opacity:.25}50%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){ .city .w1,.city .w2,.city .w3{animation:none;opacity:.7} }
+
+  .treeswrap{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:4;
+    width:min(1240px,max(125vw,720px));pointer-events:none}
+  .treeswrap svg{display:block;width:100%;height:auto}
+  /* wind: each canopy leans and returns on its own clock; the trunks stay planted */
+  .canopy{transform-box:fill-box;transform-origin:50% 92%;animation:sway 7s ease-in-out infinite}
+  .t2 .canopy{animation-duration:8.4s;animation-delay:-2.1s}
+  .t3 .canopy{animation-duration:6.2s;animation-delay:-1.2s}
+  .t4 .canopy{animation-duration:9.1s;animation-delay:-3.4s}
+  .t5 .canopy{animation-duration:7.7s;animation-delay:-4.6s}
+  @keyframes sway{0%,100%{transform:rotate(-1.1deg) translateX(-1.5px)}50%{transform:rotate(1.3deg) translateX(2px)}}
+  @media (prefers-reduced-motion:reduce){ .canopy{animation:none} }
+  /* shooting stars: rare, brief, gone */
+  .meteors span{position:absolute;width:130px;height:2px;opacity:0;pointer-events:none;z-index:1;
+    background:linear-gradient(90deg,rgba(255,255,255,.95),rgba(170,195,255,.45),transparent);
+    border-radius:2px;animation:shoot 12s linear infinite}
+  .meteors span:nth-child(2){width:90px;animation-duration:17s;animation-delay:-7s}
+  .meteors span:nth-child(3){width:110px;animation-duration:23s;animation-delay:-15s}
+  @keyframes shoot{
+    0%,91%{opacity:0;transform:rotate(-26deg) translateX(0)}
+    92.5%{opacity:1}
+    97%{opacity:0;transform:rotate(-26deg) translateX(-44vw)}
+    100%{opacity:0;transform:rotate(-26deg) translateX(-44vw)}}
+  @media (prefers-reduced-motion:reduce){ .meteors{display:none} }
+
+  /* ================= below the fold: the mycelium ================= */
+  .under{position:relative;background:linear-gradient(180deg,var(--soil) 0,
+      color-mix(in srgb,var(--soil) 55%,var(--deep)) 18%,var(--deep) 70%,var(--deep) 100%)}
+  .under::before{content:'';position:absolute;top:0;left:0;right:0;height:7px;z-index:3;
+    background:linear-gradient(180deg,color-mix(in srgb,#8a6a48 55%,var(--soil)),transparent)}
+  /* the threads don't stop — the page just stops being able to see them */
+  .under::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;pointer-events:none;z-index:2;
+    background:linear-gradient(180deg,transparent,var(--bg))}
+  #myc,#flow{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #flow{z-index:1}
+  /* the wordmark rides up in the root zone, where the threads are thickest */
+  .undercore{position:relative;z-index:2;min-height:112svh;display:flex;flex-direction:column;
+    align-items:center;justify-content:flex-start;text-align:center;
+    padding:clamp(70px,13svh,150px) 18px 26svh}
+  .wordpool{position:relative;padding:30px 10px}
+  .wordpool::before{content:'';position:absolute;inset:-50px -110px;z-index:-1;pointer-events:none;
+    background:radial-gradient(56% 56% at 50% 50%,color-mix(in srgb,var(--deep) 82%,transparent),transparent 72%)}
+  h1.brand{margin:0 0 14px;font-family:var(--serif);font-weight:640;
+    font-size:clamp(88px,18vw,210px);line-height:.9;letter-spacing:-.015em}
+  /* five letters wearing the five trees' own inks, in order */
+  .brand span{display:inline-block;background:linear-gradient(180deg,var(--lc) 22%,color-mix(in srgb,var(--lc) 62%,#fff) 96%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    transition:transform .35s cubic-bezier(.2,1.6,.4,1)}
+  .brand span:hover{transform:translateY(-7px) rotate(-2deg)}
+  .brand .l1{--lc:#4ecb66} .brand .l2{--lc:#e3b31d} .brand .l3{--lc:#f07f3c}
+  .brand .l4{--lc:#e14fe1} .brand .l5{--lc:#42a4ff}
+  .expansion{font:600 12px/1.9 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:#8fa892}
+  .expansion .w1{color:#4ecb66} .expansion .w2{color:#e3b31d} .expansion .w3{color:#f07f3c}
+  .expansion .w4{color:#e14fe1} .expansion .w5{color:#42a4ff}
+  .underwhat{margin-top:22svh;width:100%;max-width:820px}
+  .underwhat .seclab h2{color:#e3efe3}
+  .underwhat .seclab::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.14))}
+  .underwhat .seclab::after{background:linear-gradient(90deg,rgba(255,255,255,.14),transparent)}
+  .underwhat .mini{background:rgba(6,11,7,.78);border-color:rgba(255,255,255,.13);
+    backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+  .underwhat .mini h3{color:#eef5ee}
+  .underwhat .mini p{color:#a3bba6}
+  .underwhat .also{color:#9bb59d}
+  .underwhat .also b{color:#e3efe3}
+  /* the last whisper before the page resurfaces */
+  .undertag{margin:34svh auto 0;max-width:440px;font:italic 400 18px/1.5 var(--serif);color:#b9cbb9}
+  .undertag b{color:#eef7ee;font-weight:560}
+
+  /* ================= the page proper ================= */
+  .page{max-width:880px;margin:0 auto;padding:0 18px 0}
+  section{position:relative;margin:84px 0 0;z-index:1}
+  .seclab{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .seclab::before,.seclab::after{content:'';height:1px;flex:1;
+    background:linear-gradient(90deg,transparent,var(--line));}
+  .seclab::after{background:linear-gradient(90deg,var(--line),transparent)}
+  .seclab h2{margin:0;font:520 26px/1.2 var(--serif);letter-spacing:.01em;white-space:nowrap}
+  .seclab .emj{margin-right:8px}
+
+  /* ---- the three questions ---- */
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:760px;margin:0 auto}
+  @media(max-width:640px){ .three{grid-template-columns:1fr} }
+  .mini{border:1px solid var(--line);border-radius:14px;padding:20px 18px;
+    background:color-mix(in srgb,var(--panel) 72%,transparent);text-align:left;
+    transition:transform .25s,border-color .25s,box-shadow .25s}
+  .mini:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--mc) 55%,transparent);
+    box-shadow:0 10px 26px color-mix(in srgb,var(--mc) 20%,transparent)}
+  .mini .k{font:600 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--mc)}
+  .mini h3{margin:8px 0 6px;font:560 20px/1.2 var(--serif)}
+  .mini p{margin:0;font-size:13px;line-height:1.62;color:var(--muted)}
+  .m-o{--mc:var(--e3)} .m-e{--mc:var(--e5)} .m-v{--mc:var(--e4)}
+  .also{margin:22px auto 0;max-width:640px;text-align:center;
+    font:italic 400 15.5px/1.6 var(--serif);color:var(--muted)}
+  .also b{color:var(--ink);font-style:normal;font-weight:600}
+
+  /* ---- alpha ---- */
+  .alpha{position:relative;border:2px solid var(--warnline);border-radius:18px;
+    padding:26px 28px 24px;background:var(--warnbg);overflow:hidden}
+  .alpha::before{content:'';position:absolute;inset:0 0 auto 0;height:9px;opacity:.85;
+    background:repeating-linear-gradient(-45deg,var(--warn) 0 14px,transparent 14px 28px)}
+  .alpha .badge{display:inline-flex;align-items:center;gap:8px;margin:6px 0 12px;
+    font:700 12px/1 var(--mono);letter-spacing:.34em;text-transform:uppercase;color:var(--warn);
+    border:1px solid color-mix(in srgb,var(--warn) 55%,transparent);border-radius:999px;padding:8px 16px 8px 12px}
+  .alpha .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--warn);
+    animation:pulse 2.2s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--warn) 60%,transparent)}
+    70%{box-shadow:0 0 0 11px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  @media (prefers-reduced-motion:reduce){ .alpha .badge .dot{animation:none} }
+  .alpha p{margin:0;max-width:640px;font:400 16px/1.6 var(--serif);color:var(--ink)}
+  .alpha p b{font-weight:640}
+  .alpha p .fine{display:block;margin-top:10px;font:italic 400 13.5px/1.55 var(--serif);color:var(--muted)}
+
+  /* ---- the door: every tree's thread arrives here ---- */
+  .door{position:relative;text-align:center;margin-top:64px;padding:30px 0 130px}
+  #doorroots{position:absolute;left:50%;top:0;transform:translateX(-50%);
+    width:min(880px,100vw);height:100%;pointer-events:none}
+  .doorin{position:relative;z-index:2;padding-top:210px}
+  a.enter{position:relative;display:inline-flex;align-items:center;gap:14px;
+    padding:25px 60px;border-radius:999px;text-decoration:none;isolation:isolate;
+    font:640 27px/1 var(--serif);letter-spacing:.01em;color:#0b1508;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:flow 5s linear infinite;
+    box-shadow:0 12px 46px color-mix(in srgb,var(--e1) 38%,transparent),
+      0 12px 46px color-mix(in srgb,var(--e4) 26%,transparent),
+      0 3px 14px color-mix(in srgb,var(--e5) 30%,transparent),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1),box-shadow .3s}
+  @keyframes flow{to{background-position:-320% 0}}
+  a.enter:hover{transform:translateY(-4px) scale(1.03);
+    box-shadow:0 22px 66px color-mix(in srgb,var(--e1) 52%,transparent),
+      0 22px 66px color-mix(in srgb,var(--e4) 38%,transparent),
+      0 6px 22px color-mix(in srgb,var(--e5) 42%,transparent),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25)}
+  a.enter .emj{font-size:29px}
+  a.enter .aro{font-size:24px;transition:transform .3s}
+  a.enter:hover .aro{transform:translateX(6px)}
+  @media (prefers-reduced-motion:reduce){ a.enter{animation:none} }
+  @media(max-width:520px){ a.enter{padding:18px 32px;font-size:21px;gap:11px} a.enter .aro{font-size:19px} }
+  .doorhalo{position:relative;display:inline-block}
+  .doorhalo::before{content:'';position:absolute;inset:-52px -80px;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(46% 58% at 32% 50%,color-mix(in srgb,var(--e1) 26%,transparent),transparent 70%),
+      radial-gradient(46% 58% at 68% 50%,color-mix(in srgb,var(--e4) 22%,transparent),transparent 70%)}
+  .doorhalo .tw{position:absolute;font-size:15px;color:var(--e2);animation:tw 2.8s ease-in-out infinite}
+  .doorhalo .tw.t2{animation-delay:.9s;color:var(--e5)} .doorhalo .tw.t3{animation-delay:1.7s;color:var(--e1)}
+  .doorhalo .tw.t4{animation-delay:2.2s;color:var(--e4)}
+  @keyframes tw{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+  @media (prefers-reduced-motion:reduce){ .doorhalo .tw{animation:none;opacity:.6} }
+</style>
+</head>
+<body>
+<div class="rainbar" aria-hidden="true"></div>
+
+<!-- ============ above the fold: a starry night, a glistening city, five trees ============ -->
+<header class="hero">
+  <div class="stars" id="stars" aria-hidden="true"></div>
+  <div class="cityglow" aria-hidden="true"></div>
+
+  <div class="kicker">in <b>alpha</b> &nbsp;·&nbsp; grove.owocki.com</div>
+  <p class="subline">a visual learning system for civilizational wisdom</p>
+
+  <!-- the city: towers over the grove, every window burning -->
+  <div class="city" aria-hidden="true">
+    <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax meet">
+      <defs>
+        <pattern id="wp" width="15" height="21" patternUnits="userSpaceOnUse">
+          <rect x="4" y="7" width="3.4" height="4.8" fill="#ffd98a" opacity=".38"/>
+        </pattern>
+        <radialGradient id="aur" cx="50%" cy="100%" r="72%">
+          <stop offset="0%" stop-color="rgba(255,186,96,.20)"/>
+          <stop offset="55%" stop-color="rgba(181,53,187,.08)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="600" cy="530" rx="660" ry="330" fill="url(#aur)"/>
+      <g>
+        <g fill="#15152e">
+          <rect x="10" y="330" width="44" height="190"/><rect x="60" y="220" width="36" height="300"/>
+          <rect x="102" y="370" width="50" height="150"/><rect x="158" y="100" width="30" height="420"/>
+          <rect x="194" y="280" width="46" height="240"/><rect x="246" y="50" width="26" height="470"/>
+          <rect x="278" y="340" width="54" height="180"/><rect x="338" y="190" width="34" height="330"/>
+          <rect x="378" y="310" width="48" height="210"/><rect x="432" y="70" width="28" height="450"/>
+          <rect x="466" y="240" width="44" height="280"/><rect x="516" y="40" width="26" height="480"/>
+          <rect x="548" y="300" width="50" height="220"/><rect x="604" y="160" width="32" height="360"/>
+          <rect x="642" y="220" width="26" height="300"/><rect x="674" y="350" width="46" height="170"/>
+          <rect x="726" y="110" width="36" height="410"/><rect x="768" y="50" width="24" height="470"/>
+          <rect x="798" y="280" width="48" height="240"/><rect x="852" y="170" width="30" height="350"/>
+          <rect x="888" y="330" width="44" height="190"/><rect x="938" y="80" width="26" height="440"/>
+          <rect x="970" y="250" width="42" height="270"/><rect x="1018" y="200" width="34" height="320"/>
+          <rect x="1058" y="360" width="50" height="160"/><rect x="1114" y="120" width="28" height="400"/>
+          <rect x="1148" y="290" width="40" height="230"/>
+        </g>
+        <g fill="url(#wp)">
+          <rect x="10" y="330" width="44" height="190"/><rect x="60" y="220" width="36" height="300"/>
+          <rect x="102" y="370" width="50" height="150"/><rect x="158" y="100" width="30" height="420"/>
+          <rect x="194" y="280" width="46" height="240"/><rect x="246" y="50" width="26" height="470"/>
+          <rect x="278" y="340" width="54" height="180"/><rect x="338" y="190" width="34" height="330"/>
+          <rect x="378" y="310" width="48" height="210"/><rect x="432" y="70" width="28" height="450"/>
+          <rect x="466" y="240" width="44" height="280"/><rect x="516" y="40" width="26" height="480"/>
+          <rect x="548" y="300" width="50" height="220"/><rect x="604" y="160" width="32" height="360"/>
+          <rect x="642" y="220" width="26" height="300"/><rect x="674" y="350" width="46" height="170"/>
+          <rect x="726" y="110" width="36" height="410"/><rect x="768" y="50" width="24" height="470"/>
+          <rect x="798" y="280" width="48" height="240"/><rect x="852" y="170" width="30" height="350"/>
+          <rect x="888" y="330" width="44" height="190"/><rect x="938" y="80" width="26" height="440"/>
+          <rect x="970" y="250" width="42" height="270"/><rect x="1018" y="200" width="34" height="320"/>
+          <rect x="1058" y="360" width="50" height="160"/><rect x="1114" y="120" width="28" height="400"/>
+          <rect x="1148" y="290" width="40" height="230"/>
+        </g>
+        <g fill="#ff6d6d">
+          <circle cx="259" cy="44" r="2.2" class="w2"/><circle cx="529" cy="34" r="2.2" class="w1"/>
+          <circle cx="780" cy="44" r="2.2" class="w3"/><circle cx="951" cy="74" r="2.2" class="w2"/>
+        </g>
+        <g class="win">
+          <rect x="166" y="130" width="3.4" height="4.8" class="w1"/><rect x="174" y="210" width="3.4" height="4.8" class="w3"/>
+          <rect x="252" y="90" width="3.4" height="4.8" class="w2"/><rect x="260" y="170" width="3.4" height="4.8" class="w1"/>
+          <rect x="440" y="110" width="3.4" height="4.8" class="w3"/><rect x="448" y="190" width="3.4" height="4.8" class="w2"/>
+          <rect x="522" y="80" width="3.4" height="4.8" class="w1"/><rect x="530" y="150" width="3.4" height="4.8" class="w3"/>
+          <rect x="610" y="200" width="3.4" height="4.8" class="w2"/><rect x="620" y="280" width="3.4" height="4.8" class="w1"/>
+          <rect x="732" y="150" width="3.4" height="4.8" class="w3"/><rect x="742" y="230" width="3.4" height="4.8" class="w2"/>
+          <rect x="774" y="90" width="3.4" height="4.8" class="w1"/><rect x="782" y="180" width="3.4" height="4.8" class="w3"/>
+          <rect x="858" y="210" width="3.4" height="4.8" class="w2"/><rect x="944" y="120" width="3.4" height="4.8" class="w1"/>
+          <rect x="952" y="220" width="3.4" height="4.8" class="w3"/><rect x="1120" y="160" width="3.4" height="4.8" class="w2"/>
+          <rect x="1128" y="250" width="3.4" height="4.8" class="w1"/><rect x="66" y="260" width="3.4" height="4.8" class="w2"/>
+        </g>
+        <g class="win c">
+          <rect x="248" y="130" width="3.4" height="4.8" class="w3"/><rect x="436" y="150" width="3.4" height="4.8" class="w1"/>
+          <rect x="526" y="120" width="3.4" height="4.8" class="w2"/><rect x="736" y="190" width="3.4" height="4.8" class="w1"/>
+          <rect x="946" y="170" width="3.4" height="4.8" class="w2"/><rect x="1116" y="200" width="3.4" height="4.8" class="w3"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <!-- the grove. wind in the canopies; the ground they stand on is the fold itself. -->
+  <div class="treeswrap">
+    <svg viewBox="0 0 900 330" role="img"
+      aria-label="five trees with era-colored canopies sway together at night while a lit city towers behind them; the ground they stand on is the bottom of the screen, and their roots continue below it.">
+      <defs>
+        <radialGradient id="cnp" cx="50%" cy="40%" r="62%">
+          <stop offset="0%" stop-color="#fff" stop-opacity=".24"/>
+          <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <g>
+        <g class="t1" transform="translate(110,26)">
+          <path d="M0 304 C4 252 -8 226 -2 190 M-2 232 C-16 220 -24 210 -27 198" stroke="#8a6a48" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <g class="canopy">
+            <circle cx="-5" cy="150" r="52" fill="#4ecb66" opacity=".82"/>
+            <circle cx="-46" cy="176" r="32" fill="#43b95a" opacity=".75"/>
+            <circle cx="36" cy="172" r="35" fill="#5cd674" opacity=".72"/>
+            <circle cx="-24" cy="128" r="27" fill="#5cd674" opacity=".7"/>
+            <circle cx="20" cy="134" r="24" fill="#43b95a" opacity=".68"/>
+            <circle cx="-2" cy="188" r="30" fill="#3aa851" opacity=".6"/>
+            <circle cx="-5" cy="150" r="52" fill="url(#cnp)"/>
+          </g>
+        </g>
+        <g class="t2" transform="translate(290,8)">
+          <path d="M0 322 C-5 264 7 228 1 184 M1 244 C14 230 22 222 26 208" stroke="#8a6a48" stroke-width="13" fill="none" stroke-linecap="round"/>
+          <g class="canopy">
+            <circle cx="2" cy="138" r="57" fill="#e3b31d" opacity=".82"/>
+            <circle cx="-45" cy="170" r="34" fill="#d1a416" opacity=".75"/>
+            <circle cx="47" cy="166" r="36" fill="#f0c235" opacity=".72"/>
+            <circle cx="-20" cy="112" r="28" fill="#f0c235" opacity=".7"/>
+            <circle cx="26" cy="120" r="25" fill="#d1a416" opacity=".68"/>
+            <circle cx="0" cy="180" r="32" fill="#c39a12" opacity=".6"/>
+            <circle cx="2" cy="138" r="57" fill="url(#cnp)"/>
+          </g>
+        </g>
+        <g class="t3" transform="translate(462,0)">
+          <path d="M0 330 C6 260 -6 224 0 172 M0 240 C-16 226 -26 216 -30 202 M0 214 C13 202 21 194 25 182" stroke="#8a6a48" stroke-width="15" fill="none" stroke-linecap="round"/>
+          <g class="canopy">
+            <circle cx="0" cy="114" r="66" fill="#f07f3c" opacity=".82"/>
+            <circle cx="-55" cy="152" r="38" fill="#dd6f2f" opacity=".75"/>
+            <circle cx="55" cy="148" r="40" fill="#ff9251" opacity=".72"/>
+            <circle cx="-26" cy="84" r="31" fill="#ff9251" opacity=".7"/>
+            <circle cx="30" cy="92" r="28" fill="#dd6f2f" opacity=".68"/>
+            <circle cx="0" cy="162" r="36" fill="#cf6427" opacity=".6"/>
+            <circle cx="0" cy="114" r="66" fill="url(#cnp)"/>
+          </g>
+        </g>
+        <g class="t4" transform="translate(640,12)">
+          <path d="M0 318 C-4 264 8 232 2 188 M2 250 C-12 238 -20 230 -24 216" stroke="#8a6a48" stroke-width="13" fill="none" stroke-linecap="round"/>
+          <g class="canopy">
+            <circle cx="4" cy="144" r="55" fill="#e14fe1" opacity=".82"/>
+            <circle cx="-42" cy="174" r="33" fill="#cd41cd" opacity=".75"/>
+            <circle cx="48" cy="170" r="34" fill="#ef66ef" opacity=".72"/>
+            <circle cx="-18" cy="118" r="27" fill="#ef66ef" opacity=".7"/>
+            <circle cx="28" cy="126" r="24" fill="#cd41cd" opacity=".68"/>
+            <circle cx="2" cy="186" r="31" fill="#b937b9" opacity=".6"/>
+            <circle cx="4" cy="144" r="55" fill="url(#cnp)"/>
+          </g>
+        </g>
+        <g class="t5" transform="translate(800,32)">
+          <path d="M0 298 C4 254 -7 234 -1 196 M-1 244 C12 232 20 224 24 212" stroke="#8a6a48" stroke-width="11" fill="none" stroke-linecap="round"/>
+          <g class="canopy">
+            <circle cx="-3" cy="160" r="48" fill="#42a4ff" opacity=".82"/>
+            <circle cx="-40" cy="184" r="29" fill="#3892e8" opacity=".75"/>
+            <circle cx="34" cy="180" r="30" fill="#5cb3ff" opacity=".72"/>
+            <circle cx="-18" cy="136" r="24" fill="#5cb3ff" opacity=".7"/>
+            <circle cx="22" cy="142" r="22" fill="#3892e8" opacity=".68"/>
+            <circle cx="-3" cy="198" r="27" fill="#2f83d4" opacity=".6"/>
+            <circle cx="-3" cy="160" r="48" fill="url(#cnp)"/>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="meteors" aria-hidden="true">
+    <span style="top:9%;left:74%"></span>
+    <span style="top:16%;left:38%"></span>
+    <span style="top:6%;left:55%"></span>
+  </div>
+</header>
+
+<!-- ============ below the fold: underground. the wood wide web, live. ============ -->
+<div class="under">
+  <canvas id="myc" aria-hidden="true"></canvas>
+  <canvas id="flow" aria-hidden="true"></canvas>
+  <div class="undercore">
+    <div class="wordpool">
+      <h1 class="brand" aria-label="grove">
+        <span class="l1">g</span><span class="l2">r</span><span class="l3">o</span><span class="l4">v</span><span class="l5">e</span>
+      </h1>
+      <div class="expansion">
+        <span class="w1">g</span>rounded ·
+        <span class="w2">r</span>esearch on ·
+        <span class="w3">o</span>ntology ·
+        <span class="w4">v</span>alues ·
+        <span class="w5">e</span>pistemics
+      </div>
+    </div>
+
+    <!-- the three questions grow where the roots do -->
+    <div class="underwhat" id="what" aria-label="the three questions, explained simply">
+      <div class="seclab"><h2><span class="emj">🌱</span>what is this place?</h2></div>
+      <div class="three">
+        <div class="mini m-o">
+          <div class="k">ontology</div>
+          <h3>what exists?</h3>
+          <p>a map of worldviews, and how it fits together — like a picture book of the whole world.</p>
+        </div>
+        <div class="mini m-e">
+          <div class="k">epistemics</div>
+          <h3>what's true?</h3>
+          <p>how we check. you don't just believe a thing — you look, you test, you ask a friend to look too.</p>
+        </div>
+        <div class="mini m-v">
+          <div class="k">values</div>
+          <h3>what matters?</h3>
+          <p>out of everything, what do we care for first — and what do we owe the people who come after us.</p>
+        </div>
+      </div>
+      <p class="also">grounded means feet in the dirt: every idea has to say where it's planted.<br>
+        research means we keep checking.</p>
+    </div>
+
+    <p class="undertag">the trees look like many. down here they are <b>secretly one</b>.</p>
+  </div>
+</div>
+
+<div class="page">
+
+  <section id="alpha" aria-label="alpha warning">
+    <div class="alpha" role="note">
+      <div class="badge"><span class="dot"></span>alpha mode</div>
+      <p><b>everything past this gate is still growing.</b> saplings everywhere, paths unpaved,
+        whole groves replanted between visits.
+        <span class="fine">by entering you agree to nothing except the possibility of ontological breakthrough.</span></p>
+    </div>
+  </section>
+
+  <section id="enter" class="door" aria-label="enter">
+    <canvas id="doorroots" aria-hidden="true"></canvas>
+    <div class="doorin">
+      <div class="doorhalo">
+        <span class="tw" style="top:-26px;left:8%">✦</span>
+        <span class="tw t2" style="top:12px;right:-34px">✦</span>
+        <span class="tw t3" style="bottom:-20px;left:-28px">✦</span>
+        <span class="tw t4" style="top:-18px;right:16%">✦</span>
+        <a class="enter" href="/parts"><span class="emj">🌳</span>enter the grove<span class="aro">→</span></a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const COARSE=matchMedia('(pointer: coarse)').matches;
+const DPR=Math.min(devicePixelRatio||1,2);
+const ERA=['78,203,102','227,179,29','240,127,60','225,79,225','66,164,255'];
+const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of the hero svg
+
+// ---------- the stars ----------
+(function(){
+  const box=document.getElementById('stars');
+  const n=COARSE?36:78;
+  let h='';
+  for(let i=0;i<n;i++){
+    const s=(Math.random()*1.6+.6).toFixed(1);
+    h+='<i class="p'+(1+(i%3))+'" style="left:'+(Math.random()*100).toFixed(2)+'%;top:'+
+      (Math.random()*62).toFixed(2)+'%;width:'+s+'px;height:'+s+'px;opacity:'+(.25+Math.random()*.5).toFixed(2)+'"></i>';
+  }
+  box.innerHTML=h;
+})();
+
+// ---------- the mycelium ----------
+// hyphae grow down from the five trunks, wander, branch, and braid the dark together.
+// each trunk's threads carry a trace of its own canopy color, so the letters below
+// inherit their inks honestly. glow is geometry (fat soft stroke under a thin bright
+// one), never a blur filter. a second canvas on top carries the resources: bright
+// beads that travel the finished paths, trade routes in the dark.
+(function(){
+  const cv=document.getElementById('myc'); if(!cv) return;
+  const ov=document.getElementById('flow');
+  const ctx=cv.getContext('2d'), octx=ov.getContext('2d');
+  const GOLD='227,196,120', MOSS='127,174,114';
+  let W=0,H=0,tips=[],segs=[],paths=[],packets=[],grown=false,raf=0,seen=true;
+
+  function size(){
+    const r=cv.parentElement.getBoundingClientRect();
+    W=Math.round(r.width); H=Math.round(r.height);
+    [cv,ov].forEach(c=>{ c.width=W*DPR; c.height=H*DPR; });
+    ctx.setTransform(DPR,0,0,DPR,0,0); octx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.lineCap='round'; octx.lineCap='round';
+    seed(); if(REDUCE){ while(!grown) step(64); }
+  }
+  function seed(){
+    tips=[]; segs=[]; paths=[]; packets=[]; grown=false;
+    ctx.clearRect(0,0,W,H); octx.clearRect(0,0,W,H);
+    SEEDX.forEach((fx,i)=>{ const n=COARSE?2:3;
+      for(let k=0;k<n;k++) tips.push({x:fx*W+(Math.random()-.5)*30, y:-4,
+        a:(Math.random()-.5)*.7, w:2.1+Math.random()*.7, hue:i, pts:[]}); });
+  }
+  function drawSeg(s){
+    ctx.strokeStyle='rgba('+s.c+',.07)'; ctx.lineWidth=s.w*3.2;
+    ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2); ctx.stroke();
+    ctx.strokeStyle='rgba('+s.c+','+s.al+')'; ctx.lineWidth=s.w;
+    ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2); ctx.stroke();
+  }
+  function retire(t){ if(t.pts.length>7) paths.push({pts:t.pts,hue:t.hue}); }
+  function step(budget){
+    let n=0;
+    for(let i=tips.length-1;i>=0&&n<budget;i--){
+      const t=tips[i]; n++;
+      const x1=t.x,y1=t.y;
+      if(!t.pts.length) t.pts.push([x1,y1]);
+      t.a+=(Math.random()-.5)*.5; t.a=Math.max(-1.15,Math.min(1.15,t.a));
+      const len=4+Math.random()*6;
+      t.x+=Math.sin(t.a)*len; t.y+=Math.cos(t.a)*len;
+      t.pts.push([t.x,t.y]);
+      const depth=Math.max(0,1-(t.y/H)*.75);
+      const roll=Math.random();
+      const s={x1,y1,x2:t.x,y2:t.y,w:t.w,
+        c:roll<.26?ERA[t.hue]:(roll<.5?MOSS:GOLD),
+        al:(.16+t.w*.14)*depth+.04};
+      segs.push(s); drawSeg(s);
+      if(Math.random()<.055 && t.w>.55 && tips.length<(COARSE?90:170))
+        tips.push({x:t.x,y:t.y,a:t.a+(Math.random()<.5?1:-1)*(.5+Math.random()*.6),
+          w:t.w*.72,hue:t.hue,pts:[[t.x,t.y]]});
+      if(Math.random()<.02) t.w*=.9;
+      if(t.w<.32||t.y>H+8||t.x<-30||t.x>W+30){ retire(t); tips.splice(i,1); }
+    }
+    if(!tips.length||segs.length>(COARSE?7000:16000)){
+      tips.forEach(retire); tips=[]; grown=true; }
+  }
+  // ---- the resources ----
+  function spawn(){
+    if(!paths.length) return;
+    const p=paths[(Math.random()*paths.length)|0];
+    packets.push({p,i:0,v:.8+Math.random()*1.6,
+      c:Math.random()<.55?ERA[p.hue]:GOLD});
+  }
+  function moveResources(){
+    octx.clearRect(0,0,W,H);
+    const want=COARSE?6:14;
+    while(packets.length<want && paths.length) spawn();
+    for(let k=packets.length-1;k>=0;k--){
+      const pk=packets[k]; pk.i+=pk.v;
+      const pts=pk.p.pts, idx=pk.i|0;
+      if(idx>=pts.length-1){ packets.splice(k,1); continue; }
+      // the tail: the last few steps, fading out behind the bead
+      octx.lineWidth=1.4;
+      for(let j=Math.max(1,idx-7);j<=idx;j++){
+        const a=.35*(1-(idx-j)/8);
+        octx.strokeStyle='rgba('+pk.c+','+a.toFixed(3)+')';
+        octx.beginPath(); octx.moveTo(pts[j-1][0],pts[j-1][1]); octx.lineTo(pts[j][0],pts[j][1]); octx.stroke();
+      }
+      const [x,y]=pts[idx];
+      octx.fillStyle='rgba('+pk.c+',.14)';
+      octx.beginPath(); octx.arc(x,y,6,0,7); octx.fill();
+      octx.fillStyle='rgba(255,250,230,.9)';
+      octx.beginPath(); octx.arc(x,y,1.8,0,7); octx.fill();
+    }
+  }
+  function frame(){
+    raf=0;
+    if(seen&&!REDUCE){
+      if(!grown) step(COARSE?26:52);
+      moveResources();
+      raf=requestAnimationFrame(frame);
+    }
+  }
+  new IntersectionObserver(es=>{ seen=es[0].isIntersecting;
+    if(seen&&!raf&&!REDUCE) raf=requestAnimationFrame(frame); },{rootMargin:'120px'})
+    .observe(cv);
+  addEventListener('resize',()=>{ clearTimeout(size._t); size._t=setTimeout(size,180); },{passive:true});
+  size(); if(!REDUCE) raf=requestAnimationFrame(frame);
+})();
+
+// ---------- the door roots ----------
+// five strands — one per tree, wearing its ink — reach down and touch the door.
+// resources ride them in, which is the entire economic argument of the page.
+(function(){
+  const cv=document.getElementById('doorroots'); if(!cv) return;
+  const ctx=cv.getContext('2d');
+  let W=0,H=0,strands=[],beads=[],raf=0,seen=true,t0=0;
+
+  function build(){
+    const r=cv.parentElement.getBoundingClientRect();
+    W=Math.round(r.width); H=Math.round(r.height);
+    cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.lineCap='round';
+    const btn=document.querySelector('a.enter').getBoundingClientRect();
+    const tx=btn.left+btn.width/2-r.left, ty=btn.top+btn.height/2-r.top;
+    strands=[];
+    const XF=[.06,.27,.5,.73,.94];
+    XF.forEach((fx,i)=>{
+      for(let k=0;k<3;k++){
+        const x0=fx*W+(Math.random()-.5)*26;
+        // sample a wobbly bezier from the top edge to the button rim
+        const pts=[]; const steps=46;
+        const mx=(x0+tx)/2+(Math.random()-.5)*70, my=H*.34+(Math.random()-.5)*46;
+        const ex=tx+(fx-.5)*btn.width*.86, ey=ty-6+Math.abs(fx-.5)*18;
+        for(let s2=0;s2<=steps;s2++){
+          const u=s2/steps, v=1-u;
+          let x=v*v*x0+2*v*u*mx+u*u*ex, y=v*v*(-8)+2*v*u*my+u*u*ey;
+          x+=Math.sin(u*9+i*2+k*3)*(1-u)*7;
+          pts.push([x,y]);
+        }
+        strands.push({pts,hue:i,w:k?0.9:1.5});
+      }
+    });
+    beads=strands.map((s,j)=>({s,u:Math.random(),v:.0035+Math.random()*.004}));
+    drawBase();
+  }
+  function drawBase(){
+    ctx.clearRect(0,0,W,H);
+    strands.forEach(s=>{
+      const c=ERA[s.hue];
+      ctx.strokeStyle='rgba('+c+',.08)'; ctx.lineWidth=s.w*3.4; trace(s); ctx.stroke();
+      ctx.strokeStyle='rgba('+c+',.42)'; ctx.lineWidth=s.w; trace(s); ctx.stroke();
+    });
+  }
+  function trace(s){ ctx.beginPath(); ctx.moveTo(s.pts[0][0],s.pts[0][1]);
+    for(let i=1;i<s.pts.length;i++) ctx.lineTo(s.pts[i][0],s.pts[i][1]); }
+  function frame(ts){
+    raf=0; if(!seen||REDUCE) return;
+    drawBase();
+    beads.forEach(b=>{
+      b.u+=b.v; if(b.u>=1) b.u=0;
+      const i=Math.min(b.s.pts.length-1,(b.u*b.s.pts.length)|0);
+      const [x,y]=b.s.pts[i], c=ERA[b.s.hue];
+      ctx.fillStyle='rgba('+c+',.16)'; ctx.beginPath(); ctx.arc(x,y,6.5,0,7); ctx.fill();
+      ctx.fillStyle='rgba(255,252,240,.95)'; ctx.beginPath(); ctx.arc(x,y,1.9,0,7); ctx.fill();
+    });
+    raf=requestAnimationFrame(frame);
+  }
+  new IntersectionObserver(es=>{ seen=es[0].isIntersecting;
+    if(seen&&!raf&&!REDUCE) raf=requestAnimationFrame(frame); },{rootMargin:'80px'})
+    .observe(cv);
+  addEventListener('resize',()=>{ clearTimeout(build._t); build._t=setTimeout(build,180); },{passive:true});
+  // fonts shift the button's position after load; rebuild once things settle
+  addEventListener('load',()=>setTimeout(build,60));
+  build(); if(!REDUCE) raf=requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
