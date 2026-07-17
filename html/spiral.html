@@ -2552,6 +2552,92 @@
   #gameswrap .gm-cta .aro{font-size:18px;transition:transform .3s}
   #gameswrap .gm-cta:hover .aro{transform:translateX(5px)}
   @media (prefers-reduced-motion:reduce){ #gameswrap .gm-cta{animation:none} #gmhero .vg{animation:none} }
+  /* ---------- 🗿 how civilizations fail: jared diamond's two ledgers ---------- */
+  /* guns germs and steel deals the hands, collapse watches them get played — told like
+     the metacrisis: one pinned canvas under twelve cards. green is the living forest,
+     gold the harvest, rust the erosion, dun the dust it all becomes. */
+  #collapsewrap{display:none;position:relative;z-index:1;margin:6px auto 0;max-width:920px;
+    padding:0 6px;text-align:left;font-size:16px;line-height:1.72;color:var(--ink);
+    --cl1:#2f9e44;--cl2:#a17a00;--cl3:#b0561f;--cld:#c2334d;--cla:#8a6a48}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) #collapsewrap{--cl1:#4ecb66;--cl2:#e3b31d;--cl3:#f07f3c;--cld:#e8446f;--cla:#a98a68} }
+  :root[data-theme="dark"] #collapsewrap{--cl1:#4ecb66;--cl2:#e3b31d;--cl3:#f07f3c;--cld:#e8446f;--cla:#a98a68}
+  :root[data-mode="collapse"] #collapsewrap{display:block}
+  :root[data-mode="collapse"] #eras{display:none}
+  :root[data-mode="collapse"] #btnhome{display:none}
+  :root[data-mode="collapse"] .pfoot{margin-top:14px}
+  :root[data-mode="collapse"]{--pgrad:linear-gradient(175deg,#d9ecdd 0%,#efe7c8 52%,#eadbc2 100%)}
+  @media (prefers-color-scheme:dark){ :root[data-mode="collapse"]:not([data-theme="light"]){--pgrad:linear-gradient(175deg,#06140a 0%,#151106 52%,#170f07 100%)} }
+  :root[data-mode="collapse"][data-theme="dark"]{--pgrad:linear-gradient(175deg,#06140a 0%,#151106 52%,#170f07 100%)}
+  :root[data-mode="collapse"][data-theme="light"]{--pgrad:linear-gradient(175deg,#d9ecdd 0%,#efe7c8 52%,#eadbc2 100%)}
+  :root[data-mode="collapse"] .poster .sub{background:linear-gradient(90deg,#2f9e44,#a17a00,#b0561f,#8a6a48);-webkit-background-clip:text;background-clip:text}
+  :root[data-mode="collapse"] .heroswirl{display:none}
+  /* the hero art: forest-green and harvest-gold rings thinning out to dust,
+     same spin classes as the metacrisis vortex */
+  #clhero{display:none;position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:.75}
+  :root[data-mode="collapse"] #clhero{display:block}
+  #clhero svg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(120vw,1100px);aspect-ratio:1}
+  #clhero .vg{transform-origin:500px 500px;animation:mcvspin 140s linear infinite}
+  #clhero .vg.v2{animation-duration:90s;animation-direction:reverse}
+  #clhero .vg.v3{animation-duration:200s}
+  /* the pinned stage, spiral-tour style: the island keeps living (and dying) under the cards */
+  #collapsewrap .cl-stage{position:sticky;top:0;height:100vh;margin-bottom:-100vh;z-index:0;
+    pointer-events:none}
+  #collapsewrap .cl-stage canvas{display:block;width:100%;height:100%}
+  #collapsewrap .cl-beats{position:relative;z-index:1}
+  #collapsewrap .cl-beat{min-height:70vh;display:flex;flex-direction:column;justify-content:center;
+    padding:6vh 0;opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+  #collapsewrap .cl-beat.lit{opacity:1;transform:none}
+  #collapsewrap .cl-beat:nth-child(even) .cl-card{margin-left:auto}
+  #collapsewrap .cl-card{max-width:520px;padding:22px 24px 20px;border-radius:16px;
+    border:1px solid var(--line);
+    background:color-mix(in srgb,var(--bg) 84%,transparent)}
+  @media (prefers-reduced-motion:reduce){
+    #collapsewrap .cl-stage{display:none}
+    #collapsewrap .cl-beat{opacity:1;transform:none;transition:none;min-height:0;padding:26px 0} }
+  @media(max-width:720px){ #collapsewrap .cl-beat:nth-child(even) .cl-card{margin-left:0} }
+  #collapsewrap .cl-k{display:block;font:700 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--bc,var(--cl1))}
+  #collapsewrap h3{margin:10px 0 10px;font:600 clamp(22px,3.8vw,30px)/1.18 var(--serif);color:var(--ink)}
+  #collapsewrap p{margin:0 0 10px;color:var(--muted);font-size:15px;line-height:1.68}
+  #collapsewrap p:last-child{margin-bottom:0}
+  #collapsewrap p b{color:var(--ink);font-weight:650}
+  #collapsewrap p a{color:inherit}
+  #collapsewrap .cl-cite{font:italic 400 12.5px/1.6 var(--serif);color:var(--muted)}
+  #collapsewrap .cl-cite a{color:inherit}
+  #collapsewrap .cl-note{font:italic 400 12.5px/1.6 var(--serif);color:var(--muted);margin-top:8px}
+  /* the five factors, worn as chips */
+  #collapsewrap .cl-chips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 2px}
+  #collapsewrap .cl-chips span{display:inline-flex;align-items:center;gap:6px;
+    padding:6px 12px;border-radius:999px;
+    font:600 11.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--muted);border:1px solid var(--line);
+    background:color-mix(in srgb,var(--panel) 70%,transparent)}
+  #collapsewrap .cl-chips span.fifth{color:var(--ink);
+    border-color:color-mix(in srgb,var(--cl2) 65%,transparent);
+    background:color-mix(in srgb,var(--cl2) 14%,transparent)}
+  #collapsewrap .cl-drs{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  #collapsewrap .cl-drs a{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;
+    text-decoration:none;font:600 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);border:1px solid color-mix(in srgb,var(--cl1) 45%,transparent);
+    background:color-mix(in srgb,var(--cl1) 10%,transparent);
+    transition:transform .2s,background .2s,box-shadow .2s}
+  #collapsewrap .cl-drs a:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--cl1) 20%,transparent);
+    box-shadow:0 8px 22px color-mix(in srgb,var(--cl1) 25%,transparent)}
+  /* the call to action: the two books themselves — the postcard points home */
+  #collapsewrap .cl-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  #collapsewrap .cl-cta{display:inline-flex;align-items:center;gap:11px;
+    padding:17px 32px;border-radius:999px;text-decoration:none;
+    font:640 18px/1 var(--serif);color:#0b1508;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:mcflow 5s linear infinite;
+    box-shadow:0 10px 38px rgba(78,203,102,.28),0 10px 38px rgba(225,79,225,.2),
+      inset 0 2px 6px rgba(255,255,255,.3), inset 0 -3px 9px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1)}
+  #collapsewrap .cl-cta:hover{transform:translateY(-3px) scale(1.02)}
+  #collapsewrap .cl-cta .aro{font-size:17px;transition:transform .3s}
+  #collapsewrap .cl-cta:hover .aro{transform:translateX(5px)}
+  @media (prefers-reduced-motion:reduce){ #collapsewrap .cl-cta{animation:none} #clhero .vg{animation:none} }
   /* ---------- 🗼 babel: the war on sensemaking ---------- */
   /* the culture war told like the metacrisis: one pinned canvas where a single shared
      light is scissored into two suns, a furnace gets paid per clash, and the fog rolls in.
@@ -3283,6 +3369,7 @@
     <div id="skillswrap"></div>
     <div id="metawrap"></div>
     <div id="gameswrap"></div>
+    <div id="collapsewrap"></div>
     <div id="babelwrap"></div>
     <div id="critiquewrap"></div>
     <div id="superwrap"></div>
@@ -3349,6 +3436,7 @@
         <button class="tab t-babel" role="tab" data-mode="babel"><span class="em">🗼</span>babel<span class="tq">the war on sensemaking</span></button>
         <button class="tab t-bargain" role="tab" data-mode="bargain"><span class="em">🍎</span>the bargain<span class="tq">what we lose with progress</span></button>
         <button class="tab t-super" role="tab" data-mode="superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></button>
+        <button class="tab t-collapse" role="tab" data-mode="collapse"><span class="em">🗿</span>how civilizations fail<span class="tq">societies choose</span></button>
         <button class="tab t-lineage" role="tab" data-mode="lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></button>
       </div>
     </div>
@@ -11946,6 +12034,14 @@ const MODES={
   quote:{q:'the foundation of cooperation is not really trust, but the durability of the relationship.',by:'robert axelrod · the evolution of cooperation'},
   lede:'',
   foot:''},
+ collapse:{col:true,stats:{},eras:[],fav:'🗿',
+  arc:[{c:'#14532d'},{c:'#2f9e44'},{c:'#e3b31d'},{c:'#8a6a48'}],
+  h1:'HOW&nbsp;CIVILIZATIONS&nbsp;FAIL',
+  sub:'SOCIETIES CHOOSE TO FAIL OR SUCCEED',
+  title:'how civilizations fail · societies choose',
+  quote:{q:'the values to which people cling most stubbornly under inappropriate conditions are those values that were previously the source of their greatest triumphs over adversity.',by:'jared diamond · collapse'},
+  lede:'',
+  foot:''},
  babel:{bb:true,stats:{},eras:[],fav:'🗼',
   arc:[{c:'#1c7ed6'},{c:'#7d93b8'},{c:'#b535bb'},{c:'#c2334d'}],
   h1:'BABEL',
@@ -12831,7 +12927,7 @@ function renderLineage(){
 // on http(s) the power + live tabs live at crawlable /power and /live urls (power.html / live.html carry their unfurl metadata);
 // on file:// there are no clean urls, so everything is hash-only
 const HTTPISH=/^https?:$/.test(location.protocol);
-const BASEPATH=HTTPISH?location.pathname.replace(/(index|spiral|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|games|critique|superorganism|lineage|bargain|metacrisis|babel|crises|skills|about)(\.html)?$/,''):'';
+const BASEPATH=HTTPISH?location.pathname.replace(/(index|spiral|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|games|critique|superorganism|collapse|lineage|bargain|metacrisis|babel|crises|skills|about)(\.html)?$/,''):'';
 // the spiral is the front door: it lives at the bare root. every lineage has a crawlable stub.
 function setURL(mode,slug){
   if(HTTPISH) history.replaceState(null,'',(mode==='spiral'?BASEPATH+'spiral'+location.search:BASEPATH+mode)+(slug?'#'+slug:''));
@@ -13489,6 +13585,322 @@ function renderGames(){
   }
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches && !gmRAF)
     gmRAF=requestAnimationFrame(gmFrame);
+}
+// ---------- 🗿 how civilizations fail: diamond's two ledgers — scroll-driven ----------
+// the pinned stage plays the argument without words: the map that dealt the hands
+// (axes and herds), the five-factor audit, easter island trading its forest for
+// statues one tree at a time, and — at the bottom — one island answering the same
+// question two different ways.
+let clRAF=0;
+function clFrame(ts){
+  clRAF=0;
+  if(MODE!=='collapse') return;
+  const cv=document.getElementById('clcv'), beats=document.getElementById('clbeats');
+  if(!cv||!beats){ return; }
+  const dpr=Math.min(devicePixelRatio||1,2);
+  const W=cv.clientWidth, H=cv.clientHeight;
+  if(cv.width!==W*dpr||cv.height!==H*dpr){ cv.width=W*dpr; cv.height=H*dpr; }
+  const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,W,H);
+  const r=beats.getBoundingClientRect();
+  const t=Math.max(0,Math.min(1,-r.top/Math.max(1,r.height-innerHeight)));
+  const dark=(document.documentElement.getAttribute('data-theme')||'')!=='light' &&
+    !(document.documentElement.getAttribute('data-theme')==='' && matchMedia('(prefers-color-scheme:light)').matches);
+  const P=dark?{green:'78,203,102',gold:'227,179,29',rust:'240,127,60',dust:'169,138,104',
+      ink:'240,233,252',red:'232,68,111'}
+    :{green:'47,158,68',gold:'161,122,0',rust:'176,86,31',dust:'138,106,72',
+      ink:'29,22,41',red:'194,51,77'};
+  const mono='ui-monospace,Menlo,monospace';
+  // a little tree: trunk stroke + crown disc, scaled by s, faded by a
+  const tree=(tx,ty,s,a,cr)=>{ if(a<=0)return;
+    x.strokeStyle='rgba('+P.dust+','+(.8*a).toFixed(3)+')'; x.lineWidth=Math.max(1.2,2*s);
+    x.beginPath(); x.moveTo(tx,ty); x.lineTo(tx,ty-13*s); x.stroke();
+    x.fillStyle='rgba('+(cr||P.green)+','+(.75*a).toFixed(3)+')';
+    x.beginPath(); x.arc(tx,ty-16*s,6.5*s,0,7); x.fill(); };
+  // ---- act one: the lottery — two axes, one loaded herd ----
+  const aA=mcEase(mcRamp(t,-.06,.02))*(1-mcEase(mcRamp(t,.28,.34)));
+  if(aA>.01){
+    x.globalAlpha=aA; x.textAlign='center';
+    // eurasia: one wide band, one climate — the glyphs just walk across
+    const bw=W*.6, bx=W*.5-bw/2, by=H*.115, bh=H*.075;
+    x.fillStyle='rgba('+P.green+',.10)'; x.strokeStyle='rgba('+P.green+',.55)'; x.lineWidth=1.6;
+    x.beginPath(); x.roundRect?x.roundRect(bx,by,bw,bh,bh/2):x.rect(bx,by,bw,bh); x.fill(); x.stroke();
+    const roll=(ts/26)%bw;
+    ['🌾','🐂','✍️'].forEach((g,i)=>{ const gx=bx+((roll+i*bw/3)%bw);
+      if(gx>bx+14&&gx<bx+bw-14){ x.font='15px sans-serif'; x.fillText(g,gx,by+bh*.68); }});
+    x.fillStyle='rgba('+P.ink+',.62)'; x.font='600 9.5px '+mono;
+    x.fillText('EAST–WEST · ONE CLIMATE, FIVE THOUSAND MILES',W*.5,by-9);
+    // the herd lottery: fourteen big beasts, thirteen on one side of the table
+    const dots=14, dw=13, dx0=W*.5-(dots*dw)/2+dw/2, dy=by+bh+22;
+    for(let i=0;i<dots;i++){ x.fillStyle=i<13?'rgba('+P.green+',.8)':'rgba('+P.dust+',.55)';
+      x.beginPath(); x.arc(dx0+i*dw,dy,3.2,0,7); x.fill(); }
+    x.fillStyle='rgba('+P.ink+',.55)'; x.font='600 9px '+mono;
+    x.fillText('THE BIG DOMESTICABLE MAMMALS · 13 EURASIA, 1 ELSEWHERE',W*.5,dy+16);
+    // the americas: a tall band crossed by climate walls — the glyphs stall
+    const vw=H*.30, vx=W*.12, vy0=H*.60;
+    x.fillStyle='rgba('+P.rust+',.08)'; x.strokeStyle='rgba('+P.rust+',.5)'; x.lineWidth=1.6;
+    x.beginPath(); x.roundRect?x.roundRect(vx-H*.032,vy0,H*.064,vw,H*.032):x.rect(vx-H*.032,vy0,H*.064,vw); x.fill(); x.stroke();
+    x.strokeStyle='rgba('+P.red+',.5)'; x.setLineDash([3,5]); x.lineWidth=1.3;
+    [.3,.55,.8].forEach(f=>{ const wy=vy0+vw*f;
+      x.beginPath(); x.moveTo(vx-H*.05,wy); x.lineTo(vx+H*.05,wy); x.stroke(); });
+    x.setLineDash([]);
+    x.font='13px sans-serif'; x.fillText('🌽',vx,vy0+vw*.18);
+    x.fillStyle='rgba('+P.ink+',.55)'; x.font='600 9px '+mono;
+    x.fillText('NORTH–SOUTH',vx,vy0-20); x.fillText('CLIMATE WALLS',vx,vy0-9);
+    x.globalAlpha=1;
+  }
+  // ---- act two: the five-factor ledger — four spokes in, one answer out ----
+  const aB=mcEase(mcRamp(t,.30,.36))*(1-mcEase(mcRamp(t,.50,.56)));
+  if(aB>.01){
+    x.globalAlpha=aB; x.textAlign='center';
+    const hx=W*.5, hy=H*.24, R=Math.min(W*.34,H*.16);
+    // four red spokes arriving from outside, one gold spoke leaving from within
+    const ang=[-.86*Math.PI,-.14*Math.PI,Math.PI*.95,Math.PI*.05];
+    const lab=['ENV DAMAGE','CLIMATE','HOSTILE NEIGHBORS','TRADE LOST'];
+    ang.forEach((a2,i)=>{ const ex=hx+Math.cos(a2)*R*1.15, ey=hy+Math.sin(a2)*R*.9;
+      x.strokeStyle='rgba('+P.red+',.5)'; x.lineWidth=1.5;
+      x.beginPath(); x.moveTo(ex,ey); x.lineTo(hx,hy); x.stroke();
+      const pd=(ts/1300+i*.25)%1;
+      x.fillStyle='rgba('+P.red+',.85)';
+      x.beginPath(); x.arc(ex+(hx-ex)*pd,ey+(hy-ey)*pd,3,0,7); x.fill();
+      x.fillStyle='rgba('+P.ink+',.6)'; x.font='600 9px '+mono;
+      x.fillText(lab[i],ex,ey+(ey<hy?-8:16)); });
+    const gy=hy+R*1.05, gp=.5+.5*Math.sin(ts/500);
+    x.strokeStyle='rgba('+P.gold+','+(.5+.4*gp).toFixed(2)+')'; x.lineWidth=2.2;
+    x.beginPath(); x.moveTo(hx,hy); x.lineTo(hx,gy); x.stroke();
+    x.fillStyle='rgba('+P.gold+',.95)'; x.font='600 10px '+mono;
+    x.fillText('THE RESPONSE',hx,gy+14);
+    x.font='22px sans-serif'; x.fillText('🏛️',hx,hy+8);
+    x.fillStyle='rgba('+P.ink+',.72)'; x.font='700 11px '+mono;
+    x.fillText('THE FIVE-FACTOR LEDGER',W*.5,H*.075);
+    x.fillStyle='rgba('+P.ink+',.5)'; x.font='italic 10px Georgia,serif';
+    x.fillText('four arrive from outside. the fifth is chosen.',W*.5,H*.075+15);
+    x.globalAlpha=1;
+  }
+  // ---- act three: easter island — the forest becomes the statues ----
+  const aC=mcEase(mcRamp(t,.50,.56))*(1-mcEase(mcRamp(t,.82,.88)));
+  if(aC>.01){
+    const cc=mcEase(mcRamp(t,.56,.80));               // how far the trade has gone
+    x.globalAlpha=aC; x.textAlign='center';
+    const iy=H*.93, iw=W*.62, ix=W*.5;
+    // the island: green while it lives, dust when it doesn't
+    const lg='rgba('+P.green+','+(.16*(1-cc)).toFixed(3)+')', ld='rgba('+P.dust+','+(.20*cc+.06).toFixed(3)+')';
+    x.beginPath(); x.ellipse(ix,iy,iw/2,H*.075,0,Math.PI,0);
+    x.fillStyle=ld; x.fill(); x.fillStyle=lg; x.fill();
+    x.strokeStyle='rgba('+P.dust+',.5)'; x.lineWidth=1.4; x.stroke();
+    // twelve palms, felled one by one; the next to go blinks first
+    const NT=12, gone=Math.min(NT,Math.floor(cc*(NT+1)));
+    for(let i=0;i<NT;i++){
+      const fx=ix-iw*.42+iw*.84*(i/(NT-1))+Math.sin(i*37.3)*8;
+      const fy=iy-H*.055-Math.abs(Math.sin(i*11.7))*H*.02;
+      if(i<gone) continue;
+      const nxt=(i===gone)&&cc>0?(.45+.55*Math.abs(Math.sin(ts/220))):1;
+      tree(fx,fy,1,aC*nxt);
+    }
+    // the statues: fewer trees, more moai — and each bigger than the last
+    const NM=6, up=Math.min(NM,Math.floor(cc*NM+.001));
+    for(let j=0;j<up;j++){
+      const mx2=ix-iw*.3+iw*.6*(j/(NM-1));
+      x.font=(15+j*4)+'px sans-serif';
+      x.fillText('🗿',mx2,iy-H*.075-j*1.5);
+    }
+    const left=NT-gone;
+    x.fillStyle='rgba('+P.ink+',.72)'; x.font='700 11px '+mono;
+    x.fillText('TREES '+left+' · STATUES '+up,W*.5,H*.075);
+    if(left===1){ x.fillStyle='rgba('+P.gold+',.9)'; x.font='italic 12px Georgia,serif';
+      x.fillText('the last tree',W*.5,H*.075+16); }
+    if(left===0){ x.fillStyle='rgba('+P.red+',.85)'; x.font='600 10px '+mono;
+      x.fillText('NO TREES · NO CANOES · NO FISH · NO ESCAPE',W*.5,H*.075+16); }
+    x.globalAlpha=1;
+  }
+  // ---- act four: hispaniola — same island, two answers ----
+  const aD=mcEase(mcRamp(t,.82,.88));
+  if(aD>.01){
+    const dd=mcEase(mcRamp(t,.86,.98));
+    x.globalAlpha=aD; x.textAlign='center';
+    const iy=H*.93, iw=W*.66, ix=W*.5;
+    x.save();
+    x.beginPath(); x.ellipse(ix,iy,iw/2,H*.08,0,Math.PI,0); x.closePath(); x.clip();
+    x.fillStyle='rgba('+P.dust+',.26)'; x.fillRect(ix-iw/2,iy-H*.09,iw/2,H*.1);
+    x.fillStyle='rgba('+P.green+','+(.10+.16*dd).toFixed(3)+')'; x.fillRect(ix,iy-H*.09,iw/2,H*.1);
+    x.restore();
+    x.strokeStyle='rgba('+P.dust+',.55)'; x.lineWidth=1.4;
+    x.beginPath(); x.ellipse(ix,iy,iw/2,H*.08,0,Math.PI,0); x.stroke();
+    x.strokeStyle='rgba('+P.ink+',.6)'; x.setLineDash([4,5]); x.lineWidth=1.5;
+    x.beginPath(); x.moveTo(ix,iy-H*.085); x.lineTo(ix,iy); x.stroke(); x.setLineDash([]);
+    // the bare side keeps its stumps; the green side grows its answer back
+    for(let i=0;i<5;i++){ const sx2=ix-iw*.42+iw*.36*(i/4)+Math.sin(i*19.1)*6;
+      x.strokeStyle='rgba('+P.dust+',.6)'; x.lineWidth=1.6;
+      x.beginPath(); x.moveTo(sx2,iy-H*.05); x.lineTo(sx2,iy-H*.05-4); x.stroke(); }
+    for(let i=0;i<7;i++){ const gx2=ix+iw*.06+iw*.36*(i/6)+Math.sin(i*23.7)*5;
+      const gs=Math.max(0,Math.min(1,dd*2.2-i*.14));
+      tree(gx2,iy-H*.05-Math.abs(Math.sin(i*7.3))*H*.015,.55+.45*gs,aD*gs); }
+    // seeds rising on the side that chose to
+    for(let k2=0;k2<4;k2++){ const rise=((ts/2400)+k2*.25)%1;
+      x.fillStyle='rgba('+P.green+','+(.7*(1-rise)*dd).toFixed(3)+')';
+      x.beginPath(); x.arc(ix+iw*.12+k2*iw*.08,iy-H*.09-rise*H*.09,2,0,7); x.fill(); }
+    x.fillStyle='rgba('+P.ink+',.72)'; x.font='700 11px '+mono;
+    x.fillText('SAME ISLAND · TWO ANSWERS',W*.5,H*.075);
+    x.fillStyle='rgba('+P.ink+',.5)'; x.font='italic 10px Georgia,serif';
+    x.fillText('the border is visible from space',W*.5,H*.075+15);
+    x.globalAlpha=1;
+  }
+  clRAF=requestAnimationFrame(clFrame);
+}
+function renderCollapse(){
+  const wrap=document.getElementById('collapsewrap');
+  if(!wrap.firstChild){
+    // the hero art: forest rings thinning to dust — the same orbit the statues watched
+    if(!document.getElementById('clhero')){
+      const hd=document.querySelector('.poster>header');
+      const rings=[[70,'#2f9e44',.55,'3 14'],[120,'#e3b31d',.42,'2 18'],[180,'#b0561f',.34,'4 22'],
+        [250,'#2f9e44',.28,'2 26'],[330,'#8a6a48',.22,'3 34'],[420,'#14532d',.30,'5 40']];
+      let rg='';
+      rings.forEach((r,i)=>{ rg+='<g class="vg v'+((i%3)+1)+'"><circle cx="500" cy="500" r="'+r[0]+
+        '" fill="none" stroke="'+r[1]+'" stroke-opacity="'+r[2]+'" stroke-width="2.5" stroke-dasharray="'+r[3]+'"/></g>'; });
+      let fil='';
+      for(let i=0;i<16;i++){ const a=i/16*Math.PI*2;
+        fil+='<line x1="'+(500+Math.cos(a)*80).toFixed(0)+'" y1="'+(500+Math.sin(a)*80).toFixed(0)+
+          '" x2="'+(500+Math.cos(a)*560).toFixed(0)+'" y2="'+(500+Math.sin(a)*560).toFixed(0)+
+          '" stroke="#2f9e44" stroke-opacity=".09" stroke-width="1.5"/>'; }
+      hd.insertAdjacentHTML('beforeend',
+        '<div id="clhero" aria-hidden="true"><svg viewBox="0 0 1000 1000">'+
+        '<circle cx="500" cy="500" r="64" fill="none" stroke="#e3b31d" stroke-opacity=".35" stroke-width="1.5"/>'+
+        fil+rg+'</svg></div>');
+    }
+    wrap.innerHTML=`
+<div class="cl-stage" aria-hidden="true"><canvas id="clcv"></canvas></div>
+<div class="cl-beats" id="clbeats">
+<div class="cl-beat" style="--bc:var(--cl1)"><div class="cl-card">
+  <span class="cl-k">01 · yali's question</span>
+  <h3>"why do you have so much cargo, and we so little?"</h3>
+  <p>new guinea, 1972: a politician named yali asked jared diamond the question that
+    took twenty-five years to answer. the answer became an entire book — and it has
+    nothing to do with the people, and everything to do with
+    <b>the map they were standing on</b>.</p>
+  <p class="cl-cite">jared diamond · guns, germs, and steel (1997)</p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cl1)"><div class="cl-card">
+  <span class="cl-k">02 · the lottery</span>
+  <h3>geography dealt the hands</h3>
+  <p>eurasia runs <b>east–west</b>: crops, herds, and ideas could travel five thousand
+    miles without ever leaving their climate. the americas and africa run
+    <b>north–south</b>, through walls of desert and jungle. and of the world's fourteen
+    big domesticable mammals, <b>thirteen lived in eurasia</b>. nobody chose any of this.</p>
+  <p class="cl-note">the anna karenina principle: every domesticable animal is alike;
+    every wild one is wild in its own way.</p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cl2)"><div class="cl-card">
+  <span class="cl-k">03 · the cascade</span>
+  <h3>guns, germs, and steel</h3>
+  <p>surplus food frees hands: kings, scribes, smiths, standing armies. living packed
+    beside herds breeds epidemics — and then <b>immunity, a weapon nobody aimed</b>.
+    when the hemispheres finally met, the germs arrived ahead of the guns and did most
+    of the killing.</p>
+  <p><b>those are the proximate causes. the ultimate cause stayed the map.</b></p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cl3)"><div class="cl-card">
+  <span class="cl-k">04 · the turn</span>
+  <h3>but a good hand saves no one</h3>
+  <p>that's the first ledger: why some societies got more. diamond's second book asks
+    the darker question — <b>why societies with plenty still die</b>. and there the
+    answer stops being geography, and starts being <b>choice</b>.</p>
+  <p class="cl-cite">jared diamond · collapse: how societies choose to fail or succeed (2005)</p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cl2)"><div class="cl-card">
+  <span class="cl-k">05 · the audit</span>
+  <h3>the five-factor ledger</h3>
+  <p>diamond audits every fallen society against the same five entries:</p>
+  <div class="cl-chips">
+    <span>🌲 environmental damage</span>
+    <span>🌡️ climate change</span>
+    <span>⚔️ hostile neighbors</span>
+    <span>🚢 lost trading partners</span>
+    <span class="fifth">🪞 the society's response</span>
+  </div>
+  <p>the first four vary case by case, and none is always fatal.
+    <b>the fifth is always decisive</b> — it is the only entry a society fully owns.</p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cl3)"><div class="cl-card">
+  <span class="cl-k">06 · easter island</span>
+  <h3>the statues grew as the forest shrank</h3>
+  <p>rival chiefs answered each other statue for statue — <a href="#trap">an arms
+    race</a> carved in stone, and the biggest moai went up after the crisis was already
+    visible. no palms meant <b>no canoes, no deep-sea fish, no escape</b>. an island is
+    the planet in miniature: there was nowhere to sail to.</p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cl2)"><div class="cl-card">
+  <span class="cl-k">07 · the last tree</span>
+  <h3>what did the person who cut it down say?</h3>
+  <p>diamond's most famous question — and the likely answer is <b>nothing</b>. nobody
+    sees a forest die; they see one tree fall in a landscape that already looked like
+    this yesterday. he calls it <b>creeping normalcy</b>, landscape amnesia: catastrophe
+    arriving in increments too small to fight.</p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cld)"><div class="cl-card">
+  <span class="cl-k">08 · the norse mirror</span>
+  <h3>they starved beside fjords full of fish</h3>
+  <p>the greenland norse died with the bones of their last calves in their hearths —
+    because fish was not what proud european christians ate. their identity was the one
+    thing they would not put down. <b>the values that build a society are the ones it
+    clings to while they kill it.</b></p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cld)"><div class="cl-card">
+  <span class="cl-k">09 · the insulated</span>
+  <h3>the chiefs starve last, so they learn last</h3>
+  <p>on every fallen island the elite could buy distance from the damage — the best
+    land, the deepest wells, the tallest statues, right up to the end.
+    <b>short-term gain for a few, long-term ruin for all</b>:
+    <a href="#trap">the trap</a>, wearing a headdress. see also
+    <a href="#power">who decides</a>.</p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cl1)"><div class="cl-card">
+  <span class="cl-k">10 · the ones who turned</span>
+  <h3>collapse is not physics</h3>
+  <p>tikopia <b>ate its pigs</b> — every one, because pigs ate the island's future.
+    tokugawa japan grew its forests back tree by tree. iceland learned its thin soil
+    the hard way, and changed. same first four factors — <b>a different fifth</b>.</p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cl1)"><div class="cl-card">
+  <span class="cl-k">11 · one island, two fates</span>
+  <h3>the border you can see from space</h3>
+  <p>hispaniola: haiti on one side, the dominican republic on the other. one island,
+    one climate, one hurricane season — <b>two histories of response</b>, and the
+    treeline snaps exactly at the border. the fifth factor, photographed from orbit.</p>
+</div></div>
+<div class="cl-beat" style="--bc:var(--cl2)"><div class="cl-card">
+  <span class="cl-k">12 · societies choose</span>
+  <h3>the five factors are already visiting</h3>
+  <p>environmental damage, climate change, hostile rivals, fragile trade — the ledger
+    reads uncomfortably current (<a href="#metacrisis">the metacrisis</a> is this page
+    at planetary scale, and <a href="#superorganism">the superorganism</a> is who's
+    holding the axe). the fifth factor is being written now, by everyone at once.</p>
+  <div class="cl-drs">
+    <a href="#superorganism">🦠 the superorganism</a>
+    <a href="#metacrisis">🕸️ the metacrisis</a>
+    <a href="#ratchet">🪜 the ratchet</a>
+    <a href="#trap">🕳️ the trap</a>
+  </div>
+  <p class="cl-note" style="margin-top:16px">this page is a postcard of two thick,
+    careful books — the depth is diamond's, and none of it is affiliated with him.
+    read the real thing:</p>
+  <div class="cl-ctas">
+    <a class="cl-cta" href="https://bookshop.org/search?keywords=guns%20germs%20and%20steel%20jared%20diamond" target="_blank" rel="noopener">📗 buy guns, germs & steel<span class="aro">↗</span></a>
+    <a class="cl-cta" href="https://bookshop.org/search?keywords=collapse%20jared%20diamond" target="_blank" rel="noopener">📕 buy collapse<span class="aro">↗</span></a>
+  </div>
+</div></div>
+</div>`;
+    const bs=wrap.querySelectorAll('.cl-beat');
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){
+      bs.forEach(b=>b.classList.add('lit'));
+    } else {
+      const io=new IntersectionObserver(es=>es.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('lit'); io.unobserve(e.target); }
+      }),{threshold:.25});
+      bs.forEach(b=>io.observe(b));
+    }
+  }
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches && !clRAF)
+    clRAF=requestAnimationFrame(clFrame);
 }
 // ---------- 🗼 babel: one shared light, shattered — scroll-driven ----------
 // the pinned stage tells the argument without words: the hearth everyone reads by,
@@ -14954,6 +15366,9 @@ function setMode(mode,user){
   } else if(M.gm){
     giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises();
     renderGames();
+  } else if(M.col){
+    giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
+    renderCollapse();
   } else if(M.bb){
     giveBack(); clearPoster(); clearSpiral(); clearSyn(); clearRatchet(); clearTurn(); clearAssembly(); clearTrap(); clearCrit(); clearSuper(); clearLineage(); clearBargain(); clearAbout(); clearSkills(); clearCrises(); clearGames();
     renderBabel();
@@ -15000,7 +15415,7 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
 function parseHash(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(!h) return {mode:'spiral',slug:null};
-  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|games|critique|superorganism|lineage|bargain|metacrisis|babel|crises|skills|about)(?:\/(.*))?$/);
+  const mm=h.match(/^(spiral|alloc|power|live|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|games|critique|superorganism|collapse|lineage|bargain|metacrisis|babel|crises|skills|about)(?:\/(.*))?$/);
   if(mm) return {mode:mm[1],slug:mm[2]||null};
   if(h==='next') return {mode:'truth',slug:null};
   for(const k of ['alloc','power','live','truth','identity','trust','record','conflict','math','ethics','energy','care','land','time','ontology']) if(SLUGS[k].has(h)) return {mode:k,slug:h};

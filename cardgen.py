@@ -69,6 +69,7 @@ CARDS = [
   ("og-critique","🪞","the critique","the other side of the ledger","what the gains cost.","/critique"),
   ("og-superorganism","🦠","the superorganism","what's actually in charge","gdp is the mask, energy is the face.","/superorganism"),
   ("og-lineage","🔥","the lineage","one idea, carried hand to hand for a century","the torch is burning now.","/lineage"),
+  ("og-collapse","🗿","how civilizations fail","jared diamond's ledger — societies choose to fail or succeed","what did the one who cut the last tree say?","/collapse"),
   ("og-babel", "🗼","babel","the war on sensemaking — the culture war, x-rayed","why we can't figure anything out anymore.","/babel"),
   ("og-bargain","🍎","the bargain","what we lose with progress — four names for the deal",DEFAULT_TAG,"/bargain"),
   ("og-crises","🌪️","the crises","twenty-four crises, three families, one census","you're not crazy.","/crises"),
