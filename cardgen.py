@@ -76,6 +76,7 @@ CARDS = [
   ("og-skills","🧗","the skills","the inner game of the ai transition","dharma is the capstone.","/skills"),
   ("og-inquiry","🪷","the inquiry","six doors into what is yours to do","the dharma inquiry, quoted whole. bring paper.","/inquiry"),
   ("og-sensemaking","🔦","sensemaking","how to see clearly when the fog is manufactured","signal from noise, before you act.","/sensemaking"),
+  ("og-islands","🏝️","islands of coherence","communities that already solved it — protocols, not stories","somewhere, a town figured it out.","/islands"),
   ("og-alloc", "✨","who gets what","resource allocation — the original poster",DEFAULT_TAG,"/alloc"),
   ("og-power", "👑","who decides","power structures, chiefdom to forkable state",DEFAULT_TAG,"/power"),
   ("og-live",  "🌾","how you eat","livelihood, the hunt to universal basic income",DEFAULT_TAG,"/live"),

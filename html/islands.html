@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-882JMLBJG9');
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏝️</text></svg>">
+<title>islands of coherence · communities that already solved it</title>
+<link rel="canonical" href="https://dharma.gift/islands">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dharma.gift/islands">
+<meta property="og:title" content="islands of coherence — communities that already solved it">
+<meta property="og:description" content="for every problem that is local but exists everywhere, some community already solved it — ~95% rehabilitation since 1971, two problems fixed with one program. documented as protocols your town could run.">
+<meta property="og:image" content="https://dharma.gift/og-islands.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="islands of coherence — communities that already solved it">
+<meta name="twitter:description" content="somewhere, a community already solved it. protocols, not stories.">
+<meta name="twitter:image" content="https://dharma.gift/og-islands.png?v=1">
+<meta name="description" content="small islands of coherence in a sea of chaos: real programs that actually worked — delancey street's ~95% rehabilitation, brasília's two-problems-one-program — documented as protocols a group of neighbors could run.">
+<style>
+  :root{
+    --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
+    --ink:#eaf2ec; --muted:#96a89b; --dim:#6b7d70;
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);
+    font:15.5px/1.66 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+    /* the sea of chaos: deep water, a warm shallows where each island stands */
+    background:
+      radial-gradient(700px 340px at 50% 150px, rgba(227,179,29,.05), transparent 70%),
+      linear-gradient(180deg,#05131a 0%,#06181c 34%,#082019 72%,#0a2418 100%);
+    min-height:100svh}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
+  .rainbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:95;
+    background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5))}
+  a{color:inherit}
+
+  /* two slow swells, breathing across the water — geometry only, no filters */
+  .aur{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+  .aur.a1{left:-18%;top:22%;width:70vw;height:46vh;
+    background:radial-gradient(closest-side, rgba(78,203,102,.07), transparent 70%);
+    animation:swell 17s ease-in-out infinite}
+  .aur.a2{right:-22%;top:56%;width:76vw;height:52vh;
+    background:radial-gradient(closest-side, rgba(66,164,255,.06), transparent 70%);
+    animation:swell 23s ease-in-out -8s infinite}
+  @keyframes swell{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.12);opacity:1}}
+  @media (prefers-reduced-motion:reduce){ .aur{animation:none} }
+
+  .back{position:fixed;top:14px;left:14px;z-index:96;display:inline-flex;align-items:center;gap:7px;
+    padding:8px 14px;border-radius:999px;text-decoration:none;
+    font:600 12.5px/1 var(--mono);letter-spacing:.04em;color:var(--muted);
+    background:rgba(5,15,12,.72);border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:color .2s,border-color .2s}
+  .back:hover{color:var(--ink);border-color:rgba(255,255,255,.22)}
+
+  main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:92px 22px 30px}
+  header{text-align:center;margin-bottom:44px}
+  .isle{width:120px;height:120px;margin:0 auto 18px;border-radius:50%;position:relative;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 40% 32%, #0e2b22, #081c17 66%, #061410);
+    border:2px solid rgba(227,179,29,.25);
+    box-shadow:0 0 70px 16px rgba(78,203,102,.13)}
+  .isle span{font-size:62px;line-height:1}
+  .isle::after{content:'';position:absolute;inset:-14px;border-radius:50%;
+    border:1.5px solid rgba(78,203,102,.18);animation:lap 6s ease-in-out infinite}
+  @keyframes lap{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.07);opacity:1}}
+  @media (prefers-reduced-motion:reduce){ .isle::after{animation:none} }
+  h1{margin:0 0 18px;font:640 clamp(34px,7vw,54px)/1.1 var(--serif);letter-spacing:.02em;
+    background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{max-width:620px;margin:0 auto;font:italic 400 clamp(16px,2.4vw,18px)/1.7 var(--serif);color:var(--muted)}
+  .lede b{color:var(--ink);font-style:italic;font-weight:600}
+  .attrib{display:block;margin-top:8px;font:400 11px/1 var(--mono);font-style:normal;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+  .why{max-width:600px;margin:22px auto 0;color:var(--muted);font-size:14.5px;line-height:1.75}
+  .why b{color:var(--ink);font-weight:650}
+
+  /* each island: one frosted panel standing in the water */
+  .island{position:relative;margin:0 0 26px;padding:26px 28px 22px;border-radius:20px;
+    background:rgba(6,17,14,.62);border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+    scroll-margin-top:80px}
+  .island .k{display:block;font:700 10.5px/1.5 var(--mono);letter-spacing:.26em;
+    text-transform:uppercase;color:var(--e2);margin-bottom:10px}
+  .island h2{margin:0 0 12px;font:600 clamp(22px,3.6vw,28px)/1.2 var(--serif);color:var(--ink)}
+  .island p{margin:0 0 12px;color:var(--muted);font-size:14.5px;line-height:1.75}
+  .island p b{color:var(--ink);font-weight:650}
+  .island .out{font:600 10.5px/1.8 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+    color:var(--e1)}
+  .island h3{margin:16px 0 8px;font:700 11px/1 var(--mono);letter-spacing:.26em;
+    text-transform:uppercase;color:var(--e2)}
+  .island ul{margin:0 0 14px;padding-left:20px;color:var(--muted);font-size:14px;line-height:1.7}
+  .island ul li{margin:5px 0}
+  .island ul li::marker{color:var(--e1)}
+  .island .src{margin:0;font-size:12px;font-style:italic;color:var(--dim)}
+  .island .src a{color:inherit}
+  .unv{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;
+    font:600 9px/1.5 var(--mono);letter-spacing:.18em;text-transform:uppercase;font-style:normal;
+    color:var(--e3);border:1px solid rgba(240,127,60,.35)}
+
+  /* the shore: where new islands come from */
+  .credit{margin:40px auto 0;max-width:600px;text-align:center;color:var(--muted);
+    font-size:13.5px;line-height:1.8}
+  .credit a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+  .tg{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:11px 22px;
+    border-radius:999px;text-decoration:none;font:640 15px/1 var(--serif);color:#0b1508;
+    background:linear-gradient(100deg,var(--e1),var(--e2));
+    box-shadow:0 8px 30px rgba(78,203,102,.25);transition:transform .25s,box-shadow .25s}
+  .tg:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(78,203,102,.35)}
+  .btw{margin:52px 0 0;text-align:center;font:400 11px/1 var(--mono);
+    letter-spacing:.18em;color:var(--dim)}
+
+  @media (max-width:520px){ .island{padding:20px 18px 18px} }
+</style>
+</head>
+<body>
+<div class="rainbar" aria-hidden="true"></div>
+<div class="aur a1" aria-hidden="true"></div>
+<div class="aur a2" aria-hidden="true"></div>
+<a class="back" href="/orient">← 🧭 orient</a>
+
+<main>
+  <header>
+    <div class="isle" aria-hidden="true"><span>🏝️</span></div>
+    <h1>islands of coherence</h1>
+    <p class="lede">"when a complex system is far from equilibrium, <b>small islands of
+      coherence</b> in a sea of chaos have the capacity to shift the entire system."
+      <span class="attrib">— attributed to ilya prigogine</span></p>
+    <p class="why">somewhere, a community already solved it. for every problem that is
+      local but exists everywhere — homelessness, addiction, trash — some town figured
+      out an answer that <b>actually worked</b>, and almost nobody copied it. these are
+      those answers, documented as <b>protocols</b>: instruction sets concrete enough
+      that a group of neighbors could run them.</p>
+  </header>
+
+  <article class="island" id="delancey-street">
+    <span class="k">01 · rehabilitation &amp; reentry · san francisco · since 1971</span>
+    <h2>🏗️ delancey street foundation</h2>
+    <p>delancey street takes the population every other program screens out — addiction,
+      multiple violent felonies, generations of family incarceration — and it has
+      <b>no professional staff</b>. every member, all the way up to the leadership, is a
+      former offender. residents commit to two-plus years, live together, and run the
+      businesses that fund the place: a moving company, a restaurant, retail. the
+      operating principle is <b>each one teach one</b> — you arrive, someone slightly
+      ahead of you teaches you; within months you're teaching someone newer.
+      <b>being needed is the treatment.</b></p>
+    <p class="out">~95% lasting rehabilitation reported · 50+ years running · 0 treatment staff</p>
+    <h3>the protocol</h3>
+    <ul>
+      <li>recruit from the hardest population — don't screen for the easiest</li>
+      <li>no staff/client divide: the people being rehabilitated run the organization, leadership included</li>
+      <li>multi-year residential commitment — long enough to rebuild identity, not just behavior</li>
+      <li>each one teach one: every resident teaches the person behind them</li>
+      <li>fund through resident-run businesses, so the model earns its independence</li>
+      <li>graduate into leadership: the c-suite came through the program</li>
+    </ul>
+    <p class="src">the 95% figure is as reported — formal studies are limited; verify
+      before citing. via <a href="https://tgs-case-studies.surge.sh/#/case/delancey-street-foundation"
+      target="_blank" rel="noopener">the case study library ↗</a></p>
+  </article>
+
+  <article class="island" id="clean-the-city">
+    <span class="k">02 · homelessness · brasília, brazil<span class="unv">story unverified</span></span>
+    <h2>🧹 paying the homeless to clean the city</h2>
+    <p>as the story goes: around 2007, a civil-engineer mayor stopped treating trash and
+      homelessness as separate line items and collapsed them into one program —
+      <b>the city paid homeless residents to collect trash and paint over graffiti</b>.
+      the results stacked: clean streets, income for the people who needed it most,
+      rising property values — and it cost <b>less than the separate programs it
+      replaced</b>. almost no other city has copied it.</p>
+    <p class="out">two problems, one program · city budget went down · visible homelessness ~0 (reported)</p>
+    <h3>the protocol</h3>
+    <ul>
+      <li>find two chronic problems where one population's need (income) is the other problem's missing workforce</li>
+      <li>pay directly and simply: cash for visible public work — skip the program-industrial complex</li>
+      <li>price it against the status quo: cheaper than the separate spend it replaces</li>
+      <li>measure everything — cleanliness, homelessness, property values, total budget — so the win is undeniable</li>
+      <li>publish the numbers so other cities can copy it</li>
+    </ul>
+    <p class="src">told from memory and still being sourced — it closely resembles
+      curitiba under jaime lerner, so city, date, and details may shift.
+      via <a href="https://tgs-case-studies.surge.sh/#/case/brasilia-trash-homelessness"
+      target="_blank" rel="noopener">the case study library ↗</a></p>
+  </article>
+
+  <div class="credit">
+    <p>the case studies are gathered by the great simplification community's
+      <a href="https://tgs-case-studies.surge.sh/" target="_blank" rel="noopener">case
+      study library</a> — this page is a postcard of it, and more islands are coming.
+      know a program that actually worked?</p>
+    <a class="tg" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">✍️ share it in the telegram</a>
+  </div>
+
+  <p class="btw">btw — everything here is in alpha</p>
+</main>
+</body>
+</html>
