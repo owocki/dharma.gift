@@ -116,32 +116,6 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
     background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
     backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
 
-  /* ---- islands of coherence: somewhere, a community already solved it.
-     proven protocols from the great simplification's case study library,
-     moored at the foot of the page — dry land under the sea of crises above. ---- */
-  .islands{max-width:760px;margin:90px auto 0;text-align:center;
-    padding:28px 26px 24px;border-radius:20px;
-    background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
-    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
-  .isl-lab{margin:0 0 14px;font:700 10.5px/1 var(--mono);letter-spacing:.3em;
-    text-transform:uppercase;color:var(--e1)}
-  .isl-cards{display:flex;gap:12px;margin:18px 0 4px;flex-wrap:wrap;justify-content:center}
-  a.isl{flex:1 1 260px;max-width:330px;display:flex;flex-direction:column;gap:7px;
-    align-items:center;padding:16px 16px 14px;border-radius:14px;text-decoration:none;
-    background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);
-    transition:transform .25s,border-color .25s,background .25s}
-  a.isl:hover{transform:translateY(-3px);border-color:var(--e1);
-    background:rgba(78,203,102,.07)}
-  .isl-em{font-size:26px;line-height:1}
-  a.isl b{font:600 16px/1.3 var(--serif);color:var(--ink)}
-  .isl-w{font:italic 400 12.5px/1.55 var(--serif);color:var(--muted)}
-  .isl-n{font:500 9.5px/1.6 var(--mono);letter-spacing:.14em;text-transform:uppercase;
-    color:var(--e2)}
-  .isl-more{margin:16px 0 0;font:500 11px/1 var(--mono);letter-spacing:.12em}
-  .isl-more a{color:var(--muted);text-decoration:none}
-  .isl-more a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-  .isl-more .sp{margin:0 10px;opacity:.35}
-
   /* ---- the compass: how to walk this page toward your deepest dharma.
      a calm instruction plaque bolted to the cave wall — the doors below own the sparkle.
      it stands on its own frosted glass so the mycelium can't crawl through the words. ---- */
@@ -308,6 +282,7 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
   .wpgrp{--ga:#e14fe1;max-width:900px}
   .crgrp{--ga:#e8446f;max-width:880px}
   .skgrp{--ga:#e3b31d;max-width:880px}
+  .icgrp{--ga:#4ecb66;max-width:880px}
   .admgrp{flex-basis:100%;max-width:420px;margin:0 auto}
   details.grpfold{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%}
   details.grpfold>summary{list-style:none;cursor:pointer;user-select:none;-webkit-user-select:none}
@@ -595,6 +570,18 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
     </details>
     </div>
 
+    <div class="tabgrp icgrp">
+      <details class="grpfold" id="islands" open>
+      <summary class="grplab"><b class="glt">islands of coherence<span class="chev">⌄</span></b><em>communities that already solved it — protocols from the great simplification's case study library</em></summary>
+      <div class="grpchips">
+        <a class="tab" href="https://tgs-case-studies.surge.sh/#/case/delancey-street-foundation" target="_blank" rel="noopener"><span class="em">🏗️</span>delancey street<span class="tq">~95% lasting rehabilitation</span></a>
+        <a class="tab" href="https://tgs-case-studies.surge.sh/#/case/brasilia-trash-homelessness" target="_blank" rel="noopener"><span class="em">🧹</span>clean the city<span class="tq">two problems, one program</span></a>
+        <a class="tab" href="https://tgs-case-studies.surge.sh/" target="_blank" rel="noopener"><span class="em">📚</span>the library<span class="tq">browse every island</span></a>
+        <a class="tab" href="https://tgs-case-studies.surge.sh/#/submit" target="_blank" rel="noopener"><span class="em">✍️</span>submit one<span class="tq">add your island</span></a>
+      </div>
+    </details>
+    </div>
+
     <div class="tabgrp admgrp">
       <details class="grpfold" id="admin" open>
       <summary class="grplab">etc<span class="chev">⌄</span></summary>
@@ -607,32 +594,6 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
     </nav>
 
   </details>
-
-  <!-- islands of coherence: the crises above, the communities that already solved one below -->
-  <div class="islands">
-    <p class="isl-lab">🏝️ islands of coherence</p>
-    <p class="lede">"when a complex system is far from equilibrium, <b>small islands of
-      coherence</b> in a sea of chaos have the capacity to shift the entire system."
-      <span class="attrib">— attributed to ilya prigogine</span></p>
-    <p class="lede lede-b">somewhere, a community already solved it. these are real programs
-      that <b>actually worked</b> — documented as protocols your town could run, from the
-      great simplification community's case study library.</p>
-    <div class="isl-cards">
-      <a class="isl" href="https://tgs-case-studies.surge.sh/#/case/delancey-street-foundation" target="_blank" rel="noopener">
-        <span class="isl-em">🏗️</span>
-        <b>delancey street foundation</b>
-        <span class="isl-w">san francisco · run entirely by former offenders, all the way up to the leadership</span>
-        <span class="isl-n">~95% lasting rehabilitation · since 1971</span>
-      </a>
-      <a class="isl" href="https://tgs-case-studies.surge.sh/#/case/brasilia-trash-homelessness" target="_blank" rel="noopener">
-        <span class="isl-em">🧹</span>
-        <b>paying the homeless to clean the city</b>
-        <span class="isl-w">brasília · trash and homelessness treated as one problem, not two</span>
-        <span class="isl-n">two problems, one program · budget went down</span>
-      </a>
-    </div>
-    <p class="isl-more"><a href="https://tgs-case-studies.surge.sh/" target="_blank" rel="noopener">browse the library →</a><span class="sp">·</span><a href="https://tgs-case-studies.surge.sh/#/submit" target="_blank" rel="noopener">submit one →</a></p>
-  </div>
 
   <!-- dewey, at the door on the way out -->
   <div class="deweyfoot">
