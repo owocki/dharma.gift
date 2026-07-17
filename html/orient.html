@@ -187,11 +187,8 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
   html:not(.rp-ok) .firstread,html:not(.rp-ok) .cyoafold{display:none}
   html.rp-ok .redgate{display:none}
 
-  /* the metacrisis door: still big, no longer the loudest thing in the room */
+  /* the metacrisis door: rainbow until it's been walked through */
   .firstread{text-align:center;margin:40px auto 0}
-  a.bigcta.muted{animation:none;background:linear-gradient(100deg,#39443b,#2a332c);
-    color:#cfe3cf;box-shadow:none;font-size:19px;padding:15px 34px}
-  a.bigcta.muted:hover{transform:translateY(-2px) scale(1);box-shadow:0 8px 26px rgba(0,0,0,.35)}
   a.bigcta{position:relative;display:inline-flex;align-items:center;gap:12px;
     padding:20px 46px;border-radius:999px;text-decoration:none;isolation:isolate;
     font:640 23px/1 var(--serif);letter-spacing:.01em;color:#0b1508;
@@ -415,7 +412,7 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
   <!-- the metacrisis door: graduate school, not the front gate — the inquiry CTA
        moved down the funnel (you already passed it on the way here) -->
   <div class="firstread">
-    <a class="bigcta muted" href="/metacrisis"><span class="emj">🕸️</span>zoom out: the metacrisis<span class="aro">→</span></a>
+    <a class="bigcta" href="/metacrisis"><span class="emj">🕸️</span>the metacrisis<span class="aro">→</span></a>
   </div>
 
   <!-- the adventure waits behind its own fold: you have to choose to choose -->
@@ -428,7 +425,11 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
         people understand civilization, find their deepest role <b>(dharma)</b>, and work
         together to <b>steer the future upward</b>.</p>
       <p class="lede lede-b">a picture is worth <b>1000 words</b>, so i've designed this to give
-        you a visual download of the mental models you'll need on your journey."
+        you a visual download of the mental models you'll need on your journey.</p>
+      <p class="lede lede-b">i've laboured to provide multiple complementary mental models —
+        <b>multiple apertures</b> into the metacrisis.</p>
+      <p class="lede lede-b">as the old saying goes, <b>'all models are wrong, some are useful.'</b>
+        i hope these mental models are useful for you in your dharmic journey!"
         <span class="attrib">— kevin owocki &nbsp;·&nbsp; <a href="/about">read more →</a></span></p>
     </details>
 
@@ -692,9 +693,12 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
   size(); if(!REDUCE) raf=requestAnimationFrame(frame);
 })();
 
-// once the metacrisis is read, the first-read torch passes to the adventure
+// once the metacrisis is clicked (or read), the first-read torch passes to the adventure
 try{ if(localStorage.getItem('dg-mc-read'))
   document.documentElement.classList.add('mc-read'); }catch(e){}
+document.querySelector('.firstread a.bigcta')?.addEventListener('click',()=>{
+  try{localStorage.setItem('dg-mc-read','1')}catch(e){}
+});
 // the red gate: one click, remembered — the doors light and the warning stands down
 document.getElementById('rgbtn')?.addEventListener('click',()=>{
   try{localStorage.setItem('dg-redpill','1')}catch(e){}
