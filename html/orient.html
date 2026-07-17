@@ -283,6 +283,31 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
   .crgrp{--ga:#e8446f;max-width:880px}
   .skgrp{--ga:#e3b31d;max-width:880px}
   .icgrp{--ga:#4ecb66;max-width:880px}
+  /* island tiles point at folds on this very page — home anchors never grey out */
+  .icgrp a.tab[href^="#"]:visited{color:var(--ink);border-color:rgba(255,255,255,.13)}
+  /* the islands themselves: each case study unfolds right here, nobody leaves */
+  .islfold{max-width:660px;margin:12px auto 0;text-align:left;
+    border:1px solid rgba(255,255,255,.09);border-radius:14px;
+    background:rgba(8,14,9,.72);padding:2px 18px 4px}
+  .islfold[open]{padding-bottom:14px}
+  .islfold summary{cursor:pointer;list-style:none;user-select:none;-webkit-user-select:none;
+    display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;padding:12px 0;
+    font:600 15px/1.3 var(--serif);color:var(--ink)}
+  .islfold summary::-webkit-details-marker{display:none}
+  .islfold summary em{font-style:normal;font:500 10px/1 var(--mono);letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted)}
+  .islfold summary .chev{margin-left:auto;font-size:12px;color:var(--muted);transition:transform .25s}
+  .islfold[open] summary .chev{transform:rotate(180deg)}
+  .islfold p{margin:0 0 10px;font-size:13.5px;line-height:1.7;color:var(--muted)}
+  .islfold p b{color:var(--ink);font-weight:650}
+  .islfold .isl-out{font:600 10px/1.7 var(--mono);letter-spacing:.13em;text-transform:uppercase;
+    color:var(--e2)}
+  .islfold .isl-h{margin:12px 0 6px;font:700 10px/1 var(--mono);letter-spacing:.24em;
+    text-transform:uppercase;color:var(--e1)}
+  .islfold ul{margin:0 0 12px;padding-left:20px;color:var(--muted);font-size:13px;line-height:1.65}
+  .islfold ul li{margin:4px 0}
+  .islfold .isl-src{margin:0;font-size:11.5px;font-style:italic}
+  .islfold .isl-src a{color:inherit}
   .admgrp{flex-basis:100%;max-width:420px;margin:0 auto}
   details.grpfold{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%}
   details.grpfold>summary{list-style:none;cursor:pointer;user-select:none;-webkit-user-select:none}
@@ -574,10 +599,54 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
       <details class="grpfold" id="islands" open>
       <summary class="grplab"><b class="glt">islands of coherence<span class="chev">⌄</span></b><em>communities that already solved it — protocols from the great simplification's case study library</em></summary>
       <div class="grpchips">
-        <a class="tab" href="https://tgs-case-studies.surge.sh/#/case/delancey-street-foundation" target="_blank" rel="noopener"><span class="em">🏗️</span>delancey street<span class="tq">~95% lasting rehabilitation</span></a>
-        <a class="tab" href="https://tgs-case-studies.surge.sh/#/case/brasilia-trash-homelessness" target="_blank" rel="noopener"><span class="em">🧹</span>clean the city<span class="tq">two problems, one program</span></a>
+        <a class="tab" href="#isl-delancey"><span class="em">🏗️</span>delancey street<span class="tq">~95% lasting rehabilitation</span></a>
+        <a class="tab" href="#isl-cleancity"><span class="em">🧹</span>clean the city<span class="tq">two problems, one program</span></a>
         <a class="tab" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener"><span class="em">✍️</span>submit one<span class="tq">share it in the telegram</span></a>
       </div>
+      <details class="islfold" id="isl-delancey">
+        <summary>🏗️ delancey street foundation<em>san francisco · rehabilitation &amp; reentry</em><span class="chev">⌄</span></summary>
+        <p>since 1971, delancey street has taken the population every other program screens
+          out — addiction, multiple violent felonies, generations of family incarceration —
+          and there is <b>no professional staff</b>. every member, all the way up to the
+          leadership, is a former offender. residents commit to two-plus years, live
+          together, and run the businesses that fund the place: a moving company, a
+          restaurant, retail. the operating principle is <b>each one teach one</b> — you
+          arrive, someone slightly ahead of you teaches you; within months you're teaching
+          someone newer. <b>being needed is the treatment.</b></p>
+        <p class="isl-out">~95% lasting rehabilitation reported · 50+ years running · 0 treatment staff</p>
+        <p class="isl-h">the protocol</p>
+        <ul>
+          <li>recruit from the hardest population — don't screen for the easiest</li>
+          <li>no staff/client divide: the people being rehabilitated run the organization, leadership included</li>
+          <li>multi-year residential commitment — long enough to rebuild identity, not just behavior</li>
+          <li>each one teach one: every resident teaches the person behind them</li>
+          <li>fund through resident-run businesses, so the model earns its independence</li>
+          <li>graduate into leadership: the c-suite came through the program</li>
+        </ul>
+        <p class="isl-src">the 95% figure is as reported — formal studies are limited.
+          via <a href="https://tgs-case-studies.surge.sh/#/case/delancey-street-foundation" target="_blank" rel="noopener">the case study library ↗</a></p>
+      </details>
+      <details class="islfold" id="isl-cleancity">
+        <summary>🧹 paying the homeless to clean the city<em>brasília · homelessness · story unverified</em><span class="chev">⌄</span></summary>
+        <p>as the story goes: around 2007, a civil-engineer mayor stopped treating trash
+          and homelessness as separate line items and collapsed them into one program —
+          <b>the city paid homeless residents to collect trash and paint over graffiti</b>.
+          the results stacked: clean streets, income for the people who needed it, rising
+          property values — and it cost <b>less than the separate programs it replaced</b>.
+          almost no other city has copied it.</p>
+        <p class="isl-out">two problems, one program · city budget went down · visible homelessness ~0 (reported)</p>
+        <p class="isl-h">the protocol</p>
+        <ul>
+          <li>find two chronic problems where one population's need (income) is the other problem's missing workforce</li>
+          <li>pay directly and simply: cash for visible public work — skip the program-industrial complex</li>
+          <li>price it against the status quo: cheaper than the separate spend it replaces</li>
+          <li>measure everything — cleanliness, homelessness, property values, total budget — so the win is undeniable</li>
+          <li>publish the numbers so other cities can copy it</li>
+        </ul>
+        <p class="isl-src">told from memory and still being sourced — it closely resembles
+          curitiba under jaime lerner, so details may shift.
+          via <a href="https://tgs-case-studies.surge.sh/#/case/brasilia-trash-homelessness" target="_blank" rel="noopener">the case study library ↗</a></p>
+      </details>
     </details>
     </div>
 
@@ -710,6 +779,14 @@ try{ if(localStorage.getItem('dg-mc-read'))
   document.documentElement.classList.add('mc-read'); }catch(e){}
 document.querySelector('.firstread a.bigcta')?.addEventListener('click',()=>{
   try{localStorage.setItem('dg-mc-read','1')}catch(e){}
+});
+// the island tiles stay home: open the fold below and walk there
+document.querySelectorAll('.icgrp a.tab[href^="#isl-"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const d=document.querySelector(a.getAttribute('href'));
+    if(d){ d.open=true; d.scrollIntoView({behavior:'smooth',block:'center'}); }
+  });
 });
 // the red gate: one click, remembered — the doors light and the warning stands down
 document.getElementById('rgbtn')?.addEventListener('click',()=>{
