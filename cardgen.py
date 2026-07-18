@@ -74,7 +74,7 @@ CARDS = [
   ("og-bargain","🍎","the bargain","what we lose with progress — four names for the deal",DEFAULT_TAG,"/bargain"),
   ("og-crises","🌪️","the crises","twenty-four crises, three families, one census","you're not crazy.","/crises"),
   ("og-skills","🧗","the skills","the inner game of the ai transition","dharma is the capstone.","/skills"),
-  ("og-cohort","🏕️","the cohort","ten people walk the dharma inquiry together — five weeks, one path","begins september 7, 2026. ten seats. apply within.","/cohort"),
+  # og-cohort is bespoke now (a details card: dates, seats, cost, sponsorship) — not generated here
   ("og-inquiry","🪷","the inquiry","six doors into what is yours to do","the dharma inquiry, quoted whole. bring paper.","/inquiry"),
   ("og-sensemaking","🔦","sensemaking","how to see clearly when the fog is manufactured","signal from noise, before you act.","/sensemaking"),
   ("og-islands","🏝️","islands of coherence","communities that already solved it — protocols, not stories","somewhere, a town figured it out.","/islands"),
