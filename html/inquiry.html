@@ -436,18 +436,28 @@ try{ if(localStorage.getItem('dg-honest')) document.documentElement.classList.ad
 </div>
 <script>
 // the snooze ledger: 15 min, then 30, doubling per dismissal, capped at 24h.
-// shared across every off-road page via localStorage; checked before the bar paints.
+// one dismissal quiets every off-road page at once — the state lives in
+// localStorage, other open tabs hear it via the storage event, and a timer
+// wakes the bar the moment the snooze runs out, even mid-read.
 (function(){
-  var d=document.documentElement;
-  try{ if(+localStorage.getItem('dg-ob-until')>Date.now()) d.classList.add('ob-snooze'); }catch(e){}
+  var d=document.documentElement, timer=0;
+  function until(){ try{ return +localStorage.getItem('dg-ob-until')||0 }catch(e){ return 0 } }
+  function sync(){
+    clearTimeout(timer);
+    var ms=until()-Date.now();
+    d.classList.toggle('ob-snooze',ms>0);
+    if(ms>0) timer=setTimeout(sync,ms+250);
+  }
   var b=document.querySelector('.obar .ox');
   if(b) b.addEventListener('click',function(){
     var n=0; try{ n=parseInt(localStorage.getItem('dg-ob-n'),10)||0 }catch(e){}
     var mins=Math.min(15*Math.pow(2,n),1440);
     try{ localStorage.setItem('dg-ob-until',String(Date.now()+mins*60000));
          localStorage.setItem('dg-ob-n',String(n+1)); }catch(e){}
-    d.classList.add('ob-snooze');
+    sync();
   });
+  addEventListener('storage',function(e){ if(e.key==='dg-ob-until') sync(); });
+  sync();
 })();
 </script>
 <a class="back" href="/">← 🌳 the surface</a>
