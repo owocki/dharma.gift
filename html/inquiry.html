@@ -245,24 +245,6 @@ try{ if(localStorage.getItem('dg-honest')) document.documentElement.classList.ad
   .frame .attrib a{color:var(--muted);text-decoration-color:rgba(255,255,255,.25)}
   .frame .attrib a:hover{color:var(--ink)}
 
-  /* how to sit with it: one quiet line, not three cards */
-  .howline{max-width:640px;margin:24px auto 0;text-align:center;
-    font:400 15px/1.8 var(--serif);color:var(--muted)}
-  .howline b{color:var(--ink);font-weight:600}
-
-  /* draw one: the room hands you a single question */
-  .drawwrap{text-align:center;margin:34px 0 0}
-  button.draw{cursor:pointer;display:inline-flex;align-items:center;gap:10px;
-    padding:13px 26px;border-radius:999px;border:1px solid rgba(227,179,29,.4);
-    background:linear-gradient(120deg,rgba(227,179,29,.14),rgba(227,179,29,.05));
-    color:var(--e2);font:600 15px/1 var(--serif);letter-spacing:.01em;
-    transition:transform .25s cubic-bezier(.2,1.4,.4,1),border-color .25s,background .25s}
-  button.draw:hover{transform:translateY(-2px);border-color:rgba(227,179,29,.7);
-    background:linear-gradient(120deg,rgba(227,179,29,.2),rgba(227,179,29,.08))}
-  .drawn{outline:none;border-radius:10px;
-    background:linear-gradient(100deg,rgba(227,179,29,.16),rgba(227,179,29,.05))!important;
-    box-shadow:inset 2.5px 0 0 var(--e2)}
-
   /* the six doors: closed arches standing in a grid — the same doors you saw on the
      way down. click one to walk in; it opens across the full row. */
   .doors{margin-top:40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
@@ -354,8 +336,8 @@ try{ if(localStorage.getItem('dg-honest')) document.documentElement.classList.ad
   button.oathbtn:hover{transform:translateY(-2px);border-color:rgba(227,179,29,.8)}
   button.oathbtn:focus-visible{outline:2px solid var(--e2);outline-offset:3px}
   html.iq-ok .oath{display:none}
-  html:not(.iq-ok) .howline,html:not(.iq-ok) .drawwrap,html:not(.iq-ok) .doors,
-  html:not(.iq-ok) .credit,html:not(.iq-ok) .deeper,html:not(.iq-ok) .return,
+  html:not(.iq-ok) .doors,html:not(.iq-ok) .credit,
+  html:not(.iq-ok) .deeper,html:not(.iq-ok) .return,
   html:not(.iq-ok) .lockline{display:none}
 
   /* whose questions these are — said plainly, in the smallest honest type */
@@ -548,9 +530,6 @@ try{ if(localStorage.getItem('dg-honest')) document.documentElement.classList.ad
     <p class="subline">bring paper — this is a room for writing, not reading.</p>
   </header>
 
-  <p class="howline"><b>one door</b> per sitting · write <b>longhand</b> ·
-    ask <b>why?</b> until something feels fundamental</p>
-
   <!-- daniel's own framing, folded — open it if you want the why -->
   <details class="frame">
     <summary>whose questions these are — daniel's framing</summary>
@@ -570,10 +549,6 @@ try{ if(localStorage.getItem('dg-honest')) document.documentElement.classList.ad
       <b>including the parts you'd rather not look at</b>.
       that's the price of finding what's yours to do.</p>
     <button class="oathbtn" id="oathbtn" type="button">🕯️ i'll answer honestly</button>
-  </div>
-
-  <div class="drawwrap">
-    <button class="draw" id="draw" type="button">✨ or let the room draw you one</button>
   </div>
 
   <div class="doors">
@@ -791,22 +766,7 @@ try{ if(localStorage.getItem('dg-honest')) document.documentElement.classList.ad
       try{ localStorage.setItem(satKey,JSON.stringify([...sat])) }catch(e){}
       paint(); });
     door.classList.add('has-deck');
-    door._deck={show:n=>{ i=n%cards.length; paint(); },count:cards.length,el:card};
     paint();
-  });
-})();
-// the room draws you one: open a random door, deal a random card, light it up
-(function(){
-  const btn=document.getElementById('draw'); if(!btn)return;
-  btn.addEventListener('click',()=>{
-    const doors=[...document.querySelectorAll('details.door')].filter(d=>d._deck);
-    if(!doors.length)return;
-    const d=doors[Math.floor(Math.random()*doors.length)];
-    d.open=true;
-    d._deck.show(Math.floor(Math.random()*d._deck.count));
-    document.querySelectorAll('.qcard.drawn').forEach(x=>x.classList.remove('drawn'));
-    d._deck.el.classList.add('drawn');
-    d._deck.el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
   });
 })();
 // the note that meets jumpers walked back up the funnel
