@@ -32,43 +32,72 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
 <meta name="twitter:description" content="every door on one page. a problem well understood is half solved — start where the pull is strongest.">
 <meta name="twitter:image" content="https://dharma.gift/og-orient.png?v=4">
 <meta name="description" content="a problem well understood is half solved: every door in the depth on one page — the whole picture, the fifteen questions, the crises, the skills.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
 <style>
+  /* Hallmark · macrostructure: Map/Diagram · verb: redesign · mood: wayfinding
+   * hero: original monk + rainbow wordmark restored at user request — trail body below is the redesign
+   * theme: house (dharma.gift — era ramp inks, dark green paper, fraunces display)
+   * nav: house back-pill · footer: quote close · enrichment: Tier-A static contour svg
+   * house overrides hallmark on: hex era tokens, emoji iconography, lowercase voice,
+   * self-contained inline tokens (no tokens.css), rainbow river CTA, mono label register
+   * contrast: pass (40–41) · slop: pass (42–45) · honest: pass (46) · chrome: pass (47)
+   * mobile: pass (34, 49, 50–57) · pre-emit critique: P4 H5 E4 S4 R5 V5 */
   :root{
     --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
-    --bg:#050b06; --ink:#eaf5ea; --muted:#94ad96; --line:rgba(255,255,255,.12);
-    --panel:rgba(8,14,9,.72);
+    --cr:#e8446f; /* the crises' alarm ink */
+    --bg:#050b06; --ink:#eaf5ea; --muted:#94ad96; --faint:#78907e;
+    --line:rgba(255,255,255,.12); --panel:#0a120b;
+    --focus:#8fd4ff;
     --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
     --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --sp-xs:8px; --sp-sm:14px; --sp-md:22px; --sp-lg:38px; --sp-xl:64px; --sp-2xl:104px;
+    --ease-out:cubic-bezier(.16,1,.3,1);
+    --dur-micro:120ms; --dur-short:220ms;
+    --rail:18px; /* where the trail runs */
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html,body{overflow-x:clip}
+  @media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
   body{margin:0;background:var(--bg);color:var(--ink);
-    font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+    font:15px/1.62 var(--sans);
+    -webkit-font-smoothing:antialiased}
+  /* the territory: contour lines at dusk — a topo map under the trail. static geometry. */
   body::before{content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
     background:
-      radial-gradient(120% 90% at 78% -10%,rgba(47,158,68,.14),transparent 60%),
-      radial-gradient(110% 100% at 12% 8%,rgba(28,126,214,.10),transparent 55%),
-      radial-gradient(90% 70% at 50% 110%,rgba(161,122,0,.10),transparent 60%)}
-  /* the living background: hyphae braid the whole page, resources riding the finished
-     threads — the depth is mycelial and the index wears it. glow is geometry, never blur. */
+      radial-gradient(120% 70% at 82% -12%,rgba(28,126,214,.10),transparent 58%),
+      radial-gradient(100% 80% at 8% 4%,rgba(47,158,68,.12),transparent 55%),
+      radial-gradient(90% 60% at 55% 108%,rgba(161,122,0,.08),transparent 60%)}
+  body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='560' viewBox='0 0 560 560'%3E%3Cg fill='none' stroke='%237fae72' stroke-opacity='.07' stroke-width='1'%3E%3Cpath d='M-20 90 C90 40 190 130 300 92 S 500 30 580 78'/%3E%3Cpath d='M-20 130 C90 82 195 170 305 132 S 505 72 580 118'/%3E%3Cpath d='M-20 320 C70 270 180 350 290 318 S 480 258 580 300'/%3E%3Cpath d='M-20 360 C75 312 185 390 295 356 S 485 300 580 340'/%3E%3Cpath d='M-20 396 C80 352 190 424 300 392 S 490 340 580 378'/%3E%3Cpath d='M120 560 C160 470 300 500 360 430 S 470 330 560 320'/%3E%3Cpath d='M60 560 C110 450 290 470 350 396'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:560px 560px}
+  /* the roots: the living mycelium braids down from the top edge, resources riding
+     the finished threads — the depth is mycelial and the map wears it. */
   #myc,#flow{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
-  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size:240px 240px;mix-blend-mode:overlay}
   .rainbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:95;
     background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5))}
 
-  .page{max-width:1060px;margin:0 auto;padding:26px 18px 90px}
-  .topbar{display:flex;justify-content:flex-start;margin-bottom:20px}
+  .page{max-width:880px;margin:0 auto;padding:30px 20px 90px}
+  .topbar{display:flex;justify-content:flex-start;margin-bottom:var(--sp-lg)}
   a.back{display:inline-flex;align-items:center;gap:7px;font-weight:650;font-size:12px;
-    padding:6px 14px;border-radius:999px;text-decoration:none;color:var(--ink);
+    white-space:nowrap;padding:6px 14px;border-radius:999px;text-decoration:none;color:var(--ink);
     border:1px solid var(--line);background:var(--panel)}
-  a.back .bx{transition:transform .2s}
+  a.back .bx{transition:transform var(--dur-short) var(--ease-out)}
   a.back:hover .bx{transform:translateX(-3px)}
+  a.back:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 
-  /* the monk: no bubble down here — just the being, the breath, and bigger awareness.
-     he sits directly on the word. */
+  /* the arrival: three floors down, the funnel hands you the map — centered over
+     the monk, with room to breathe before he does */
+  .depthmark{margin:34px 0 12px;text-align:center;font:500 10.5px/1 var(--mono);
+    letter-spacing:.34em;text-transform:uppercase;color:var(--faint)}
+  .arrivewhisper{margin:0 0 56px;text-align:center;
+    font:italic 400 15.5px/1.6 var(--serif);color:var(--muted)}
+  .arrivewhisper b{font-style:normal;font-weight:600;color:var(--ink)}
+
+  /* ---- the hero, as it always was: the monk — no bubble down here, just the being,
+     the breath, and bigger awareness. he sits directly on the word. ---- */
   .monk{position:relative;width:112px;height:112px;margin:30px auto -20px;z-index:2;cursor:pointer}
   .monk .breath{position:absolute;top:-60%;bottom:-60%;left:-130%;right:-130%;border-radius:50%;
     pointer-events:none;
@@ -104,242 +133,184 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
     .monk .breath{transform:scaleX(.8) scaleY(.7);opacity:.5}}
 
   /* the name of the page wears the whole ramp */
-  header{text-align:center;margin:0}
+  .trailhead{text-align:center;margin:0 0 var(--sp-xl)}
   h1{margin:0;font:640 clamp(48px,9vw,84px)/1.05 var(--serif);letter-spacing:.06em;
     background:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5));
     -webkit-background-clip:text;background-clip:text;color:transparent}
 
-  /* dewey, at the door on the way out: the page's one aphorism closes it, wearing
-     the same quiet dress as buechner up top */
-  .deweyfoot{max-width:680px;margin:90px auto 20px;text-align:center;
-    padding:24px 26px 22px;border-radius:20px;
-    background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
-    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+  /* ---- the trail: one dashed line walks the whole page; every station hangs off it.
+     blazes mark the stations — geometry, no glow. ---- */
+  .trail{position:relative;padding-left:calc(var(--rail) + 26px)}
+  .trail::before{content:'';position:absolute;top:6px;bottom:14px;left:var(--rail);
+    border-left:2px dashed rgba(148,173,150,.32)}
+  .trail::after{content:'';position:absolute;left:calc(var(--rail) - 4px);bottom:4px;
+    width:10px;height:10px;border-radius:50%;background:var(--muted)}
+  .station{position:relative;margin:0 0 var(--sp-xl)}
+  .station::before{content:'';position:absolute;top:5px;
+    left:calc(-26px - 5px + 1px);width:12px;height:12px;transform:rotate(45deg);
+    background:var(--sa,var(--muted));border:2px solid var(--bg)}
+  .st-head{display:flex;align-items:baseline;gap:10px;margin:0 0 var(--sp-sm)}
+  .st-head h2{margin:0;font:600 24px/1.2 var(--serif);letter-spacing:.01em;color:var(--ink)}
+  .st-head .em{font-size:17px}
+  .st-head .wsp{font:400 12px/1.4 var(--sans);color:var(--faint)}
+  @media(max-width:640px){ .st-head{flex-wrap:wrap;gap:6px 10px} }
 
-  /* ---- the compass: how to walk this page toward your deepest dharma.
-     a calm instruction plaque bolted to the cave wall — the doors below own the sparkle.
-     it stands on its own frosted glass so the mycelium can't crawl through the words. ---- */
-  .compass{max-width:680px;margin:20px auto 0;text-align:center;
-    padding:28px 26px 24px;border-radius:20px;
-    background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
-    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
-  .lede{margin:0;font:italic 400 clamp(16px,2.4vw,18px)/1.7 var(--serif);color:var(--muted)}
-  .lede b{color:var(--ink);font-style:italic;font-weight:600}
-  .lede-b{margin-top:12px}
-  .lede .attrib{display:block;margin-top:8px;font:400 11px/1 var(--mono);font-style:normal;
-    letter-spacing:.24em;text-transform:uppercase;color:var(--muted);opacity:.75}
-  .lede .attrib a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25);
-    padding-bottom:1px;transition:color .2s,border-color .2s}
-  .lede .attrib a:hover{color:var(--ink);border-color:var(--e2)}
-  .whatis{max-width:680px;margin:26px auto 0;text-align:center;
-    padding:22px 26px 20px;border-radius:20px;
-    background:rgba(5,11,6,.58);border:1px solid rgba(255,255,255,.07);
-    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
-  /* the plaques fold: a small label stays, the rest tucks away. the page remembers. */
-  .fold summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
-    gap:8px;font:700 10px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;
-    color:var(--muted);user-select:none;-webkit-user-select:none;transition:color .2s}
-  .fold summary::-webkit-details-marker{display:none}
-  .fold summary:hover{color:var(--ink)}
-  .fold summary .chev{font-size:13px;letter-spacing:0;transition:transform .25s}
-  .fold[open] summary .chev{transform:rotate(180deg)}
-  .fold[open] summary{margin-bottom:16px}
-  .fold:not([open]){padding-top:14px;padding-bottom:13px}
-  .steps{display:flex;gap:10px;margin-top:24px;text-align:left}
-  @media(max-width:640px){ .steps{flex-direction:column} }
-  .step{flex:1;border:1px solid var(--line);border-radius:14px;padding:16px 16px 15px;
-    background:var(--panel);
-    opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
-  .step.lit{opacity:1;transform:none}
-  @media (prefers-reduced-motion:reduce){ .step{opacity:1;transform:none;transition:none} }
-  .step .k{font:700 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--sc)}
-  .step p{margin:8px 0 0;font:400 13.5px/1.6 var(--serif);color:#a9bfab}
-  .step p b{color:#e3efe3;font-weight:600}
-  .step a.d{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:6px 12px;
-    border-radius:999px;text-decoration:none;font:600 11.5px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    color:var(--ink);border:1px solid color-mix(in srgb,var(--sc) 45%,transparent);
-    background:color-mix(in srgb,var(--sc) 12%,transparent);
-    transition:transform .2s,background .2s}
-  .step a.d:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--sc) 22%,transparent)}
-  .step.n1{--sc:var(--e2)} .step.n2{--sc:var(--e5)} .step.n3{--sc:var(--e4)}
+  /* folds keep their memory; the summary is the station head itself */
+  details.fold>summary{list-style:none;cursor:pointer;user-select:none;-webkit-user-select:none}
+  details.fold>summary::-webkit-details-marker{display:none}
+  details.fold>summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px}
+  .chev{display:inline-block;font-size:13px;color:var(--faint);margin-left:6px;
+    transition:transform var(--dur-short) var(--ease-out)}
+  details.fold[open]>summary .chev{transform:rotate(180deg)}
 
-  /* ---- the red gate: consent before the heavy doors. what's below can't be
-     unseen, so the room says so out loud and waits for a yes. ---- */
-  .redgate{max-width:620px;margin:44px auto 0;text-align:center;
-    padding:26px 28px 24px;border-radius:18px;
-    background:linear-gradient(170deg,rgba(42,16,14,.55),rgba(20,10,10,.6));
-    border:1px solid rgba(224,100,60,.3);
-    box-shadow:0 0 40px rgba(224,100,60,.08),inset 0 0 30px rgba(224,100,60,.05)}
-  .redgate .rg-k{margin:0;font:600 11px/1 var(--mono);letter-spacing:.22em;
+  /* the compass: three lines, one ink each — no cards, just the instructions */
+  .lede{margin:0 0 var(--sp-sm);max-width:36em;
+    font:italic 400 16.5px/1.7 var(--serif);color:var(--muted)}
+  .lede b{color:var(--ink);font-weight:600}
+  .attrib{display:block;margin-top:7px;font:400 10.5px/1 var(--mono);font-style:normal;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--faint)}
+  ol.steps{margin:var(--sp-md) 0 0;padding:0;list-style:none;max-width:34em}
+  ol.steps li{margin:0 0 12px;font:400 14.5px/1.6 var(--serif);color:var(--muted)}
+  ol.steps li b{color:var(--ink);font-weight:600}
+  ol.steps .n{font:700 11px/1.6 var(--mono);letter-spacing:.12em;color:var(--sc);
+    margin-right:10px}
+  ol.steps li:nth-child(1){--sc:var(--e2)} ol.steps li:nth-child(2){--sc:var(--e5)}
+  ol.steps li:nth-child(3){--sc:var(--e4)}
+  a.tg{color:var(--ink);text-decoration:underline;text-decoration-color:var(--faint);
+    text-underline-offset:3px;transition:text-decoration-color var(--dur-micro) var(--ease-out)}
+  a.tg:hover{text-decoration-color:var(--e2)}
+  a.tg:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+  /* ---- the red gate: a trail notice, not a shrine. consent before the heavy country. ---- */
+  .redgate{max-width:36em;padding:20px 22px 18px;border-radius:12px;
+    background:#160c0a;border:1px solid rgba(224,100,60,.38)}
+  .redgate .rg-k{margin:0;font:600 10.5px/1 var(--mono);letter-spacing:.22em;
     text-transform:uppercase;color:#e08a5c}
-  .redgate .rg-body{margin:14px auto 0;max-width:520px;
-    font:italic 420 15.5px/1.7 var(--serif);color:#d8c8c0}
-  .redgate .rg-body b{font-style:normal;color:#f3e6df;font-weight:620}
+  .redgate .rg-body{margin:12px 0 0;font:400 14.5px/1.68 var(--serif);color:#d8c8c0}
+  .redgate .rg-body b{color:#f3e6df;font-weight:620}
   .redgate .rg-body a{color:#e8b8a0;text-decoration-color:rgba(224,140,100,.4)}
-  .redgate button{cursor:pointer;margin-top:20px;display:inline-flex;align-items:center;gap:10px;
-    padding:14px 34px;border-radius:999px;border:1px solid rgba(224,100,60,.5);
-    background:linear-gradient(120deg,rgba(224,100,60,.18),rgba(224,100,60,.06));
-    color:#f3c9a8;font:620 16px/1 var(--serif);letter-spacing:.01em;
-    transition:transform .25s cubic-bezier(.2,1.4,.4,1),border-color .25s,box-shadow .25s}
-  .redgate button:hover{transform:translateY(-2px);border-color:rgba(224,100,60,.85);
-    box-shadow:0 0 30px rgba(224,100,60,.2)}
-  /* until the yes: the heavy doors stay dark. after: the gate itself is gone. */
-  html:not(.rp-ok) .firstread,html:not(.rp-ok) .cyoafold{display:none}
-  html.rp-ok .redgate{display:none}
+  .redgate button{cursor:pointer;margin-top:16px;display:inline-flex;align-items:center;gap:9px;
+    white-space:nowrap;padding:11px 26px;border-radius:999px;border:1px solid rgba(224,100,60,.55);
+    background:#241109;color:#f3c9a8;font:620 15px/1 var(--serif);
+    transition:transform var(--dur-micro) var(--ease-out),border-color var(--dur-micro) var(--ease-out)}
+  .redgate button:hover{transform:translateY(-1px);border-color:rgba(224,140,100,.9)}
+  .redgate button:active{transform:translateY(1px)}
+  .redgate button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+  /* until the yes: the heavy country stays dark. after: the notice comes down. */
+  html:not(.rp-ok) .firstread,html:not(.rp-ok) .cyoafold-station{display:none}
+  html.rp-ok .redgate-station{display:none}
 
-  /* the metacrisis door: rainbow until it's been walked through */
-  .firstread{text-align:center;margin:40px auto 0}
+  /* the metacrisis door: the house's rainbow river, walking pace */
+  .firstread{margin:0}
   a.bigcta{position:relative;display:inline-flex;align-items:center;gap:12px;
-    padding:20px 46px;border-radius:999px;text-decoration:none;isolation:isolate;
-    font:640 23px/1 var(--serif);letter-spacing:.01em;color:#0b1508;
-    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    white-space:nowrap;padding:17px 38px;border-radius:999px;text-decoration:none;
+    font:640 21px/1 var(--serif);letter-spacing:.01em;color:#0b1508;
+    background:linear-gradient(100deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5),var(--e1),var(--e2)) 0 0/320% 100%;
     animation:flow 5s linear infinite;
-    box-shadow:0 12px 46px rgba(78,203,102,.28),0 12px 46px rgba(225,79,225,.20),
-      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25);
-    transition:transform .3s cubic-bezier(.2,1.4,.4,1),box-shadow .3s}
+    transition:transform var(--dur-short) var(--ease-out)}
   @keyframes flow{to{background-position:-320% 0}}
-  a.bigcta:hover{transform:translateY(-4px) scale(1.03);
-    box-shadow:0 22px 66px rgba(78,203,102,.4),0 22px 66px rgba(225,79,225,.3),
-      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25)}
-  a.bigcta .emj{font-size:25px}
-  a.bigcta .aro{font-size:21px;transition:transform .3s}
-  a.bigcta:hover .aro{transform:translateX(6px)}
+  a.bigcta:hover{transform:translateY(-2px)}
+  a.bigcta:active{transform:translateY(0)}
+  a.bigcta:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+  a.bigcta .emj{font-size:23px}
+  a.bigcta .aro{font-size:19px;transition:transform var(--dur-short) var(--ease-out)}
+  a.bigcta:hover .aro{transform:translateX(5px)}
   @media (prefers-reduced-motion:reduce){ a.bigcta{animation:none} }
-  @media(max-width:520px){ a.bigcta{padding:16px 30px;font-size:19px} }
+  @media(max-width:520px){ a.bigcta{padding:14px 26px;font-size:18px} }
   /* after the first read: the CTA retires to grey, the adventure takes the light */
-  .mc-read .firstread a.bigcta{animation:none;background:linear-gradient(100deg,#39443b,#2a332c);
-    color:#8fa892;box-shadow:none;opacity:.65}
-  .mc-read .firstread a.bigcta:hover{transform:translateY(-2px) scale(1);opacity:.85;box-shadow:none}
-  .mc-read summary.cyoa span{padding:9px 20px;border-radius:999px;
-    background-image:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-    font-size:12px;letter-spacing:.32em;
-    animation:cyoaglow 2.6s ease-in-out infinite}
-  .mc-read summary.cyoa .chev{color:var(--e2)}
-  @keyframes cyoaglow{0%,100%{box-shadow:0 0 14px rgba(225,79,225,.18),0 0 30px rgba(78,203,102,.12)}
-    50%{box-shadow:0 0 22px rgba(225,79,225,.4),0 0 44px rgba(78,203,102,.28)}}
-  @media (prefers-reduced-motion:reduce){ .mc-read summary.cyoa span{animation:none;
-    box-shadow:0 0 18px rgba(225,79,225,.3),0 0 36px rgba(78,203,102,.2)} }
-  .cyoafold{margin:34px auto 0}
-  summary.cyoa{display:flex;align-items:center;gap:14px;max-width:640px;margin:0 auto;
-    font:700 10.5px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--muted);
-    list-style:none;cursor:pointer;user-select:none;-webkit-user-select:none;transition:color .2s}
-  summary.cyoa::-webkit-details-marker{display:none}
-  summary.cyoa:hover{color:var(--ink)}
-  summary.cyoa::before,summary.cyoa::after{content:'';height:1px;flex:1;
-    background:linear-gradient(90deg,transparent,var(--line))}
-  summary.cyoa::after{background:linear-gradient(90deg,var(--line),transparent)}
-  summary.cyoa span{white-space:nowrap}
-  summary.cyoa .chev{font-size:13px;letter-spacing:0;transition:transform .25s}
-  .cyoafold[open] summary.cyoa .chev{transform:rotate(180deg)}
+  .mc-read .firstread a.bigcta{animation:none;background:#39443b;color:#8fa892;opacity:.7}
+  .mc-read .firstread a.bigcta:hover{opacity:.9}
+  .mc-read .cyoafold>summary .cy{color:var(--ink)}
+  .mc-read .cyoafold>summary .cy b{background-image:linear-gradient(90deg,var(--e1),var(--e2),var(--e3),var(--e4),var(--e5));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
 
-  /* ---- the depth itself: the poster's grouped index, moved up here where the
-     seeker orients. every chip is a door — clean urls and deep links, no apparatus. ---- */
-  .tabs{display:flex;justify-content:center;gap:14px 16px;margin:30px auto 0;flex-wrap:wrap;
-    align-items:flex-start;position:relative}
-  /* the index wears the thing it indexes: one faint spiral, seen from above, era ramp
-     for ink. it turns once every couple of minutes — geology, not animation. */
-  .navswirl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:min(94vw,980px);aspect-ratio:1;pointer-events:none;z-index:-1;opacity:.78}
-  .navswirl path{fill:none;stroke:url(#navswg);stroke-width:6.5;stroke-linecap:round}
-  @media (pointer:fine){ .navswirl path{filter:drop-shadow(0 0 12px rgba(181,53,187,.45))} }
-  .navswirl .nsg{transform-origin:500px 500px;animation:navspin 160s linear infinite}
-  @keyframes navspin{to{transform:rotate(360deg)}}
-  /* a grain of light rides the spiral, center outward, forever */
-  .navswirl .navcomet{fill:none;stroke:currentColor;color:#fff;stroke-width:4.5;stroke-linecap:round;
-    stroke-dasharray:16 984;stroke-dashoffset:1016;opacity:.85;animation:cometrun 18s linear infinite}
-  @keyframes cometrun{to{stroke-dashoffset:16}}
-  @media (pointer:fine){ .navswirl .navcomet{filter:drop-shadow(0 0 8px currentColor)} }
-  @media (prefers-reduced-motion:reduce){ .navswirl .nsg{animation:none}
-    .navswirl .navcomet{animation:none;opacity:0} }
-  .tabgrp{display:flex;flex-direction:column;align-items:center;gap:9px;
-    padding:14px 18px 16px;border-radius:18px;position:relative;
-    border:1px solid rgba(255,255,255,.09);
-    background:rgba(8,14,9,.38);
-    backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
-    transition:border-color .25s,background .25s,transform .25s}
-  .tabgrp:hover{background:rgba(8,14,9,.6);transform:translateY(-2px)}
-  /* hover a section and the whole card goes rainbow — mice only */
-  @media (hover:hover){
-    .tabgrp::before{content:'';position:absolute;inset:-1px;border-radius:19px;padding:1.6px;
-      background:linear-gradient(120deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff);
-      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-      -webkit-mask-composite:xor;mask-composite:exclude;
-      opacity:0;transition:opacity .3s;pointer-events:none}
-    .tabgrp:hover::before{opacity:1}
-    .tabgrp::after{content:'';position:absolute;inset:10px -8px -12px;z-index:-1;border-radius:26px;
-      background:linear-gradient(120deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff);
-      filter:blur(26px);opacity:0;transition:opacity .3s;pointer-events:none}
-    .tabgrp:hover::after{opacity:.3}
-  }
-  /* each card wears one ink: the questions lead (their four kinds carry the ramp),
-     the views take magenta, the crises the alarm red, the skills the gold */
-  .tabgrp{flex-basis:100%;border-color:color-mix(in srgb,var(--ga,var(--ink)) 26%,transparent)}
-  .tabgrp .grplab{color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink))}
-  .qgrp{max-width:1000px}
-  .qgrp .subgrp:nth-of-type(1){--ga:#4ecb66} .qgrp .subgrp:nth-of-type(2){--ga:#f07f3c}
-  .qgrp .subgrp:nth-of-type(3){--ga:#e14fe1} .qgrp .subgrp:nth-of-type(4){--ga:#42a4ff}
-  .wpgrp{--ga:#e14fe1;max-width:900px}
-  .crgrp{--ga:#e8446f;max-width:880px}
-  .skgrp{--ga:#e3b31d;max-width:880px}
-  .icgrp{--ga:#4ecb66;max-width:880px}
-  .admgrp{flex-basis:100%;max-width:420px;margin:0 auto}
-  details.grpfold{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%}
-  details.grpfold>summary{list-style:none;cursor:pointer;user-select:none;-webkit-user-select:none}
-  details.grpfold>summary::-webkit-details-marker{display:none}
-  .grplab .chev,.glt .chev{display:inline-block;font-size:12px;margin-left:7px;letter-spacing:0;
-    opacity:.7;transition:transform .25s}
-  details.grpfold[open]>summary .chev{transform:rotate(180deg)}
-  .glt{display:flex;align-items:center;justify-content:center;font:inherit;font-weight:inherit}
-  details.grpfold:not([open]){gap:0}
-  .grplab{display:flex;flex-direction:column;align-items:center;gap:3px;
-    font-size:10.5px;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.8}
-  .grplab em{font-style:normal;font-weight:500;font-size:10px;letter-spacing:.02em;
-    text-transform:none;color:var(--muted);opacity:.9}
-  a.grplab{text-decoration:none;color:var(--ink)}
-  a.grplab:hover{opacity:1}
-  a.grplab:hover em{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-  .grpchips{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-  .subrow{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px}
-  .subgrp{display:flex;flex-direction:column;align-items:center;gap:7px}
-  .sublab{display:flex;flex-direction:column;align-items:center;gap:2px;
-    font-size:9.5px;font-weight:850;letter-spacing:.15em;text-transform:uppercase;
-    color:color-mix(in srgb,var(--ga,var(--ink)) 60%,var(--ink));opacity:.85}
-  .sublab em{font-style:normal;font-weight:500;font-size:9.5px;letter-spacing:.02em;
-    text-transform:none;color:var(--muted);opacity:.9}
-  /* every chip is the same species: a small two-line tile — emoji, name, whisper */
-  a.tab{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;
-    font:inherit;font-weight:800;font-size:12px;letter-spacing:.03em;
-    padding:10px 13px 9px;border-radius:12px;cursor:pointer;text-decoration:none;
-    min-width:104px;max-width:172px;
-    border:1.5px solid rgba(255,255,255,.13);
-    background:rgba(8,14,9,.88);color:var(--ink);
-    transition:transform .25s,box-shadow .25s,border-color .25s}
-  a.tab:hover,a.tab:focus-visible{transform:translateY(-2px);
-    border-color:color-mix(in srgb,var(--ga,#e14fe1) 60%,transparent);
-    box-shadow:0 8px 24px color-mix(in srgb,var(--ga,#e14fe1) 28%,transparent)}
-  a.tab .em{margin:0;font-size:19px;line-height:1}
-  a.tab .tq{font-weight:500;font-size:10px;line-height:1.35;letter-spacing:.01em;
-    text-transform:none;color:var(--muted)}
-  /* doors you've already been through go grey — the browser's own memory, no tracking */
-  a.tab:visited{color:#66786a;border-color:rgba(110,130,114,.22)}
-  .ix a:visited{color:#5d6f61}
-  a.tab .tq::before{content:none}
-  /* the one-page groups (crises, skills) fold their stations into a small index */
-  .ix{margin:2px 0 0;max-width:820px;font-size:12px;line-height:2.15;color:var(--muted);text-align:center}
-  .ix .ixk{display:inline-block;margin-right:10px;font-family:var(--mono);font-weight:800;font-size:9.5px;
-    letter-spacing:.15em;text-transform:uppercase;color:color-mix(in srgb,var(--gk,var(--ink)) 62%,var(--ink))}
-  .ix a{color:var(--muted);text-decoration:none;white-space:nowrap;padding:2px 6px;border-radius:7px;
-    transition:color .2s,background .2s}
-  .ix a:hover,.ix a:focus-visible{color:var(--ink);background:color-mix(in srgb,var(--ga,#e8446f) 16%,transparent)}
+  /* the adventure fold: you have to choose to choose */
+  .cyoafold>summary{display:block}
+  .cyoafold>summary .cy{font:700 11px/1.7 var(--mono);letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);transition:color var(--dur-micro) var(--ease-out)}
+  .cyoafold>summary .cy b{font-weight:700}
+  .cyoafold>summary:hover .cy{color:var(--ink)}
+  @media(max-width:400px){ .cyoafold>summary .cy{letter-spacing:.1em;font-size:10.5px} }
+
+  /* whose hand drew the map */
+  .whatis{margin:var(--sp-md) 0 0;max-width:38em;padding:18px 20px;border-radius:12px;
+    background:var(--panel);border:1px solid var(--line)}
+  .whatis summary span{font:700 10px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;color:var(--faint)}
+  .whatis[open] summary{margin-bottom:10px}
+  .whatis p{margin:0 0 10px;font:italic 400 14.5px/1.68 var(--serif);color:var(--muted)}
+  .whatis p b{color:var(--ink);font-weight:600}
+  .whatis .attrib a{color:inherit}
+
+  /* ---- the door regions: signposts, not chip clouds. each region wears one ink. ---- */
+  .regions{margin-top:var(--sp-lg)}
+  .region{position:relative;margin:0 0 var(--sp-lg);padding:0}
+  .region::before{content:'';position:absolute;top:8px;left:calc(-26px - 5px + 1px);
+    width:12px;height:12px;transform:rotate(45deg);
+    background:var(--ga,var(--muted));border:2px solid var(--bg)}
+  .region>details>summary{list-style:none;cursor:pointer;user-select:none;-webkit-user-select:none}
+  .region>details>summary::-webkit-details-marker{display:none}
+  .region>details>summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px}
+  .rg-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px}
+  .rg-head h2{margin:0;font:600 21px/1.25 var(--serif);color:var(--ink)}
+  .rg-head .wsp{font:400 12px/1.5 var(--sans);color:var(--faint)}
+  .junction{margin:var(--sp-sm) 0 0}
+  .sublab{font:700 10px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;
+    color:color-mix(in srgb,var(--ga,var(--ink)) 70%,var(--ink))}
+  .sublab em{font-style:normal;font-weight:400;letter-spacing:.04em;text-transform:none;
+    color:var(--faint);margin-left:8px}
+  .rows{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    gap:2px 20px;margin-top:6px}
+  a.door{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;
+    column-gap:9px;align-items:baseline;padding:6px 8px 6px 6px;border-radius:8px;
+    text-decoration:none;color:var(--ink);
+    transition:background var(--dur-micro) var(--ease-out)}
+  a.door .em{grid-row:1/3;font-size:16px;line-height:1.3;align-self:start}
+  a.door b{font-weight:700;font-size:13.5px;letter-spacing:.02em;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  a.door .tq{grid-column:2;font-weight:400;font-size:11px;line-height:1.4;color:var(--muted)}
+  a.door:hover{background:color-mix(in srgb,var(--ga,#94ad96) 12%,transparent)}
+  a.door:hover b{text-decoration:underline;text-underline-offset:3px;
+    text-decoration-color:var(--ga,var(--muted))}
+  a.door:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+  a.door:visited{color:var(--faint)}
+  a.door:visited .tq{color:var(--faint)}
+  /* region inks: the questions carry the four kinds, the vistas magenta,
+     the crises the alarm red, the skills the gold, the islands the green */
+  .q1{--ga:var(--e1)} .q2{--ga:var(--e3)} .q3{--ga:var(--e4)} .q4{--ga:var(--e5)}
+  .wpgrp{--ga:var(--e4)} .crgrp{--ga:var(--cr)} .skgrp{--ga:var(--e2)}
+  .icgrp{--ga:var(--e1)} .admgrp{--ga:var(--muted)}
+  .qgrp{--ga:var(--e1)}
+
+  /* the one-page groups (crises, skills) fold their stations into signpost lines */
+  .ix{margin:8px 0 0;font-size:12.5px;line-height:2.2;color:var(--muted)}
+  .ix .ixk{display:inline-block;margin-right:10px;font-family:var(--mono);font-weight:800;
+    font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+    color:color-mix(in srgb,var(--gk,var(--ink)) 68%,var(--ink))}
+  .ix a{color:var(--muted);text-decoration:none;white-space:nowrap;padding:2px 6px;border-radius:6px;
+    transition:color var(--dur-micro) var(--ease-out),background var(--dur-micro) var(--ease-out)}
+  .ix a:hover,.ix a:focus-visible{color:var(--ink);
+    background:color-mix(in srgb,var(--ga,var(--cr)) 16%,transparent)}
+  .ix a:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+  .ix a:visited{color:var(--faint)}
   .ix .sep{opacity:.35;margin:0 1px}
-  @media(max-width:720px){
-    .tabs{gap:6px 10px}
-    .tabgrp{padding:8px 8px 10px}
-    .grplab em,.sublab em{display:none}
-    .subrow{gap:10px 18px}
+
+  /* ---- trail's end: dewey at the door on the way out ---- */
+  .deweyfoot{position:relative;margin:var(--sp-2xl) 0 0;max-width:34em}
+  .deweyfoot .lede{margin:0;font-size:18px}
+
+  @media(max-width:640px){
+    :root{--rail:8px}
+    .page{padding:24px 14px 70px}
+    .trail{padding-left:calc(var(--rail) + 20px)}
+    .station::before,.region::before{left:calc(-20px - 5px + 1px);width:10px;height:10px}
+    .rows{grid-template-columns:minmax(0,1fr)}
+    h1{font-size:clamp(38px,11vw,48px)}
   }
 </style>
+<noscript><style>
+  /* without js the gate can't open — leave every door reachable */
+  html:not(.rp-ok) .firstread,html:not(.rp-ok) .cyoafold-station{display:block}
+</style></noscript>
 </head>
 <body>
 <div class="rainbar" aria-hidden="true"></div>
@@ -351,12 +322,13 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
     <a class="back" href="/sensemaking"><span class="bx">←</span>🔦 sensemaking</a>
   </div>
 
+  <!-- the arrival: the last floor of the funnel — you brought your own light down -->
+  <p class="depthmark">· three floors down · the map room ·</p>
+  <p class="arrivewhisper">the last floor down —
+    <b>the whole map is here.</b></p>
 
-
-  <!-- the depth: every door, grouped the way the poster groups them. the signpost and
-       the census sit right on top of the doors they measure. -->
-  <!-- the monk again: the same one from upstairs (same face, same click), sitting
-       right on the word -->
+  <!-- the hero, restored: the same monk from upstairs (same face, same click),
+       sitting right on the word -->
   <div class="monk" id="omonkwrap" role="img"
     aria-label="the meditating monk from the landing page, breathing — click to change who is sitting">
     <div class="breath"></div>
@@ -365,241 +337,216 @@ try{ if(localStorage.getItem('dg-redpill')) document.documentElement.classList.a
     <div class="sun"></div>
     <div class="heart"><span id="omonk">🧘</span></div>
   </div>
-
-  <header>
+  <header class="trailhead">
     <h1>orient</h1>
   </header>
 
+  <div class="trail">
 
+    <!-- station: the compass — what to do with the pull you already feel -->
+    <section class="station" style="--sa:var(--e2)">
+      <details class="fold" id="fold-compass" open>
+        <summary class="st-head"><h2><span class="em">🧭</span> the compass</h2><span class="chev">⌄</span></summary>
+        <p class="lede">&ldquo;your work is to <b>discover your work</b> and then with
+          <b>all your heart</b> to give yourself to it.&rdquo;
+          <span class="attrib">— dhammapada</span></p>
+        <ol class="steps">
+          <li><span class="n">1 · notice</span><b>become present</b>, follow your curiosity.</li>
+          <li><span class="n">2 · savor</span><b>consider the richness</b> of the journey.</li>
+          <li><span class="n">3 · return</span>what you find down there, <b>bring back</b> to the others —
+            <a class="tg" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">join the telegram</a>.</li>
+        </ol>
+      </details>
+    </section>
 
-  <!-- the compass: what to do with the pull you already feel. it folds shut once you know it. -->
-  <details class="compass fold" id="fold-compass" open>
-    <summary><span>the compass</span><span class="chev">⌄</span></summary>
-    <p class="lede">"your work is to <b>discover your work</b> and then with
-      <b>all your heart</b> to give yourself to it."
-      <span class="attrib">— dhammapada</span></p>
+    <!-- station: the red gate — consent before the heavy country -->
+    <section class="station redgate-station" style="--sa:#e0643c">
+      <div class="redgate" id="redgate">
+        <p class="rg-k">⚠ before you open the map</p>
+        <p class="rg-body">what&rsquo;s below is a map of how civilizations fail — and
+          <b>you can&rsquo;t unsee it</b>. these ideas are controversial. they hurt to think about.
+          for some people they bring real <b>existential dread</b>.
+          to look anyway is to choose <b>truth over comfort</b> — the red pill, taken with
+          open eyes. go gently, and bring what you feel to
+          <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">the others</a> —
+          no one should hold this alone.</p>
+        <button id="rgbtn" type="button">💊 i understand</button>
+      </div>
+    </section>
 
-    <div class="steps">
-      <div class="step n1">
-        <div class="k">1 · notice</div>
-        <p><b>become present</b>, follow your curiosity.</p>
-      </div>
-      <div class="step n2">
-        <div class="k">2 · savor</div>
-        <p><b>consider the richness</b> of the journey.</p>
-      </div>
-      <div class="step n3">
-        <div class="k">3 · return</div>
-        <p>what you find down there, <b>bring back</b> to the others.</p>
-        <a class="d" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a>
-      </div>
+    <!-- station: the metacrisis — graduate school, not the front gate -->
+    <section class="station firstread" style="--sa:var(--cr)">
+      <a class="bigcta" href="/metacrisis"><span class="emj">🕸️</span>the metacrisis<span class="aro">→</span></a>
+    </section>
+
+    <!-- station: the adventure — you have to choose to choose -->
+    <section class="station cyoafold-station" style="--sa:var(--e4)">
+      <details class="fold cyoafold" id="fold-cyoa">
+        <summary><span class="cy">then — <b>choose your own adventure</b></span><span class="chev">⌄</span></summary>
+
+        <!-- whose hand drew the map -->
+        <details class="whatis fold" id="fold-whatis" open>
+          <summary><span>what this is</span><span class="chev">⌄</span></summary>
+          <p>&ldquo;this is a <b>visual map of humanity&rsquo;s deepest patterns</b>, designed to help
+            people understand civilization, find their deepest role <b>(dharma)</b>, and work
+            together to <b>steer the future upward</b>.</p>
+          <p>a picture is worth <b>1000 words</b>, so i&rsquo;ve designed this to give
+            you a visual download of the islands of coherence you&rsquo;ll need on your journey.</p>
+          <p>i&rsquo;ve laboured to provide multiple complementary islands of coherence —
+            <b>multiple apertures</b> into the metacrisis.</p>
+          <p>as the old saying goes, <b>&lsquo;all models are wrong, some are useful.&rsquo;</b>
+            i hope these islands of coherence are useful for you in your dharmic journey!&rdquo;
+            <span class="attrib">— kevin owocki &nbsp;·&nbsp; <a class="tg" href="/about">read more →</a></span></p>
+        </details>
+
+        <nav class="regions" aria-label="every door in the depth">
+
+          <div class="region qgrp">
+            <details class="fold" id="questions" open>
+              <summary class="rg-head"><h2>how we coordinate</h2><span class="wsp">the fifteen questions every civilization answers</span><span class="chev">⌄</span></summary>
+              <div class="junction q1">
+                <span class="sublab">how you live<em>the business of not dying</em></span>
+                <div class="rows">
+                  <a class="door" href="/alloc"><span class="em">✨</span><b>resources</b><span class="tq">who gets what</span></a>
+                  <a class="door" href="/live"><span class="em">🌾</span><b>livelihood</b><span class="tq">how you eat</span></a>
+                  <a class="door" href="/care"><span class="em">🩺</span><b>care</b><span class="tq">who heals you</span></a>
+                </div>
+              </div>
+              <div class="junction q2">
+                <span class="sublab">how we coordinate<em>and how it breaks</em></span>
+                <div class="rows">
+                  <a class="door" href="/power"><span class="em">👑</span><b>power</b><span class="tq">who decides</span></a>
+                  <a class="door" href="/trust"><span class="em">🤝</span><b>trust</b><span class="tq">who you trust</span></a>
+                  <a class="door" href="/identity"><span class="em">🪪</span><b>identity</b><span class="tq">who you are</span></a>
+                  <a class="door" href="/conflict"><span class="em">⚖️</span><b>conflict</b><span class="tq">how you fight</span></a>
+                </div>
+              </div>
+              <div class="junction q3">
+                <span class="sublab">what it runs on<em>nothing else happens until these do</em></span>
+                <div class="rows">
+                  <a class="door" href="/energy"><span class="em">⚡</span><b>energy</b><span class="tq">what powers you</span></a>
+                  <a class="door" href="/math"><span class="em">🔢</span><b>mathematics</b><span class="tq">what can be proven</span></a>
+                  <a class="door" href="/land"><span class="em">🗺️</span><b>land</b><span class="tq">who owns the place</span></a>
+                  <a class="door" href="/time"><span class="em">⏳</span><b>time</b><span class="tq">who sets the clock</span></a>
+                </div>
+              </div>
+              <div class="junction q4">
+                <span class="sublab">what we know<em>and what we owe</em></span>
+                <div class="rows">
+                  <a class="door" href="/truth"><span class="em">📖</span><b>truth</b><span class="tq">what is true</span></a>
+                  <a class="door" href="/record"><span class="em">💾</span><b>the record</b><span class="tq">who keeps the record</span></a>
+                  <a class="door" href="/ontology"><span class="em">🗂️</span><b>ontology</b><span class="tq">what exists</span></a>
+                  <a class="door" href="/ethics"><span class="em">🕊️</span><b>ethics</b><span class="tq">what you owe</span></a>
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="region wpgrp">
+            <details class="fold" id="views" open>
+              <summary class="rg-head"><h2>zoom out</h2><span class="wsp">the whole picture</span><span class="chev">⌄</span></summary>
+              <div class="rows" style="margin-top:10px">
+                <a class="door" href="/spiral"><span class="em">🧬</span><b>the spiral</b><span class="tq">all of it at once</span></a>
+                <a class="door" href="/syntropy"><span class="em">🌀</span><b>syntropy</b><span class="tq">what resists entropy</span></a>
+                <a class="door" href="/turn"><span class="em">⚙️</span><b>one turn</b><span class="tq">the loop, up close</span></a>
+                <a class="door" href="/ratchet"><span class="em">🪜</span><b>the ratchet</b><span class="tq">what survives collapse</span></a>
+                <a class="door" href="/assembly"><span class="em">🧩</span><b>assembly</b><span class="tq">the building blocks</span></a>
+                <a class="door" href="/trap"><span class="em">🕳️</span><b>the trap</b><span class="tq">why we can&rsquo;t coordinate</span></a>
+                <a class="door" href="/games"><span class="em">🎲</span><b>the games</b><span class="tq">why cooperation is hard</span></a>
+                <a class="door" href="/critique"><span class="em">🪞</span><b>the critique</b><span class="tq">what the gains cost</span></a>
+                <a class="door" href="/babel"><span class="em">🗼</span><b>babel</b><span class="tq">the war on sensemaking</span></a>
+                <a class="door" href="/bargain"><span class="em">🍎</span><b>the bargain</b><span class="tq">what we lose with progress</span></a>
+                <a class="door" href="/superorganism"><span class="em">🦠</span><b>the superorganism</b><span class="tq">what&rsquo;s actually in charge</span></a>
+                <a class="door" href="/collapse"><span class="em">🗿</span><b>how civilizations fail</b><span class="tq">societies choose</span></a>
+                <a class="door" href="/lineage"><span class="em">🔥</span><b>the lineage</b><span class="tq">who carries the torch</span></a>
+              </div>
+            </details>
+          </div>
+
+          <div class="region crgrp">
+            <details class="fold" id="crises" open>
+              <summary class="rg-head"><h2>the crises</h2><span class="wsp">the heavy country</span><span class="chev">⌄</span></summary>
+              <p class="ix"><a href="/metacrisis">🕸️ the metacrisis</a></p>
+              <p class="ix"><b class="ixk" style="--gk:var(--e1)">ecological</b>
+                <a href="/crises#climate">🌡️ climate</a><span class="sep">·</span>
+                <a href="/crises#extinction">🦋 extinction</a><span class="sep">·</span>
+                <a href="/crises#oceans">🐟 oceans</a><span class="sep">·</span>
+                <a href="/crises#topsoil">🏜️ topsoil</a><span class="sep">·</span>
+                <a href="/crises#freshwater">💧 freshwater</a><span class="sep">·</span>
+                <a href="/crises#nutrient-cycles">🧪 nutrient cycles</a><span class="sep">·</span>
+                <a href="/crises#toxicity">☠️ toxicity</a><span class="sep">·</span>
+                <a href="/crises#deforestation">🪓 deforestation</a></p>
+              <p class="ix"><b class="ixk" style="--gk:var(--cr)">technological</b>
+                <a href="/crises#misaligned-ai">🤖 misaligned ai</a><span class="sep">·</span>
+                <a href="/crises#biorisk">🧫 biorisk</a><span class="sep">·</span>
+                <a href="/crises#nukes">☢️ nukes</a><span class="sep">·</span>
+                <a href="/crises#cyber">🔌 cyber</a><span class="sep">·</span>
+                <a href="/crises#autonomous-weapons">🛩️ autonomous weapons</a><span class="sep">·</span>
+                <a href="/crises#surveillance">👁️ surveillance</a></p>
+              <p class="ix"><b class="ixk" style="--gk:var(--e4)">social</b>
+                <a href="/crises#sensemaking">🌫️ sensemaking</a><span class="sep">·</span>
+                <a href="/crises#polarization">⚔️ polarization</a><span class="sep">·</span>
+                <a href="/crises#trust-collapse">🏛️ trust collapse</a><span class="sep">·</span>
+                <a href="/crises#financial-fragility">🫧 financial fragility</a><span class="sep">·</span>
+                <a href="/crises#supply-chains">⛓️ supply chains</a><span class="sep">·</span>
+                <a href="/crises#meaning">🕯️ meaning</a><span class="sep">·</span>
+                <a href="/crises#the-feed">📱 the feed</a><span class="sep">·</span>
+                <a href="/crises#migration">🧳 migration</a><span class="sep">·</span>
+                <a href="/crises#state-failure">🏚️ state failure</a><span class="sep">·</span>
+                <a href="/crises#pandemics">😷 pandemics</a></p>
+            </details>
+          </div>
+
+          <div class="region skgrp">
+            <details class="fold" id="skills" open>
+              <summary class="rg-head"><h2>the skills</h2><span class="wsp">what one person can practice — eleven trailheads, dharma the capstone</span><span class="chev">⌄</span></summary>
+              <p class="ix">
+                <a href="/skills#healing">🫀 healing</a><span class="sep">·</span>
+                <a href="/skills#curiosity">🔍 curiosity</a><span class="sep">·</span>
+                <a href="/skills#intentional-tech">📵 intentional tech</a><span class="sep">·</span>
+                <a href="/skills#sacred-economy">🎁 sacred economy</a><span class="sep">·</span>
+                <a href="/skills#source">⛲ source</a><span class="sep">·</span>
+                <a href="/skills#extitutions">⛺ extitutions</a><span class="sep">·</span>
+                <a href="/skills#metacogsec">🧠 metacogsec</a><span class="sep">·</span>
+                <a href="/skills#lucid-oracle">🔮 lucid oracle</a><span class="sep">·</span>
+                <a href="/skills#dharma">🧭 dharma</a><span class="sep">·</span>
+                <a href="/skills#bridging">🌉 ontological bridging</a><span class="sep">·</span>
+                <a href="/skills#culture-wars">🎭 culture war ontology</a></p>
+            </details>
+          </div>
+
+          <div class="region icgrp">
+            <details class="fold" id="islands" open>
+              <summary class="rg-head"><h2>islands of coherence</h2><span class="wsp">communities that already solved it — protocols from the great simplification&rsquo;s case study library</span><span class="chev">⌄</span></summary>
+              <div class="rows" style="margin-top:10px">
+                <a class="door" href="/islands#delancey-street"><span class="em">🏗️</span><b>delancey street</b><span class="tq">~95% lasting rehabilitation</span></a>
+                <a class="door" href="/islands#clean-the-city"><span class="em">🧹</span><b>clean the city</b><span class="tq">two problems, one program</span></a>
+                <a class="door" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener"><span class="em">✍️</span><b>submit one</b><span class="tq">share it in the telegram</span></a>
+              </div>
+            </details>
+          </div>
+
+          <div class="region admgrp">
+            <details class="fold" id="admin" open>
+              <summary class="rg-head"><h2>etc</h2><span class="chev">⌄</span></summary>
+              <div class="rows" style="margin-top:10px">
+                <a class="door" href="/about"><span class="em">🌀</span><b>about</b><span class="tq">why this exists</span></a>
+                <a class="door" href="/orbit" title="orbit the hyperobject"><span class="em">🔭</span><b>3d view</b><span class="tq">the hyperobject</span></a>
+              </div>
+            </details>
+          </div>
+
+        </nav>
+      </details>
+    </section>
+
+    <!-- trail's end: dewey at the door on the way out -->
+    <div class="deweyfoot">
+      <p class="lede">&ldquo;a problem well <b>understood</b> is half <b>solved</b>.&rdquo;
+        <span class="attrib">— john dewey</span></p>
     </div>
-  </details>
 
-
-  <!-- the red gate: what's below can't be unseen. the doors stay dark until you say so. -->
-  <div class="redgate" id="redgate">
-    <p class="rg-k">⚠ before you open the map</p>
-    <p class="rg-body">what's below is a map of how civilizations fail — and
-      <b>you can't unsee it</b>. these ideas are controversial. they hurt to think about.
-      for some people they bring real <b>existential dread</b>.
-      to look anyway is to choose <b>truth over comfort</b> — the red pill, taken with
-      open eyes. go gently, and bring what you feel to
-      <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">the others</a> —
-      no one should hold this alone.</p>
-    <button id="rgbtn" type="button">💊 i understand</button>
   </div>
-
-  <!-- the metacrisis door: graduate school, not the front gate — the inquiry CTA
-       moved down the funnel (you already passed it on the way here) -->
-  <div class="firstread">
-    <a class="bigcta" href="/metacrisis"><span class="emj">🕸️</span>the metacrisis<span class="aro">→</span></a>
-  </div>
-
-  <!-- the adventure waits behind its own fold: you have to choose to choose -->
-  <details class="fold cyoafold" id="fold-cyoa">
-    <summary class="cyoa"><span>then — choose your own adventure</span><span class="chev">⌄</span></summary>
-    <!-- whose hand drew the map — revealed with the adventure, foldable on its own -->
-    <details class="whatis fold" id="fold-whatis" open>
-      <summary><span>what this is</span><span class="chev">⌄</span></summary>
-      <p class="lede">"this is a <b>visual map of humanity's deepest patterns</b>, designed to help
-        people understand civilization, find their deepest role <b>(dharma)</b>, and work
-        together to <b>steer the future upward</b>.</p>
-      <p class="lede lede-b">a picture is worth <b>1000 words</b>, so i've designed this to give
-        you a visual download of the islands of coherence you'll need on your journey.</p>
-      <p class="lede lede-b">i've laboured to provide multiple complementary islands of coherence —
-        <b>multiple apertures</b> into the metacrisis.</p>
-      <p class="lede lede-b">as the old saying goes, <b>'all models are wrong, some are useful.'</b>
-        i hope these islands of coherence are useful for you in your dharmic journey!"
-        <span class="attrib">— kevin owocki &nbsp;·&nbsp; <a href="/about">read more →</a></span></p>
-    </details>
-
-    <nav class="tabs" aria-label="every door in the depth">
-    <svg class="navswirl" aria-hidden="true" viewBox="-270 -270 1680 1680" focusable="false">
-      <defs>
-        <linearGradient id="navswg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#2f9e44"/><stop offset="25%" stop-color="#a17a00"/>
-          <stop offset="50%" stop-color="#b0561f"/><stop offset="75%" stop-color="#b535bb"/>
-          <stop offset="100%" stop-color="#1c7ed6"/>
-        </linearGradient>
-        <radialGradient id="navsr" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fff"/><stop offset="62%" stop-color="#fff"/>
-          <stop offset="100%" stop-color="#000"/>
-        </radialGradient>
-        <mask id="navsm"><rect x="-270" y="-270" width="1680" height="1680" fill="url(#navsr)"/></mask>
-      </defs>
-      <g class="nsg" mask="url(#navsm)">
-        <path id="navspiralp" pathLength="1000" d="M530 500L538 506L543 515L546 527L546 539L542 552L535 565L523 577L508 587L490 595L469 599L446 598L422 593L398 583L376 569L357 549L342 525L331 498L326 468L328 436L337 404L353 373L377 344L407 319L443 299L483 285L528 278L574 280L621 289L666 308L708 334L745 369L774 410L796 457L808 508L809 562L798 616L777 669L744 718L701 762L648 799L588 826L521 843L451 848L380 841L309 821L243 789L183 745L132 691L93 628L66 557L54 482L57 405L76 329L111 255L161 188L225 130L301 83L386 49L478 29L574 26L670 40L764 70L851 117L928 178L992 253L1041 338L1073 432L1084 531L1076 631L1047 730L999 823L931 908L846 980L747 1038L637 1078L519 1098L397 1099L276 1078L160 1037L52 975L-42 896L-119 800L-176 692L-211 575L-222 452L-208 329L-169 208L-106 95L-20 -6L86 -92L209 -159L345 -205L489 -226L636 -223L782 -195L920 -141L1047 -65L1158 33L1247 150L1313 281L1351 422L1360 568L1339 715L1289 857L1211 989L1106 1107L978 1206L831 1282L670 1332L500 1354"/>
-        <use href="#navspiralp" class="navcomet"/>
-      </g>
-    </svg>
-
-    <div class="tabgrp qgrp">
-      <details class="grpfold" id="questions" open>
-      <summary class="grplab">how we coordinate<span class="chev">⌄</span></summary>
-      <div class="subrow">
-        <div class="subgrp">
-          <span class="sublab">how you live<em>the business of not dying</em></span>
-          <div class="grpchips">
-            <a class="tab" href="/alloc"><span class="em">✨</span>resources<span class="tq">who gets what</span></a>
-            <a class="tab" href="/live"><span class="em">🌾</span>livelihood<span class="tq">how you eat</span></a>
-            <a class="tab" href="/care"><span class="em">🩺</span>care<span class="tq">who heals you</span></a>
-          </div>
-        </div>
-        <div class="subgrp">
-          <span class="sublab">how we coordinate<em>and how it breaks</em></span>
-          <div class="grpchips">
-            <a class="tab" href="/power"><span class="em">👑</span>power<span class="tq">who decides</span></a>
-            <a class="tab" href="/trust"><span class="em">🤝</span>trust<span class="tq">who you trust</span></a>
-            <a class="tab" href="/identity"><span class="em">🪪</span>identity<span class="tq">who you are</span></a>
-            <a class="tab" href="/conflict"><span class="em">⚖️</span>conflict<span class="tq">how you fight</span></a>
-          </div>
-        </div>
-        <div class="subgrp">
-          <span class="sublab">what it runs on<em>nothing else happens until these do</em></span>
-          <div class="grpchips">
-            <a class="tab" href="/energy"><span class="em">⚡</span>energy<span class="tq">what powers you</span></a>
-            <a class="tab" href="/math"><span class="em">🔢</span>mathematics<span class="tq">what can be proven</span></a>
-            <a class="tab" href="/land"><span class="em">🗺️</span>land<span class="tq">who owns the place</span></a>
-            <a class="tab" href="/time"><span class="em">⏳</span>time<span class="tq">who sets the clock</span></a>
-          </div>
-        </div>
-        <div class="subgrp">
-          <span class="sublab">what we know<em>and what we owe</em></span>
-          <div class="grpchips">
-            <a class="tab" href="/truth"><span class="em">📖</span>truth<span class="tq">what is true</span></a>
-            <a class="tab" href="/record"><span class="em">💾</span>the record<span class="tq">who keeps the record</span></a>
-            <a class="tab" href="/ontology"><span class="em">🗂️</span>ontology<span class="tq">what exists</span></a>
-            <a class="tab" href="/ethics"><span class="em">🕊️</span>ethics<span class="tq">what you owe</span></a>
-          </div>
-        </div>
-      </div>
-    </details>
-    </div>
-
-    <div class="tabgrp wpgrp">
-      <details class="grpfold" id="views" open>
-      <summary class="grplab"><b class="glt">zoom out<span class="chev">⌄</span></b><em>the whole picture</em></summary>
-      <div class="grpchips">
-        <a class="tab" href="/spiral"><span class="em">🧬</span>the spiral<span class="tq">all of it at once</span></a>
-        <a class="tab" href="/syntropy"><span class="em">🌀</span>syntropy<span class="tq">what resists entropy</span></a>
-        <a class="tab" href="/turn"><span class="em">⚙️</span>one turn<span class="tq">the loop, up close</span></a>
-        <a class="tab" href="/ratchet"><span class="em">🪜</span>the ratchet<span class="tq">what survives collapse</span></a>
-        <a class="tab" href="/assembly"><span class="em">🧩</span>assembly<span class="tq">the building blocks</span></a>
-        <a class="tab" href="/trap"><span class="em">🕳️</span>the trap<span class="tq">why we can't coordinate</span></a>
-        <a class="tab" href="/games"><span class="em">🎲</span>the games<span class="tq">why cooperation is hard</span></a>
-        <a class="tab" href="/critique"><span class="em">🪞</span>the critique<span class="tq">what the gains cost</span></a>
-        <a class="tab" href="/babel"><span class="em">🗼</span>babel<span class="tq">the war on sensemaking</span></a>
-        <a class="tab" href="/bargain"><span class="em">🍎</span>the bargain<span class="tq">what we lose with progress</span></a>
-        <a class="tab" href="/superorganism"><span class="em">🦠</span>the superorganism<span class="tq">what's actually in charge</span></a>
-        <a class="tab" href="/collapse"><span class="em">🗿</span>how civilizations fail<span class="tq">societies choose</span></a>
-        <a class="tab" href="/lineage"><span class="em">🔥</span>the lineage<span class="tq">who carries the torch</span></a>
-      </div>
-    </details>
-    </div>
-
-    <div class="tabgrp crgrp">
-      <details class="grpfold" id="crises" open>
-      <summary class="grplab">the crises<span class="chev">⌄</span></summary>
-      <p class="ix"><a href="/metacrisis">🕸️ the metacrisis</a></p>
-      <p class="ix"><b class="ixk" style="--gk:#4ecb66">ecological</b>
-        <a href="/crises#climate">🌡️ climate</a><span class="sep">·</span>
-        <a href="/crises#extinction">🦋 extinction</a><span class="sep">·</span>
-        <a href="/crises#oceans">🐟 oceans</a><span class="sep">·</span>
-        <a href="/crises#topsoil">🏜️ topsoil</a><span class="sep">·</span>
-        <a href="/crises#freshwater">💧 freshwater</a><span class="sep">·</span>
-        <a href="/crises#nutrient-cycles">🧪 nutrient cycles</a><span class="sep">·</span>
-        <a href="/crises#toxicity">☠️ toxicity</a><span class="sep">·</span>
-        <a href="/crises#deforestation">🪓 deforestation</a></p>
-      <p class="ix"><b class="ixk" style="--gk:#e8446f">technological</b>
-        <a href="/crises#misaligned-ai">🤖 misaligned ai</a><span class="sep">·</span>
-        <a href="/crises#biorisk">🧫 biorisk</a><span class="sep">·</span>
-        <a href="/crises#nukes">☢️ nukes</a><span class="sep">·</span>
-        <a href="/crises#cyber">🔌 cyber</a><span class="sep">·</span>
-        <a href="/crises#autonomous-weapons">🛩️ autonomous weapons</a><span class="sep">·</span>
-        <a href="/crises#surveillance">👁️ surveillance</a></p>
-      <p class="ix"><b class="ixk" style="--gk:#e14fe1">social</b>
-        <a href="/crises#sensemaking">🌫️ sensemaking</a><span class="sep">·</span>
-        <a href="/crises#polarization">⚔️ polarization</a><span class="sep">·</span>
-        <a href="/crises#trust-collapse">🏛️ trust collapse</a><span class="sep">·</span>
-        <a href="/crises#financial-fragility">🫧 financial fragility</a><span class="sep">·</span>
-        <a href="/crises#supply-chains">⛓️ supply chains</a><span class="sep">·</span>
-        <a href="/crises#meaning">🕯️ meaning</a><span class="sep">·</span>
-        <a href="/crises#the-feed">📱 the feed</a><span class="sep">·</span>
-        <a href="/crises#migration">🧳 migration</a><span class="sep">·</span>
-        <a href="/crises#state-failure">🏚️ state failure</a><span class="sep">·</span>
-        <a href="/crises#pandemics">😷 pandemics</a></p>
-    </details>
-    </div>
-
-    <div class="tabgrp skgrp">
-      <details class="grpfold" id="skills" open>
-      <summary class="grplab"><b class="glt">the skills<span class="chev">⌄</span></b><em>what one person can practice — eleven trailheads, dharma the capstone</em></summary>
-      <p class="ix">
-        <a href="/skills#healing">🫀 healing</a><span class="sep">·</span>
-        <a href="/skills#curiosity">🔍 curiosity</a><span class="sep">·</span>
-        <a href="/skills#intentional-tech">📵 intentional tech</a><span class="sep">·</span>
-        <a href="/skills#sacred-economy">🎁 sacred economy</a><span class="sep">·</span>
-        <a href="/skills#source">⛲ source</a><span class="sep">·</span>
-        <a href="/skills#extitutions">⛺ extitutions</a><span class="sep">·</span>
-        <a href="/skills#metacogsec">🧠 metacogsec</a><span class="sep">·</span>
-        <a href="/skills#lucid-oracle">🔮 lucid oracle</a><span class="sep">·</span>
-        <a href="/skills#dharma">🧭 dharma</a><span class="sep">·</span>
-        <a href="/skills#bridging">🌉 ontological bridging</a><span class="sep">·</span>
-        <a href="/skills#culture-wars">🎭 culture war ontology</a></p>
-    </details>
-    </div>
-
-    <div class="tabgrp icgrp">
-      <details class="grpfold" id="islands" open>
-      <summary class="grplab"><b class="glt">islands of coherence<span class="chev">⌄</span></b><em>communities that already solved it — protocols from the great simplification's case study library</em></summary>
-      <div class="grpchips">
-        <a class="tab" href="/islands#delancey-street"><span class="em">🏗️</span>delancey street<span class="tq">~95% lasting rehabilitation</span></a>
-        <a class="tab" href="/islands#clean-the-city"><span class="em">🧹</span>clean the city<span class="tq">two problems, one program</span></a>
-        <a class="tab" href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener"><span class="em">✍️</span>submit one<span class="tq">share it in the telegram</span></a>
-      </div>
-    </details>
-    </div>
-
-    <div class="tabgrp admgrp">
-      <details class="grpfold" id="admin" open>
-      <summary class="grplab">etc<span class="chev">⌄</span></summary>
-      <div class="grpchips">
-        <a class="tab" href="/about"><span class="em">🌀</span>about<span class="tq">why this exists</span></a>
-        <a class="tab" href="/orbit" title="orbit the hyperobject"><span class="em">🔭</span>3d view<span class="tq">the hyperobject</span></a>
-      </div>
-    </details>
-    </div>
-    </nav>
-
-  </details>
-
-  <!-- dewey, at the door on the way out -->
-  <div class="deweyfoot">
-    <p class="lede">"a problem well <b>understood</b> is half <b>solved</b>."
-      <span class="attrib">— john dewey</span></p>
-  </div>
-
 </div>
 
 <script>
@@ -711,12 +658,11 @@ try{ if(localStorage.getItem('dg-mc-read'))
 document.querySelector('.firstread a.bigcta')?.addEventListener('click',()=>{
   try{localStorage.setItem('dg-mc-read','1')}catch(e){}
 });
-// the red gate: one click, remembered — the doors light and the warning stands down
+// the red gate: one click, remembered — the doors light and the notice stands down
 document.getElementById('rgbtn')?.addEventListener('click',()=>{
   try{localStorage.setItem('dg-redpill','1')}catch(e){}
   document.documentElement.classList.add('rp-ok');
 });
-
 // the monk is the same monk: face shared with the landing via localStorage
 (function(){
   const faces=['🧘','🧘‍♂️','🧘‍♀️','🧘🏻','🧘🏼','🧘🏽','🧘🏾','🧘🏿','🧘🏻‍♀️','🧘🏼‍♀️','🧘🏽‍♀️','🧘🏾‍♀️','🧘🏿‍♀️','🧘🏻‍♂️','🧘🏼‍♂️','🧘🏽‍♂️','🧘🏾‍♂️','🧘🏿‍♂️'];
@@ -730,28 +676,17 @@ document.getElementById('rgbtn')?.addEventListener('click',()=>{
 })();
 
 // the folds remember whether you left them open
-document.querySelectorAll('details.fold, details.grpfold').forEach(d=>{
+document.querySelectorAll('details.fold').forEach(d=>{
+  if(!d.id) return;
   try{
     const k='or-'+d.id, v=localStorage.getItem(k);
     if(v==='closed') d.open=false;
     if(v==='open') d.open=true;
     d.addEventListener('toggle',()=>{
       try{ localStorage.setItem(k,d.open?'open':'closed'); }catch(e){}
-      if(d.open) d.querySelectorAll('.step').forEach(st=>st.classList.add('lit'));
     });
   }catch(e){}
 });
-
-// the compass steps arrive quietly, one scroll-beat after the page does
-(function(){
-  const st=document.querySelectorAll('.step');
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){
-    st.forEach(s=>s.classList.add('lit')); return; }
-  const io=new IntersectionObserver(es=>es.forEach((e)=>{
-    if(e.isIntersecting){ e.target.classList.add('lit'); io.unobserve(e.target); }
-  }),{threshold:.3});
-  st.forEach(s=>io.observe(s));
-})();
 </script>
 </body>
 </html>

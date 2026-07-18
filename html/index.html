@@ -3,11 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <!-- legacy deep links: for a year the coil lived at the bare root, and the internet still
      believes it. any hash that arrives here is somebody's old bookmark — forward it inside
      before the page even paints. (#deepen is ours: the button that takes you underground.) -->
 <script>if(location.hash.length>1&&location.hash!=='#deepen')location.replace('/spiral'+location.hash);</script>
+
+<!-- the descent, staged: the hero holds the fold, and below it the underground is one
+     pinned scene — the soil moves past you, his qi thread leads you down, the mycelium
+     wakes, and the wordmark / definitions / gate arrive as beats riding over the scene,
+     the same scrollytell grammar as the metacrisis. -->
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
@@ -19,8 +23,7 @@
   gtag('config', 'G-882JMLBJG9');
 </script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
-<!-- the theme, settled before first paint. the sky, read off the visitor's own clock:
-     dawn, day, dusk, night — the hero keeps local weather now. the monk sits through all of it. -->
+<!-- the theme, settled before first paint. the sky, read off the visitor's own clock. -->
 <script>(function(){var t;try{t=localStorage.getItem('ra-theme')}catch(e){}
   document.documentElement.setAttribute('data-theme',(t==='light'||t==='dark')?t:'dark');
   var h=new Date().getHours();
@@ -42,12 +45,14 @@
 <meta name="twitter:title" content="dharma.gift — the gift of knowing what is yours to do">
 <meta name="twitter:description" content="a monk under the trees, a city behind him, his breath feeding the roots. scroll down — the ground opens.">
 <meta name="twitter:image" content="https://dharma.gift/og-dharma.png?v=4">
-<meta name="description" content="dharma.gift — a monk breathing under five colorful trees while the city glows behind him, his breath feeding the roots below. the door at the bottom opens the depth.">
+<meta name="description" content="dharma.gift — a monk breathing under five colorful trees while the city glows behind him, his breath feeding the roots below. the descent at the bottom opens the depth.">
 <style>
+  /* Hallmark · macrostructure: Marquee Hero → pinned-descent scrollytell · genre: editorial (site system)
+   * theme: dharma.gift locked system (Fraunces · era ramp · soil/deep) · designed-as-app
+   * pre-emit critique: P5 H4 E4 S5 R4 V5 */
   :root{
     --bg:#f1f5ee; --ink:#18241a; --muted:#5c6f5e; --panel:#ffffff; --line:#d3e0d0;
     --e1:#2f9e44; --e2:#a17a00; --e3:#b0561f; --e4:#b535bb; --e5:#1c7ed6;
-    --warn:#8a6d00; --warnbg:#fbf5dc; --warnline:#e3c94e;
     --soil:#241a0e; --deep:#0a0d08;
     --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
     --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
@@ -55,20 +60,19 @@
   :root[data-theme="dark"]{
     --bg:#050b06; --ink:#eaf5ea; --muted:#94ad96; --panel:#0d1a10; --line:#1e3322;
     --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
-    --warn:#e3b31d; --warnbg:#161105; --warnline:#5c4a10;
     --soil:#191106; --deep:#04070a;
   }
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
     --bg:#050b06; --ink:#eaf5ea; --muted:#94ad96; --panel:#0d1a10; --line:#1e3322;
     --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
-    --warn:#e3b31d; --warnbg:#161105; --warnline:#5c4a10;
     --soil:#191106; --deep:#04070a;
   }}
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);
     font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+    -webkit-font-smoothing:antialiased;overflow-x:clip}
+  html{overflow-x:clip}
   body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size:240px 240px;mix-blend-mode:overlay}
@@ -77,9 +81,7 @@
   .rainbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:95;
     background:linear-gradient(90deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff)}
 
-  /* ================= above the fold: a sky on local time, a far city, five trees, one monk ================= */
-  /* the fold is the ground line. the sky follows the visitor's clock — data-sky is stamped
-     before first paint — and the monk sits through dawn, day, dusk and night alike. */
+  /* ================= above the fold: unchanged. the monk IS the fold. ================= */
   .hero{position:relative;height:100svh;min-height:600px;display:flex;flex-direction:column;
     align-items:center;overflow:hidden;color:#dfe6f6;
     background:linear-gradient(180deg,#03040c 0%,#070a1a 42%,#0d1026 68%,#181231 88%,#20163a 100%)}
@@ -89,8 +91,6 @@
     background:linear-gradient(180deg,#4a9fe0 0%,#71b6ea 45%,#a3d2f2 78%,#cfe8f8 100%)}
   :root[data-sky="dusk"] .hero{
     background:linear-gradient(180deg,#181233 0%,#33204f 40%,#6e3260 68%,#b85756 86%,#ef9257 100%)}
-  /* what each hour does to the rest of the scene: stars thin out, windows go dark, the
-     city's ink lifts to a daytime haze, meteors only fall at night */
   :root[data-sky="dawn"] .stars,:root[data-sky="dusk"] .stars{opacity:.35}
   :root[data-sky="day"] .stars{display:none}
   :root[data-sky="dawn"] .meteors,:root[data-sky="day"] .meteors,:root[data-sky="dusk"] .meteors{display:none}
@@ -105,7 +105,6 @@
   :root[data-sky="dawn"] .cityglow,:root[data-sky="dusk"] .cityglow{
     background:radial-gradient(76% 96% at 50% 106%,rgba(255,166,96,.30),rgba(232,120,86,.12) 52%,transparent 78%)}
 
-  /* stars: three phase groups so the sky breathes instead of blinking */
   .stars{position:absolute;inset:0;z-index:1;pointer-events:none}
   .stars i{position:absolute;border-radius:50%;background:#dfe8ff}
   .stars i.p1{animation:tw1 3.4s ease-in-out infinite}
@@ -114,8 +113,6 @@
   @keyframes tw1{0%,100%{opacity:.18}50%{opacity:.95}}
   @media (prefers-reduced-motion:reduce){ .stars i{animation:none;opacity:.55} }
 
-  /* the city: it towers over the grove — lit windows all the way up, a warm aura
-     around the skyline. the monk is flanked by it and unbothered by it. */
   .cityglow{position:absolute;left:0;right:0;bottom:0;height:74%;z-index:2;pointer-events:none;
     background:radial-gradient(76% 96% at 50% 106%,rgba(255,178,84,.22),rgba(181,53,187,.10) 52%,transparent 78%)}
   .city{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:3;
@@ -132,7 +129,6 @@
   .treeswrap{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:4;
     width:min(1240px,max(125vw,720px));pointer-events:none}
   .treeswrap svg{display:block;width:100%;height:auto}
-  /* wind: each canopy leans and returns on its own clock; the trunks stay planted */
   .canopy{transform-box:fill-box;transform-origin:50% 92%;animation:sway 7s ease-in-out infinite}
   .t2 .canopy{animation-duration:8.4s;animation-delay:-2.1s}
   .t3 .canopy{animation-duration:6.2s;animation-delay:-1.2s}
@@ -140,7 +136,6 @@
   .t5 .canopy{animation-duration:7.7s;animation-delay:-4.6s}
   @keyframes sway{0%,100%{transform:rotate(-1.1deg) translateX(-1.5px)}50%{transform:rotate(1.3deg) translateX(2px)}}
   @media (prefers-reduced-motion:reduce){ .canopy{animation:none} }
-  /* shooting stars: rare, brief, gone */
   .meteors span{position:absolute;width:130px;height:2px;opacity:0;pointer-events:none;z-index:1;
     background:linear-gradient(90deg,rgba(255,255,255,.95),rgba(170,195,255,.45),transparent);
     border-radius:2px;animation:shoot 12s linear infinite}
@@ -153,7 +148,6 @@
     100%{opacity:0;transform:rotate(-26deg) translateX(-44vw)}}
   @media (prefers-reduced-motion:reduce){ .meteors{display:none} }
 
-  /* the scroll cue: stacked chevrons bouncing toward the dirt */
   .scrollcue{position:absolute;left:50%;transform:translateX(-50%);
     bottom:clamp(430px,58vh,600px);z-index:6;display:flex;flex-direction:column;
     align-items:center;gap:0;color:#9aa5cc;pointer-events:none;
@@ -169,17 +163,13 @@
   :root[data-sky="day"] .scrollcue{color:#2e4d6e}
   @media (prefers-reduced-motion:reduce){ .scrollcue .sca{animation:none;opacity:.7} }
 
-  /* ---- the monk: sits on the ground line, under the trees, in front of everything.
-     no words, no button — he IS the fold. every ring is geometry — no blur filters,
-     mobile safari keeps its composure and so does he. ---- */
+  /* ---- the monk: verbatim from the landing. the seat stays the same. ---- */
   .monk{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:5;
     width:min(250px,52vw);height:min(250px,52vw);cursor:pointer}
-  /* the presence: a vast pool of light behind him that swells with the breath */
   .halo{position:absolute;inset:-130%;border-radius:50%;pointer-events:none;
     background:radial-gradient(circle at 50% 50%,rgba(160,205,255,.20) 0%,rgba(120,180,255,.10) 34%,rgba(181,120,255,.05) 56%,transparent 74%);
     animation:halo 6s ease-in-out infinite}
   @keyframes halo{0%,100%{transform:scale(.82);opacity:.55}50%{transform:scale(1.1);opacity:1}}
-  /* the breath: one wide oval, six seconds — three in, three out */
   .breath{position:absolute;top:-42%;bottom:-42%;left:-105%;right:-105%;border-radius:50%;
     pointer-events:none;
     background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(120,180,255,.42) 0%,rgba(160,205,255,.22) 32%,rgba(120,180,255,.09) 56%,transparent 75%);
@@ -189,7 +179,6 @@
       box-shadow:0 0 60px 22px rgba(110,170,255,.10)}
     50%{transform:scaleX(1.18) scaleY(.94);opacity:.95;
       box-shadow:0 0 130px 65px rgba(110,170,255,.22),0 0 240px 110px rgba(160,205,255,.11)}}
-  /* the coherence: four rings now, era-colored, each on its own slow orbit */
   .ring{position:absolute;border-radius:50%;pointer-events:none}
   .r1{inset:-22%;animation:spin1 9s linear infinite;
     background:conic-gradient(from 0deg,transparent 0%,rgba(78,203,102,.7) 12%,transparent 28%,rgba(227,179,29,.6) 48%,transparent 62%,rgba(225,79,225,.65) 80%,transparent 95%);
@@ -209,15 +198,12 @@
     mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#000 calc(100% - 2px),#000 100%,transparent 100%)}
   @keyframes spin1{to{transform:rotate(360deg)}}
   @keyframes spin2{to{transform:rotate(-360deg)}}
-  /* the sun behind the head: a warm, peaceful light that was always there —
-     it just needed someone to sit still enough to see it */
   .sun{position:absolute;left:50%;top:4%;transform:translate(-50%,-32%);width:160%;aspect-ratio:1;
     border-radius:50%;pointer-events:none;
     background:radial-gradient(circle,rgba(255,228,156,.6) 0%,rgba(255,204,116,.3) 28%,rgba(255,182,92,.12) 52%,transparent 70%);
     animation:sunbreathe 6s ease-in-out infinite}
   @keyframes sunbreathe{0%,100%{opacity:.65;transform:translate(-50%,-32%) scale(.94)}
     50%{opacity:1;transform:translate(-50%,-32%) scale(1.07)}}
-  /* the pulse: rings of warmth leaving the heart on each beat, reaching further now */
   .shimmer{position:absolute;inset:0;border-radius:50%;pointer-events:none;
     animation:shim 1.75s ease-out infinite}
   .shimmer.d{animation-delay:.25s}
@@ -237,9 +223,6 @@
   @keyframes beat{0%{transform:scale(1)}8%{transform:scale(1.06)}15%{transform:scale(1)}
     22%{transform:scale(1.04)}30%{transform:scale(1)}100%{transform:scale(1)}}
   .heart span{font-size:min(140px,29vw);line-height:1;user-select:none;-webkit-user-select:none}
-  /* the qi: what the breath gathers leaves through the floor of the bubble — golden
-     beads dripping down into the ground, where the mycelium picks them up (a matching
-     golden seed feeds the root web from the same spot, just below the fold) */
   .qi{position:absolute;left:50%;top:74%;transform:translateX(-50%);width:18px;height:44%;
     pointer-events:none;
     background:radial-gradient(circle 3.5px at 50% 9px,rgba(255,224,150,.95),rgba(255,196,120,.4) 62%,transparent 72%);
@@ -257,30 +240,69 @@
     .breath{transform:scaleX(.8) scaleY(.7);opacity:.6}
     .shimmer{opacity:0}}
 
-  /* the enter button downstairs still needs its river */
   @keyframes flow{to{background-position:-320% 0}}
 
-  /* ================= below the fold: underground. the descent. ================= */
+  /* ================= below the fold: THE DESCENT, now a pinned scene ================= */
+  /* one sticky viewport; the beats scroll over it and pull the reader down through
+     the soil. everything on the stage is driven by one scroll fraction t. */
   .under{position:relative;background:linear-gradient(180deg,var(--soil) 0,
       color-mix(in srgb,var(--soil) 55%,var(--deep)) 18%,var(--deep) 70%,var(--deep) 100%)}
   .under::before{content:'';position:absolute;top:0;left:0;right:0;height:7px;z-index:3;
     background:linear-gradient(180deg,color-mix(in srgb,#8a6a48 55%,var(--soil)),transparent)}
-  #myc,#flow{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+  .dstage{position:sticky;top:0;height:100svh;margin-bottom:-100svh;overflow:hidden;z-index:1}
+  #myc,#flow{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0}
   #flow{z-index:1}
-  /* the wordmark rides up in the root zone, where the threads are thickest */
-  .undercore{position:relative;z-index:2;min-height:112svh;display:flex;flex-direction:column;
-    align-items:center;justify-content:flex-start;text-align:center;
-    padding:clamp(70px,13svh,150px) 18px 22svh}
-  .wordpool{position:relative;padding:30px 10px}
-  .wordpool::before{content:'';position:absolute;inset:-50px -110px;z-index:-1;pointer-events:none;
-    background:radial-gradient(56% 56% at 50% 50%,color-mix(in srgb,var(--deep) 82%,transparent),transparent 72%)}
+
+  /* the strata: three soft bands of earth that slide past at different speeds —
+     depth built from parallax, not blur */
+  .strat{position:absolute;left:-10%;right:-10%;height:46svh;pointer-events:none;will-change:transform;
+    -webkit-mask:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent);
+    mask:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent)}
+  .s1{top:6svh;opacity:.5;
+    background:radial-gradient(120% 90% at 30% 0%,color-mix(in srgb,#8a6a48 34%,transparent),transparent 62%),
+      radial-gradient(130% 80% at 78% 12%,color-mix(in srgb,#5c4526 30%,transparent),transparent 58%)}
+  .s2{top:34svh;opacity:.38;
+    background:radial-gradient(140% 85% at 62% 4%,color-mix(in srgb,#4a3a20 36%,transparent),transparent 60%),
+      radial-gradient(110% 75% at 18% 16%,color-mix(in srgb,#6b5433 26%,transparent),transparent 55%)}
+  .s3{top:60svh;opacity:.3;
+    background:radial-gradient(150% 80% at 44% 8%,color-mix(in srgb,#33280f 44%,transparent),transparent 62%)}
+
+  /* the roots overhead: you came in through them. they lift away as you sink. */
+  .droots{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:min(1100px,130vw);
+    pointer-events:none;will-change:transform,opacity}
+  .droots svg{display:block;width:100%;height:auto}
+
+  /* the thread: his qi keeps falling, right down the middle of the descent —
+     the golden line you follow. same drip as the bubble upstairs. */
+  .qithread{position:absolute;left:50%;top:0;bottom:0;width:18px;transform:translateX(-50%);
+    pointer-events:none;opacity:0;
+    background:radial-gradient(circle 3.5px at 50% 9px,rgba(255,224,150,.95),rgba(255,196,120,.4) 62%,transparent 72%);
+    background-size:100% 20px;background-repeat:repeat-y;
+    animation:qidrip 1.1s linear infinite;
+    -webkit-mask:linear-gradient(180deg,#000 0,#000 72%,transparent 100%);
+    mask:linear-gradient(180deg,#000 0,#000 72%,transparent 100%)}
+  .qithread::before{content:'';position:absolute;inset:0 4px;border-radius:5px;
+    background:linear-gradient(180deg,rgba(255,205,130,.28),rgba(255,205,130,.10) 60%,transparent);
+    animation:qibreathe 6s ease-in-out infinite}
+
+  /* the dark pressing in as you go deeper */
+  .dvig{position:absolute;inset:0;pointer-events:none;opacity:0;
+    background:radial-gradient(120% 90% at 50% 46%,transparent 40%,rgba(2,4,2,.65) 100%)}
+
+  /* ---- the beats: normal flow, riding over the stage ---- */
+  #dbeats{position:relative;z-index:2}
+  .beat{min-height:100svh;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:0 18px}
+  .bw{position:relative;max-width:640px}
+  .bw::before{content:'';position:absolute;inset:-46px -90px;z-index:-1;pointer-events:none;
+    background:radial-gradient(58% 58% at 50% 50%,color-mix(in srgb,var(--deep) 84%,transparent),transparent 72%)}
+  /* the wordmark beat — the brand dress, verbatim */
   h1.brand{margin:0 0 14px;font-family:var(--serif);font-weight:640;
     font-size:clamp(52px,11.5vw,150px);line-height:.9;letter-spacing:-.015em}
-  /* the domain rides along at half height, wearing gold — a gift tag on the name */
   .brand .tld{font-size:.44em;font-weight:560;
     background:linear-gradient(180deg,#e3b31d 22%,#f6df9a 96%);
     -webkit-background-clip:text;background-clip:text;color:transparent}
-  /* six letters, five inks — the wheel comes back around */
   .brand span{display:inline-block;background:linear-gradient(180deg,var(--lc) 22%,color-mix(in srgb,var(--lc) 62%,#fff) 96%);
     -webkit-background-clip:text;background-clip:text;color:transparent;
     transition:transform .35s cubic-bezier(.2,1.6,.4,1)}
@@ -288,15 +310,11 @@
   .brand .l1{--lc:#4ecb66} .brand .l2{--lc:#e3b31d} .brand .l3{--lc:#f07f3c}
   .brand .l4{--lc:#e14fe1} .brand .l5{--lc:#42a4ff} .brand .l6{--lc:#4ecb66}
   .expansion{font:600 12px/1.9 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:#8fa892}
-  .expansion .w1{color:#4ecb66} .expansion .w2{color:#e3b31d} .expansion .w3{color:#f07f3c}
-  .expansion .w4{color:#e14fe1} .expansion .w5{color:#42a4ff}
-  /* the word has many translations; the page tries them on, one at a time —
-     click it to fly through them yourself */
+  .expansion .w1{color:#4ecb66} .expansion .w5{color:#42a4ff}
   .expansion .ddef{display:inline-block;transition:opacity .6s ease;cursor:pointer}
   .expansion .ddef:hover{color:#cfe3cf}
   .expansion .ddef.out{opacity:0}
   .expansion .ddef.quick{transition-duration:.18s}
-  /* the invitation: a small hand-drawn arrow under the definitions, begging a click */
   .clickme{display:flex;justify-content:center;align-items:flex-start;gap:5px;margin:10px 0 0;
     transform:translateX(-72px);color:#8fa892;font:italic 400 13px/1.3 var(--serif)}
   .clickme svg{animation:nudge 2.2s ease-in-out infinite}
@@ -304,18 +322,11 @@
   @media (prefers-reduced-motion:reduce){ .clickme svg{animation:none} }
   @media(max-width:560px){ .clickme{transform:none} }
 
-  /* the small print: alpha, mentioned the way a friend would — right under the door */
-  .btw{margin:26px auto 0;max-width:420px;font:italic 400 13.5px/1.6 var(--serif);color:#8fa892}
-  /* the second half of the ask, said at half volume: the group is right there */
-  .gate .tg{margin:20px auto 0;font:italic 400 15px/1.6 var(--serif);color:#8fa892}
-  .gate .tg a{color:#cfe3cf;text-decoration-color:rgba(207,227,207,.35)}
-  .gate .tg a:hover{color:#fff}
-
-  /* ---- the gate: the door sits down among the deepest roots ---- */
-  .gate{position:relative;margin-top:34svh;text-align:center}
+  /* ---- the gate floor: the arrival. normal flow, after the stage releases. ---- */
+  .gatefloor{position:relative;z-index:2;padding:22svh 18px 18svh;text-align:center}
   a.enter{position:relative;display:inline-flex;align-items:center;gap:14px;
     padding:25px 60px;border-radius:999px;text-decoration:none;isolation:isolate;
-    font:640 27px/1 var(--serif);letter-spacing:.01em;color:#0b1508;
+    font:640 27px/1 var(--serif);letter-spacing:.01em;color:#0b1508;white-space:nowrap;
     background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
     animation:flow 5s linear infinite;
     box-shadow:0 12px 46px color-mix(in srgb,var(--e1) 38%,transparent),
@@ -328,6 +339,7 @@
       0 22px 66px color-mix(in srgb,var(--e4) 38%,transparent),
       0 6px 22px color-mix(in srgb,var(--e5) 42%,transparent),
       inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25)}
+  a.enter:focus-visible{outline:2px solid #e3b31d;outline-offset:5px}
   a.enter .emj{font-size:29px}
   a.enter .aro{font-size:24px;transition:transform .3s}
   a.enter:hover .aro{transform:translateX(6px)}
@@ -338,17 +350,34 @@
     background:
       radial-gradient(46% 58% at 32% 50%,color-mix(in srgb,var(--e1) 26%,transparent),transparent 70%),
       radial-gradient(46% 58% at 68% 50%,color-mix(in srgb,var(--e4) 22%,transparent),transparent 70%)}
+  .gatefloor .tg{margin:20px auto 0;font:italic 400 15px/1.6 var(--serif);color:#8fa892}
+  .gatefloor .tg a{color:#cfe3cf;text-decoration-color:rgba(207,227,207,.35)}
+  .gatefloor .tg a:hover{color:#fff}
+  .gatefloor .tg a:focus-visible{outline:2px solid #e3b31d;outline-offset:3px}
+  .btw{margin:26px auto 0;max-width:420px;font:italic 400 13.5px/1.6 var(--serif);color:#8fa892}
+
+  /* reduced motion: the descent stops being a ride and becomes a page —
+     stage elements rest where they land, the canvases render fully grown */
+  @media (prefers-reduced-motion:reduce){
+    .qithread,.qithread::before{animation:none}
+    .qithread{opacity:.5}
+    #myc,#flow{opacity:1}
+    .dvig{opacity:.5}
+  }
+  /* the perf guards: fewer moving layers where the compositor is fragile */
+  @media (max-width:900px),(pointer:coarse){
+    .s3{display:none}
+  }
 </style>
 </head>
 <body>
 <div class="rainbar" aria-hidden="true"></div>
 
-<!-- ============ above the fold: a starry night, a glistening city, five trees, one monk ============ -->
+<!-- ============ above the fold: untouched. a sky on local time, a city, five trees, one monk ============ -->
 <header class="hero">
   <div class="stars" id="stars" aria-hidden="true"></div>
   <div class="cityglow" aria-hidden="true"></div>
 
-  <!-- the city: towers over the grove, every window burning -->
   <div class="city" aria-hidden="true">
     <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax meet">
       <defs>
@@ -420,7 +449,6 @@
     </svg>
   </div>
 
-  <!-- the grove. wind in the canopies; the ground they stand on is the fold itself. -->
   <div class="treeswrap">
     <svg viewBox="0 0 900 330" role="img"
       aria-label="five trees with era-colored canopies sway together at night while a lit city towers behind them; a monk sits on the ground beneath them, breathing.">
@@ -495,16 +523,12 @@
     </svg>
   </div>
 
-  <!-- the temptation: little arrows in the sky, jiggling downward. they know what's
-       under the ground; you don't, yet. they leave once you start moving. -->
   <div class="scrollcue" id="scrollcue" aria-hidden="true">
     <span class="sct">scroll</span>
     <span class="sca a1">⌄</span>
     <span class="sca a2">⌄</span>
   </div>
 
-  <!-- the monk: on the ground line, under the trees, flanked by the city and unbothered
-       by it. click him and he becomes someone else — the seat stays the same. -->
   <div class="monk" id="monk" role="img" aria-label="a monk sits meditating beneath the trees, an aura expanding and contracting with each breath, thin era-colored rings orbiting him in coherence">
     <div class="halo" aria-hidden="true"></div>
     <div class="breath" aria-hidden="true"></div>
@@ -526,40 +550,74 @@
   </div>
 </header>
 
-<!-- ============ below the fold: underground. what the monk sees down here. ============ -->
+<!-- ============ the descent: one pinned scene, four beats, then the floor ============ -->
 <div class="under" id="deepen">
-  <canvas id="myc" aria-hidden="true"></canvas>
-  <canvas id="flow" aria-hidden="true"></canvas>
-  <div class="undercore">
-    <div class="wordpool">
-      <h1 class="brand" aria-label="dharma.gift">
-        <span class="l1">d</span><span class="l2">h</span><span class="l3">a</span><span class="l4">r</span><span class="l5">m</span><span class="l6">a</span><span class="tld">.gift</span>
-      </h1>
-      <div class="expansion">
-        <span class="w1">dharma</span> · <span class="ddef" id="ddef" title="the word has more than one translation — click for the next">what is yours to do</span> &nbsp;✦&nbsp;
-        <span class="w5">gift</span> · <span class="ddef" id="gdef" title="a gift has more than one move — click for the next">handed to you</span>
-      </div>
-      <div class="clickme" aria-hidden="true">
-        <svg width="18" height="22" viewBox="0 0 18 22" fill="none">
-          <path d="M6 21 C12 15 13 9 9.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M5.5 7 L9.5 2 L13.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        </svg>
-        <span>click me</span>
-      </div>
-    </div>
 
-    <!-- the gate: down at the bottom of the roots, where all the threads have already
-         been heading. one clear ask — enter the inquiry — and the group, said quietly. -->
-    <div class="gate" aria-label="enter">
-      <div class="doorhalo">
-        <a class="enter" href="/inquiry"><span class="emj">🪷</span>enter the inquiry<span class="aro">→</span></a>
-      </div>
-      <p class="tg">or just come sit with the others —
-        <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a></p>
-      <p class="btw">btw — everything here is in alpha. saplings everywhere.</p>
+  <div class="dstage" id="dstage">
+    <canvas id="myc" aria-hidden="true"></canvas>
+    <canvas id="flow" aria-hidden="true"></canvas>
+    <div class="strat s1" aria-hidden="true"></div>
+    <div class="strat s2" aria-hidden="true"></div>
+    <div class="strat s3" aria-hidden="true"></div>
+    <div class="droots" id="droots" aria-hidden="true">
+      <svg viewBox="0 0 1100 190" preserveAspectRatio="xMidYMin meet">
+        <g stroke="#6b5433" fill="none" stroke-linecap="round" opacity=".8">
+          <path d="M60 0 C90 60 70 100 120 150" stroke-width="7"/>
+          <path d="M120 150 C150 170 175 172 200 168" stroke-width="4"/>
+          <path d="M250 0 C230 50 260 90 240 140" stroke-width="9"/>
+          <path d="M240 140 C230 160 205 172 185 176" stroke-width="4"/>
+          <path d="M240 140 C255 165 285 175 315 172" stroke-width="5"/>
+          <path d="M430 0 C450 45 425 85 445 130 C455 155 480 168 505 170" stroke-width="10"/>
+          <path d="M445 130 C430 152 405 162 380 162" stroke-width="4"/>
+          <path d="M560 0 C545 55 575 95 555 150" stroke-width="8"/>
+          <path d="M555 150 C570 168 600 176 625 172" stroke-width="4"/>
+          <path d="M700 0 C720 55 690 100 715 145 C728 165 755 174 780 172" stroke-width="9"/>
+          <path d="M715 145 C700 162 675 170 650 168" stroke-width="4"/>
+          <path d="M860 0 C845 50 875 95 855 140" stroke-width="8"/>
+          <path d="M855 140 C868 162 895 172 920 170" stroke-width="4"/>
+          <path d="M1010 0 C1030 60 1005 105 1030 155" stroke-width="7"/>
+          <path d="M1030 155 C1015 170 990 176 965 174" stroke-width="3.5"/>
+        </g>
+      </svg>
     </div>
-
+    <div class="qithread" id="qithread" aria-hidden="true"></div>
+    <div class="dvig" id="dvig" aria-hidden="true"></div>
   </div>
+
+  <div id="dbeats">
+    <div class="beat">
+      <div class="bw">
+        <h1 class="brand" aria-label="dharma.gift">
+          <span class="l1">d</span><span class="l2">h</span><span class="l3">a</span><span class="l4">r</span><span class="l5">m</span><span class="l6">a</span><span class="tld">.gift</span>
+        </h1>
+      </div>
+    </div>
+    <div class="beat">
+      <div class="bw">
+        <div class="expansion">
+          <span class="w1">dharma</span> · <span class="ddef" id="ddef" title="the word has more than one translation — click for the next">what is yours to do</span> &nbsp;✦&nbsp;
+          <span class="w5">gift</span> · <span class="ddef" id="gdef" title="a gift has more than one move — click for the next">handed to you</span>
+        </div>
+        <div class="clickme" aria-hidden="true">
+          <svg width="18" height="22" viewBox="0 0 18 22" fill="none">
+            <path d="M6 21 C12 15 13 9 9.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M5.5 7 L9.5 2 L13.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <span>click me</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gatefloor" aria-label="enter">
+    <div class="doorhalo">
+      <a class="enter" href="/inquiry"><span class="emj">🪷</span>enter the inquiry<span class="aro">→</span></a>
+    </div>
+    <p class="tg">or just come sit with the others —
+      <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a></p>
+    <p class="btw">btw — everything here is in alpha. saplings everywhere.</p>
+  </div>
+
 </div>
 
 <script>
@@ -567,7 +625,7 @@ const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE=matchMedia('(pointer: coarse)').matches;
 const DPR=Math.min(devicePixelRatio||1,2);
 const ERA=['78,203,102','227,179,29','240,127,60','225,79,225','66,164,255'];
-const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of the hero svg
+const SEEDX=[.122,.322,.513,.711,.889];
 
 // ---------- the monk changes faces, the seat stays the same ----------
 (function(){
@@ -590,8 +648,6 @@ const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of th
 })();
 
 // ---------- dharma translated nine ways, gift translated six ----------
-// neither word fits one english line, so both rotate — dharma on its own clock,
-// gift only when you click it. clicking either flies to the next.
 (function(){
   const DHARMA=['what is yours to do','your right action',
     'living in alignment with your nature','the role only you can play',
@@ -632,17 +688,58 @@ const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of th
   box.innerHTML=h;
 })();
 
+// ---------- the descent driver ----------
+// one scroll fraction t, read off the beats' bounding rect (the mc-stage trick):
+// t=0 as the soil lip crosses the fold, t=1 as the last beat leaves. everything on
+// the stage — strata, roots, thread, canvases, vignette — rides that one number.
+(function(){
+  const beats=document.getElementById('dbeats'); if(!beats) return;
+  const roots=document.getElementById('droots'),
+        thread=document.getElementById('qithread'),
+        vig=document.getElementById('dvig'),
+        myc=document.getElementById('myc'), flow=document.getElementById('flow'),
+        strats=[...document.querySelectorAll('.strat')];
+  const SPEED=[70,150,260];                    // px of lift per unit t, per stratum
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const ramp=(t,a,b)=>clamp((t-a)/(b-a),0,1);  // 0→1 across [a,b]
+  if(REDUCE){                                   // no ride: everything rests, visible
+    roots.style.opacity='.5'; return;
+  }
+  let raf=0, live=false;
+  function frame(){
+    raf=0;
+    const r=beats.getBoundingClientRect();
+    const span=r.height-innerHeight;
+    const t=span>0?clamp(-r.top/span,0,1):0;
+    // the roots lift away as you sink past them
+    roots.style.transform='translate(-50%,'+(-t*260)+'px)';
+    roots.style.opacity=String(1-ramp(t,.05,.32));
+    // the earth slides past at three speeds
+    strats.forEach((s,i)=>{ s.style.transform='translateY('+(-t*SPEED[i])+'px)'; });
+    // his thread leads the way down, then hands you to the mycelium
+    thread.style.opacity=String(.9*ramp(t,.02,.14)*(1-ramp(t,.42,.62)));
+    // the root web wakes as the thread fades
+    const mo=ramp(t,.10,.34);
+    myc.style.opacity=String(mo); flow.style.opacity=String(mo);
+    // the dark presses in near the bottom
+    vig.style.opacity=String(.7*ramp(t,.55,.95));
+    if(live) raf=requestAnimationFrame(frame);
+  }
+  new IntersectionObserver(es=>{
+    live=es[0].isIntersecting;
+    if(live&&!raf) raf=requestAnimationFrame(frame);
+  },{rootMargin:'80px'}).observe(document.getElementById('deepen'));
+})();
+
 // ---------- the mycelium ----------
-// hyphae grow down from the five trunks, wander, branch, and braid the dark together.
-// each trunk's threads carry a trace of its own canopy color. glow is geometry (fat soft
-// stroke under a thin bright one), never a blur filter. a second canvas on top carries
-// the resources: bright beads that travel the finished paths, trade routes in the dark.
+// unchanged organism, new home: it grows inside the pinned stage and the driver
+// above fades it in as you arrive at the root zone.
 (function(){
   const cv=document.getElementById('myc'); if(!cv) return;
   const ov=document.getElementById('flow');
   const ctx=cv.getContext('2d'), octx=ov.getContext('2d');
   const GOLD='227,196,120', MOSS='127,174,114', QI='255,214,130';
-  const HUES=ERA.concat([QI]);   // hue 5 is the monk's — brighter than the trees'
+  const HUES=ERA.concat([QI]);
   let W=0,H=0,tips=[],segs=[],paths=[],packets=[],grown=false,raf=0,seen=true;
 
   function size(){
@@ -659,8 +756,6 @@ const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of th
     SEEDX.forEach((fx,i)=>{ const n=COARSE?2:3;
       for(let k=0;k<n;k++) tips.push({x:fx*W+(Math.random()-.5)*30, y:-4,
         a:(Math.random()-.5)*.7, w:2.1+Math.random()*.7, hue:i, pts:[]}); });
-    // the monk's qi arrives here: golden threads dropping from the exact center,
-    // where the bubble drips through the fold
     const mn=COARSE?3:5;
     for(let k=0;k<mn;k++) tips.push({x:.5*W+(Math.random()-.5)*18, y:-4,
       a:(Math.random()-.5)*.45, w:2.6+Math.random()*.8, hue:5, pts:[]});
@@ -697,7 +792,6 @@ const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of th
     if(!tips.length||segs.length>(COARSE?7000:16000)){
       tips.forEach(retire); tips=[]; grown=true; }
   }
-  // ---- the resources ----
   function spawn(){
     if(!paths.length) return;
     const p=paths[(Math.random()*paths.length)|0];
@@ -712,7 +806,6 @@ const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of th
       const pk=packets[k]; pk.i+=pk.v;
       const pts=pk.p.pts, idx=pk.i|0;
       if(idx>=pts.length-1){ packets.splice(k,1); continue; }
-      // the tail: the last few steps, fading out behind the bead
       octx.lineWidth=1.4;
       for(let j=Math.max(1,idx-7);j<=idx;j++){
         const a=.35*(1-(idx-j)/8);
@@ -736,7 +829,7 @@ const SEEDX=[.122,.322,.513,.711,.889];   // the five trunks, as fractions of th
   }
   new IntersectionObserver(es=>{ seen=es[0].isIntersecting;
     if(seen&&!raf&&!REDUCE) raf=requestAnimationFrame(frame); },{rootMargin:'120px'})
-    .observe(cv);
+    .observe(document.getElementById('deepen'));
   addEventListener('resize',()=>{ clearTimeout(size._t); size._t=setTimeout(size,180); },{passive:true});
   size(); if(!REDUCE) raf=requestAnimationFrame(frame);
 })();
