@@ -121,6 +121,21 @@
   @keyframes acuejig{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(6px);opacity:1}}
   @media (prefers-reduced-motion:reduce){ .acue{animation:none;opacity:.6} }
 
+  /* the circle's guides: one host with a face, five seats still in shadow —
+     a guest instructor joins each of the five sessions */
+  .crew{margin-top:18px;display:flex;flex-wrap:wrap;justify-content:center;gap:20px 22px}
+  .guide{width:106px;text-align:center}
+  .pfp{width:78px;height:78px;border-radius:50%;margin:0 auto;display:flex;
+    align-items:center;justify-content:center;overflow:hidden;
+    background:radial-gradient(circle at 38% 32%,#2c2038,#191225 70%);
+    border:2px solid rgba(255,214,130,.45);
+    box-shadow:0 0 26px rgba(255,170,100,.16),0 10px 30px rgba(0,0,0,.45)}
+  .pfp img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}
+  .pfp.mys{font:600 30px/1 var(--serif);color:#8f887e;background:rgba(255,255,255,.03);
+    border:1.5px dashed rgba(255,255,255,.28);box-shadow:none}
+  .gn{margin-top:9px;font:620 13.5px/1.3 var(--serif);color:var(--ink)}
+  .guide .gw{margin-top:2px;font:italic 400 11px/1.5 var(--serif);color:var(--dim)}
+
   /* the floating cards: dark glass, one gold hairline, deep shadow — quiet luxury */
   .bcard{padding:28px 32px 26px;border-radius:20px;text-align:center;
     background:rgba(13,8,9,.66);backdrop-filter:blur(8px);
@@ -247,6 +262,33 @@
           <hr class="bhr" aria-hidden="true">
           <p>that's the gift: not answers — the conditions in which your
             <b>right action gets handed to you</b>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat">
+      <div class="bw">
+        <div class="bcard">
+          <div class="bk">🔥 · around the fire</div>
+          <div class="crew">
+            <div class="guide">
+              <div class="pfp"><img src="kevin.png" alt="kevin owocki"></div>
+              <div class="gn">kevin owocki</div>
+              <div class="gw">your host · all five weeks</div>
+            </div>
+            <div class="guide"><div class="pfp mys" aria-hidden="true">?</div>
+              <div class="gn">guest instructor</div><div class="gw">session one</div></div>
+            <div class="guide"><div class="pfp mys" aria-hidden="true">?</div>
+              <div class="gn">guest instructor</div><div class="gw">session two</div></div>
+            <div class="guide"><div class="pfp mys" aria-hidden="true">?</div>
+              <div class="gn">guest instructor</div><div class="gw">session three</div></div>
+            <div class="guide"><div class="pfp mys" aria-hidden="true">?</div>
+              <div class="gn">guest instructor</div><div class="gw">session four</div></div>
+            <div class="guide"><div class="pfp mys" aria-hidden="true">?</div>
+              <div class="gn">guest instructor</div><div class="gw">session five</div></div>
+          </div>
+          <p>five guest instructors, one per session —
+            <i>named as the fire is lit.</i></p>
         </div>
       </div>
     </div>
