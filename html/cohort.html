@@ -31,15 +31,15 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dharma.gift/cohort">
 <meta property="og:title" content="the cohort — walk the dharma inquiry together">
-<meta property="og:description" content="dharma · your right action ✦ gift · handed to you. ten people and five weeks that create the conditions in which your dharma gets handed to you. begins september 7, 2026 · $500 — financial sponsorship available · ten seats.">
-<meta property="og:image" content="https://dharma.gift/og-cohort.png?v=2">
+<meta property="og:description" content="dharma · your right action ✦ gift · handed to you. ten people and five weeks that create the conditions in which your dharma gets handed to you. begins october 30, 2026 · $500 — financial sponsorship available · ten seats.">
+<meta property="og:image" content="https://dharma.gift/og-cohort.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="the cohort — walk the dharma inquiry together">
-<meta name="twitter:description" content="your right action, handed to you. ten people · five weeks · begins september 7, 2026. sponsorship available.">
-<meta name="twitter:image" content="https://dharma.gift/og-cohort.png?v=2">
-<meta name="description" content="the cohort is the primary way through dharma.gift — ten people, five weeks, one circle: the conditions in which your right action gets handed to you. begins september 7, 2026. $500, financial sponsorship available.">
+<meta name="twitter:description" content="your right action, handed to you. ten people · five weeks · begins october 30, 2026. sponsorship available.">
+<meta name="twitter:image" content="https://dharma.gift/og-cohort.png?v=3">
+<meta name="description" content="the cohort is the primary way through dharma.gift — ten people, five weeks, one circle: the conditions in which your right action gets handed to you. begins october 30, 2026. $500, financial sponsorship available.">
 <style>
   /* Hallmark · macrostructure: pinned-canvas scrollytell (camp network) · verb: redesign
    * theme: dharma.gift locked system (fraunces · era ramp · ember-lux dark) · nav: house back-pill
@@ -101,38 +101,103 @@
   .beat{min-height:100svh;display:flex;align-items:center;justify-content:center;
     text-align:center;padding:0 20px}
   .bw{position:relative;max-width:600px}
+  /* the vestibule gets a wider column — the upsized gloss needs the room */
+  #cbeats .beat:first-child .bw{max-width:780px}
+  /* the legibility pool: dark glass behind the words — the blur is masked to a
+     soft oval so it has no edge, and the layer itself is static (safari-safe) */
   .bw::before{content:'';position:absolute;inset:-42px -80px;z-index:-1;pointer-events:none;
-    background:radial-gradient(56% 56% at 50% 50%,rgba(9,6,8,.78),transparent 72%)}
+    background:radial-gradient(56% 56% at 50% 50%,rgba(9,6,8,.82),transparent 72%);
+    backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+    -webkit-mask-image:radial-gradient(58% 58% at 50% 50%,#000 44%,transparent 74%);
+    mask-image:radial-gradient(58% 58% at 50% 50%,#000 44%,transparent 74%)}
 
   /* the vestibule beat: the name over the sleeping camp */
-  .depthmark{font:600 11px/1 var(--mono);letter-spacing:.32em;text-transform:uppercase;
-    color:var(--dim);margin-bottom:18px}
   h1{margin:0;font:600 clamp(46px,9vw,76px)/1.02 var(--serif);letter-spacing:-.015em}
-  .abig{margin:20px 0 8px;font:620 clamp(24px,4.2vw,36px)/1.2 var(--serif);
-    letter-spacing:-.01em;color:var(--ink)}
-  .abig b{color:var(--e2);font-weight:640}
-  .awh{margin:0;font:italic 400 clamp(15px,2.2vw,18px)/1.7 var(--serif);color:#c4b6ad}
-  .awh b{font-style:normal;font-weight:600;color:var(--ink)}
-  /* the site's own gloss, worn as the value prop — same dress as the landing's expansion */
-  .exp{margin:16px 0 0;font:600 clamp(10px,1.6vw,11.5px)/2 var(--mono);
+  /* the site's own gloss, worn as the value prop — same dress as the landing's
+     expansion, one size up. the adventurers line wears the same clothes. */
+  .exp{margin:16px 0 0;font:600 clamp(12.5px,2vw,14.5px)/2 var(--mono);
     letter-spacing:.22em;text-transform:uppercase;color:#8f887e}
-  .exp .w1{color:var(--e1)} .exp .w5{color:var(--e5)}
+  .exp .w1{color:var(--e1)} .exp .w5{color:var(--e5)} .exp .w2{color:var(--e2)}
+  .exp+.exp{margin-top:4px}
+  .exp .ddef{display:inline-block;transition:opacity .6s ease;cursor:pointer}
+  .exp .ddef:hover{color:#cfc2b0}
+  .exp .ddef.out{opacity:0}
+  .exp .ddef.quick{transition-duration:.18s}
+  /* the countdown: big fraunces numerals in firelight gold, mono whispers under.
+     it never says what it's counting to — the flap stays shut until "see more". */
+  .count{margin:28px auto 0;display:flex;justify-content:center;align-items:stretch}
+  .cu{padding:0 clamp(12px,3vw,22px);text-align:center}
+  .cu+.cu{border-left:1px solid var(--goldline)}
+  .cn{display:block;font:620 clamp(32px,6vw,48px)/1.05 var(--serif);color:#f0d98a;
+    font-variant-numeric:tabular-nums;letter-spacing:.01em;
+    text-shadow:0 0 26px rgba(255,214,130,.18)}
+  .cl{display:block;margin-top:7px;font:600 9.5px/1 var(--mono);letter-spacing:.28em;
+    text-transform:uppercase;color:var(--dim)}
+  .count.lit .cn{font-size:clamp(24px,4.4vw,34px)}
+  .cwh{margin:14px 0 0;font:italic 400 13.5px/1.6 var(--serif);color:var(--muted)}
+
+  /* the sealed camp: until the preview button is pressed, nothing below the
+     vestibule exists — the page is one screen tall and the tents keep sleeping */
+  body:not(.pv) #cbeats .beat+.beat{display:none}
+  body:not(.pv) .floor{display:none}
+  body:not(.pv) .acue{display:none}
+  body.pv .pvbtn{display:none}
+  .pvbtn{margin-top:26px;display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+    font:600 15px/1 var(--serif);color:#e0d0a8;padding:13px 28px;border-radius:999px;
+    border:1.5px dashed rgba(255,214,130,.4);background:rgba(255,214,130,.04);
+    transition:color .2s,border-color .2s,background .2s}
+  .pvbtn:hover{color:var(--ink);border-color:rgba(255,214,130,.7);background:rgba(255,214,130,.09)}
+  .pvbtn:focus-visible{outline:2px solid var(--e2);outline-offset:3px}
+
   .acue{margin-top:30px;font-size:20px;color:var(--dim);animation:acuejig 1.6s ease-in-out infinite}
   @keyframes acuejig{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(6px);opacity:1}}
   @media (prefers-reduced-motion:reduce){ .acue{animation:none;opacity:.6} }
 
-  /* the circle's guides: one host with a face, five seats still in shadow —
-     a guest instructor joins each of the five sessions */
-  .crew{margin-top:18px;display:flex;flex-wrap:wrap;justify-content:center;gap:20px 22px}
-  .guide{width:106px;text-align:center}
+  /* around the fire, literally: one fire in the middle, everyone scattered
+     about it — guides, ten participants, two surprises. no head of the circle,
+     no seat of honor. kevin sits among them. */
+  .fire{position:relative;margin-top:16px;height:470px}
+  .flame{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);
+    font-size:42px;line-height:1;z-index:1}
+  .flame::before{content:'';position:absolute;inset:-52px;border-radius:50%;z-index:-1;
+    background:radial-gradient(circle,rgba(255,170,80,.26),rgba(240,127,60,.09) 55%,transparent 72%);
+    animation:firepool 2.8s ease-in-out infinite}
+  .flame .fl{display:inline-block;animation:flicker 2.6s ease-in-out infinite;
+    transform-origin:50% 90%}
+  @keyframes flicker{0%,100%{transform:scale(1)}28%{transform:scale(1.07) rotate(-2deg)}
+    58%{transform:scale(.95) rotate(1.5deg)}80%{transform:scale(1.03)}}
+  @keyframes firepool{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+  @media (prefers-reduced-motion:reduce){ .flame .fl,.flame::before{animation:none} }
+  .guide{position:absolute;width:106px;text-align:center}
+  /* the outer scatter: a rough ring with jitter, no rank in it */
+  .g1{left:44%;top:-3%} .g2{left:76%;top:12%} .g3{left:76%;top:56%}
+  .g4{left:40%;top:70%} .g5{left:2%;top:56%}  .g6{left:0%;top:12%}
+  /* the ten of you: an inner ring of small seats in the era inks, close to the warmth */
+  .seat{position:absolute;width:34px;height:34px;border-radius:50%;
+    background:rgba(255,255,255,.03);border:1.5px solid rgba(255,214,130,.4);
+    box-shadow:0 0 14px rgba(255,170,100,.14)}
+  .seat.e1{border-color:rgba(78,203,102,.55)}  .seat.e2{border-color:rgba(227,179,29,.55)}
+  .seat.e3{border-color:rgba(240,127,60,.55)}  .seat.e4{border-color:rgba(225,79,225,.55)}
+  .seat.e5{border-color:rgba(66,164,255,.55)}
+  .s1{left:51%;top:29%}  .s2{left:61%;top:33%}  .s3{left:66%;top:45%}
+  .s4{left:61%;top:57%}  .s5{left:51%;top:63%}  .s6{left:38%;top:62%}
+  .s7{left:29%;top:56%}  .s8{left:26%;top:44%}  .s9{left:30%;top:33%}
+  .s10{left:40%;top:27%}
+  /* and a couple of surprises — unnamed, unexplained */
+  .q{position:absolute;width:48px;height:48px;border-radius:50%;display:flex;
+    align-items:center;justify-content:center;font:600 19px/1 var(--serif);color:#c9b476;
+    background:rgba(255,214,130,.04);border:1.5px dashed rgba(255,214,130,.5);
+    box-shadow:0 0 18px rgba(255,170,100,.16)}
+  .q1{left:21%;top:2%} .q2{left:88%;top:44%}
   .pfp{width:78px;height:78px;border-radius:50%;margin:0 auto;display:flex;
     align-items:center;justify-content:center;overflow:hidden;
     background:radial-gradient(circle at 38% 32%,#2c2038,#191225 70%);
-    border:2px solid rgba(255,214,130,.45);
-    box-shadow:0 0 26px rgba(255,170,100,.16),0 10px 30px rgba(0,0,0,.45)}
+    border:1.5px solid rgba(255,214,130,.35);
+    box-shadow:0 0 22px rgba(255,170,100,.12),0 10px 30px rgba(0,0,0,.45)}
   .pfp img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}
   .pfp.mys{font:600 30px/1 var(--serif);color:#8f887e;background:rgba(255,255,255,.03);
-    border:1.5px dashed rgba(255,255,255,.28);box-shadow:none}
+    border:1.5px dashed rgba(255,214,130,.35);
+    box-shadow:0 0 22px rgba(255,170,100,.12),0 10px 30px rgba(0,0,0,.45)}
   .gn{margin-top:9px;font:620 13.5px/1.3 var(--serif);color:var(--ink)}
   .guide .gw{margin-top:2px;font:italic 400 11px/1.5 var(--serif);color:var(--dim)}
 
@@ -148,6 +213,20 @@
   .bcard p i{color:#c9bcb0}
   .bhr{height:1px;margin:20px auto 0;width:64px;border:0;
     background:linear-gradient(90deg,transparent,rgba(255,214,130,.5),transparent)}
+
+  /* the shut flap: the details tease, and the door that opens them */
+  .mystp{margin:15px 0 0;font:italic 400 15.5px/1.7 var(--serif);color:#c9bcb0}
+  .mystp b{font-style:normal;color:var(--ink)}
+  .seemore{margin-top:18px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+    font:600 14.5px/1 var(--serif);color:#e0d0a8;padding:12px 26px;border-radius:999px;
+    border:1.5px dashed rgba(255,214,130,.4);background:rgba(255,214,130,.04);
+    transition:color .2s,border-color .2s,background .2s}
+  .seemore:hover{color:var(--ink);border-color:rgba(255,214,130,.7);background:rgba(255,214,130,.09)}
+  .seemore:focus-visible{outline:2px solid var(--e2);outline-offset:3px}
+  .bcard.open .mystp,.bcard.open .seemore{display:none}
+  .facts:not([hidden]){animation:factsin .55s ease}
+  @keyframes factsin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){ .facts:not([hidden]){animation:none} }
 
   /* the facts, set like a menu — hairline rules, big fraunces numerals */
   .facts{margin-top:6px}
@@ -207,6 +286,15 @@
   @media(max-width:640px){
     .bcard{padding:22px 20px 20px}
     .bw::before{inset:-34px -40px}
+    .fire{height:400px}
+    .flame{font-size:34px}
+    .flame::before{inset:-40px}
+    .guide{width:84px}
+    .pfp{width:58px;height:58px}
+    .pfp.mys{font-size:24px}
+    .gn{font-size:12px}
+    .seat{width:26px;height:26px}
+    .q{width:38px;height:38px;font-size:16px}
   }
 </style>
 </head>
@@ -222,7 +310,7 @@
 
   <div class="cstage" id="cstage">
     <canvas id="campcv" role="img"
-      aria-label="ten tents on a dark ground under stars. one is lit when you arrive; as the page descends the others wake one by one, and golden mycelial threads grow between them until the whole camp is one woven network, small beads of light traveling the lines."></canvas>
+      aria-label="ten tents gathered around one campfire under stars, all lit and woven together with golden threads when you arrive. pressing the preview button puts the lights out — one tent stays lit — and as the page descends the others wake one by one, the threads regrow, and the fire returns to the middle of the camp."></canvas>
     <div class="vig" aria-hidden="true"></div>
   </div>
 
@@ -230,11 +318,22 @@
 
     <div class="beat">
       <div class="bw">
-        <div class="depthmark">· the walked path ·</div>
         <h1>the cohort</h1>
-        <p class="abig">walk it <b>together</b>.</p>
-        <p class="exp"><span class="w1">dharma</span> · your right action
-          &nbsp;✦&nbsp; <span class="w5">gift</span> · handed to you</p>
+        <p class="exp"><span class="w1">dharma</span> ·
+          <span class="ddef" id="ddef" title="the word has more than one translation — click for the next">your right action</span>
+          &nbsp;✦&nbsp; <span class="w5">gift</span> ·
+          <span class="ddef" id="gdef" title="a gift has more than one move — click for the next">handed to you</span></p>
+        <p class="exp"><span class="w2">10 adventurers wanted</span>,
+          to walk the path together.</p>
+        <div class="count" id="count" role="timer" aria-live="off"
+          aria-label="counting down to october 30, 2026">
+          <div class="cu"><span class="cn" id="c-d">—</span><span class="cl">days</span></div>
+          <div class="cu"><span class="cn" id="c-h">—</span><span class="cl">hours</span></div>
+          <div class="cu"><span class="cn" id="c-m">—</span><span class="cl">min</span></div>
+          <div class="cu"><span class="cn" id="c-s">—</span><span class="cl">sec</span></div>
+        </div>
+        <p class="cwh">· until the fire is lit ·</p>
+        <button class="pvbtn" id="pvbtn" type="button">🔭 i wanna preview ⌄</button>
         <div class="acue" aria-hidden="true">⌄</div>
       </div>
     </div>
@@ -270,25 +369,39 @@
       <div class="bw">
         <div class="bcard">
           <div class="bk">🔥 · around the fire</div>
-          <div class="crew">
-            <div class="guide">
+          <div class="fire" role="img"
+            aria-label="one fire with everyone scattered around it, no seat of honor: kevin owocki, five guest instructor seats, an inner ring of ten participant seats close to the warmth, and two unexplained surprise seats">
+            <div class="flame" aria-hidden="true"><span class="fl">🔥</span></div>
+            <div class="seat s1 e2" aria-hidden="true"></div>
+            <div class="seat s2 e3" aria-hidden="true"></div>
+            <div class="seat s3 e5" aria-hidden="true"></div>
+            <div class="seat s4 e1" aria-hidden="true"></div>
+            <div class="seat s5 e4" aria-hidden="true"></div>
+            <div class="seat s6 e2" aria-hidden="true"></div>
+            <div class="seat s7 e5" aria-hidden="true"></div>
+            <div class="seat s8 e3" aria-hidden="true"></div>
+            <div class="seat s9 e1" aria-hidden="true"></div>
+            <div class="seat s10 e4" aria-hidden="true"></div>
+            <div class="q q1" aria-hidden="true">?</div>
+            <div class="q q2" aria-hidden="true">?</div>
+            <div class="guide g1"><div class="pfp mys" aria-hidden="true">?</div>
+              <div class="gn">guest instructor</div><div class="gw">session three</div></div>
+            <div class="guide g2"><div class="pfp mys" aria-hidden="true">?</div>
+              <div class="gn">guest instructor</div><div class="gw">session one</div></div>
+            <div class="guide g3">
               <div class="pfp"><img src="kevin.png" alt="kevin owocki"></div>
               <div class="gn">kevin owocki</div>
-              <div class="gw">your host · all five weeks</div>
+              <div class="gw">all five weeks</div>
             </div>
-            <div class="guide"><div class="pfp mys" aria-hidden="true">?</div>
-              <div class="gn">guest instructor</div><div class="gw">session one</div></div>
-            <div class="guide"><div class="pfp mys" aria-hidden="true">?</div>
-              <div class="gn">guest instructor</div><div class="gw">session two</div></div>
-            <div class="guide"><div class="pfp mys" aria-hidden="true">?</div>
-              <div class="gn">guest instructor</div><div class="gw">session three</div></div>
-            <div class="guide"><div class="pfp mys" aria-hidden="true">?</div>
-              <div class="gn">guest instructor</div><div class="gw">session four</div></div>
-            <div class="guide"><div class="pfp mys" aria-hidden="true">?</div>
+            <div class="guide g4"><div class="pfp mys" aria-hidden="true">?</div>
               <div class="gn">guest instructor</div><div class="gw">session five</div></div>
+            <div class="guide g5"><div class="pfp mys" aria-hidden="true">?</div>
+              <div class="gn">guest instructor</div><div class="gw">session two</div></div>
+            <div class="guide g6"><div class="pfp mys" aria-hidden="true">?</div>
+              <div class="gn">guest instructor</div><div class="gw">session four</div></div>
           </div>
-          <p>five guest instructors, one per session —
-            <i>named as the fire is lit.</i></p>
+          <p>ten of you, close to the warmth · five guest instructors, one per
+            session — <i>named as the fire is lit</i> · and a couple of surprises.</p>
         </div>
       </div>
     </div>
@@ -297,9 +410,12 @@
       <div class="bw">
         <div class="bcard">
           <div class="bk">✦ · the details</div>
-          <div class="facts">
+          <p class="mystp">dates, seats, cost — they're all set.</p>
+          <button class="seemore" id="seemore" type="button"
+            aria-expanded="false" aria-controls="facts">🔮 see more ⌄</button>
+          <div class="facts" id="facts" hidden>
             <div class="fr"><span class="fk">begins</span>
-              <span class="fv">september 7, 2026</span></div>
+              <span class="fv">october 30, 2026</span></div>
             <div class="fr"><span class="fk">runs</span>
               <span class="fv">five weeks<i>one path, paced</i></span></div>
             <div class="fr"><span class="fk">seats</span>
@@ -349,6 +465,81 @@ document.querySelectorAll('[data-apply]').forEach(function(a){
   a.href=APPLY; a.target='_blank'; a.rel='noopener';
 });
 
+// ---------- the countdown ----------
+// one shared instant for everyone: midnight october 30, 2026, mountain time.
+(function(){
+  var END=Date.UTC(2026,9,30,6,0,0);
+  var wrap=document.getElementById('count'); if(!wrap) return;
+  var el={d:document.getElementById('c-d'),h:document.getElementById('c-h'),
+          m:document.getElementById('c-m'),s:document.getElementById('c-s')};
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){
+    var ms=END-Date.now();
+    if(ms<=0){
+      wrap.classList.add('lit');
+      wrap.innerHTML='<div class="cu"><span class="cn">the fire is lit</span></div>';
+      return;
+    }
+    var s=Math.floor(ms/1000);
+    el.d.textContent=Math.floor(s/86400);
+    el.h.textContent=pad(Math.floor(s/3600)%24);
+    el.m.textContent=pad(Math.floor(s/60)%60);
+    el.s.textContent=pad(s%60);
+    setTimeout(tick,1000-(Date.now()%1000));
+  }
+  tick();
+})();
+
+// ---------- dharma translated nine ways, gift translated six ----------
+// the landing's rotating expansion, worn here too: dharma auto-rotates every
+// ~4.6s and flies to the next on click; gift only turns when asked.
+(function(){
+  var REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DHARMA=['what is yours to do','your right action',
+    'living in alignment with your nature','the role only you can play',
+    'your path of right action','your deepest responsibility',
+    'the order you are here to serve','what the moment asks of you',
+    'your unique path of right action'];
+  var GIFT=['handed to you','pay it forward',"make someone's day",
+    'spread joy','show appreciation','express gratitude'];
+  function wire(id,defs,auto){
+    var el=document.getElementById(id); if(!el) return;
+    var i=Math.max(0,defs.indexOf(el.textContent)), timer=0, busy=false;
+    function advance(quick){
+      if(busy) return; busy=true;
+      el.classList.toggle('quick',!!quick);
+      el.classList.add('out');
+      setTimeout(function(){ i=(i+1)%defs.length; el.textContent=defs[i];
+        el.classList.remove('out'); busy=false; }, quick?190:620);
+    }
+    function arm(){ if(REDUCE||!auto) return; clearInterval(timer);
+      timer=setInterval(function(){advance(false)},4600); }
+    el.addEventListener('click',function(){ advance(true); arm(); });
+    arm();
+  }
+  wire('ddef',DHARMA,true);
+  wire('gdef',GIFT,false);
+})();
+
+// ---------- the sealed camp: press preview, and the descent opens ----------
+(function(){
+  var btn=document.getElementById('pvbtn'); if(!btn) return;
+  btn.addEventListener('click',function(){
+    // the lights go out where you stand — the descent below builds them back
+    document.body.classList.add('pv');
+  });
+})();
+
+// ---------- the shut flap: see more, then the facts ----------
+(function(){
+  var sm=document.getElementById('seemore'); if(!sm) return;
+  sm.addEventListener('click',function(){
+    document.getElementById('facts').hidden=false;
+    sm.setAttribute('aria-expanded','true');
+    sm.closest('.bcard').classList.add('open');
+  });
+})();
+
 // ---------- the camp scene ----------
 // one scroll fraction t drives everything, read off the beats' bounding rect
 // (the same trick as the landing's descent). the clock drives the small life —
@@ -378,6 +569,7 @@ document.querySelectorAll('[data-apply]').forEach(function(a){
   const G0=.40, GSPREAD=.34, GLEN=.11;                   // growth window per thread
 
   let W=0,H=0,paths=[],stars=[],raf=0,seen=true;
+  let intro0=null,fadeStart=null;   // the sealed arrival swell, and the lights-out on preview
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
   const ramp=(t,a,b)=>clamp((t-a)/(b-a),0,1);
   const ease=u=>u*u*(3-2*u);
@@ -405,11 +597,18 @@ document.querySelectorAll('[data-apply]').forEach(function(a){
     cv.width=W*DPR; cv.height=H*DPR;
     ctx.setTransform(DPR,0,0,DPR,0,0);
     ctx.lineCap='round'; ctx.lineJoin='round';
+    const ts=.62*Math.min(W,H)*.052;
     paths=EDGES.map(e=>{
       const a=P(e[0]), b=P(e[1]);
-      const s=.62*Math.min(W,H)*.052;
-      return mkpath({x:a.x,y:a.y-a.s*s},{x:b.x,y:b.y-b.s*s});
+      return mkpath({x:a.x,y:a.y-a.s*ts},{x:b.x,y:b.y-b.s*ts});
     });
+    // the fire is a node in the mesh, not scenery: one spoke to every tent,
+    // woven last in the descent — the beads ride these lines too
+    const fx=.5*W, fy=.63*H;
+    for(let i=0;i<TENTS.length;i++){
+      const a=P(i);
+      paths.push(mkpath({x:fx,y:fy},{x:a.x,y:a.y-a.s*ts}));
+    }
     stars=[];
     const ns=Math.round(W/26);
     for(let i=0;i<ns;i++) stars.push([Math.random()*W, Math.random()*H*.5,
@@ -453,7 +652,45 @@ document.querySelectorAll('[data-apply]').forEach(function(a){
     }
   }
 
-  function draw(t,time){
+  // the one fire the camp gathers around: glow pools, crossed logs, three
+  // flickering flame tongues, sparks rising — all geometry, intensity f 0..1
+  function fire(x,y,f,time){
+    if(f<=0) return;
+    const s=Math.min(W,H)*.05, base=y+s*.28;
+    const br=REDUCE?1:(.85+.15*Math.sin(time*.0022));   // the hearth, breathing
+    ctx.fillStyle='rgba(255,214,130,'+(.09*f*br).toFixed(3)+')';
+    ctx.beginPath(); ctx.ellipse(x,base,s*5.2,s*1.8,0,0,7); ctx.fill();
+    ctx.fillStyle='rgba(255,170,80,'+(.16*f*br).toFixed(3)+')';
+    ctx.beginPath(); ctx.ellipse(x,base,s*3,s*1,0,0,7); ctx.fill();
+    ctx.fillStyle='rgba(255,150,60,'+(.22*f*br).toFixed(3)+')';
+    ctx.beginPath(); ctx.ellipse(x,base,s*1.6,s*.55,0,0,7); ctx.fill();
+    ctx.lineWidth=4; ctx.strokeStyle='rgba(88,54,32,'+(.85*f).toFixed(3)+')';
+    ctx.beginPath(); ctx.moveTo(x-s*.55,base+s*.12); ctx.lineTo(x+s*.42,base-s*.06);
+    ctx.moveTo(x-s*.42,base-s*.06); ctx.lineTo(x+s*.55,base+s*.12); ctx.stroke();
+    const FC=['255,110,40','255,175,60','255,235,160'], FA=[.4,.55,.75];
+    for(let k=0;k<3;k++){
+      const fl=REDUCE?1:(.75+.25*Math.sin(time*.004+k*2.1));
+      const h=s*(1.3-.34*k)*fl, w=s*(.42-.09*k);
+      const xk=x+(REDUCE?0:Math.sin(time*.003+k*1.9)*s*.05);
+      ctx.fillStyle='rgba('+FC[k]+','+(FA[k]*f).toFixed(3)+')';
+      ctx.beginPath(); ctx.moveTo(xk-w,base);
+      ctx.quadraticCurveTo(xk-w*.9,base-h*.55,xk,base-h);
+      ctx.quadraticCurveTo(xk+w*.9,base-h*.55,xk+w,base);
+      ctx.closePath(); ctx.fill();
+    }
+    if(!REDUCE) for(let j=0;j<4;j++){
+      const p=((time*.00035)+j*.27)%1;
+      const a=(1-p)*.7*f; if(a<=0) continue;
+      ctx.fillStyle='rgba(255,224,150,'+a.toFixed(3)+')';
+      ctx.beginPath();
+      ctx.arc(x+Math.sin(p*9+j*2.4)*s*.35, base-s*.6-p*s*2.1, 1.5,0,7); ctx.fill();
+    }
+  }
+
+  // g!=null draws the camp as one organism at brightness g — every tent, every
+  // thread together (the sealed arrival, and the lights-out fade). keep0 holds
+  // your tent lit while the rest go dark.
+  function draw(t,time,g,keep0){
     ctx.clearRect(0,0,W,H);
     // the sky: slow-twinkling stars in the upper reach
     for(const st of stars){
@@ -464,7 +701,7 @@ document.querySelectorAll('[data-apply]').forEach(function(a){
     // the threads, growing in their windows; beads ride the finished ones
     paths.forEach((pts,i)=>{
       const t0=G0+GSPREAD*(i/(paths.length-1));
-      const u=ease(ramp(t,t0,t0+GLEN)); if(u<=0) return;
+      const u=g!=null?g:ease(ramp(t,t0,t0+GLEN)); if(u<=0) return;
       const n=Math.max(2,Math.round(u*(pts.length-1))+1);
       const shim=REDUCE?1:(.8+.2*Math.sin(time*.0011+i*1.31));
       ctx.beginPath(); ctx.moveTo(pts[0][0],pts[0][1]);
@@ -496,19 +733,35 @@ document.querySelectorAll('[data-apply]').forEach(function(a){
         }
       }
     });
+    // the fire, in the middle of the ring — it grows as the camp weaves
+    fire(.5*W,.63*H, g!=null?g:t, time);
     // the tents, over the threads
-    for(let i=0;i<TENTS.length;i++)
-      tent(i, i===0?1:ease(ramp(t,WAKE[i],WAKE[i]+.05)), time);
+    for(let i=0;i<TENTS.length;i++){
+      const lit=g!=null ? (i===0&&keep0?1:g)
+                        : (i===0?1:ease(ramp(t,WAKE[i],WAKE[i]+.05)));
+      tent(i, lit, time);
+    }
   }
 
   function frame(time){
     raf=0;
-    const r=beats.getBoundingClientRect();
-    const span=r.height-innerHeight;
-    const t=span>0?clamp(-r.top/span,0,1):1;
-    draw(t,time);
+    // three states: sealed (the finished camp, every tent waking together
+    // around the fire), the lights-out fade when preview is pressed, then
+    // the scroll-driven descent that builds it all back.
+    if(!document.body.classList.contains('pv')){
+      if(intro0==null) intro0=time;
+      draw(0,time,ease(clamp((time-intro0)/1800,0,1)),false);
+    }else if(fadeStart!=null&&time-fadeStart<700){
+      draw(0,time,1-ease((time-fadeStart)/700),true);
+    }else{
+      const r=beats.getBoundingClientRect();
+      const span=r.height-innerHeight;
+      draw(span>0?clamp(-r.top/span,0,1):1,time);
+    }
     if(seen) raf=requestAnimationFrame(frame);
   }
+  const pvb=document.getElementById('pvbtn');
+  if(pvb) pvb.addEventListener('click',function(){ fadeStart=performance.now(); });
 
   if(!REDUCE){
     new IntersectionObserver(es=>{
