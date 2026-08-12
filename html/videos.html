@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-882JMLBJG9');
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎞️</text></svg>">
+<title>the films · little histories, 40 seconds each</title>
+<link rel="canonical" href="https://dharma.gift/videos">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dharma.gift/videos">
+<meta property="og:title" content="the films — little histories, 40 seconds each">
+<meta property="og:description" content="eleven minimal animated shorts: how we kept time, who gets what, how you eat, who heals you, who decides, what powers you, what exists, what is true, what you owe — and the two big ideas, the upward spiral and syntropy. gold on black, every number real. press play, it ticks.">
+<meta property="og:image" content="https://dharma.gift/og-videos.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="the films — little histories, 40 seconds each">
+<meta name="twitter:description" content="eleven shorts, gold on black. press play, it ticks.">
+<meta name="twitter:image" content="https://dharma.gift/og-videos.png?v=1">
+<meta name="description" content="a shelf of minimal animated shorts — time, resources, livelihood, care, power, energy, ontology, truth, ethics, the upward spiral, syntropy — each a little history in under a minute, drawn in one gold line.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet">
+<style>
+  /* the projection room: one dark wall, eleven reels */
+  :root{ --paper:#0a0806; --ink:#eae4d6; --gold:#e3b31d; --dim:#8a8375; }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:#050403}
+  body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;
+    padding:56px 12px 26px;
+    font:14px/1.6 ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;color:var(--dim)}
+  #cv{height:min(78svh,1500px);max-width:94vw;aspect-ratio:9/16;object-fit:contain;
+    background:var(--paper);border-radius:10px;cursor:pointer;
+    box-shadow:0 20px 80px rgba(0,0,0,.7)}
+  .under{display:flex;gap:20px;align-items:center;letter-spacing:.12em;text-transform:uppercase;font-size:11px}
+  .under a{color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(138,131,117,.35);padding-bottom:1px}
+  .under a:hover{color:var(--gold);border-color:var(--gold)}
+  .shelf{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:760px}
+  .reel{font:inherit;font-size:11.5px;letter-spacing:.04em;color:var(--dim);cursor:pointer;
+    background:rgba(234,228,214,.04);border:1px solid rgba(138,131,117,.26);border-radius:999px;
+    padding:6px 13px;text-decoration:none}
+  .reel:hover{color:var(--ink);border-color:rgba(234,228,214,.4)}
+  .reel.on{color:var(--gold);border-color:var(--gold);background:rgba(227,179,29,.07)}
+  .back{position:fixed;top:14px;left:14px;z-index:9;font-size:12px;letter-spacing:.06em;
+    color:var(--dim);text-decoration:none;padding:7px 12px;border:1px solid rgba(138,131,117,.28);
+    border-radius:999px;background:rgba(5,4,3,.6);backdrop-filter:blur(4px)}
+  .back:hover{color:var(--ink);border-color:rgba(234,228,214,.4)}
+  @media (max-width:600px){ .under{gap:12px;font-size:10px} .reel{font-size:10.5px;padding:5px 10px} }
+</style>
+</head>
+<body>
+<a class="back" href="/orient">← 🧭 orient</a>
+<canvas id="cv" width="1080" height="1920" role="img"
+  aria-label="an animated short from a shelf of eleven: minimal line-drawn histories of time, resources, livelihood, care, power, energy, ontology, truth, and ethics, plus two idea films on the upward spiral and syntropy — each told in a dozen hard cuts, one gold accent on black."></canvas>
+<div class="shelf" id="shelf"></div>
+<div class="under">
+  <span id="hint">tap the film to restart</span>
+  <a id="dl" href="/films/kepttime.mp4" download>⤓ download this one</a>
+</div>
+<script>
+'use strict';
+/* Hallmark · bespoke video shelf · tone: austere-editorial · paper near-black · ink bone · one gold accent */
+const PAPER='#0a0806', INK='#eae4d6', GOLD='#e3b31d';
+const INK_DIM='rgba(234,228,214,.42)', INK_FAINT='rgba(234,228,214,.16)';
+const W=1080,H=1920,CX=540,GY=810;            // glyph center
+const SERIF='Fraunces, Georgia, serif';
+const MONO='"SF Mono", Menlo, monospace';
+
+const cv=document.getElementById('cv'), x=cv.getContext('2d');
+
+/* ---------- helpers ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const c01=v=>clamp(v,0,1);
+const lerp=(a,b,t)=>a+(b-a)*t;
+const outC=t=>1-Math.pow(1-c01(t),3);
+const outQ=t=>1-Math.pow(1-c01(t),5);
+const inOut=t=>{t=c01(t);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2};
+const TAU=Math.PI*2;
+function mulberry(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let z=Math.imul(seed^seed>>>15,1|seed);z=z+Math.imul(z^z>>>7,61|z)^z;return((z^z>>>14)>>>0)/4294967296}}
+
+function line(ax,ay,bx,by,w,col){x.beginPath();x.moveTo(ax,ay);x.lineTo(bx,by);x.lineWidth=w;x.strokeStyle=col;x.stroke()}
+function ring(cx,cy,r,w,col,a0=0,a1=TAU){x.beginPath();x.arc(cx,cy,r,a0,a1);x.lineWidth=w;x.strokeStyle=col;x.stroke()}
+function dot(cx,cy,r,col){x.beginPath();x.arc(cx,cy,r,0,TAU);x.fillStyle=col;x.fill()}
+function poly(pts,w,col,close){x.beginPath();x.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<pts.length;i++)x.lineTo(pts[i][0],pts[i][1]);
+  if(close)x.closePath();x.lineWidth=w;x.strokeStyle=col;x.stroke()}
+function fpoly(pts,col){x.beginPath();x.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<pts.length;i++)x.lineTo(pts[i][0],pts[i][1]);
+  x.closePath();x.fillStyle=col;x.fill()}
+function qcurve(ax,ay,cx2,cy2,bx,by,w,col){x.beginPath();x.moveTo(ax,ay);
+  x.quadraticCurveTo(cx2,cy2,bx,by);x.lineWidth=w;x.strokeStyle=col;x.stroke()}
+function qpoint(ax,ay,cx2,cy2,bx,by,p){const q=1-p;
+  return [q*q*ax+2*q*p*cx2+p*p*bx, q*q*ay+2*q*p*cy2+p*p*by]}
+function flame(cx,cy,s,t,col){const fl=Math.sin(t/1000*TAU*7)*4*s;
+  x.beginPath();x.moveTo(cx,cy);
+  x.quadraticCurveTo(cx+26*s+fl,cy-20*s,cx+fl*.6,cy-62*s-Math.sin(t/1000*TAU*11)*8*s);
+  x.quadraticCurveTo(cx-26*s+fl,cy-20*s,cx,cy);x.fillStyle=col||GOLD;x.fill()}
+
+/* text — captions rise + fade, labels track in */
+function caption(txt,y,alpha,size=60){
+  if(alpha<=0)return;
+  x.save();x.globalAlpha=alpha;
+  x.font='400 '+size+'px '+SERIF;
+  x.fillStyle=INK;x.textAlign='center';x.textBaseline='alphabetic';
+  const words=txt.split(' '),lines=[];let cur='';
+  for(const w2 of words){const t2=cur?cur+' '+w2:w2;
+    if(x.measureText(t2).width>820&&cur){lines.push(cur);cur=w2}else cur=t2}
+  if(cur)lines.push(cur);
+  lines.forEach((l,i)=>x.fillText(l,CX,y+i*(size*1.32)));
+  x.restore();
+}
+function label(txt,y,alpha){
+  if(alpha<=0)return;
+  x.save();x.globalAlpha=alpha;
+  x.font='500 30px '+MONO;
+  try{x.letterSpacing='7px'}catch(e){}
+  x.fillStyle=GOLD;x.textAlign='center';
+  x.fillText(txt.toUpperCase(),CX+3,y);   // +3 optically recenters letterspaced text
+  try{x.letterSpacing='0px'}catch(e){}
+  x.restore();
+}
+
+/* entrance envelope: quick fade at scene start; captions arrive on a beat */
+const inA=(u,at,len)=>outC((u-at)/len);
+
+/* ---------- grain (deterministic, 4 pre-rendered tiles cycled at 8fps) ---------- */
+const grains=[];
+for(let g=0;g<4;g++){
+  const gc=document.createElement('canvas');gc.width=270;gc.height=480;
+  const gx=gc.getContext('2d'),im=gx.createImageData(270,480),rnd=mulberry(1234+g*777);
+  for(let i=0;i<im.data.length;i+=4){const v=rnd()*255|0;im.data[i]=im.data[i+1]=im.data[i+2]=v;im.data[i+3]=255}
+  gx.putImageData(im,0,0);grains.push(gc);
+}
+
+/* ---------- shared title + outro cards ---------- */
+function mkTitle(txt,kick){return {dur:2600,draw:(u,t)=>{
+  const pulse=1+.35*Math.max(0,Math.sin(t/1000*TAU*1.15));
+  dot(CX,760,11*pulse,GOLD);
+  ring(CX,760,11*pulse+16,2,'rgba(227,179,29,'+(.35*Math.max(0,Math.sin(t/1000*TAU*1.15)))+')');
+  x.save();x.globalAlpha=inA(u,.16,.22);
+  x.font='600 '+(txt.length>16?82:96)+'px '+SERIF;x.fillStyle=INK;x.textAlign='center';
+  x.fillText(txt,CX,950+14*(1-inA(u,.16,.22)));x.restore();
+  label(kick,1040,inA(u,.4,.2)*.8);
+}}}
+function mkOutro(l1,l2){return {dur:4000,draw:(u,t)=>{
+  const pulse=1+.3*Math.max(0,Math.sin(t/1000*TAU*.9));
+  dot(CX,720,11*pulse,GOLD);
+  caption(l1,960,inA(u,.1,.18),66);
+  caption(l2,1070,inA(u,.4,.18),66);
+  label('dharma.gift/videos',1560,inA(u,.66,.2)*.55);
+  const out=c01((u-.93)/.07);
+  if(out>0){x.fillStyle='rgba(0,0,0,'+out+')';x.fillRect(0,0,W,H)}
+}}}
+const S3=(labelTxt,cap,draw,capAt=.22)=>({dur:3000,label:labelTxt,cap,capAt,draw});
+
+/* ================================================================
+   THE FILMS — each: title card · era scenes · outro
+   ================================================================ */
+const FILMS={};
+
+/* ---------- kepttime · how we kept time ---------- */
+FILMS.kepttime={name:'how we kept time',emoji:'⌛',scenes:[
+mkTitle('how we kept time','a history in 40 seconds'),
+S3('~3500 bc — shadow','first, we read the sun.',(u,t)=>{
+  const R=230;
+  ring(CX,GY,R,5,INK);
+  for(let i=0;i<12;i++){const a=i/12*TAU;
+    line(CX+Math.cos(a)*(R-26),GY+Math.sin(a)*(R-26),CX+Math.cos(a)*(R-8),GY+Math.sin(a)*(R-8),4,INK_DIM)}
+  const sw=inOut((u-.08)/.8), a=lerp(-2.6,-.5,sw);
+  line(CX,GY,CX+Math.cos(a)*R*.82,GY+Math.sin(a)*R*.82,7,INK);
+  dot(CX,GY,9,INK);
+  const sa=a+Math.PI, sr=R+74;
+  dot(CX+Math.cos(sa)*sr,GY+Math.sin(sa)*sr,13,GOLD);
+  for(let i=0;i<8;i++){const ra=i/8*TAU,sx=CX+Math.cos(sa)*sr,sy=GY+Math.sin(sa)*sr;
+    line(sx+Math.cos(ra)*22,sy+Math.sin(ra)*22,sx+Math.cos(ra)*32,sy+Math.sin(ra)*32,3,GOLD)}
+}),
+S3('~1500 bc — water','then, we let it drip.',(u,t)=>{
+  x.beginPath();x.moveTo(392,600);x.lineTo(452,952);x.lineTo(628,952);x.lineTo(688,600);
+  x.lineWidth=5;x.strokeStyle=INK;x.stroke();
+  for(let i=0;i<5;i++){const ly=650+i*66,lx=lerp(676,640,(ly-600)/352);
+    line(lx-34,ly,lx,ly,3,INK_DIM)}
+  const lvl=lerp(646,930,inOut((u-.05)/.85));
+  const wl=lerp(392,452,(lvl-600)/352)+8, wr=lerp(688,628,(lvl-600)/352)-8;
+  line(wl,lvl,wr,lvl,5,GOLD);
+  x.fillStyle='rgba(227,179,29,.10)';
+  x.beginPath();x.moveTo(wl,lvl);x.lineTo(wr,lvl);
+  x.lineTo(622,946);x.lineTo(458,946);x.closePath();x.fill();
+  for(let d=0;d<3;d++){const p=(t/900+d*.33)%1;
+    if(p<.8)dot(CX,972+p/.8*150,7*(1-p*.4),GOLD)}
+  ring(CX,1140,26*((t/900)%1),2,'rgba(227,179,29,'+(1-(t/900)%1)*.5+')');
+}),
+S3('~900 ad — fire','we burned it.',(u,t)=>{
+  const top=lerp(640,806,inOut((u-.05)/.85)), bot=980;
+  x.beginPath();x.moveTo(470,top);x.lineTo(470,bot);x.lineTo(610,bot);x.lineTo(610,top);
+  x.lineWidth=5;x.strokeStyle=INK;x.stroke();
+  line(470,top,610,top,5,INK);
+  for(let my=680;my<bot-20;my+=52)if(my>top+18)line(482,my,536,my,3,INK_DIM);
+  line(CX,top,CX,top-26,4,INK);
+  dot(CX,top-58,46+Math.sin(t/1000*TAU*9)*5,'rgba(227,179,29,.10)');
+  flame(CX,top-26,1.25,t);
+}),
+S3('~1300 ad — sand','we poured it.',(u,t)=>{
+  x.save();x.translate(CX,GY);
+  const flip=outQ((u-.84)/.16);x.rotate(flip*Math.PI);
+  const T=-190,B=190,NW=9,HW=128;
+  line(-HW,T,HW,T,5,INK);line(-HW,B,HW,B,5,INK);
+  x.lineWidth=5;x.strokeStyle=INK;
+  x.beginPath();x.moveTo(-HW+6,T);x.quadraticCurveTo(-HW+16,T+150,-NW,0);
+  x.quadraticCurveTo(-HW+16,B-150,-HW+6,B);x.stroke();
+  x.beginPath();x.moveTo(HW-6,T);x.quadraticCurveTo(HW-16,T+150,NW,0);
+  x.quadraticCurveTo(HW-16,B-150,HW-6,B);x.stroke();
+  const s=inOut((u-.02)/.8);
+  const topLvl=lerp(T+52,-14,s);
+  x.fillStyle='rgba(227,179,29,.45)';
+  x.beginPath();x.moveTo(-lerp(HW-24,4,(topLvl-T)/190),topLvl);
+  x.lineTo(lerp(HW-24,4,(topLvl-T)/190),topLvl);x.lineTo(0,-4);x.closePath();x.fill();
+  if(s<1&&flip<=0)line(0,0,0,B-16,3,GOLD);
+  const ph=lerp(6,120,s);
+  x.beginPath();x.moveTo(-lerp(10,HW-26,s),B-6);x.lineTo(lerp(10,HW-26,s),B-6);
+  x.lineTo(0,B-6-ph);x.closePath();x.fillStyle='rgba(227,179,29,.55)';x.fill();
+  x.restore();
+}),
+S3('~1360 ad — gears','we taught metal to tick.',(u,t)=>{
+  const R=196;
+  x.save();x.translate(CX,GY+30);
+  const step=Math.floor(t/400), sp=outQ((t%400)/140);
+  const rot=(step+sp)*(TAU/12);
+  x.save();x.rotate(rot);
+  ring(0,0,R,5,INK);
+  for(let i=0;i<12;i++){const a=i/12*TAU;
+    line(Math.cos(a)*R,Math.sin(a)*R,Math.cos(a)*(R+30),Math.sin(a)*(R+30),6,INK)}
+  for(let i=0;i<3;i++){const a=i/3*TAU;
+    line(Math.cos(a)*24,Math.sin(a)*24,Math.cos(a)*(R-24),Math.sin(a)*(R-24),4,INK_DIM)}
+  dot(0,0,10,INK);
+  x.restore();
+  const rock=Math.sin((step+sp)*Math.PI)*.16;
+  x.save();x.translate(0,-R-92);x.rotate(rock);
+  x.beginPath();x.arc(0,0,74,Math.PI*.15,Math.PI*.85);
+  x.lineWidth=7;x.strokeStyle=GOLD;x.stroke();
+  line(0,-6,0,-46,7,GOLD);dot(0,-52,8,GOLD);
+  x.restore();x.restore();
+}),
+S3('1656 ad — the pendulum','a swinging weight — suddenly, seconds.',(u,t)=>{
+  const PY=548,L=396;
+  line(CX-120,PY,CX+120,PY,5,INK);dot(CX,PY,8,INK);
+  x.beginPath();x.arc(CX,PY,L,Math.PI/2-.5,Math.PI/2+.5);
+  x.setLineDash([2,12]);x.lineWidth=3;x.strokeStyle=INK_FAINT;x.stroke();x.setLineDash([]);
+  const th=.46*Math.cos(t/1500*TAU), bx=CX+Math.sin(th)*L, by=PY+Math.cos(th)*L;
+  line(CX,PY,bx,by,5,INK);
+  dot(bx,by,27,GOLD);
+  if(Math.abs(Math.cos(t/1500*TAU))>.965)dot(bx,by,34,'rgba(227,179,29,.35)');
+},.24),
+S3('~1700s ad — the pocket','we shrank it, and carried it.',(u,t)=>{
+  const R=212;
+  ring(CX,GY-R-64,26,5,INK);line(CX-16,GY-R-26,CX+16,GY-R-26,10,INK);
+  ring(CX,GY,R,5,INK);ring(CX,GY,R-18,2,INK_FAINT);
+  for(let i=0;i<12;i++){const a=i/12*TAU;
+    line(CX+Math.cos(a)*(R-42),GY+Math.sin(a)*(R-42),CX+Math.cos(a)*(R-28),GY+Math.sin(a)*(R-28),4,INK_DIM)}
+  const sp2=inOut(u);
+  const hm=-Math.PI/2+sp2*TAU*4, hh=-Math.PI/2+sp2*TAU*.45, hs=-Math.PI/2+sp2*TAU*14;
+  line(CX,GY,CX+Math.cos(hh)*R*.44,GY+Math.sin(hh)*R*.44,9,INK);
+  line(CX,GY,CX+Math.cos(hm)*R*.68,GY+Math.sin(hm)*R*.68,6,INK);
+  line(CX,GY,CX+Math.cos(hs)*R*.78,GY+Math.sin(hs)*R*.78,3,GOLD);
+  dot(CX,GY,10,GOLD);
+}),
+S3('1927 ad — quartz','a crystal shivers 32,768 times a second.',(u,t)=>{
+  const jit=Math.sin(t/1000*TAU*13)*4;
+  [[-jit*2,.18],[jit*1.2,.42],[0,1]].forEach(([ox,al])=>{
+    x.save();x.globalAlpha=x.globalAlpha*al;x.translate(CX+ox,GY-60);
+    x.beginPath();x.moveTo(0,-190);x.lineTo(64,-124);x.lineTo(64,124);
+    x.lineTo(0,190);x.lineTo(-64,124);x.lineTo(-64,-124);x.closePath();
+    x.lineWidth=5;x.strokeStyle=INK;x.stroke();x.restore();
+  });
+  line(CX-64,GY-184,CX+64,GY+64,2,INK_FAINT);
+  x.beginPath();
+  for(let px=300;px<=780;px+=4){
+    const wy=1088+Math.sin((px-300)/17-t/1000*30)*26*Math.min(1,(px-300)/60,(780-px)/60);
+    px===300?x.moveTo(px,wy):x.lineTo(px,wy);
+  }
+  x.lineWidth=4;x.strokeStyle=GOLD;x.stroke();
+},.24),
+S3('1955 ad — the atom','off by one second every hundred million years.',(u,t)=>{
+  x.save();x.translate(CX,GY-30);
+  for(let i=0;i<3;i++){
+    x.save();x.rotate(i/3*Math.PI);
+    x.beginPath();x.ellipse(0,0,238,86,0,0,TAU);
+    x.lineWidth=4;x.strokeStyle=INK_DIM;x.stroke();
+    const ea=t/1000*TAU*(0.9+i*.35)+i*2;
+    dot(Math.cos(ea)*238,Math.sin(ea)*86,9,INK);
+    x.restore();
+  }
+  dot(0,0,15,GOLD);
+  const bp=(t%1000)/1000;
+  ring(0,0,20+bp*240,3,'rgba(227,179,29,'+(1-bp)*.7+')');
+  x.restore();
+},.24),
+S3('now — everywhere at once','every phone hums the same second.',(u,t)=>{
+  const rnd=mulberry(42);
+  const sync=inOut((u-.08)/.55);
+  for(let r=0;r<8;r++)for(let c=0;c<5;c++){
+    const px=300+c*120, py=520+r*80, ph0=rnd()*TAU;
+    const ph=ph0*(1-sync);
+    const s=Math.max(0,Math.sin(t/1000*TAU*1.3+ph));
+    const gold=sync>.7&&s>.45;
+    dot(px,py,4+s*7.5,gold?GOLD:'rgba(234,228,214,'+(0.35+s*.6)+')');
+  }
+},.26),
+mkOutro('we never caught time.','we only learned to count it.'),
+]};
+
+/* ---------- alloc · who gets what ---------- */
+FILMS.alloc={name:'who gets what',emoji:'✨',scenes:[
+mkTitle('who gets what','the first question'),
+S3('~forever — the gift','we gave — and remembered.',(u,t)=>{
+  ring(340,GY,30,5,INK);ring(740,GY,30,5,INK);
+  qcurve(370,GY-20,CX,GY-210,710,GY-20,3,INK_FAINT);
+  const p=(t/1400)%1, gp=qpoint(370,GY-20,CX,GY-210,710,GY-20,p);
+  dot(gp[0],gp[1],11,GOLD);
+  x.setLineDash([3,14]);
+  qcurve(710,GY+30,CX,GY+190,370,GY+30,3,INK_FAINT);
+  x.setLineDash([]);
+  caption('a gift is a debt with a memory',1090,.0);   // silent note, kept for rhythm
+}),
+S3('~3000 bc — the granary','the state counted first.',(u,t)=>{
+  const g=inOut((u-.05)/.7);
+  [380,540,700].forEach((gx2,i)=>{
+    poly([[gx2-46,940],[gx2-46,660],[gx2,620],[gx2+46,660],[gx2+46,940]],5,INK);
+    const fill=lerp(930,700,c01(g*1.4-i*.2));
+    x.fillStyle='rgba(227,179,29,.35)';
+    x.fillRect(gx2-40,fill,80,934-fill);
+    line(gx2-40,fill,gx2+40,fill,4,GOLD);
+  });
+  for(let d=0;d<2;d++){const p=(t/700+d*.5)%1;
+    if(g<1)dot(540,560+p*70,6,GOLD)}
+  for(let i=0;i<4;i++)line(806,700+i*60,860,700+i*60,3,INK_DIM);  // the tally
+  line(806,700,806,880,3,INK_DIM);
+}),
+S3('~600 bc — the market','price found what counting couldn’t.',(u,t)=>{
+  const sway=Math.sin(t/1000*TAU*.5)*.09;
+  x.save();x.translate(CX,620);x.rotate(sway);
+  line(-230,0,230,0,6,INK);
+  [-230,230].forEach((bx2,i)=>{
+    line(bx2,0,bx2,120,3,INK_DIM);
+    ring(bx2,150,44,4,INK,Math.PI*.05,Math.PI*.95);
+    if(i===0)for(let c=0;c<3;c++)dot(bx2-14+c*14,138,8,GOLD);
+    else dot(bx2,140,9,INK_DIM);
+  });
+  x.restore();
+  line(CX,620,CX,560,6,INK);poly([[CX-26,560],[CX+26,560],[CX,520]],5,INK,true);
+  dot(CX,620,9,GOLD);
+}),
+S3('1942 — the ration book','in scarcity, fairness got printed.',(u,t)=>{
+  const n=Math.floor(inOut(u)*16);
+  for(let r=0;r<4;r++)for(let c=0;c<4;c++){
+    const px=350+c*128, py=560+r*128, k=r*4+c;
+    x.strokeStyle=INK_DIM;x.lineWidth=3;
+    x.setLineDash([5,7]);x.strokeRect(px-52,py-52,104,104);x.setLineDash([]);
+    if(k<n)dot(px,py,10,GOLD);
+  }
+}),
+S3('now — the ledger','we allocate together, by algorithm.',(u,t)=>{
+  const N=10,R=250,rnd=mulberry(7);
+  const pts=[];for(let i=0;i<N;i++){const a=i/N*TAU-Math.PI/2;
+    pts.push([CX+Math.cos(a)*R,GY+Math.sin(a)*R])}
+  const w=inOut((u-.05)/.6);
+  for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
+    if(rnd()>.3)continue;
+    const on=c01(w*2-(i+j)/(2*N));
+    if(on>0)line(pts[i][0],pts[i][1],pts[j][0],pts[j][1],2,'rgba(227,179,29,'+on*.28+')');
+  }
+  pts.forEach(p=>dot(p[0],p[1],10,INK));
+  const bp=(t%1200)/1200;
+  dot(CX,GY,16+bp*4,GOLD);
+  ring(CX,GY,24+bp*90,2,'rgba(227,179,29,'+(1-bp)*.5+')');
+},.26),
+mkOutro('who gets what is never settled.','every era answers it again.'),
+]};
+
+/* ---------- live · how you eat ---------- */
+FILMS.live={name:'how you eat',emoji:'🌾',scenes:[
+mkTitle('how you eat','livelihood'),
+S3('~forever — the hunt','we ate what we caught.',(u,t)=>{
+  qcurve(300,GY-120,340,GY,300,GY+120,5,INK);          // the bow
+  line(300,GY-120,300,GY+120,2,INK_FAINT);
+  const fly=inOut(((t%1600)/1600-.2)/.5);
+  const ax2=lerp(320,760,fly);
+  if(fly>0&&fly<1){line(ax2-70,GY,ax2,GY,4,INK);
+    poly([[ax2,GY],[ax2-16,GY-9],[ax2-16,GY+9]],3,INK,true)}
+  const hit=fly>=1;
+  dot(790,GY,14,hit?GOLD:INK_DIM);
+  if(hit)ring(790,GY,26,3,'rgba(227,179,29,.5)');
+}),
+S3('~10,000 bc — the field','we planted — and learned to wait.',(u,t)=>{
+  for(let i=0;i<5;i++)line(330,640+i*80,750,640+i*80,3,INK_DIM);
+  const g=inOut((u-.08)/.75);
+  const rnd=mulberry(11);
+  for(let i=0;i<5;i++)for(let c=0;c<6;c++){
+    const px=360+c*66+rnd()*10, py=640+i*80;
+    const s=c01(g*2.2-(i*6+c)/30*1.4);
+    if(s>0){line(px,py,px,py-26*s,3,GOLD);
+      if(s>.6){line(px,py-26*s,px-9,py-26*s-10,3,GOLD);line(px,py-26*s,px+9,py-26*s-10,3,GOLD)}}
+  }
+  dot(CX,470,20,GOLD);
+}),
+S3('~1300 ad — the guild','the trade fed the family.',(u,t)=>{
+  poly([[440,940],[640,940],[610,880],[470,880]],5,INK,true);       // anvil
+  line(505,880,575,880,5,INK);
+  const cyc=(t%900)/900, sw=cyc<.5?outC(cyc/.42):1-inOut((cyc-.5)/.4);
+  x.save();x.translate(CX+130,700);x.rotate(lerp(-1.5,-.35,sw));
+  line(0,0,-150,0,6,INK);x.fillStyle=INK;x.fillRect(-186,-24,48,48);
+  x.restore();
+  if(cyc>.42&&cyc<.56){const rnd=mulberry(Math.floor(t/900));
+    for(let i2=0;i2<5;i2++)dot(540+(rnd()-.5)*110,850-rnd()*60,4,GOLD)}
+}),
+S3('1800s — the wage','we sold our hours.',(u,t)=>{
+  ring(400,GY-40,110,5,INK);
+  const ha=-Math.PI/2+inOut(u)*TAU*3;
+  line(400,GY-40,400+Math.cos(ha)*78,GY-40+Math.sin(ha)*78,4,INK);
+  dot(400,GY-40,7,INK);
+  ring(690,GY-40,64,5,GOLD);
+  x.save();x.font='500 56px '+MONO;x.fillStyle=GOLD;x.textAlign='center';
+  x.fillText('¤',690,GY-20);x.restore();
+  const p=(t/1100)%1;
+  const mx=lerp(510,626,p);
+  dot(mx,GY-40+Math.sin(p*Math.PI)*-38,7,'rgba(227,179,29,'+Math.sin(p*Math.PI)+')');
+  line(430,1060,650,1060,3,INK_FAINT);
+}),
+S3('now — the gig','everyone a stall in an endless market.',(u,t)=>{
+  const rnd=mulberry(23);
+  for(let i=0;i<9;i++){
+    const px=330+(i%3)*210+rnd()*40, py=560+Math.floor(i/3)*190+rnd()*30;
+    dot(px,py,11,INK);
+    const pp=((t/1000)+i*.37)%1.6;
+    if(pp<1)ring(px,py,14+pp*46,2,'rgba(227,179,29,'+(1-pp)*.55+')');
+  }
+},.24),
+S3('next — the floor?','maybe eating stops being earned.',(u,t)=>{
+  const w=inOut((u-.06)/.5);
+  line(CX-330*w,1000,CX+330*w,1000,5,GOLD);
+  const rnd=mulberry(5);
+  for(let i=0;i<7;i++){
+    const px=300+i*80;
+    const settle=c01(w*2-(i/7));
+    const py=lerp(620+rnd()*160,966,outC(settle));
+    dot(px,py,12,settle>=1?GOLD:INK);
+  }
+},.26),
+mkOutro('how you eat shapes how you live.','and it’s changing again.'),
+]};
+
+/* ---------- care · who heals you ---------- */
+FILMS.care={name:'who heals you',emoji:'🩺',scenes:[
+mkTitle('who heals you','the oldest work'),
+S3('~forever — the midwife','care began as kinship.',(u,t)=>{
+  const rock=Math.sin(t/1000*TAU*.45)*.1;
+  x.save();x.translate(CX,GY+40);x.rotate(rock);
+  ring(0,0,120,5,INK,Math.PI*.08,Math.PI*.92);      // the cradle
+  line(-118,10,-92,-60,4,INK_DIM);line(118,10,92,-60,4,INK_DIM);
+  dot(0,58,20,GOLD);
+  x.restore();
+  const bp=(t%1300)/1300;
+  ring(CX,GY+98,30+bp*70,2,'rgba(227,179,29,'+(1-bp)*.4+')');
+  ring(CX-240,GY-90,26,5,INK);qcurve(CX-222,GY-66,CX-140,GY-20,CX-60,GY+30,4,INK_DIM);
+}),
+S3('~400 bc — the temple','healing wore a robe.',(u,t)=>{
+  [-180,180].forEach(px=>{line(CX+px,600,CX+px,960,5,INK_DIM);
+    line(CX+px-30,600,CX+px+30,600,5,INK_DIM);line(CX+px-30,960,CX+px+30,960,5,INK_DIM)});
+  line(CX,620,CX,940,6,INK);                           // the staff
+  const sw2=inOut((u-.08)/.7);
+  x.beginPath();
+  for(let i=0;i<=40;i++){const p=i/40;if(p>sw2)break;
+    const sy=lerp(920,650,p), sx=CX+Math.sin(p*TAU*1.5)*46;
+    i===0?x.moveTo(sx,sy):x.lineTo(sx,sy)}
+  x.lineWidth=5;x.strokeStyle=GOLD;x.stroke();
+  if(sw2>=1)dot(CX+Math.sin(TAU*1.5)*46,650,9,GOLD);
+}),
+S3('1348 — the ward','we built houses for the sick.',(u,t)=>{
+  poly([[360,940],[360,660],[540,560],[720,660],[720,940]],5,INK,true);
+  line(510,640,570,640,6,GOLD);line(540,610,540,670,6,GOLD);   // the cross
+  const n=Math.floor(inOut((u-.1)/.7)*6);
+  for(let i=0;i<6;i++){
+    const bx2=430+(i%2)*160, by2=740+Math.floor(i/2)*70;
+    line(bx2,by2,bx2+80,by2,4,i<n?GOLD:INK_FAINT);
+    if(i<n)dot(bx2+12,by2-10,6,GOLD);
+  }
+}),
+S3('1854 — the lamp','care became a profession.',(u,t)=>{
+  for(let i=0;i<4;i++)line(330+i*120,980,410+i*120,980,4,INK_DIM);
+  const lx=lerp(330,700,(Math.sin(t/1000*TAU*.22)+1)/2);
+  poly([[lx-20,700],[lx+20,700],[lx+12,650],[lx-12,650]],4,INK,true);
+  line(lx,650,lx,630,3,INK);
+  flame(lx,696,.5,t);
+  fpoly([[lx,700],[lx-90,980],[lx+90,980]],'rgba(227,179,29,.10)');
+}),
+S3('1883 — the premium','we pooled the risk.',(u,t)=>{
+  qcurve(CX-190,760,CX,560,CX+190,760,6,INK);          // the umbrella
+  line(CX-190,760,CX+190,760,3,INK_FAINT);
+  line(CX,660,CX,900,4,INK);qcurve(CX,900,CX+16,930,CX+34,912,4,INK);
+  const rnd=mulberry(31);
+  for(let i=0;i<7;i++){
+    const rx2=280+rnd()*520, sp3=600+rnd()*500;
+    const ry=(t*.55+sp3)%760;
+    if(ry<560)line(rx2,ry,rx2-7,ry+22,3,'rgba(234,228,214,.3)');
+  }
+  for(let i=0;i<5;i++)dot(CX-120+i*60,830,11,i===2?GOLD:INK);
+}),
+S3('now — the care wage','the oldest work, still underpaid.',(u,t)=>{
+  const b=1+.06*Math.max(0,Math.sin(t/1000*TAU*1.1));
+  x.save();x.translate(CX-90,GY-20);x.scale(b,b);
+  x.beginPath();x.moveTo(0,64);
+  x.bezierCurveTo(-110,-30,-44,-110,0,-52);
+  x.bezierCurveTo(44,-110,110,-30,0,64);
+  x.lineWidth=6;x.strokeStyle=GOLD;x.stroke();x.restore();
+  ring(CX+190,GY-10,30,4,INK_DIM);
+  x.save();x.font='500 30px '+MONO;x.fillStyle=INK_DIM;x.textAlign='center';
+  x.fillText('¤',CX+190,GY);x.restore();
+},.24),
+mkOutro('care is the economy beneath the economy.','it holds everything else up.'),
+]};
+
+/* ---------- power · who decides ---------- */
+FILMS.power={name:'who decides',emoji:'👑',scenes:[
+mkTitle('who decides','authority, in five costumes'),
+S3('~forever — the circle','the elders spoke last.',(u,t)=>{
+  const N=10,R=240;
+  flame(CX,GY+30,.9,t);
+  for(let i=0;i<N;i++){const a=i/N*TAU-Math.PI/2;
+    dot(CX+Math.cos(a)*R,GY+Math.sin(a)*R,13,INK)}
+  const sp=Math.floor(t/800)%N, a2=sp/N*TAU-Math.PI/2;
+  ring(CX+Math.cos(a2)*R,GY+Math.sin(a2)*R,22,3,GOLD);
+}),
+S3('~3000 bc — the chief','one voice rose above the fire.',(u,t)=>{
+  const lift=inOut((u-.1)/.5);
+  for(let i=0;i<6;i++)dot(300+i*96,960,13,INK_DIM);
+  line(CX,940,CX,lerp(940,640,lift),5,INK);
+  dot(CX,lerp(920,614,lift),17,GOLD);
+  if(lift>=1){const bp=(t%1100)/1100;
+    ring(CX,614,26+bp*60,2,'rgba(227,179,29,'+(1-bp)*.45+')')}
+}),
+S3('~800 ad — the crown','power wore god’s signature.',(u,t)=>{
+  poly([[380,880],[380,760],[460,820],[540,720],[620,820],[700,760],[700,880]],6,INK,true);
+  [380,540,700].forEach(px=>dot(px,px===540?712:752,9,GOLD));
+  const g=inOut((u-.15)/.5);
+  for(let i=0;i<5;i++){const a=-Math.PI/2+(i-2)*.32;
+    const r1=210,r2=210+50*g;
+    line(540+Math.cos(a)*r1,800+Math.sin(a)*r1,540+Math.cos(a)*r2,800+Math.sin(a)*r2,3,'rgba(227,179,29,'+g*.6+')')}
+}),
+S3('1789 — the ballot','we counted heads, not cut them.',(u,t)=>{
+  poly([[400,760],[680,760],[680,960],[400,960]],5,INK,true);
+  line(490,760,590,760,9,PAPER);line(490,758,590,758,5,GOLD);   // the slot
+  const cyc=(t%1000)/1000;
+  if(cyc<.6){const py=lerp(560,740,outC(cyc/.6));
+    x.save();x.translate(CX,py);x.rotate(Math.sin(cyc*9)*.12);
+    x.strokeStyle=INK;x.lineWidth=4;x.strokeRect(-38,-24,76,48);x.restore()}
+  const n=Math.floor(t/1000)+1;
+  for(let i=0;i<Math.min(n,8);i++)line(430+i*28,905,444+i*28,875,3,GOLD);
+}),
+S3('now — the fork','disagree — and leave with a copy.',(u,t)=>{
+  const s=inOut((u-.08)/.6);
+  line(CX,980,CX,760,5,INK);
+  qcurve(CX,760,CX,700,lerp(CX,CX-160,s),lerp(760,560,s),5,INK);
+  qcurve(CX,760,CX,700,lerp(CX,CX+160,s),lerp(760,560,s),5,GOLD);
+  const p=(t/900)%1;
+  dot(CX,lerp(980,770,p),7,INK_DIM);
+  if(s>.7){dot(CX-160,560-((t/700)%1)*40,7,INK);dot(CX+160,560-((t/700)%1)*40,7,GOLD)}
+},.24),
+mkOutro('power never disappears.','it changes costumes.'),
+]};
+
+/* ---------- energy · what powers you ---------- */
+FILMS.energy={name:'what powers you',emoji:'⚡',scenes:[
+mkTitle('what powers you','the flow beneath it all'),
+S3('~forever — firewood','the first battery was a branch.',(u,t)=>{
+  line(430,950,650,880,7,INK);line(430,880,650,950,7,INK);
+  dot(CX,864,60+Math.sin(t/1000*TAU*9)*6,'rgba(227,179,29,.10)');
+  flame(CX,900,1.5,t);
+  const rnd=mulberry(3);
+  for(let i=0;i<4;i++){const p=((t/1400)+i*.25)%1;
+    dot(CX+(rnd()-.5)*60,900-p*260,4*(1-p),'rgba(227,179,29,'+(1-p)*.7+')')}
+}),
+S3('~4000 bc — the ox','we borrowed muscle.',(u,t)=>{
+  const step=Math.sin(t/1000*TAU*.9)*8;
+  ring(420,GY,54,5,INK);ring(560,GY,54,5,INK);          // the shoulders
+  qcurve(366,GY-30,490,GY-110+step*.4,614,GY-30,6,GOLD); // the yoke
+  line(614,GY,760,GY+120,4,INK_DIM);                     // the trace
+  const fw=inOut((u-.1)/.7);
+  line(760,GY+124,lerp(760,340,fw),GY+124,4,GOLD);       // the furrow grows
+  poly([[760,GY+96],[790,GY+124],[760,GY+124]],4,INK,true);
+}),
+S3('~200 bc — the wheel','the river ground our grain.',(u,t)=>{
+  const R=170, rot=t/1000*1.4;
+  x.save();x.translate(CX,GY-30);x.rotate(rot);
+  ring(0,0,R,5,INK);
+  for(let i=0;i<8;i++){const a=i/8*TAU;
+    line(Math.cos(a)*R*.4,Math.sin(a)*R*.4,Math.cos(a)*R,Math.sin(a)*R,4,INK_DIM);
+    line(Math.cos(a)*R,Math.sin(a)*R,Math.cos(a+.28)*R,Math.sin(a+.28)*R,5,INK)}
+  dot(0,0,10,INK);x.restore();
+  x.setLineDash([16,12]);x.lineDashOffset=-t*.14;
+  line(240,GY+170,840,GY+170,4,GOLD);x.setLineDash([]);
+}),
+S3('1712 — steam','we burned the buried forests.',(u,t)=>{
+  poly([[420,940],[660,940],[660,760],[420,760]],5,INK,true);
+  const ph=(Math.sin(t/1000*TAU*.8)+1)/2;
+  const px=lerp(470,610,ph);
+  line(px,760,px,700,6,INK);line(px-40,700,px+40,700,8,INK);
+  line(660,850,760,850,4,INK_DIM);
+  for(let i=0;i<3;i++){const p=((t/1500)+i*.33)%1;
+    ring(770+p*40,850-p*220,10+p*26,3,'rgba(234,228,214,'+(1-p)*.4+')')}
+  flame(540,932,.8,t);
+}),
+S3('1882 — the grid','power left the fire, entered the wall.',(u,t)=>{
+  [320,540,760].forEach(px=>{
+    poly([[px-44,940],[px,700],[px+44,940]],4,INK_DIM);
+    line(px-30,860,px+30,860,3,INK_DIM);line(px-18,790,px+18,790,3,INK_DIM)});
+  qcurve(320,700,430,760,540,700,3,INK);
+  qcurve(540,700,650,760,760,700,3,INK);
+  [[320,700,540,700],[540,700,760,700]].forEach(([a1,b1,a2,b2],i)=>{
+    const p=((t/900)+i*.5)%1;
+    const gp=qpoint(a1,b1,(a1+a2)/2,760,a2,b2,p);
+    dot(gp[0],gp[1],7,GOLD)});
+}),
+S3('now — the panel','back to the sun — this time directly.',(u,t)=>{
+  dot(CX,540,26,GOLD);
+  for(let i=0;i<8;i++){const a=i/8*TAU;
+    line(CX+Math.cos(a)*40,540+Math.sin(a)*40,CX+Math.cos(a)*56,540+Math.sin(a)*56,3,GOLD)}
+  x.save();x.translate(CX,860);x.rotate(-.18);
+  x.strokeStyle=INK;x.lineWidth=5;x.strokeRect(-170,-60,340,120);
+  for(let i=1;i<4;i++)line(-170+i*85,-60,-170+i*85,60,2,INK_DIM);
+  line(-170,0,170,0,2,INK_DIM);
+  x.restore();
+  for(let i=0;i<3;i++){const p=((t/1000)+i*.33)%1;
+    dot(CX+lerp(0,-26,p),lerp(596,780,p),5,'rgba(227,179,29,'+(1-p*.4)+')')}
+},.24),
+mkOutro('civilization is energy with opinions.','choose the source, choose the future.'),
+]};
+
+/* ---------- ontology · what exists ---------- */
+FILMS.ontology={name:'what exists',emoji:'🗂️',scenes:[
+mkTitle('what exists','the map of everything'),
+S3('~forever — the myth','the world was a story.',(u,t)=>{
+  const R=200, g=inOut((u-.05)/.7);
+  x.beginPath();
+  for(let i=0;i<=100;i++){const p=i/100;if(p>g)break;
+    const a=-Math.PI/2+p*TAU*.92;
+    i===0?x.moveTo(CX+Math.cos(a)*R,GY+Math.sin(a)*R):x.lineTo(CX+Math.cos(a)*R,GY+Math.sin(a)*R)}
+  x.lineWidth=6;x.strokeStyle=INK;x.stroke();
+  if(g>=1){const ha=-Math.PI/2+TAU*.92;
+    dot(CX+Math.cos(ha)*R,GY+Math.sin(ha)*R,16,GOLD)}    // the head meets the tail
+  const rnd=mulberry(17);
+  for(let i=0;i<8;i++){const sx=240+rnd()*600,sy=480+rnd()*640;
+    const tw=(Math.sin(t/1000*TAU*.8+i*2)+1)/2;
+    dot(sx,sy,2+tw*2,'rgba(234,228,214,'+(.2+tw*.4)+')')}
+}),
+S3('~3000 bc — the pantheon','everything had a face.',(u,t)=>{
+  for(let i=0;i<5;i++){const px=316+i*112;
+    line(px,940,px,700,5,INK_DIM);
+    line(px-26,700,px+26,700,5,INK_DIM);line(px-26,940,px+26,940,5,INK_DIM);
+    const lit=Math.floor(t/700)%5===i;
+    dot(px,660,lit?14:9,lit?GOLD:INK);
+    if(lit)ring(px,660,24,2,'rgba(227,179,29,.5)')}
+}),
+S3('~350 bc — the categories','we sorted the world into kinds.',(u,t)=>{
+  const g=inOut((u-.05)/.7);
+  dot(CX,580,12,GOLD);
+  const l2=[[380,740],[700,740]], l3=[[300,900],[460,900],[620,900],[780,900]];
+  l2.forEach((p,i)=>{const on=c01(g*3-1);
+    if(on>0){line(CX,592,lerp(CX,p[0],on),lerp(592,p[1]-14,on),3,INK_DIM);
+      if(on>=1)dot(p[0],p[1],10,INK)}});
+  l3.forEach((p,i)=>{const par=l2[Math.floor(i/2)], on=c01(g*3-2);
+    if(on>0){line(par[0],754,lerp(par[0],p[0],on),lerp(754,p[1]-12,on),3,INK_DIM);
+      if(on>=1)dot(p[0],p[1],8,INK_DIM)}});
+}),
+S3('~1200 ad — the great chain','everything in its place.',(u,t)=>{
+  const g=inOut((u-.05)/.7), N=6;
+  for(let i=0;i<N;i++){
+    const on=c01(g*N-i); if(on<=0)break;
+    const cy=560+i*86;
+    ring(CX,cy,34,5,i===0?GOLD:INK_DIM);
+    if(i>0&&on>=1)line(CX,cy-52,CX,cy-34,4,INK_FAINT);
+  }
+}),
+S3('1735 — the taxonomy','we renamed the world in latin.',(u,t)=>{
+  const g=inOut((u-.05)/.75);
+  for(let r=0;r<3;r++)for(let c=0;c<3;c++){
+    const k=r*3+c, on=c01(g*9-k);
+    if(on<=0)continue;
+    const px=380+c*160, py=600+r*160;
+    ring(px,py,30,4,INK_DIM);
+    line(px-24,py+48,px+2,py+48,3,on>=1?GOLD:INK_FAINT);   // genus,
+    line(px+10,py+48,px+26,py+48,2,on>=1?GOLD:INK_FAINT);  // species
+  }
+}),
+S3('now — machine minds','the map begins to dream.',(u,t)=>{
+  const L=[[380,3],[540,4],[700,3]];
+  const nodes=[];
+  L.forEach(([lx,n],li)=>{const col=[];
+    for(let i=0;i<n;i++)col.push([lx,GY-((n-1)*90)/2+i*90]);nodes.push(col)});
+  for(let li=0;li<2;li++)nodes[li].forEach(a=>nodes[li+1].forEach(b=>{
+    const p=((t/1200)+((a[1]+b[1])%7)/7)%1;
+    line(a[0],a[1],b[0],b[1],2,INK_FAINT);
+    const mx=lerp(a[0],b[0],p),my2=lerp(a[1],b[1],p);
+    dot(mx,my2,4,'rgba(227,179,29,'+Math.sin(p*Math.PI)*.8+')')}));
+  nodes.flat().forEach(p=>dot(p[0],p[1],10,INK));
+},.24),
+mkOutro('what exists depends on who’s counting.','count carefully.'),
+]};
+
+/* ---------- truth · what is true ---------- */
+FILMS.truth={name:'what is true',emoji:'📖',scenes:[
+mkTitle('what is true','the agreement machine'),
+S3('~1200 bc — oracle bones','we asked the fire what was true.',(u,t)=>{
+  x.beginPath();x.moveTo(430,620);
+  x.quadraticCurveTo(360,700,390,860);x.quadraticCurveTo(420,980,560,970);
+  x.quadraticCurveTo(690,950,680,800);x.quadraticCurveTo(670,660,560,616);
+  x.quadraticCurveTo(490,592,430,620);x.lineWidth=5;x.strokeStyle=INK;x.stroke();
+  const g=inOut((u-.15)/.6);
+  [[530,640,510,760],[510,760,560,860],[510,760,430,820],[560,860,620,900]].forEach(([a1,b1,a2,b2],i)=>{
+    const on=c01(g*4-i);
+    if(on>0)line(a1,b1,lerp(a1,a2,on),lerp(b1,b2,on),3,GOLD)});
+}),
+S3('~500 bc — the oath','truth leaned on the gods.',(u,t)=>{
+  line(CX,980,CX,760,6,INK);
+  poly([[CX-60,760],[CX-60,650],[CX-30,620],[CX-30,740]],5,INK,true);
+  poly([[CX-30,740],[CX-30,600],[CX,580],[CX,740]],5,INK,true);
+  poly([[CX,740],[CX,590],[CX+30,600],[CX+30,745]],5,INK,true);
+  poly([[CX+30,745],[CX+30,620],[CX+58,640],[CX+58,760]],5,INK,true);
+  const bp=(t%1400)/1400;
+  ring(CX,700,80+bp*160,3,'rgba(227,179,29,'+(1-bp)*.5+')');
+}),
+S3('~300 ad — scripture','truth got a binding.',(u,t)=>{
+  qcurve(CX,640,CX-190,600,CX-230,660,5,INK);
+  qcurve(CX,640,CX+190,600,CX+230,660,5,INK);
+  qcurve(CX,960,CX-190,920,CX-230,960,5,INK);
+  qcurve(CX,960,CX+190,920,CX+230,960,5,INK);
+  line(CX-230,660,CX-230,960,5,INK);line(CX+230,660,CX+230,960,5,INK);
+  line(CX,640,CX,960,4,INK_DIM);
+  const g=inOut((u-.1)/.7);
+  for(let s=0;s<2;s++)for(let i=0;i<5;i++){
+    const on=c01(g*10-(s*5+i)); if(on<=0)continue;
+    const bx2=CX+(s===0?-200:60), w2=140*on;
+    line(bx2,700+i*50,bx2+w2,700+i*50,3,s===0&&i===0?GOLD:INK_FAINT)}
+}),
+S3('1620 — the experiment','we asked the world directly.',(u,t)=>{
+  poly([[500,620],[580,620],[580,720],[660,920],[420,920],[500,720]],5,INK,true);
+  x.fillStyle='rgba(227,179,29,.18)';
+  fpoly([[452,840],[628,840],[660,920],[420,920]],'rgba(227,179,29,.18)');
+  line(452,840,628,840,4,GOLD);
+  const rnd=mulberry(13);
+  for(let i=0;i<4;i++){const p=((t/1300)+i*.25)%1;
+    dot(505+rnd()*70,900-p*44,4+p*3,'rgba(227,179,29,'+(1-p)*.8+')')}
+  line(690,840,740,840,3,INK_DIM);line(715,815,715,865,3,INK_DIM);  // the measured mark
+}),
+S3('1700s — the press','truth became a subscription.',(u,t)=>{
+  [[26,14,.25],[13,7,.55],[0,0,1]].forEach(([ox,oy,al])=>{
+    x.save();x.globalAlpha=x.globalAlpha*al;
+    x.strokeStyle=INK;x.lineWidth=4;x.strokeRect(370+ox,600+oy,340,340);
+    x.restore()});
+  line(390,650,690,650,8,INK);
+  const g=inOut((u-.1)/.75);
+  for(let c=0;c<2;c++)for(let i=0;i<7;i++){
+    const on=c01(g*14-(c*7+i)); if(on<=0)continue;
+    const bx2=396+c*160;
+    line(bx2,700+i*34,bx2+140*on,700+i*34,3,INK_FAINT)}
+}),
+S3('now — community notes','truth by adversarial consensus.',(u,t)=>{
+  line(340,700,740,700,5,INK);line(340,740,640,740,5,INK_DIM);   // the claim
+  const rnd=mulberry(29), g=inOut((u-.12)/.6);
+  for(let i=0;i<6;i++){
+    const on=c01(g*6-i); if(on<=0)continue;
+    const px=350+i*76, py=880;
+    dot(px,py,9,INK);
+    line(px,py-16,px,780,2,INK_FAINT);
+    const yes=rnd()>.35;
+    if(yes){line(px-10,772,px-2,782,3,GOLD);line(px-2,782,px+12,760,3,GOLD)}
+    else{line(px-9,764,px+9,782,3,INK_DIM);line(px+9,764,px-9,782,3,INK_DIM)}
+  }
+  if(g>=1)line(340,706,340+400*c01((u-.75)/.2),706,3,GOLD);
+},.24),
+mkOutro('every age builds a machine for agreeing.','tend this one.'),
+]};
+
+/* ---------- ethics · what you owe ---------- */
+FILMS.ethics={name:'what you owe',emoji:'🕊️',scenes:[
+mkTitle('what you owe','the question that arrives late'),
+S3('~forever — the taboo','the first law was: don’t.',(u,t)=>{
+  const g=inOut((u-.05)/.5);
+  ring(CX,GY,180,6,INK,-Math.PI/2,-Math.PI/2+TAU*g);
+  if(g>=1)line(CX-127,GY-127,CX-127+254*c01((u-.6)/.25),GY-127+254*c01((u-.6)/.25),6,GOLD);
+  const p=(t/1300)%1, ax2=lerp(160,CX-200,c01(p*1.4));
+  dot(ax2,GY,11,INK_DIM);
+  if(p>.7)ring(CX-186,GY,18,3,'rgba(227,179,29,.6)');
+}),
+S3('~1750 bc — the code','an eye, priced.',(u,t)=>{
+  x.beginPath();x.moveTo(420,960);x.lineTo(420,680);
+  x.quadraticCurveTo(420,580,540,580);x.quadraticCurveTo(660,580,660,680);
+  x.lineTo(660,960);x.closePath();x.lineWidth=5;x.strokeStyle=INK;x.stroke();
+  const g=inOut((u-.1)/.75);
+  for(let i=0;i<7;i++){
+    const on=c01(g*7-i); if(on<=0)continue;
+    line(452,660+i*42,452+156*on,660+i*42,3,i===3?GOLD:INK_DIM)}
+}),
+S3('~500 bc — the golden rule','do as you’d be done to.',(u,t)=>{
+  x.setLineDash([4,12]);line(CX,560,CX,1060,3,INK_FAINT);x.setLineDash([]);
+  const g=(Math.sin(t/1000*TAU*.5)+1)/2;
+  [[-1,INK],[1,GOLD]].forEach(([s,col])=>{
+    const px=CX+s*180;
+    ring(px,GY-40,30,5,col);
+    line(px,GY-8,px,GY+90,5,col);
+    const ar=lerp(.2,1.1,g);
+    line(px,GY+18,px-s*70*ar,GY+40,5,col);   // each reaches toward the line
+  });
+  dot(CX,GY+40,7+g*4,GOLD);
+}),
+S3('1789 — rights','what’s owed got written down.',(u,t)=>{
+  ring(410,640,26,5,INK,Math.PI*.5,Math.PI*1.5);
+  ring(670,920,26,5,INK,Math.PI*1.5,Math.PI*.5);
+  line(410,614,670,614,5,INK);line(410,666,670,666,5,INK);
+  line(410,894,670,894,5,INK);line(410,946,670,946,5,INK);
+  line(384,640,384,920,3,INK_FAINT);
+  const g=inOut((u-.1)/.7);
+  for(let i=0;i<5;i++){
+    const on=c01(g*5-i); if(on<=0)continue;
+    line(440,712+i*38,440+200*on,712+i*38,3,INK_DIM)}
+  if(g>=1)dot(628,830,14,GOLD);                        // the seal
+}),
+S3('now — the expanding circle','strangers. animals. futures.',(u,t)=>{
+  dot(CX,GY,11,GOLD);
+  const g=inOut((u-.06)/.7);
+  [90,170,250].forEach((R,i)=>{
+    const on=c01(g*3-i); if(on<=0)return;
+    ring(CX,GY,R*on,3,'rgba(227,179,29,'+(0.6-i*.15)+')');
+    if(on>=1){const rnd=mulberry(41+i);
+      for(let k=0;k<3+i*2;k++){const a=rnd()*TAU;
+        dot(CX+Math.cos(a)*R,GY+Math.sin(a)*R,7,INK)}}
+  });
+},.24),
+mkOutro('ethics is the question that arrives late.','but it arrives. answer it.'),
+]};
+
+/* ---------- spiral · the upward spiral ---------- */
+FILMS.spiral={name:'the upward spiral',emoji:'🧬',scenes:[
+mkTitle('the upward spiral','12,000 years, one question'),
+S3('~12,000 years — one question','who gets what?',(u,t)=>{
+  const pulse=1+.25*Math.max(0,Math.sin(t/1000*TAU*1.1));
+  dot(CX,GY,16*pulse,GOLD);
+  ring(CX,GY,120,4,INK_DIM);
+  const rnd=mulberry(19);
+  for(let i=0;i<6;i++){const a=rnd()*TAU, p=((t/1600)+i*.17)%1;
+    const R=lerp(330,140,outC(p));
+    dot(CX+Math.cos(a)*R,GY+Math.sin(a)*R,8,'rgba(234,228,214,'+(.3+p*.5)+')')}
+}),
+S3('every answer — a machine','trust, counted. price, discovered.',(u,t)=>{
+  const rot=t/1000*.9;
+  [[CX-130,GY-40,110,1],[CX+90,GY-110,80,-1],[CX+70,GY+120,88,-1]].forEach(([gx2,gy2,R,dir],k)=>{
+    x.save();x.translate(gx2,gy2);x.rotate(rot*dir*(110/R));
+    ring(0,0,R,5,k===0?GOLD:INK);
+    for(let i=0;i<8;i++){const a=i/8*TAU;
+      line(Math.cos(a)*R,Math.sin(a)*R,Math.cos(a)*(R+18),Math.sin(a)*(R+18),5,k===0?GOLD:INK)}
+    dot(0,0,8,k===0?GOLD:INK_DIM);
+    x.restore()});
+}),
+S3('machines stack into eras','each era stands on the last.',(u,t)=>{
+  const g=inOut((u-.05)/.75), N=5;
+  for(let i=0;i<N;i++){
+    const on=c01(g*N-i); if(on<=0)break;
+    const y2=980-i*90, w2=lerp(150,330,1-i*.18)*on;
+    line(CX-w2,y2,CX+w2,y2,6,i===N-1?GOLD:INK);
+    if(on>=1)for(let d=0;d<5;d++)dot(CX-w2*.8+d*(w2*.4),y2-24,5,INK_FAINT);
+  }
+}),
+S3('collapse comes — the floor holds','the ratchet keeps the climb.',(u,t)=>{
+  const R=190;
+  const cyc=(t%1600)/1600;
+  const fwd=cyc<.5?outC(cyc/.4)*(TAU/8):(TAU/8)*(1-inOut((cyc-.5)/.2)*.22);
+  const base=Math.floor(t/1600)*(TAU/8);
+  x.save();x.translate(CX,GY);x.rotate(base+fwd);
+  ring(0,0,R,5,INK);
+  for(let i=0;i<8;i++){const a=i/8*TAU;
+    poly([[Math.cos(a)*R,Math.sin(a)*R],[Math.cos(a+.18)*(R+34),Math.sin(a+.18)*(R+34)],[Math.cos(a+.32)*R,Math.sin(a+.32)*R]],4,INK)}
+  dot(0,0,9,INK);x.restore();
+  const catch2=cyc>.5&&cyc<.72;
+  x.save();x.translate(CX,GY-R-58);x.rotate(catch2?.1:0);
+  line(0,0,26,44,7,catch2?GOLD:INK_DIM);dot(0,-4,9,catch2?GOLD:INK_DIM);
+  x.restore();
+  if(catch2)ring(CX+20,GY-R-16,20,3,'rgba(227,179,29,.6)');
+},.24),
+S3('the coil turns upward','12,000 years — still climbing.',(u,t)=>{
+  const g=inOut((u-.05)/.8);
+  x.beginPath();
+  let started=false;
+  for(let i=0;i<=200;i++){const p=i/200; if(p>g)break;
+    const a=p*TAU*3.2-Math.PI/2, R=lerp(250,60,p), y2=lerp(1040,560,p);
+    const px=CX+Math.cos(a)*R, py=y2+Math.sin(a)*R*.30;
+    started?x.lineTo(px,py):x.moveTo(px,py);started=true}
+  x.lineWidth=5;x.strokeStyle=INK;x.stroke();
+  const bp=(t/2600)%1, p2=Math.min(bp,g);
+  const a2=p2*TAU*3.2-Math.PI/2, R2=lerp(250,60,p2), yy=lerp(1040,560,p2);
+  dot(CX+Math.cos(a2)*R2,yy+Math.sin(a2)*R2*.30,11,GOLD);
+  if(g>=1)dot(CX,560,14+4*Math.max(0,Math.sin(t/1000*TAU)),GOLD);
+},.26),
+mkOutro('we keep asking who gets what.','and we keep answering better.'),
+]};
+
+/* ---------- syntropy ---------- */
+FILMS.syntropy={name:'syntropy',emoji:'🌀',scenes:[
+mkTitle('syntropy','what gathers, against the drift'),
+S3('entropy','everything drifts apart.',(u,t)=>{
+  const rnd=mulberry(53);
+  for(let i=0;i<26;i++){
+    const a=rnd()*TAU, sp=.4+rnd()*.6, r0=30+rnd()*40;
+    const R=r0+((t*.09*sp)%340);
+    const al=Math.max(0,1-R/360);
+    dot(CX+Math.cos(a)*R,GY+Math.sin(a)*R,6*al+2,'rgba(234,228,214,'+al*.75+')');
+  }
+  ring(CX,GY,14,3,INK_FAINT);
+},.24),
+S3('but some things gather','the whirlpool. the seed.',(u,t)=>{
+  const rnd=mulberry(59);
+  for(let i=0;i<22;i++){
+    const a0=rnd()*TAU, sp=.5+rnd()*.5;
+    const p=((t/2600)*sp+rnd())%1;
+    const R=lerp(340,16,p), a=a0+p*4.2;
+    dot(CX+Math.cos(a)*R,GY+Math.sin(a)*R,4+p*6,'rgba(227,179,29,'+(.25+p*.75)+')');
+  }
+  dot(CX,GY,13+3*Math.sin(t/1000*TAU),GOLD);
+},.24),
+S3('life builds order from the drift','cell → leaf → forest.',(u,t)=>{
+  const g=inOut((u-.05)/.8);
+  function branch(bx2,by2,a,len,d){
+    if(d>3||len<24)return;
+    const on=c01(g*3.4-d); if(on<=0)return;
+    const ex=bx2+Math.cos(a)*len*on, ey=by2+Math.sin(a)*len*on;
+    line(bx2,by2,ex,ey,6-d*1.4,d===0?INK:INK_DIM);
+    if(on>=1){branch(ex,ey,a-.5,len*.66,d+1);branch(ex,ey,a+.42,len*.66,d+1);
+      if(d===2)dot(ex,ey,6,GOLD)}
+  }
+  branch(CX,1020,-Math.PI/2,220,0);
+}),
+S3('we do it together','families. cities. protocols.',(u,t)=>{
+  const rnd=mulberry(61), pts=[];
+  for(let i=0;i<12;i++)pts.push([300+rnd()*480,540+rnd()*520]);
+  const g=inOut((u-.06)/.7);
+  let k=0;
+  for(let i=0;i<12;i++)for(let j=i+1;j<12;j++){
+    const d2=Math.hypot(pts[i][0]-pts[j][0],pts[i][1]-pts[j][1]);
+    if(d2>230)continue;
+    k++;const on=c01(g*14-k*.9);
+    if(on>0)line(pts[i][0],pts[i][1],
+      lerp(pts[i][0],pts[j][0],on),lerp(pts[i][1],pts[j][1],on),2,'rgba(227,179,29,'+on*.4+')');
+  }
+  pts.forEach(p=>dot(p[0],p[1],9,INK));
+}),
+S3('cell to civilization','the same gathering, eight scales up.',(u,t)=>{
+  const g=inOut((u-.05)/.75);
+  for(let i=0;i<4;i++){
+    const on=c01(g*4-i); if(on<=0)break;
+    ring(CX,GY,60+i*62,3,'rgba(234,228,214,'+(0.5-i*.09)+')',-Math.PI/2,-Math.PI/2+TAU*on);
+    if(on>=1){const a=t/1000*(.5-i*.09)+i*1.7;
+      dot(CX+Math.cos(a)*(60+i*62),GY+Math.sin(a)*(60+i*62),7,GOLD)}
+  }
+  dot(CX,GY,10,GOLD);
+},.24),
+mkOutro('syntropy — the gathering force.','tend it, and it tends you.'),
+]};
+
+/* ================================================================
+   engine
+   ================================================================ */
+const ORDER=['kepttime','alloc','live','care','power','energy','ontology','truth','ethics','spiral','syntropy'];
+let filmId='kepttime', FILM=FILMS[filmId], OFFS=[], TOTAL=0;
+
+function computeOffsets(){OFFS=[];TOTAL=0;
+  for(const s of FILM.scenes){OFFS.push(TOTAL);TOTAL+=s.dur}}
+computeOffsets();
+
+function render(ms){
+  ms=clamp(ms,0,TOTAL-1);
+  let i=FILM.scenes.length-1;
+  while(i>0&&ms<OFFS[i])i--;
+  const sc=FILM.scenes[i], lt=ms-OFFS[i], u=lt/sc.dur;
+
+  x.setTransform(1,0,0,1,0,0);
+  x.fillStyle=PAPER;x.fillRect(0,0,W,H);
+
+  const punch=1+.012*(1-outC(u/.12));
+  x.save();x.translate(CX,H/2);x.scale(punch,punch);x.translate(-CX,-H/2);
+
+  x.save();x.globalAlpha=inA(u,0,.18);      // shared entrance fade
+  sc.draw(u,lt);
+  x.restore();
+
+  if(sc.label)label(sc.label,1268,inA(u,(sc.capAt||.22)-.06,.16));
+  if(sc.cap)caption(sc.cap,1372,inA(u,sc.capAt||.22,.18));
+  x.restore();
+
+  const tl0=1,tl1=FILM.scenes.length-2;
+  if(i>=tl0&&i<=tl1&&tl1>tl0){
+    x.save();x.globalAlpha=.9;
+    line(140,1720,940,1720,2,INK_FAINT);
+    for(let k=0;k<=tl1-tl0;k++)line(140+k/(tl1-tl0)*800,1712,140+k/(tl1-tl0)*800,1728,2,INK_FAINT);
+    const prev=(i-1-tl0)/(tl1-tl0), curr=(i-tl0)/(tl1-tl0);
+    const mp=lerp(clamp(prev,0,1),curr,outQ(u/.25));
+    dot(140+mp*800,1720,7,GOLD);
+    x.restore();
+  }
+
+  const vg=x.createRadialGradient(CX,H/2,H*.28,CX,H/2,H*.72);
+  vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.42)');
+  x.fillStyle=vg;x.fillRect(0,0,W,H);
+
+  x.save();x.globalAlpha=.05;x.globalCompositeOperation='overlay';
+  x.imageSmoothingEnabled=false;
+  x.drawImage(grains[Math.floor(ms/125)%4],0,0,W,H);
+  x.restore();
+}
+
+/* ---------- the shelf ---------- */
+const shelf=document.getElementById('shelf'), dl=document.getElementById('dl');
+ORDER.forEach(id=>{
+  const b=document.createElement('a');
+  b.className='reel';b.id='reel-'+id;b.href='#'+id;
+  b.textContent=FILMS[id].emoji+' '+FILMS[id].name;
+  shelf.appendChild(b);
+});
+function setFilm(id,push){
+  if(!FILMS[id])id='kepttime';
+  filmId=id;FILM=FILMS[id];computeOffsets();t0=null;
+  document.querySelectorAll('.reel').forEach(el=>el.classList.toggle('on',el.id==='reel-'+id));
+  dl.href='/films/'+id+'.mp4';
+  if(push&&location.hash!=='#'+id)history.replaceState(null,'','#'+id);
+}
+addEventListener('hashchange',()=>setFilm(location.hash.slice(1)||'kepttime',false));
+
+/* ---------- playback ---------- */
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let t0=null, playing=!reduced;
+function loop(now){
+  if(t0===null)t0=now;
+  render((now-t0)%TOTAL);
+  requestAnimationFrame(loop);
+}
+cv.addEventListener('click',()=>{
+  t0=null;
+  if(!playing){playing=true;requestAnimationFrame(loop);
+    document.getElementById('hint').textContent='tap the film to restart'}
+});
+shelf.addEventListener('click',e=>{
+  const a=e.target.closest('.reel');if(!a)return;
+  setFilm(a.id.replace('reel-',''),true);
+  if(!playing){render(1600)}
+});
+
+/* hooks for the offline mp4 renderer */
+window.FILM_IDS=ORDER;
+window.SETFILM=id=>{setFilm(id,false);return TOTAL};
+window.SEEK=render;
+window.CAPTURE=function(ms){render(ms);return cv.toDataURL('image/png').slice(22)};
+
+(async()=>{
+  try{await document.fonts.load('600 96px Fraunces');await document.fonts.load('400 60px Fraunces');}catch(e){}
+  await (document.fonts.ready||Promise.resolve());
+  setFilm(location.hash.slice(1)||'kepttime',false);
+  window.READY=true;
+  if(playing)requestAnimationFrame(loop);
+  else{render(1600);document.getElementById('hint').textContent='tap the film to play'}
+})();
+</script>
+</body>
+</html>

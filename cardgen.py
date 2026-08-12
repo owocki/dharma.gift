@@ -79,6 +79,7 @@ CARDS = [
   ("og-sensemaking","🔦","sensemaking","how to see clearly when the fog is manufactured","signal from noise, before you act.","/sensemaking"),
   ("og-islands","🏝️","islands of coherence","communities that already solved it — protocols, not stories","somewhere, a town figured it out.","/islands"),
   ("og-kepttime","⌛","how we kept time","5,500 years of counting, from shadow to cesium","press play, it ticks — 37 seconds.","/kepttime"),
+  ("og-videos","🎞️","the films","little histories, 40 seconds each — time, food, power, truth","eleven reels, gold on black. press play.","/videos"),
   ("og-alloc", "✨","who gets what","resource allocation — the original poster",DEFAULT_TAG,"/alloc"),
   ("og-power", "👑","who decides","power structures, chiefdom to forkable state",DEFAULT_TAG,"/power"),
   ("og-live",  "🌾","how you eat","livelihood, the hunt to universal basic income",DEFAULT_TAG,"/live"),
