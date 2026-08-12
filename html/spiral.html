@@ -15191,7 +15191,9 @@ function flFrame(ts){
   const capY=Math.min(H*.30,(KEY?H*.045:H*.062)+clip);
   // the shaft. the person is at the FLOOR and civilization at the ceiling, because "up the
   // holarchy" ought to cost the reader an actual upward glance.
-  const topY=H*(KEY?.175:.20), botY=H-KEYH-30, step=(botY-topY)/5;
+  // a narrow pane has no key, so the caption's mono aside drops to a second line instead —
+  // which needs headroom the top plate would otherwise be standing in.
+  const topY=H*(KEY?.175:.265), botY=H-KEYH-30, step=(botY-topY)/5;
   const yFor=i=>botY-i*step;
   // the floor plates widen as they climb — a ziggurat in section, which is what a nest of
   // scales looks like from the side. they never narrow past the lane field: a plate a lane
@@ -15384,7 +15386,7 @@ function flFrame(ts){
       // the empty top seam, named on the canvas the moment the sweep arrives at it
       if(foc===4){ x.fillStyle='rgba('+P.red+','+(A*.8).toFixed(3)+')';
         x.font='700 9px '+mono; x.textAlign='left';
-        x.fillText('NO MANDATE CROSSES HERE',laneX(3)+13,(lim+yFor(5))/2+3); x.textAlign='center'; }
+        x.fillText('NO MANDATE CROSSES HERE',laneX(3)+13,(lim+yFor(5))/2-7); x.textAlign='center'; }
     }
     if(fi===4){                                      // ⚖️ falls, from outside the top of the frame
       rail(A,4,{hiY:topY-34});
@@ -15427,9 +15429,9 @@ function flFrame(ts){
     FLF.forEach((F,j)=>{
       const lim=(j===3)?yFor(4):(j===4?topY-34:topY-6);
       rail(aW*.8,j,{hiY:lim,dashHi:j===3?yFor(4):undefined});
-      if(F.d>=0) beads(aW*.9,j,1,{dx:F.d===0?-7:0,k:8,per:j===1?11000:7200,
+      if(F.d>=0) beads(aW*.9,j,1,{dx:F.d===0?(j===1?-12:-7):0,k:8,per:j===1?11000:7200,
         r0:j===1?4.8:3.1,r1:j===1?1.1:3.1,hiY:j===3?yFor(4):topY,die:j===3?.86:undefined});
-      if(F.d<=0) beads(aW*.9,j,-1,{dx:F.d===0?7:0,k:8,per:j===1?4200:(j===4?3600:7200),
+      if(F.d<=0) beads(aW*.9,j,-1,{dx:F.d===0?(j===1?12:7):0,k:8,per:j===1?4200:(j===4?3600:7200),
         r0:j===1?1.1:3.1,r1:j===1?5.6:3.1,enter:j===4?34:0});
     });
     if(dom===7) cap(aW,'THE HOLARCHY IS THE TRAFFIC',
@@ -15472,11 +15474,17 @@ function flFrame(ts){
   // the ribbon is the key's little brother — it only comes out when the key cannot fit
   const ribbon=(A,act)=>{
     if(quiet||KEY||A<=.01) return;
-    const gap=W<560?11:20;
-    x.font='700 9.5px '+mono; x.textAlign='left';
-    let tot=0; const wds=FLF.map(F=>{ const w=x.measureText(F.ar+F.k).width; tot+=w; return w; });
-    tot+=gap*4;
-    let px=cx-tot/2;
+    // five names and their arrows in a pane 360px wide is a squeeze, so the strip is measured
+    // and stepped down until it fits. a legend clipped at both ends is not a legend.
+    let gap=W<560?9:20, fs=9.5;
+    x.textAlign='left';
+    const meas=()=>{ x.font='700 '+fs.toFixed(1)+'px '+mono;
+      const w=FLF.map(F=>x.measureText(F.ar+F.k).width);
+      return [w,w.reduce((s,v)=>s+v,0)+gap*4]; };
+    let m=meas();
+    while(m[1]>W-14&&fs>6.4){ fs-=.4; gap=Math.max(5,gap-.5); m=meas(); }
+    const wds=m[0];
+    let px=cx-m[1]/2;
     FLF.forEach((F,i)=>{
       const on=(act===i);
       x.fillStyle=on?'rgba('+P[F.p]+','+(A*.95).toFixed(3)+')':'rgba('+P.ink+','+(A*.26).toFixed(3)+')';

@@ -71,6 +71,7 @@ CARDS = [
   ("og-lineage","🔥","the lineage","one idea, carried hand to hand for a century","the torch is burning now.","/lineage"),
   ("og-collapse","🗿","how civilizations fail","jared diamond's ledger — societies choose to fail or succeed","what did the one who cut the last tree say?","/collapse"),
   ("og-organism","🫀","the living body","civilization as an organism — six scales, five functions","cells to civilizations, all doing the same five things.","/organism"),
+  ("og-flows", "🔃","what moves between","the five flows through the holarchy — energy, information, resources, legitimacy, constraints","legitimacy only climbs. constraint only falls.","/flows"),
   ("og-babel", "🗼","babel","the war on sensemaking — the culture war, x-rayed","why we can't figure anything out anymore.","/babel"),
   ("og-bargain","🍎","the bargain","what we lose with progress — four names for the deal",DEFAULT_TAG,"/bargain"),
   ("og-crises","🌪️","the crises","twenty-four crises, three families, one census","you're not crazy.","/crises"),
