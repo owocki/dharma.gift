@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-882JMLBJG9');
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌛</text></svg>">
+<title>how we kept time · a 40-second history</title>
+<link rel="canonical" href="https://dharma.gift/kepttime">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dharma.gift/kepttime">
+<meta property="og:title" content="how we kept time — a 40-second history">
+<meta property="og:description" content="5,500 years of counting, twelve hard cuts: shadow, water, fire, sand, gears, the pendulum, quartz, cesium — one gold thread from ~3500 bc to the atomic second in your pocket. press play, it ticks.">
+<meta property="og:image" content="https://dharma.gift/og-kepttime.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="how we kept time — a 40-second history">
+<meta name="twitter:description" content="shadow to cesium in 37 seconds. press play, it ticks.">
+<meta name="twitter:image" content="https://dharma.gift/og-kepttime.png?v=1">
+<meta name="description" content="a minimal animated short: how humanity kept time, from the sundial's shadow to the cesium second — twelve scenes, one gold accent, every number real. loops here; downloadable as an mp4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet">
+<style>
+  /* the film room: one dark wall, the short breathing on it */
+  :root{ --paper:#0a0806; --ink:#eae4d6; --gold:#e3b31d; --dim:#8a8375; }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#050403}
+  body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+    font:14px/1.6 ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;color:var(--dim)}
+  #cv{height:min(88svh,1600px);max-width:94vw;aspect-ratio:9/16;object-fit:contain;
+    background:var(--paper);border-radius:10px;cursor:pointer;
+    box-shadow:0 20px 80px rgba(0,0,0,.7)}
+  .under{display:flex;gap:22px;align-items:center;letter-spacing:.14em;text-transform:uppercase;font-size:11px}
+  .under a{color:var(--dim);text-decoration:none;border-bottom:1px solid rgba(138,131,117,.35);padding-bottom:1px}
+  .under a:hover{color:var(--gold);border-color:var(--gold)}
+  .back{position:fixed;top:14px;left:14px;z-index:9;font-size:12px;letter-spacing:.06em;
+    color:var(--dim);text-decoration:none;padding:7px 12px;border:1px solid rgba(138,131,117,.28);
+    border-radius:999px;background:rgba(5,4,3,.6);backdrop-filter:blur(4px)}
+  .back:hover{color:var(--ink);border-color:rgba(234,228,214,.4)}
+  @media (max-width:600px){ .under{gap:14px;font-size:10px} }
+</style>
+</head>
+<body>
+<a class="back" href="/">← 🌳 dharma.gift</a>
+<canvas id="cv" width="1080" height="1920" role="img"
+  aria-label="an animated short: twelve minimal scenes of how humanity kept time — a sundial's shadow, a dripping water clock, a burning candle, an hourglass, a ticking escapement, huygens' pendulum, a pocket watch, a shivering quartz crystal, a cesium atom pulsing once a second, and every phone humming the same second — ending: we never caught time, we only learned to count it."></canvas>
+<div class="under">
+  <span id="hint">tap the film to restart</span>
+  <a href="/how-we-kept-time.mp4" download>⤓ download the mp4</a>
+</div>
+<script>
+'use strict';
+/* Hallmark · bespoke video · tone: austere-editorial · paper near-black · ink bone · one gold accent */
+const PAPER='#0a0806', INK='#eae4d6', GOLD='#e3b31d';
+const INK_DIM='rgba(234,228,214,.42)', INK_FAINT='rgba(234,228,214,.16)';
+const W=1080,H=1920,CX=540,GY=810;            // glyph center
+const SERIF='Fraunces, Georgia, serif';
+const MONO='"SF Mono", Menlo, monospace';
+
+const cv=document.getElementById('cv'), x=cv.getContext('2d');
+
+/* ---------- helpers ---------- */
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const c01=v=>clamp(v,0,1);
+const lerp=(a,b,t)=>a+(b-a)*t;
+const outC=t=>1-Math.pow(1-c01(t),3);
+const outQ=t=>1-Math.pow(1-c01(t),5);
+const inOut=t=>{t=c01(t);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2};
+const TAU=Math.PI*2;
+function mulberry(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let z=Math.imul(seed^seed>>>15,1|seed);z=z+Math.imul(z^z>>>7,61|z)^z;return((z^z>>>14)>>>0)/4294967296}}
+
+function line(ax,ay,bx,by,w,col){x.beginPath();x.moveTo(ax,ay);x.lineTo(bx,by);x.lineWidth=w;x.strokeStyle=col;x.stroke()}
+function ring(cx,cy,r,w,col,a0=0,a1=TAU){x.beginPath();x.arc(cx,cy,r,a0,a1);x.lineWidth=w;x.strokeStyle=col;x.stroke()}
+function dot(cx,cy,r,col){x.beginPath();x.arc(cx,cy,r,0,TAU);x.fillStyle=col;x.fill()}
+
+/* text — captions rise + fade, labels track in */
+function caption(txt,y,alpha,size=60){
+  if(alpha<=0)return;
+  x.save();x.globalAlpha=alpha;
+  x.font='400 '+size+'px '+SERIF;
+  x.fillStyle=INK;x.textAlign='center';x.textBaseline='alphabetic';
+  const words=txt.split(' '),lines=[];let cur='';
+  for(const w2 of words){const t2=cur?cur+' '+w2:w2;
+    if(x.measureText(t2).width>820&&cur){lines.push(cur);cur=w2}else cur=t2}
+  if(cur)lines.push(cur);
+  lines.forEach((l,i)=>x.fillText(l,CX,y+i*(size*1.32)));
+  x.restore();
+}
+function label(txt,y,alpha){
+  if(alpha<=0)return;
+  x.save();x.globalAlpha=alpha;
+  x.font='500 30px '+MONO;
+  try{x.letterSpacing='7px'}catch(e){}
+  x.fillStyle=GOLD;x.textAlign='center';
+  x.fillText(txt.toUpperCase(),CX+3,y);   // +3 optically recenters letterspaced text
+  try{x.letterSpacing='0px'}catch(e){}
+  x.restore();
+}
+
+/* entrance envelope: quick fade at scene start; captions arrive on a beat */
+const inA=(u,at,len)=>outC((u-at)/len);
+
+/* ---------- grain (deterministic, 4 pre-rendered tiles cycled at 8fps) ---------- */
+const grains=[];
+for(let g=0;g<4;g++){
+  const gc=document.createElement('canvas');gc.width=270;gc.height=480;
+  const gx=gc.getContext('2d'),im=gx.createImageData(270,480),rnd=mulberry(1234+g*777);
+  for(let i=0;i<im.data.length;i+=4){const v=rnd()*255|0;im.data[i]=im.data[i+1]=im.data[i+2]=v;im.data[i+3]=255}
+  gx.putImageData(im,0,0);grains.push(gc);
+}
+
+/* ---------- scenes ---------- */
+/* each: {dur ms, label, cap, capAt, draw(u, tMs)}  u = 0..1 local */
+
+const SCENES=[
+
+/* 00 · title */
+{dur:3000,draw:(u,t)=>{
+  const pulse=1+.35*Math.max(0,Math.sin(t/1000*TAU*1.15));
+  dot(CX,760,11*pulse,GOLD);
+  ring(CX,760,11*pulse+16,2,'rgba(227,179,29,'+(.35*Math.max(0,Math.sin(t/1000*TAU*1.15)))+')');
+  x.save();x.globalAlpha=inA(u,.18,.22);
+  x.font='600 96px '+SERIF;x.fillStyle=INK;x.textAlign='center';
+  x.fillText('how we kept time',CX,950+14*(1-inA(u,.18,.22)));x.restore();
+  label('a history in 40 seconds',1040,inA(u,.42,.2)*.8);
+}},
+
+/* 01 · shadow */
+{dur:3000,label:'~3500 bc — shadow',cap:'first, we read the sun.',capAt:.22,draw:(u,t)=>{
+  const e=inA(u,0,.18), R=230;
+  x.save();x.globalAlpha=e;
+  ring(CX,GY,R,5,INK);
+  for(let i=0;i<12;i++){const a=i/12*TAU;
+    line(CX+Math.cos(a)*(R-26),GY+Math.sin(a)*(R-26),CX+Math.cos(a)*(R-8),GY+Math.sin(a)*(R-8),4,INK_DIM)}
+  const sw=inOut((u-.08)/.8), a=lerp(-2.6,-.5,sw);           // shadow sweeps
+  line(CX,GY,CX+Math.cos(a)*R*.82,GY+Math.sin(a)*R*.82,7,INK);
+  dot(CX,GY,9,INK);
+  const sa=a+Math.PI, sr=R+74;                                // sun opposite the shadow
+  dot(CX+Math.cos(sa)*sr,GY+Math.sin(sa)*sr,13,GOLD);
+  for(let i=0;i<8;i++){const ra=i/8*TAU,sx=CX+Math.cos(sa)*sr,sy=GY+Math.sin(sa)*sr;
+    line(sx+Math.cos(ra)*22,sy+Math.sin(ra)*22,sx+Math.cos(ra)*32,sy+Math.sin(ra)*32,3,GOLD)}
+  x.restore();
+}},
+
+/* 02 · water */
+{dur:3000,label:'~1500 bc — water',cap:'then, we let it drip.',capAt:.22,draw:(u,t)=>{
+  const e=inA(u,0,.18);
+  x.save();x.globalAlpha=e;
+  // vessel
+  x.beginPath();x.moveTo(392,600);x.lineTo(452,952);x.lineTo(628,952);x.lineTo(688,600);
+  x.lineWidth=5;x.strokeStyle=INK;x.stroke();
+  // level marks on inner right wall
+  for(let i=0;i<5;i++){const ly=650+i*66,lx=lerp(676,640,(ly-600)/352);
+    line(lx-34,ly,lx,ly,3,INK_DIM)}
+  // falling water level
+  const lvl=lerp(646,930,inOut((u-.05)/.85));
+  const wl=lerp(392,452,(lvl-600)/352)+8, wr=lerp(688,628,(lvl-600)/352)-8;
+  line(wl,lvl,wr,lvl,5,GOLD);
+  x.fillStyle='rgba(227,179,29,.10)';
+  x.beginPath();x.moveTo(wl,lvl);x.lineTo(wr,lvl);
+  x.lineTo(lerp(688,628,1)-6,946);x.lineTo(lerp(392,452,1)+6,946);x.closePath();x.fill();
+  // drops
+  for(let d=0;d<3;d++){const p=(t/900+d*.33)%1;
+    if(p<.8)dot(CX,972+p/.8*150,7*(1-p*.4),GOLD)}
+  ring(CX,1140,26*((t/900)%1),2,'rgba(227,179,29,'+(1-(t/900)%1)*.5+')');
+  x.restore();
+}},
+
+/* 03 · fire */
+{dur:3000,label:'~900 ad — fire',cap:'we burned it.',capAt:.22,draw:(u,t)=>{
+  const e=inA(u,0,.18);
+  x.save();x.globalAlpha=e;
+  const top=lerp(640,806,inOut((u-.05)/.85)), bot=980;
+  // body
+  x.beginPath();x.moveTo(470,top);x.lineTo(470,bot);x.lineTo(610,bot);x.lineTo(610,top);
+  x.lineWidth=5;x.strokeStyle=INK;x.stroke();
+  line(470,top,610,top,5,INK);
+  // hour marks (only where wax remains)
+  for(let my=680;my<bot-20;my+=52)if(my>top+18)line(482,my,536,my,3,INK_DIM);
+  // wick + flame
+  line(CX,top,CX,top-26,4,INK);
+  const fl=Math.sin(t/1000*TAU*7)*6, fh=76+Math.sin(t/1000*TAU*11)*10;
+  dot(CX,top-58,46+Math.sin(t/1000*TAU*9)*5,'rgba(227,179,29,.10)');
+  x.beginPath();x.moveTo(CX,top-26);
+  x.quadraticCurveTo(CX+32+fl,top-52,CX+fl*.6,top-26-fh);
+  x.quadraticCurveTo(CX-32+fl,top-52,CX,top-26);
+  x.fillStyle=GOLD;x.fill();
+  x.restore();
+}},
+
+/* 04 · sand */
+{dur:3000,label:'~1300 ad — sand',cap:'we poured it.',capAt:.22,draw:(u,t)=>{
+  const e=inA(u,0,.18);
+  x.save();x.globalAlpha=e;
+  x.translate(CX,GY);
+  const flip=outQ((u-.84)/.16);x.rotate(flip*Math.PI);
+  const T=-190,B=190,NW=9,HW=128;
+  // frame
+  line(-HW,T,HW,T,5,INK);line(-HW,B,HW,B,5,INK);
+  x.lineWidth=5;x.strokeStyle=INK;
+  x.beginPath();x.moveTo(-HW+6,T);x.quadraticCurveTo(-HW+16,T+150,-NW,0);
+  x.quadraticCurveTo(-HW+16,B-150,-HW+6,B);x.stroke();
+  x.beginPath();x.moveTo(HW-6,T);x.quadraticCurveTo(HW-16,T+150,NW,0);
+  x.quadraticCurveTo(HW-16,B-150,HW-6,B);x.stroke();
+  const s=inOut((u-.02)/.8);
+  // top sand (draining) — flat level drops toward the neck
+  const topLvl=lerp(T+52,-14,s);
+  x.fillStyle='rgba(227,179,29,.45)';
+  x.beginPath();x.moveTo(-lerp(HW-24,4,(topLvl-T)/190),topLvl);
+  x.lineTo(lerp(HW-24,4,(topLvl-T)/190),topLvl);x.lineTo(0,-4);x.closePath();x.fill();
+  // stream
+  if(s<1&&flip<=0)line(0,0,0,B-16,3,GOLD);
+  // bottom pile grows
+  const ph=lerp(6,120,s);
+  x.beginPath();x.moveTo(-lerp(10,HW-26,s),B-6);x.lineTo(lerp(10,HW-26,s),B-6);
+  x.lineTo(0,B-6-ph);x.closePath();x.fillStyle='rgba(227,179,29,.55)';x.fill();
+  x.restore();
+}},
+
+/* 05 · gears */
+{dur:3000,label:'~1360 ad — gears',cap:'we taught metal to tick.',capAt:.22,draw:(u,t)=>{
+  const e=inA(u,0,.18),R=196;
+  x.save();x.globalAlpha=e;x.translate(CX,GY+30);
+  // stepped rotation: one tooth every 400ms, quick snap
+  const step=Math.floor(t/400), sp=outQ((t%400)/140);
+  const rot=(step+sp)*(TAU/12);
+  x.save();x.rotate(rot);
+  ring(0,0,R,5,INK);
+  for(let i=0;i<12;i++){const a=i/12*TAU;
+    line(Math.cos(a)*R,Math.sin(a)*R,Math.cos(a)*(R+30),Math.sin(a)*(R+30),6,INK)}
+  for(let i=0;i<3;i++){const a=i/3*TAU;
+    line(Math.cos(a)*24,Math.sin(a)*24,Math.cos(a)*(R-24),Math.sin(a)*(R-24),4,INK_DIM)}
+  dot(0,0,10,INK);
+  x.restore();
+  // anchor pallet above, rocking on the tick
+  const rock=Math.sin((step+sp)*Math.PI)*.16;
+  x.save();x.translate(0,-R-92);x.rotate(rock);
+  x.beginPath();x.arc(0,0,74,Math.PI*.15,Math.PI*.85);
+  x.lineWidth=7;x.strokeStyle=GOLD;x.stroke();
+  line(0,-6,0,-46,7,GOLD);dot(0,-52,8,GOLD);
+  x.restore();
+  x.restore();
+}},
+
+/* 06 · pendulum */
+{dur:3000,label:'1656 ad — the pendulum',cap:'a swinging weight — suddenly, seconds.',capAt:.24,draw:(u,t)=>{
+  const e=inA(u,0,.18),PY=548,L=396;
+  x.save();x.globalAlpha=e;
+  line(CX-120,PY,CX+120,PY,5,INK);dot(CX,PY,8,INK);
+  // faint swing arc
+  x.beginPath();x.arc(CX,PY,L,Math.PI/2-.5,Math.PI/2+.5);
+  x.setLineDash([2,12]);x.lineWidth=3;x.strokeStyle=INK_FAINT;x.stroke();x.setLineDash([]);
+  const th=.46*Math.cos(t/1500*TAU), bx=CX+Math.sin(th)*L, by=PY+Math.cos(th)*L;
+  line(CX,PY,bx,by,5,INK);
+  dot(bx,by,27,GOLD);
+  // tick flash at the extremes
+  const ph=Math.abs(Math.cos(t/1500*TAU));
+  if(ph>.965){dot(bx,by,34,'rgba(227,179,29,.35)')}
+  x.restore();
+}},
+
+/* 07 · pocket */
+{dur:3000,label:'~1700s ad — the pocket',cap:'we shrank it, and carried it.',capAt:.22,draw:(u,t)=>{
+  const e=inA(u,0,.18),R=212;
+  x.save();x.globalAlpha=e;
+  // crown + bow
+  ring(CX,GY-R-64,26,5,INK);line(CX-16,GY-R-26,CX+16,GY-R-26,10,INK);
+  ring(CX,GY,R,5,INK);ring(CX,GY,R-18,2,INK_FAINT);
+  for(let i=0;i<12;i++){const a=i/12*TAU;
+    line(CX+Math.cos(a)*(R-42),GY+Math.sin(a)*(R-42),CX+Math.cos(a)*(R-28),GY+Math.sin(a)*(R-28),4,INK_DIM)}
+  const sp2=inOut(u);                    // hands race
+  const hm=-Math.PI/2+sp2*TAU*4, hh=-Math.PI/2+sp2*TAU*.45, hs=-Math.PI/2+sp2*TAU*14;
+  line(CX,GY,CX+Math.cos(hh)*R*.44,GY+Math.sin(hh)*R*.44,9,INK);
+  line(CX,GY,CX+Math.cos(hm)*R*.68,GY+Math.sin(hm)*R*.68,6,INK);
+  line(CX,GY,CX+Math.cos(hs)*R*.78,GY+Math.sin(hs)*R*.78,3,GOLD);
+  dot(CX,GY,10,GOLD);
+  x.restore();
+}},
+
+/* 08 · quartz */
+{dur:3000,label:'1927 ad — quartz',cap:'a crystal shivers 32,768 times a second.',capAt:.24,draw:(u,t)=>{
+  const e=inA(u,0,.18);
+  x.save();x.globalAlpha=e;
+  const jit=Math.sin(t/1000*TAU*13)*4;
+  // ghost outlines → vibration
+  [[-jit*2,.18],[jit*1.2,.42],[0,1]].forEach(([ox,al])=>{
+    x.save();x.globalAlpha=e*al;x.translate(CX+ox,GY-60);
+    x.beginPath();x.moveTo(0,-190);x.lineTo(64,-124);x.lineTo(64,124);
+    x.lineTo(0,190);x.lineTo(-64,124);x.lineTo(-64,-124);x.closePath();
+    x.lineWidth=5;x.strokeStyle=INK;x.stroke();x.restore();
+  });
+  // facet lines
+  line(CX-64,GY-184,CX+64,GY-184+248,2,INK_FAINT);
+  // waveform
+  x.beginPath();
+  for(let px=300;px<=780;px+=4){
+    const wy=1088+Math.sin((px-300)/17-t/1000*30)*26*Math.min(1,(px-300)/60,(780-px)/60);
+    px===300?x.moveTo(px,wy):x.lineTo(px,wy);
+  }
+  x.lineWidth=4;x.strokeStyle=GOLD;x.stroke();
+  x.restore();
+}},
+
+/* 09 · atom */
+{dur:3000,label:'1955 ad — the atom',cap:'off by one second every hundred million years.',capAt:.24,draw:(u,t)=>{
+  const e=inA(u,0,.18);
+  x.save();x.globalAlpha=e;x.translate(CX,GY-30);
+  for(let i=0;i<3;i++){
+    x.save();x.rotate(i/3*Math.PI);
+    x.beginPath();x.ellipse(0,0,238,86,0,0,TAU);
+    x.lineWidth=4;x.strokeStyle=INK_DIM;x.stroke();
+    const ea=t/1000*TAU*(0.9+i*.35)+i*2;
+    dot(Math.cos(ea)*238,Math.sin(ea)*86,9,INK);
+    x.restore();
+  }
+  dot(0,0,15,GOLD);
+  // the beat: a precise ring each second
+  const bp=(t%1000)/1000;
+  ring(0,0,20+bp*240,3,'rgba(227,179,29,'+(1-bp)*.7+')');
+  x.restore();
+}},
+
+/* 10 · now */
+{dur:3000,label:'now — everywhere at once',cap:'every phone hums the same second.',capAt:.26,draw:(u,t)=>{
+  const e=inA(u,0,.18), rnd=mulberry(42);
+  x.save();x.globalAlpha=e;
+  const sync=inOut((u-.08)/.55);        // phases converge to one beat
+  for(let r=0;r<8;r++)for(let c=0;c<5;c++){
+    const px=300+c*120, py=520+r*80, ph0=rnd()*TAU;
+    const ph=ph0*(1-sync);
+    const s=Math.max(0,Math.sin(t/1000*TAU*1.3+ph));
+    const gold=sync>.7&&s>.45;
+    dot(px,py,4+s*7.5,gold?GOLD:'rgba(234,228,214,'+(0.35+s*.6)+')');
+  }
+  x.restore();
+}},
+
+/* 11 · outro */
+{dur:4200,draw:(u,t)=>{
+  const pulse=1+.3*Math.max(0,Math.sin(t/1000*TAU*.9));
+  dot(CX,720,11*pulse,GOLD);
+  caption('we never caught time.',960,inA(u,.12,.18),66);
+  caption('we only learned to count it.',1070,inA(u,.42,.18),66);
+  label('dharma.gift',1560,inA(u,.68,.2)*.55);
+  // final dip to black
+  const out=c01((u-.93)/.07);
+  if(out>0){x.fillStyle='rgba(0,0,0,'+out+')';x.fillRect(0,0,W,H)}
+}},
+];
+
+const OFFS=[];let TOTAL=0;
+for(const s of SCENES){OFFS.push(TOTAL);TOTAL+=s.dur}
+
+/* ---------- master render ---------- */
+function render(ms){
+  ms=clamp(ms,0,TOTAL-1);
+  let i=SCENES.length-1;
+  while(i>0&&ms<OFFS[i])i--;
+  const sc=SCENES[i], lt=ms-OFFS[i], u=lt/sc.dur;
+
+  // paper
+  x.setTransform(1,0,0,1,0,0);
+  x.fillStyle=PAPER;x.fillRect(0,0,W,H);
+
+  // micro punch-in on each cut
+  const punch=1+.012*(1-outC(u/.12));
+  x.save();x.translate(CX,H/2);x.scale(punch,punch);x.translate(-CX,-H/2);
+
+  sc.draw(u,lt);
+
+  // label + caption
+  if(sc.label)label(sc.label,1268,inA(u,sc.capAt-.06,.16));
+  if(sc.cap)caption(sc.cap,1372,inA(u,sc.capAt,.18));
+  x.restore();
+
+  // timeline hairline (era scenes only: 1..10)
+  const tl0=1,tl1=10;
+  if(i>=tl0&&i<=tl1){
+    x.save();x.globalAlpha=.9;
+    line(140,1720,940,1720,2,INK_FAINT);
+    for(let k=0;k<=tl1-tl0;k++)line(140+k/(tl1-tl0)*800,1712,140+k/(tl1-tl0)*800,1728,2,INK_FAINT);
+    const prev=(i-1-tl0)/(tl1-tl0), curr=(i-tl0)/(tl1-tl0);
+    const mp=lerp(clamp(prev,0,1),curr,outQ(u/.25));
+    dot(140+mp*800,1720,7,GOLD);
+    x.restore();
+  }
+
+  // vignette
+  const vg=x.createRadialGradient(CX,H/2,H*.28,CX,H/2,H*.72);
+  vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.42)');
+  x.fillStyle=vg;x.fillRect(0,0,W,H);
+
+  // grain
+  x.save();x.globalAlpha=.05;x.globalCompositeOperation='overlay';
+  x.imageSmoothingEnabled=false;
+  x.drawImage(grains[Math.floor(ms/125)%4],0,0,W,H);
+  x.restore();
+}
+
+/* ---------- playback: loops forever; a tap restarts; reduced-motion holds the title until tapped ---------- */
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let t0=null, playing=!reduced, raf=null;
+function loop(now){
+  if(t0===null)t0=now;
+  render((now-t0)%TOTAL);
+  raf=requestAnimationFrame(loop);
+}
+cv.addEventListener('click',()=>{
+  t0=null;
+  if(!playing){playing=true;raf=requestAnimationFrame(loop);
+    document.getElementById('hint').textContent='tap the film to restart'}
+});
+(async()=>{
+  try{await document.fonts.load('600 96px Fraunces');await document.fonts.load('400 60px Fraunces');}catch(e){}
+  await (document.fonts.ready||Promise.resolve());
+  if(playing)raf=requestAnimationFrame(loop);
+  else{render(1600);document.getElementById('hint').textContent='tap the film to play'}
+})();
+</script>
+</body>
+</html>
