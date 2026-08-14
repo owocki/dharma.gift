@@ -13,6 +13,10 @@
      over the five weeks, drawn in real time. same pinned-scene grammar as the
      landing's descent and the metacrisis. -->
 
+<!-- ?preview=1 — the camp alone, the words stepped aside. stamped before first paint. -->
+<script>(function(){var q=new URLSearchParams(location.search).get('preview');
+  if(q!==null&&q!=='0') document.documentElement.classList.add('preview');})()</script>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
 <script>
@@ -202,6 +206,8 @@
   .guide .gw{margin-top:2px;font:italic 400 11px/1.5 var(--serif);color:var(--dim)}
 
   /* the floating cards: dark glass, one gold hairline, deep shadow — quiet luxury */
+  /* preview mode: the beats keep their boxes (they drive the scroll) but paint nothing */
+  html.preview .bcard{visibility:hidden}
   .bcard{padding:28px 32px 26px;border-radius:20px;text-align:center;
     background:rgba(13,8,9,.66);backdrop-filter:blur(8px);
     border:1px solid var(--gold);

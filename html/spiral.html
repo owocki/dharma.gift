@@ -17,7 +17,11 @@
 <!-- the theme, settled before first paint: the coil lives in the dark by default. a visitor's
      explicit choice (the toggle) is remembered; absent one, night. -->
 <script>(function(){var t;try{t=localStorage.getItem('ra-theme')}catch(e){}
-  document.documentElement.setAttribute('data-theme',(t==='light'||t==='dark')?t:'dark');})()</script>
+  document.documentElement.setAttribute('data-theme',(t==='light'||t==='dark')?t:'dark');
+  /* ?preview=1 — the projectionist's cut: the graphics unfurl, the words step aside.
+     stamped before first paint so no card ever flashes. */
+  var q=new URLSearchParams(location.search).get('preview');
+  if(q!==null&&q!=='0') document.documentElement.classList.add('preview');})()</script>
 <!-- one display face — a serif with some wobble in it — for the titles and chapter heads.
      everything that has to be read at 11px stays on the system stack. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,6 +115,13 @@
      the landing is a place. */
   :root[data-mode="spiral"] .page{max-width:1400px}
   :root[data-mode="spiral"] .poster{background:transparent;border-color:transparent;padding-left:clamp(8px,2vw,26px);padding-right:clamp(8px,2vw,26px)}
+  /* ---- preview mode (?preview=1): the scene alone, the words stepped aside. the beats
+     and steps keep their boxes — they still drive the scroll and the observers — but paint
+     nothing, so the canvas plays uncovered. visibility, never display: kill the boxes and
+     the scroll dies with them. ---- */
+  html.preview :is(.mc-card,.gm-card,.cl-card,.bb-card,.or-card,.fl-card,.spstep){visibility:hidden}
+  html.preview :is(.topbar,.botbar){visibility:hidden}
+  html.preview .obar{display:none}
   .topbar{position:relative;display:flex;justify-content:center;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:8px;flex-wrap:wrap;min-height:30px;z-index:5}
   .topbar a{color:inherit}
   /* the corners hold the constants — orient on the left, the theme switch on the right —
@@ -13298,7 +13309,7 @@ const HTTPISH=/^https?:$/.test(location.protocol);
 const BASEPATH=HTTPISH?location.pathname.replace(/(index|spiral|alloc|power|live|next|truth|identity|trust|record|conflict|math|ethics|energy|care|land|time|ontology|syntropy|ratchet|turn|assembly|trap|games|critique|superorganism|organism|flows|collapse|lineage|bargain|metacrisis|babel|crises|skills|about)(\.html)?$/,''):'';
 // the spiral is the front door: it lives at the bare root. every lineage has a crawlable stub.
 function setURL(mode,slug){
-  if(HTTPISH) history.replaceState(null,'',(mode==='spiral'?BASEPATH+'spiral'+location.search:BASEPATH+mode)+(slug?'#'+slug:''));
+  if(HTTPISH) history.replaceState(null,'',(mode==='spiral'?BASEPATH+'spiral':BASEPATH+mode)+location.search+(slug?'#'+slug:''));
   else history.replaceState(null,'',mode==='spiral'?location.pathname+location.search:'#'+mode+(slug?'/'+slug:''));
 }
 // ---------- 🌀 about: the letter — why any of this exists ----------
