@@ -119,7 +119,7 @@
      and steps keep their boxes — they still drive the scroll and the observers — but paint
      nothing, so the canvas plays uncovered. visibility, never display: kill the boxes and
      the scroll dies with them. ---- */
-  html.preview :is(.mc-card,.gm-card,.cl-card,.bb-card,.or-card,.fl-card,.spstep){visibility:hidden}
+  html.preview :is(.mc-card,.gm-card,.cl-card,.bb-card,.or-card,.fl-card,.spstep,.asmbeat){visibility:hidden}
   html.preview :is(.topbar,.botbar){visibility:hidden}
   html.preview .obar{display:none}
   .topbar{position:relative;display:flex;justify-content:center;align-items:center;margin-bottom:12px;color:var(--muted);font-size:12px;gap:8px;flex-wrap:wrap;min-height:30px;z-index:5}
@@ -1676,9 +1676,23 @@
   .tp-lock{font:800 12px/1 -apple-system,BlinkMacSystemFont,sans-serif;fill:#2f9e44;paint-order:stroke;stroke:var(--panel);stroke-width:4px;stroke-linejoin:round}
   .tp-conf{font:700 11px/1 -apple-system,BlinkMacSystemFont,sans-serif;fill:#2f9e44;paint-order:stroke;stroke:var(--panel);stroke-width:3.5px;stroke-linejoin:round}
   .tp-toolscroll{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-  .tp-hud{position:absolute;top:10px;left:14px;pointer-events:none;font-variant-numeric:tabular-nums}
-  .tp-hud .hn{font:850 44px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-  .tp-hud .hl{font:800 9px/1.3 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px;max-width:150px}
+  /* the gauge keeps to the bottom corner now — the landscape owns the frame */
+  .tp-hud{position:absolute;bottom:10px;left:14px;pointer-events:none;font-variant-numeric:tabular-nums;opacity:.85}
+  .tp-hud .hn{font:850 26px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .tp-hud .hl{font:800 8.5px/1.3 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:3px;max-width:150px}
+  /* stare into the landscape properly: the stage takes the whole room and the story
+     plays itself, beat by beat, on a clock. esc — or the same button — hands it back. */
+  .tpfsbtn{position:absolute;right:12px;bottom:12px;z-index:5;
+    font:800 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.08em;color:var(--muted);
+    background:color-mix(in srgb,var(--panel) 82%,transparent);border:1.5px solid var(--line);
+    border-radius:999px;padding:8px 13px;cursor:pointer}
+  .tpfsbtn:hover{border-color:#2f9e44;color:var(--ink)}
+  .asmsticky:fullscreen{background:var(--bg)}
+  .asmsticky:-webkit-full-screen{background:var(--bg)}
+  .asmsticky:fullscreen .asmstage{height:100%}
+  .asmsticky:-webkit-full-screen .asmstage{height:100%}
+  .asmsticky:fullscreen #tp3d{width:100%;height:100%;max-height:none;aspect-ratio:auto}
+  .asmsticky:-webkit-full-screen #tp3d{width:100%;height:100%;max-height:none;aspect-ratio:auto}
   .tp-toolgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;max-width:760px;margin:14px auto 0}
   @media(max-width:640px){ .tp-toolgrid{grid-template-columns:1fr} }
   .tp-tool{border:1.5px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--panel) 74%,transparent);padding:12px 15px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
@@ -8453,7 +8467,7 @@ const alerp=(a,b,t)=>a+(b-a)*t;
 const atw=s=>Math.max(58,s.length*7.1+18);
 
 let asmTimers=[], asmSeen=new Set(), asmRAF=0, asmScroll=null;
-let trapRAF=0, trapScroll=null;
+let trapRAF=0, trapScroll=null, trapFSsync=null, trapFSTimer=0;
 function clearAsmTimers(){ asmTimers.forEach(t=>clearTimeout(t)); asmTimers=[]; }
 // ---------- critique of progress: the coil and its shadow ----------
 // after the consilience project's "development in progress": the climb is real, and so is the
@@ -9586,6 +9600,7 @@ function renderTrap(){
        <div class="asmstage">
          <canvas id="tp3d" role="img"
            aria-label="a three-dimensional fitness landscape. the flat grid is the design space — every choice we could make — and the height is how well everyone does under it. seven actors follow the downhill incentive off a ridge into a deep basin (the trap, where everyone has defected), far below a separate summit that means cooperation. a lone actor who climbs out alone slides back. then a binding commitment reshapes the surface — the basin lifts into a ramp to the summit — and, roped together, the actors climb it."></canvas>
+         <button class="tpfsbtn" title="just the landscape — the story plays itself · esc returns">⛶ fullscreen</button>
        </div>
        <div class="tp-hud"><div class="hn" id="tphud">—</div><div class="hl" id="tphudl">collective success</div></div>
      </div>
@@ -9716,18 +9731,21 @@ function renderTrap(){
     hudL.innerHTML=sv<0.33?'collective success — <b>the trap</b>':sv<0.62?'collective success — <b>climbing</b>':'collective success — <b>the summit</b>';
   }
   const beats=[...wrap.querySelectorAll('.asmbeat')], progEls=[...wrap.querySelectorAll('.asmprog i')];
+  let curBi=0;
+  const applyBeat=bi=>{ curBi=bi;
+    mT=MO[bi]; ropeT=ROPE[bi]; wallT=WALL[bi]; bxT=BX[bi]; camAT=0.62+bi*CAM_STEP;
+    beats.forEach(b=>b.classList.toggle('on',+b.dataset.b===bi));
+    progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
+    if(reduced){ mC=mT; ropeC=ropeT; wallC=wallT; camA=camAT; bx.forEach((_,i)=>bx[i]=bxT[i]); } };
+  const fsEl=()=>document.fullscreenElement||document.webkitFullscreenElement;
   function scrollDrive(){
+    if(fsEl()) return;   // fullscreen hands the wheel to the clock
     const st=wrap.querySelector('.asmscroll'); if(!st) return;
     const r=st.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return;
     const line=innerHeight*0.45; let win=null,wd=1e9;
     beats.forEach(b=>{ const q=b.getBoundingClientRect(), c=q.top+q.height/2, d=Math.abs(c-line);
       if(q.bottom>0&&q.top<innerHeight&&d<wd){ wd=d; win=b; } });
-    if(win){ const bi=+win.dataset.b;
-      mT=MO[bi]; ropeT=ROPE[bi]; wallT=WALL[bi]; bxT=BX[bi]; camAT=0.62+bi*CAM_STEP;
-      beats.forEach(b=>b.classList.toggle('on',b===win));
-      progEls.forEach((p,j)=>p.classList.toggle('on',j===bi));
-      if(reduced){ mC=mT; ropeC=ropeT; wallC=wallT; camA=camAT; bx.forEach((_,i)=>bx[i]=bxT[i]); }
-    }
+    if(win) applyBeat(+win.dataset.b);
   }
   let last=0;
   function raf(now){
@@ -9748,6 +9766,44 @@ function renderTrap(){
   draw(camA);
   if(trapRAF) cancelAnimationFrame(trapRAF);
   trapRAF=requestAnimationFrame(raf);
+  // ---- fullscreen: the landscape alone, and the story plays itself. the same clock-driven
+  // logic the reader's scroll was doing — fall in, hit the wall, rope up, reshape, climb —
+  // advancing a beat every few seconds and looping. esc (or the button) hands the wheel back
+  // to the scroll, which re-syncs to wherever the reader actually is. ----
+  const sticky=wrap.querySelector('.asmsticky'), tfs=wrap.querySelector('.tpfsbtn');
+  if(trapFSsync){ document.removeEventListener('fullscreenchange',trapFSsync);
+    document.removeEventListener('webkitfullscreenchange',trapFSsync); trapFSsync=null; }
+  clearInterval(trapFSTimer); trapFSTimer=0;
+  if(!(document.fullscreenEnabled||document.webkitFullscreenEnabled)) tfs.remove();
+  else{
+    tfs.addEventListener('click',()=>{
+      if(fsEl()) (document.exitFullscreen||document.webkitExitFullscreen).call(document);
+      else (sticky.requestFullscreen||sticky.webkitRequestFullscreen).call(sticky);
+    });
+    // the wheel and the arrow keys steer too: a flick steps the story a beat either way
+    // and resets the clock, so the reader can drive or just watch — the clock only ever
+    // advances from wherever they last steered it.
+    let fsBi=0, fsAcc=0;
+    const startClock=()=>{ clearInterval(trapFSTimer);
+      trapFSTimer=setInterval(()=>{ fsBi=(fsBi+1)%TP_BEATS.length; applyBeat(fsBi); },4200); };
+    const fsStep=d=>{ fsBi=(fsBi+d+TP_BEATS.length)%TP_BEATS.length; applyBeat(fsBi); startClock(); };
+    const fsWheel=e=>{ if(fsEl()!==sticky) return; e.preventDefault();
+      fsAcc+=e.deltaY; if(Math.abs(fsAcc)>60){ const d=fsAcc>0?1:-1; fsAcc=0; fsStep(d); } };
+    const fsKeys=e=>{ if(fsEl()!==sticky) return;
+      if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){ e.preventDefault(); fsStep(1); }
+      else if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); fsStep(-1); } };
+    trapFSsync=()=>{ const on=fsEl()===sticky;
+      tfs.textContent=on?'✕ exit':'⛶ fullscreen';
+      clearInterval(trapFSTimer); trapFSTimer=0;
+      sticky.removeEventListener('wheel',fsWheel); document.removeEventListener('keydown',fsKeys);
+      if(on){ fsBi=curBi; fsAcc=0; startClock();
+        sticky.addEventListener('wheel',fsWheel,{passive:false});
+        document.addEventListener('keydown',fsKeys); }
+      requestAnimationFrame(()=>{ sizeCanvas(); if(!on) scrollDrive(); });
+    };
+    document.addEventListener('fullscreenchange',trapFSsync);
+    document.addEventListener('webkitfullscreenchange',trapFSsync);
+  }
 }
 
 // ---------- ⚙️ one turn: the loop, face-on ----------
@@ -17161,7 +17217,10 @@ function setMode(mode,user){
     if(asmScroll){ removeEventListener('scroll',asmScroll); removeEventListener('resize',asmScroll); asmScroll=null; } };
   const clearTrap=()=>{ document.getElementById('trapwrap').innerHTML='';
     if(trapRAF){ cancelAnimationFrame(trapRAF); trapRAF=0; }
-    if(trapScroll){ removeEventListener('scroll',trapScroll); removeEventListener('resize',trapScroll); trapScroll=null; } };
+    if(trapScroll){ removeEventListener('scroll',trapScroll); removeEventListener('resize',trapScroll); trapScroll=null; }
+    if(trapFSsync){ document.removeEventListener('fullscreenchange',trapFSsync);
+      document.removeEventListener('webkitfullscreenchange',trapFSsync); trapFSsync=null; }
+    clearInterval(trapFSTimer); trapFSTimer=0; };
   const clearCrit=()=>{ document.getElementById('critiquewrap').innerHTML='';
     if(critIO){ critIO.disconnect(); critIO=null; } };
   const clearSuper=()=>{ document.getElementById('superwrap').innerHTML='';

@@ -1,0 +1,1188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- legacy deep links: for a year the coil lived at the bare root, and the internet still
+     believes it. any hash that arrives here is somebody's old bookmark — forward it inside
+     before the page even paints. (#deepen is ours: the button that takes you underground.) -->
+<script>if(location.hash.length>1&&location.hash!=='#deepen')location.replace('/spiral'+location.hash);</script>
+
+<!-- the descent, staged: the hero holds the fold, and below it the underground is one
+     pinned scene — the soil moves past you, his qi thread leads you down, the mycelium
+     wakes, and the wordmark / definitions / gate arrive as beats riding over the scene,
+     the same scrollytell grammar as the metacrisis. -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-882JMLBJG9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-882JMLBJG9');
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧘</text></svg>">
+<!-- the theme, settled before first paint. the sky, read off the visitor's own clock. -->
+<script>(function(){var t;try{t=localStorage.getItem('ra-theme')}catch(e){}
+  document.documentElement.setAttribute('data-theme',(t==='light'||t==='dark')?t:'dark');
+  var h=new Date().getHours();
+  document.documentElement.setAttribute('data-sky',
+    h>=5&&h<7?'dawn':h>=7&&h<17?'day':h>=17&&h<20?'dusk':'night');})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&display=swap">
+<title>dharma.gift · the gift of knowing what is yours to do</title>
+<link rel="canonical" href="https://dharma.gift/landing2">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dharma.gift/landing2">
+<meta property="og:title" content="dharma.gift — the gift of knowing what is yours to do">
+<meta property="og:description" content="a monk sits under five trees while a bright city towers behind him. he stays calm — he has his breath. the sky matches your local time, and his breath feeds the roots below, where 12,000 years of maps are waiting. scroll down.">
+<meta property="og:image" content="https://dharma.gift/og-dharma.png?v=4">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="dharma.gift — the gift of knowing what is yours to do">
+<meta name="twitter:description" content="a monk under the trees, a city behind him, his breath feeding the roots. scroll down — the ground opens.">
+<meta name="twitter:image" content="https://dharma.gift/og-dharma.png?v=4">
+<meta name="description" content="dharma.gift — a monk breathing under five colorful trees while the city glows behind him, his breath feeding the roots below. the descent at the bottom opens the depth.">
+<style>
+  /* Hallmark · macrostructure: Marquee Hero → pinned-descent scrollytell · genre: editorial (site system)
+   * theme: dharma.gift locked system (Fraunces · era ramp · soil/deep) · designed-as-app
+   * pre-emit critique: P5 H4 E4 S5 R4 V5 */
+  :root{
+    --bg:#f1f5ee; --ink:#18241a; --muted:#5c6f5e; --panel:#ffffff; --line:#d3e0d0;
+    --e1:#2f9e44; --e2:#a17a00; --e3:#b0561f; --e4:#b535bb; --e5:#1c7ed6;
+    --soil:#241a0e; --deep:#0a0d08;
+    --serif:"Fraunces","Iowan Old Style",Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  :root[data-theme="dark"]{
+    --bg:#050b06; --ink:#eaf5ea; --muted:#94ad96; --panel:#0d1a10; --line:#1e3322;
+    --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
+    --soil:#191106; --deep:#04070a;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --bg:#050b06; --ink:#eaf5ea; --muted:#94ad96; --panel:#0d1a10; --line:#1e3322;
+    --e1:#4ecb66; --e2:#e3b31d; --e3:#f07f3c; --e4:#e14fe1; --e5:#42a4ff;
+    --soil:#191106; --deep:#04070a;
+  }}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:clip}
+  html{overflow-x:clip}
+  body::after{content:'';position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:240px 240px;mix-blend-mode:overlay}
+
+  /* the era ramp as a hairline across the top — the family mark */
+  .rainbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:95;
+    background:linear-gradient(90deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff)}
+
+  /* ================= above the fold: unchanged. the monk IS the fold. ================= */
+  .hero{position:relative;height:100svh;min-height:600px;display:flex;flex-direction:column;
+    align-items:center;overflow:hidden;color:#dfe6f6;
+    background:linear-gradient(180deg,#03040c 0%,#070a1a 42%,#0d1026 68%,#181231 88%,#20163a 100%)}
+  :root[data-sky="dawn"] .hero{
+    background:linear-gradient(180deg,#111633 0%,#2c2454 38%,#5e3a68 66%,#a85f63 85%,#e59a63 100%)}
+  :root[data-sky="day"] .hero{
+    background:linear-gradient(180deg,#4a9fe0 0%,#71b6ea 45%,#a3d2f2 78%,#cfe8f8 100%)}
+  :root[data-sky="dusk"] .hero{
+    background:linear-gradient(180deg,#181233 0%,#33204f 40%,#6e3260 68%,#b85756 86%,#ef9257 100%)}
+  :root[data-sky="dawn"] .stars,:root[data-sky="dusk"] .stars{opacity:.35}
+  :root[data-sky="day"] .stars{display:none}
+  :root[data-sky="dawn"] .meteors,:root[data-sky="day"] .meteors,:root[data-sky="dusk"] .meteors{display:none}
+  :root[data-sky="day"] .city .win,:root[data-sky="day"] .city g[fill="url(#wp)"]{opacity:0}
+  :root[data-sky="dawn"] .city .win{opacity:.5}
+  :root[data-sky="dusk"] .city .win{opacity:.85}
+  .city .blds{fill:#15152e}
+  :root[data-sky="day"] .city .blds{fill:#7d93b8}
+  :root[data-sky="dawn"] .city .blds{fill:#241d42}
+  :root[data-sky="dusk"] .city .blds{fill:#1d1638}
+  :root[data-sky="day"] .cityglow{background:radial-gradient(76% 96% at 50% 106%,rgba(255,255,255,.30),rgba(207,232,248,.14) 52%,transparent 78%)}
+  :root[data-sky="dawn"] .cityglow,:root[data-sky="dusk"] .cityglow{
+    background:radial-gradient(76% 96% at 50% 106%,rgba(255,166,96,.30),rgba(232,120,86,.12) 52%,transparent 78%)}
+
+  .stars{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .stars i{position:absolute;border-radius:50%;background:#dfe8ff}
+  .stars i.p1{animation:tw1 3.4s ease-in-out infinite}
+  .stars i.p2{animation:tw1 4.6s ease-in-out infinite;animation-delay:-1.4s}
+  .stars i.p3{animation:tw1 5.8s ease-in-out infinite;animation-delay:-2.9s}
+  @keyframes tw1{0%,100%{opacity:.18}50%{opacity:.95}}
+  @media (prefers-reduced-motion:reduce){ .stars i{animation:none;opacity:.55} }
+
+  .cityglow{position:absolute;left:0;right:0;bottom:0;height:74%;z-index:2;pointer-events:none;
+    background:radial-gradient(76% 96% at 50% 106%,rgba(255,178,84,.22),rgba(181,53,187,.10) 52%,transparent 78%)}
+  .city{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:3;
+    width:max(100vw,1000px);pointer-events:none;opacity:.96}
+  .city svg{display:block;width:100%;height:auto}
+  .city .win{fill:#ffd98a}
+  .city .win.c{fill:#9fd8ff}
+  .city .w1{animation:wink 3.2s ease-in-out infinite}
+  .city .w2{animation:wink 4.1s ease-in-out infinite;animation-delay:-1.3s}
+  .city .w3{animation:wink 5.3s ease-in-out infinite;animation-delay:-2.6s}
+  @keyframes wink{0%,100%{opacity:.25}50%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){ .city .w1,.city .w2,.city .w3{animation:none;opacity:.7} }
+
+  .treeswrap{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:4;
+    width:min(1240px,max(125vw,720px));pointer-events:none}
+  .treeswrap svg{display:block;width:100%;height:auto}
+  .canopy{transform-box:fill-box;transform-origin:50% 92%;animation:sway 7s ease-in-out infinite}
+  .t2 .canopy{animation-duration:8.4s;animation-delay:-2.1s}
+  .t3 .canopy{animation-duration:6.2s;animation-delay:-1.2s}
+  .t4 .canopy{animation-duration:9.1s;animation-delay:-3.4s}
+  .t5 .canopy{animation-duration:7.7s;animation-delay:-4.6s}
+  @keyframes sway{0%,100%{transform:rotate(-1.1deg) translateX(-1.5px)}50%{transform:rotate(1.3deg) translateX(2px)}}
+  @media (prefers-reduced-motion:reduce){ .canopy{animation:none} }
+  .meteors span{position:absolute;width:130px;height:2px;opacity:0;pointer-events:none;z-index:1;
+    background:linear-gradient(90deg,rgba(255,255,255,.95),rgba(170,195,255,.45),transparent);
+    border-radius:2px;animation:shoot 12s linear infinite}
+  .meteors span:nth-child(2){width:90px;animation-duration:17s;animation-delay:-7s}
+  .meteors span:nth-child(3){width:110px;animation-duration:23s;animation-delay:-15s}
+  @keyframes shoot{
+    0%,91%{opacity:0;transform:rotate(-26deg) translateX(0)}
+    92.5%{opacity:1}
+    97%{opacity:0;transform:rotate(-26deg) translateX(-44vw)}
+    100%{opacity:0;transform:rotate(-26deg) translateX(-44vw)}}
+  @media (prefers-reduced-motion:reduce){ .meteors{display:none} }
+
+  .scrollcue{position:absolute;left:50%;transform:translateX(-50%);
+    bottom:clamp(430px,58vh,600px);z-index:6;display:flex;flex-direction:column;
+    align-items:center;gap:0;color:#9aa5cc;pointer-events:none;
+    transition:opacity .7s ease}
+  .scrollcue.off{opacity:0}
+  .scrollcue .sct{font:italic 400 13px/1 var(--serif);letter-spacing:.08em;margin-bottom:7px}
+  .scrollcue .sca{font-size:22px;line-height:.62;animation:jig 1.6s ease-in-out infinite}
+  .scrollcue .a2{animation-delay:.18s;opacity:.6}
+  @keyframes jig{0%,100%{transform:translateY(0);opacity:.35}
+    45%{transform:translateY(7px);opacity:1}
+    60%{transform:translateY(5px) rotate(-4deg)}
+    72%{transform:translateY(6px) rotate(3deg)}}
+  :root[data-sky="day"] .scrollcue{color:#2e4d6e}
+  @media (prefers-reduced-motion:reduce){ .scrollcue .sca{animation:none;opacity:.7} }
+
+  /* ---- the monk: verbatim from the landing. the seat stays the same. ---- */
+  .monk{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:5;
+    width:min(250px,52vw);height:min(250px,52vw);cursor:pointer}
+  .halo{position:absolute;inset:-130%;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle at 50% 50%,rgba(160,205,255,.20) 0%,rgba(120,180,255,.10) 34%,rgba(181,120,255,.05) 56%,transparent 74%);
+    animation:halo 6s ease-in-out infinite}
+  @keyframes halo{0%,100%{transform:scale(.82);opacity:.55}50%{transform:scale(1.1);opacity:1}}
+  .breath{position:absolute;top:-42%;bottom:-42%;left:-105%;right:-105%;border-radius:50%;
+    pointer-events:none;
+    background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(120,180,255,.42) 0%,rgba(160,205,255,.22) 32%,rgba(120,180,255,.09) 56%,transparent 75%);
+    animation:breath 6s ease-in-out infinite}
+  @keyframes breath{
+    0%,100%{transform:scaleX(.42) scaleY(.52);opacity:.3;
+      box-shadow:0 0 60px 22px rgba(110,170,255,.10)}
+    50%{transform:scaleX(1.18) scaleY(.94);opacity:.95;
+      box-shadow:0 0 130px 65px rgba(110,170,255,.22),0 0 240px 110px rgba(160,205,255,.11)}}
+  .ring{position:absolute;border-radius:50%;pointer-events:none}
+  .r1{inset:-22%;animation:spin1 9s linear infinite;
+    background:conic-gradient(from 0deg,transparent 0%,rgba(78,203,102,.7) 12%,transparent 28%,rgba(227,179,29,.6) 48%,transparent 62%,rgba(225,79,225,.65) 80%,transparent 95%);
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3.5px),#000 100%,transparent 100%);
+    mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3.5px),#000 100%,transparent 100%)}
+  .r2{inset:-13%;animation:spin2 13s linear infinite;
+    background:conic-gradient(from 120deg,transparent 0%,rgba(66,164,255,.65) 20%,transparent 40%,rgba(240,127,60,.6) 60%,transparent 80%,rgba(227,179,29,.5) 95%,transparent 100%);
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px),#000 100%,transparent 100%);
+    mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3px),#000 100%,transparent 100%)}
+  .r3{inset:-31%;animation:spin1 18s linear infinite reverse;
+    background:conic-gradient(from 240deg,transparent 0%,rgba(227,179,29,.45) 10%,transparent 25%,rgba(225,79,225,.5) 45%,transparent 60%,rgba(78,203,102,.42) 75%,transparent 90%);
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px),#000 100%,transparent 100%);
+    mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2.5px),#000 100%,transparent 100%)}
+  .r4{inset:-42%;animation:spin2 26s linear infinite;
+    background:conic-gradient(from 60deg,transparent 0%,rgba(66,164,255,.32) 14%,transparent 30%,rgba(240,127,60,.3) 52%,transparent 68%,rgba(160,205,255,.28) 86%,transparent 98%);
+    -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#000 calc(100% - 2px),#000 100%,transparent 100%);
+    mask:radial-gradient(farthest-side,transparent calc(100% - 2.5px),#000 calc(100% - 2px),#000 100%,transparent 100%)}
+  @keyframes spin1{to{transform:rotate(360deg)}}
+  @keyframes spin2{to{transform:rotate(-360deg)}}
+  .sun{position:absolute;left:50%;top:4%;transform:translate(-50%,-32%);width:160%;aspect-ratio:1;
+    border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(255,228,156,.6) 0%,rgba(255,204,116,.3) 28%,rgba(255,182,92,.12) 52%,transparent 70%);
+    animation:sunbreathe 6s ease-in-out infinite}
+  @keyframes sunbreathe{0%,100%{opacity:.65;transform:translate(-50%,-32%) scale(.94)}
+    50%{opacity:1;transform:translate(-50%,-32%) scale(1.07)}}
+  .shimmer{position:absolute;inset:0;border-radius:50%;pointer-events:none;
+    animation:shim 1.75s ease-out infinite}
+  .shimmer.d{animation-delay:.25s}
+  @keyframes shim{
+    0%{transform:scale(1);opacity:.55;box-shadow:0 0 12px 3px rgba(255,196,120,.5),0 0 30px 7px rgba(255,160,90,.24)}
+    10%{transform:scale(1.14);opacity:.65;box-shadow:0 0 22px 9px rgba(255,196,120,.55),0 0 44px 14px rgba(255,160,90,.32)}
+    50%{transform:scale(1.7);opacity:.18;box-shadow:0 0 38px 22px rgba(255,196,120,.18),0 0 74px 30px rgba(255,160,90,.09)}
+    100%{transform:scale(2.15);opacity:0;box-shadow:0 0 48px 28px rgba(255,196,120,0)}}
+  .heart{position:relative;width:100%;height:100%;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 38% 32%,#2a2545,#171331 68%,#100d24);
+    border:1.5px solid rgba(255,220,160,.3);
+    box-shadow:0 0 0 1px rgba(255,255,255,.05),0 18px 60px rgba(0,0,0,.55),
+      0 0 70px 12px rgba(160,205,255,.13),
+      inset 0 3px 16px rgba(255,220,160,.10);
+    animation:beat 1.75s ease-in-out infinite}
+  @keyframes beat{0%{transform:scale(1)}8%{transform:scale(1.06)}15%{transform:scale(1)}
+    22%{transform:scale(1.04)}30%{transform:scale(1)}100%{transform:scale(1)}}
+  .heart span{font-size:min(140px,29vw);line-height:1;user-select:none;-webkit-user-select:none}
+  .qi{position:absolute;left:50%;top:74%;transform:translateX(-50%);width:18px;height:44%;
+    pointer-events:none;
+    background:radial-gradient(circle 3.5px at 50% 9px,rgba(255,224,150,.95),rgba(255,196,120,.4) 62%,transparent 72%);
+    background-size:100% 20px;background-repeat:repeat-y;
+    animation:qidrip 1.1s linear infinite;
+    -webkit-mask:linear-gradient(180deg,transparent 0,#000 26%,#000 100%);
+    mask:linear-gradient(180deg,transparent 0,#000 26%,#000 100%)}
+  .qi::before{content:'';position:absolute;inset:0 4px;border-radius:5px;
+    background:linear-gradient(180deg,transparent,rgba(255,205,130,.16) 40%,rgba(255,205,130,.3));
+    animation:qibreathe 6s ease-in-out infinite}
+  @keyframes qidrip{to{background-position:0 20px}}
+  @keyframes qibreathe{0%,100%{opacity:.35}50%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){
+    .breath,.shimmer,.heart,.ring,.halo,.qi,.qi::before,.sun{animation:none}
+    .breath{transform:scaleX(.8) scaleY(.7);opacity:.6}
+    .shimmer{opacity:0}}
+
+  @keyframes flow{to{background-position:-320% 0}}
+
+  /* ================= below the fold: THE DESCENT, now a pinned scene ================= */
+  /* one sticky viewport; the beats scroll over it and pull the reader down through
+     the soil. everything on the stage is driven by one scroll fraction t. */
+  .under{position:relative;background:linear-gradient(180deg,var(--soil) 0,
+      color-mix(in srgb,var(--soil) 55%,var(--deep)) 18%,var(--deep) 70%,var(--deep) 100%)}
+  .under::before{content:'';position:absolute;top:0;left:0;right:0;height:7px;z-index:3;
+    background:linear-gradient(180deg,color-mix(in srgb,#8a6a48 55%,var(--soil)),transparent)}
+
+  .dstage{position:sticky;top:0;height:100svh;margin-bottom:-100svh;overflow:hidden;z-index:1}
+  #myc,#flow{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0}
+  #flow{z-index:1}
+
+  /* the strata: three soft bands of earth that slide past at different speeds —
+     depth built from parallax, not blur */
+  .strat{position:absolute;left:-10%;right:-10%;height:46svh;pointer-events:none;will-change:transform;
+    -webkit-mask:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent);
+    mask:linear-gradient(180deg,transparent,#000 22%,#000 78%,transparent)}
+  .s1{top:6svh;opacity:.5;
+    background:radial-gradient(120% 90% at 30% 0%,color-mix(in srgb,#8a6a48 34%,transparent),transparent 62%),
+      radial-gradient(130% 80% at 78% 12%,color-mix(in srgb,#5c4526 30%,transparent),transparent 58%)}
+  .s2{top:34svh;opacity:.38;
+    background:radial-gradient(140% 85% at 62% 4%,color-mix(in srgb,#4a3a20 36%,transparent),transparent 60%),
+      radial-gradient(110% 75% at 18% 16%,color-mix(in srgb,#6b5433 26%,transparent),transparent 55%)}
+  .s3{top:60svh;opacity:.3;
+    background:radial-gradient(150% 80% at 44% 8%,color-mix(in srgb,#33280f 44%,transparent),transparent 62%)}
+
+  /* the roots overhead: you came in through them. they lift away as you sink. */
+  .droots{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:min(1100px,130vw);
+    pointer-events:none;will-change:transform,opacity}
+  .droots svg{display:block;width:100%;height:auto}
+
+  /* the thread: his qi keeps falling, right down the middle of the descent —
+     the golden line you follow. same drip as the bubble upstairs. */
+  .qithread{position:absolute;left:50%;top:0;bottom:0;width:18px;transform:translateX(-50%);
+    pointer-events:none;opacity:0;
+    background:radial-gradient(circle 3.5px at 50% 9px,rgba(255,224,150,.95),rgba(255,196,120,.4) 62%,transparent 72%);
+    background-size:100% 20px;background-repeat:repeat-y;
+    animation:qidrip 1.1s linear infinite;
+    -webkit-mask:linear-gradient(180deg,#000 0,#000 72%,transparent 100%);
+    mask:linear-gradient(180deg,#000 0,#000 72%,transparent 100%)}
+  .qithread::before{content:'';position:absolute;inset:0 4px;border-radius:5px;
+    background:linear-gradient(180deg,rgba(255,205,130,.28),rgba(255,205,130,.10) 60%,transparent);
+    animation:qibreathe 6s ease-in-out infinite}
+
+  /* the dark pressing in as you go deeper */
+  .dvig{position:absolute;inset:0;pointer-events:none;opacity:0;
+    background:radial-gradient(120% 90% at 50% 46%,transparent 40%,rgba(2,4,2,.65) 100%)}
+
+  /* ---- the beats: normal flow, riding over the stage ---- */
+  #dbeats{position:relative;z-index:2}
+  .beat{min-height:100svh;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:0 18px}
+  .bw{position:relative;max-width:640px}
+  .bw::before{content:'';position:absolute;inset:-46px -90px;z-index:-1;pointer-events:none;
+    background:radial-gradient(58% 58% at 50% 50%,color-mix(in srgb,var(--deep) 84%,transparent),transparent 72%)}
+  /* the wordmark beat — the brand dress, verbatim */
+  h1.brand{margin:0 0 14px;font-family:var(--serif);font-weight:640;
+    font-size:clamp(52px,11.5vw,150px);line-height:.9;letter-spacing:-.015em}
+  .brand .tld{font-size:.44em;font-weight:560;
+    background:linear-gradient(180deg,#e3b31d 22%,#f6df9a 96%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .brand span{display:inline-block;background:linear-gradient(180deg,var(--lc) 22%,color-mix(in srgb,var(--lc) 62%,#fff) 96%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    transition:transform .35s cubic-bezier(.2,1.6,.4,1)}
+  .brand span:hover{transform:translateY(-7px) rotate(-2deg)}
+  .brand .l1{--lc:#4ecb66} .brand .l2{--lc:#e3b31d} .brand .l3{--lc:#f07f3c}
+  .brand .l4{--lc:#e14fe1} .brand .l5{--lc:#42a4ff} .brand .l6{--lc:#4ecb66}
+  .expansion{font:600 12px/1.9 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:#8fa892}
+  .expansion .w1{color:#4ecb66} .expansion .w5{color:#42a4ff}
+  .expansion .ddef{display:inline-block;transition:opacity .6s ease;cursor:pointer}
+  .expansion .ddef:hover{color:#cfe3cf}
+  .expansion .ddef.out{opacity:0}
+  .expansion .ddef.quick{transition-duration:.18s}
+  .clickme{display:flex;justify-content:center;align-items:flex-start;gap:5px;margin:10px 0 0;
+    transform:translateX(-72px);color:#8fa892;font:italic 400 13px/1.3 var(--serif)}
+  .clickme svg{animation:nudge 2.2s ease-in-out infinite}
+  @keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  @media (prefers-reduced-motion:reduce){ .clickme svg{animation:none} }
+  @media(max-width:560px){ .clickme{transform:none} }
+
+  /* ---- the why beat: lost people build lost systems — then watch one wake.
+     five crooked towers, each steered by a buried soul; the center soul burns
+     gold (the monk's qi lands here), threads grow outward, and every soul that
+     lights straightens its tower. all geometry, one .lit class, per-unit clocks
+     riding --dt. ---- */
+  .why .bw{width:min(640px,94vw)}
+  .why .whycap{margin:0 0 34px;font:600 11.5px/1.9 var(--mono);letter-spacing:.28em;
+    text-transform:uppercase;color:#8fa892}
+  .why .whypay{margin:34px 0 0;opacity:0;transition:opacity 1.4s ease 3.2s}
+  .why .whypay b{font-weight:600;color:#e3b31d}
+  .why.lit .whypay{opacity:1}
+  .whyviz{display:block;width:100%;height:auto;max-width:600px;margin:0 auto;overflow:visible}
+  .whyviz .bod{fill:#232c25;stroke:#3a473c;stroke-width:1}
+  .whyviz .win{fill:#2d382f}
+  .whyviz .fl{fill:#b8483a;animation:wflick 2.8s steps(1) infinite}
+  @keyframes wflick{0%,100%{opacity:.8}38%{opacity:.22}52%{opacity:.68}71%{opacity:.3}}
+  .whyviz .crk{fill:none;stroke:#c94436;stroke-width:1.3;stroke-linecap:round;opacity:.75}
+  .whyviz .stl{stroke:#3c4a3e;stroke-width:1.5;stroke-dasharray:3 4}
+  .whyviz .soul{fill:#45524a}
+  .whyviz .ring{fill:none;stroke:var(--tc);stroke-width:1.2;opacity:0}
+  .whyviz .twr{transform-box:fill-box;transform-origin:50% 100%;transform:rotate(var(--tw))}
+  .whyviz .th,.whyviz .thg{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+  .whyviz .th{stroke:#e9bc3a;stroke-width:1.8}
+  .whyviz .thg{stroke:#e3b31d;stroke-width:7;opacity:.16}
+  .whyviz .u2 .soul{fill:#e3b31d}
+  .whyviz .hal{fill:none;stroke:#e3b31d;stroke-width:1.4;
+    transform-box:fill-box;transform-origin:center;animation:whalo 3.4s ease-out infinite}
+  .whyviz .h2{animation-delay:1.7s}
+  @keyframes whalo{0%{transform:scale(1);opacity:.55}100%{transform:scale(2.7);opacity:0}}
+  .whyviz .bead{fill:#f6df9a;opacity:0}
+  /* the wake: threads grow, souls light, lines warm, towers straighten */
+  .why.lit .th,.why.lit .thg{stroke-dashoffset:0;
+    transition:stroke-dashoffset var(--tdur,1.1s) ease-out var(--td,.4s)}
+  .why.lit .soul{fill:var(--tc);transition:fill .6s ease var(--dt)}
+  .why.lit .ring{opacity:.5;transition:opacity .6s ease calc(var(--dt) + .15s)}
+  .why.lit .stl{stroke:var(--tc);opacity:.85;transition:stroke .7s ease calc(var(--dt) + .25s)}
+  .why.lit .twr{transform:rotate(0deg);
+    transition:transform 1.3s cubic-bezier(.3,1,.4,1) calc(var(--dt) + .45s)}
+  .why.lit .crk{opacity:0;transition:opacity .9s ease calc(var(--dt) + .5s)}
+  .why.lit .win{fill:var(--tc);opacity:.85;animation:none;
+    transition:fill .9s ease calc(var(--dt) + .6s),opacity .9s ease calc(var(--dt) + .6s)}
+  .why.lit .bead{opacity:.9;transition:opacity .8s ease 2.6s}
+  @media (prefers-reduced-motion:reduce){
+    .whyviz .fl,.whyviz .hal{animation:none}
+    .whyviz .bead{display:none}
+    .why .whypay,.why.lit .th,.why.lit .thg,.why.lit .soul,.why.lit .ring,.why.lit .stl,
+    .why.lit .twr,.why.lit .crk,.why.lit .win{transition:none}
+  }
+
+  /* ---- the grove beat: same soil, five different forms. seeds share one
+     dress until they grow — then no two are alike. ---- */
+  .grviz .pl{fill:none;stroke:var(--pc);stroke-width:2;stroke-linecap:round;
+    stroke-dasharray:1;stroke-dashoffset:1}
+  .grviz .pt{fill:var(--pc);opacity:0}
+  .grviz .seed{fill:#45524a}
+  .why.lit .grviz .pl{stroke-dashoffset:0;transition:stroke-dashoffset 1.5s ease-out var(--dt)}
+  .why.lit .grviz .pt{opacity:.92;transition:opacity .7s ease calc(var(--dt) + 1.15s)}
+  .why.lit .grviz .seed{fill:var(--pc);transition:fill .6s ease var(--dt)}
+
+  /* ---- the weave beat: islands of coherence, linking up. five islands wake,
+     gold arcs bridge them through the center, and the field between warms. ---- */
+  .wvviz .nd{fill:#414e46}
+  .wvviz .an{fill:var(--tc)}
+  .wvviz .wring{fill:none;stroke:var(--tc);stroke-width:1.1;opacity:.45}
+  .wvviz .it{fill:none;stroke:var(--tc);stroke-width:1.3;stroke-linecap:round;
+    stroke-dasharray:1;stroke-dashoffset:1}
+  .wvviz .ga{fill:none;stroke:#e9bc3a;stroke-width:1.8;stroke-linecap:round;
+    stroke-dasharray:1;stroke-dashoffset:1}
+  .wvviz .gag{fill:none;stroke:#e3b31d;stroke-width:7;opacity:.16;stroke-linecap:round;
+    stroke-dasharray:1;stroke-dashoffset:1}
+  .wvviz .st{fill:#414e46}
+  .why.lit .wvviz .it{stroke-dashoffset:0;transition:stroke-dashoffset .9s ease-out var(--td)}
+  .why.lit .wvviz .nd{fill:var(--tc);transition:fill .6s ease var(--dd)}
+  .why.lit .wvviz .ga,.why.lit .wvviz .gag{stroke-dashoffset:0;
+    transition:stroke-dashoffset 1s ease-out var(--td)}
+  .why.lit .wvviz .st{fill:#c7a53e;transition:fill .9s ease var(--sd)}
+  @media (prefers-reduced-motion:reduce){
+    .why.lit .grviz .pl,.why.lit .grviz .pt,.why.lit .grviz .seed,
+    .why.lit .wvviz .it,.why.lit .wvviz .nd,.why.lit .wvviz .ga,
+    .why.lit .wvviz .gag,.why.lit .wvviz .st{transition:none}
+  }
+
+  /* ---- the gate floor: the arrival. normal flow, after the stage releases. ---- */
+  .gatefloor{position:relative;z-index:2;padding:22svh 18px 18svh;text-align:center}
+  a.enter{position:relative;display:inline-flex;align-items:center;gap:14px;
+    padding:25px 60px;border-radius:999px;text-decoration:none;isolation:isolate;
+    font:640 27px/1 var(--serif);letter-spacing:.01em;color:#0b1508;white-space:nowrap;
+    background:linear-gradient(100deg,#4ecb66,#e3b31d,#f07f3c,#e14fe1,#42a4ff,#4ecb66,#e3b31d) 0 0/320% 100%;
+    animation:flow 5s linear infinite;
+    box-shadow:0 12px 46px color-mix(in srgb,var(--e1) 38%,transparent),
+      0 12px 46px color-mix(in srgb,var(--e4) 26%,transparent),
+      0 3px 14px color-mix(in srgb,var(--e5) 30%,transparent),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25);
+    transition:transform .3s cubic-bezier(.2,1.4,.4,1),box-shadow .3s}
+  a.enter:hover{transform:translateY(-4px) scale(1.03);
+    box-shadow:0 22px 66px color-mix(in srgb,var(--e1) 52%,transparent),
+      0 22px 66px color-mix(in srgb,var(--e4) 38%,transparent),
+      0 6px 22px color-mix(in srgb,var(--e5) 42%,transparent),
+      inset 0 2px 7px rgba(255,255,255,.3), inset 0 -3px 10px rgba(0,0,0,.25)}
+  a.enter:focus-visible{outline:2px solid #e3b31d;outline-offset:5px}
+  a.enter .emj{font-size:29px}
+  a.enter .aro{font-size:24px;transition:transform .3s}
+  a.enter:hover .aro{transform:translateX(6px)}
+  @media(max-width:520px){ a.enter{padding:18px 32px;font-size:21px;gap:11px} a.enter .aro{font-size:19px} }
+  @media (prefers-reduced-motion:reduce){ a.enter{animation:none} }
+  .doorhalo{position:relative;display:inline-block}
+  .doorhalo::before{content:'';position:absolute;inset:-52px -80px;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(46% 58% at 32% 50%,color-mix(in srgb,var(--e1) 26%,transparent),transparent 70%),
+      radial-gradient(46% 58% at 68% 50%,color-mix(in srgb,var(--e4) 22%,transparent),transparent 70%)}
+  .gatefloor .glede{margin:0 auto 24px;max-width:480px;
+    font:italic 420 clamp(15px,2.2vw,17.5px)/1.65 var(--serif);color:#b0bfae}
+  .gatefloor .glede b{font-style:normal;font-weight:620;color:#eaf5ea}
+  .gatefloor .tg{margin:20px auto 0;font:italic 400 15px/1.6 var(--serif);color:#8fa892}
+  .gatefloor .tg a{color:#cfe3cf;text-decoration-color:rgba(207,227,207,.35)}
+  .gatefloor .tg a:hover{color:#fff}
+  .gatefloor .tg a:focus-visible{outline:2px solid #e3b31d;outline-offset:3px}
+
+  /* reduced motion: the descent stops being a ride and becomes a page —
+     stage elements rest where they land, the canvases render fully grown */
+  @media (prefers-reduced-motion:reduce){
+    .qithread,.qithread::before{animation:none}
+    .qithread{opacity:.5}
+    #myc,#flow{opacity:1}
+    .dvig{opacity:.5}
+  }
+  /* the perf guards: fewer moving layers where the compositor is fragile */
+  @media (max-width:900px),(pointer:coarse){
+    .s3{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="rainbar" aria-hidden="true"></div>
+
+<!-- ============ above the fold: untouched. a sky on local time, a city, five trees, one monk ============ -->
+<header class="hero">
+  <div class="stars" id="stars" aria-hidden="true"></div>
+  <div class="cityglow" aria-hidden="true"></div>
+
+  <div class="city" aria-hidden="true">
+    <svg viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax meet">
+      <defs>
+        <pattern id="wp" width="15" height="21" patternUnits="userSpaceOnUse">
+          <rect x="4" y="7" width="3.4" height="4.8" fill="#ffd98a" opacity=".38"/>
+        </pattern>
+        <radialGradient id="aur" cx="50%" cy="100%" r="72%">
+          <stop offset="0%" stop-color="rgba(255,186,96,.20)"/>
+          <stop offset="55%" stop-color="rgba(181,53,187,.08)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="600" cy="530" rx="660" ry="330" fill="url(#aur)"/>
+      <g>
+        <g class="blds" fill="#15152e">
+          <rect x="10" y="330" width="44" height="190"/><rect x="60" y="220" width="36" height="300"/>
+          <rect x="102" y="370" width="50" height="150"/><rect x="158" y="100" width="30" height="420"/>
+          <rect x="194" y="280" width="46" height="240"/><rect x="246" y="50" width="26" height="470"/>
+          <rect x="278" y="340" width="54" height="180"/><rect x="338" y="190" width="34" height="330"/>
+          <rect x="378" y="310" width="48" height="210"/><rect x="432" y="70" width="28" height="450"/>
+          <rect x="466" y="240" width="44" height="280"/><rect x="516" y="40" width="26" height="480"/>
+          <rect x="548" y="300" width="50" height="220"/><rect x="604" y="160" width="32" height="360"/>
+          <rect x="642" y="220" width="26" height="300"/><rect x="674" y="350" width="46" height="170"/>
+          <rect x="726" y="110" width="36" height="410"/><rect x="768" y="50" width="24" height="470"/>
+          <rect x="798" y="280" width="48" height="240"/><rect x="852" y="170" width="30" height="350"/>
+          <rect x="888" y="330" width="44" height="190"/><rect x="938" y="80" width="26" height="440"/>
+          <rect x="970" y="250" width="42" height="270"/><rect x="1018" y="200" width="34" height="320"/>
+          <rect x="1058" y="360" width="50" height="160"/><rect x="1114" y="120" width="28" height="400"/>
+          <rect x="1148" y="290" width="40" height="230"/>
+        </g>
+        <g fill="url(#wp)">
+          <rect x="10" y="330" width="44" height="190"/><rect x="60" y="220" width="36" height="300"/>
+          <rect x="102" y="370" width="50" height="150"/><rect x="158" y="100" width="30" height="420"/>
+          <rect x="194" y="280" width="46" height="240"/><rect x="246" y="50" width="26" height="470"/>
+          <rect x="278" y="340" width="54" height="180"/><rect x="338" y="190" width="34" height="330"/>
+          <rect x="378" y="310" width="48" height="210"/><rect x="432" y="70" width="28" height="450"/>
+          <rect x="466" y="240" width="44" height="280"/><rect x="516" y="40" width="26" height="480"/>
+          <rect x="548" y="300" width="50" height="220"/><rect x="604" y="160" width="32" height="360"/>
+          <rect x="642" y="220" width="26" height="300"/><rect x="674" y="350" width="46" height="170"/>
+          <rect x="726" y="110" width="36" height="410"/><rect x="768" y="50" width="24" height="470"/>
+          <rect x="798" y="280" width="48" height="240"/><rect x="852" y="170" width="30" height="350"/>
+          <rect x="888" y="330" width="44" height="190"/><rect x="938" y="80" width="26" height="440"/>
+          <rect x="970" y="250" width="42" height="270"/><rect x="1018" y="200" width="34" height="320"/>
+          <rect x="1058" y="360" width="50" height="160"/><rect x="1114" y="120" width="28" height="400"/>
+          <rect x="1148" y="290" width="40" height="230"/>
+        </g>
+        <g fill="#ff6d6d">
+          <circle cx="259" cy="44" r="2.2" class="w2"/><circle cx="529" cy="34" r="2.2" class="w1"/>
+          <circle cx="780" cy="44" r="2.2" class="w3"/><circle cx="951" cy="74" r="2.2" class="w2"/>
+        </g>
+        <g class="win">
+          <rect x="166" y="130" width="3.4" height="4.8" class="w1"/><rect x="174" y="210" width="3.4" height="4.8" class="w3"/>
+          <rect x="252" y="90" width="3.4" height="4.8" class="w2"/><rect x="260" y="170" width="3.4" height="4.8" class="w1"/>
+          <rect x="440" y="110" width="3.4" height="4.8" class="w3"/><rect x="448" y="190" width="3.4" height="4.8" class="w2"/>
+          <rect x="522" y="80" width="3.4" height="4.8" class="w1"/><rect x="530" y="150" width="3.4" height="4.8" class="w3"/>
+          <rect x="610" y="200" width="3.4" height="4.8" class="w2"/><rect x="620" y="280" width="3.4" height="4.8" class="w1"/>
+          <rect x="732" y="150" width="3.4" height="4.8" class="w3"/><rect x="742" y="230" width="3.4" height="4.8" class="w2"/>
+          <rect x="774" y="90" width="3.4" height="4.8" class="w1"/><rect x="782" y="180" width="3.4" height="4.8" class="w3"/>
+          <rect x="858" y="210" width="3.4" height="4.8" class="w2"/><rect x="944" y="120" width="3.4" height="4.8" class="w1"/>
+          <rect x="952" y="220" width="3.4" height="4.8" class="w3"/><rect x="1120" y="160" width="3.4" height="4.8" class="w2"/>
+          <rect x="1128" y="250" width="3.4" height="4.8" class="w1"/><rect x="66" y="260" width="3.4" height="4.8" class="w2"/>
+        </g>
+        <g class="win c">
+          <rect x="248" y="130" width="3.4" height="4.8" class="w3"/><rect x="436" y="150" width="3.4" height="4.8" class="w1"/>
+          <rect x="526" y="120" width="3.4" height="4.8" class="w2"/><rect x="736" y="190" width="3.4" height="4.8" class="w1"/>
+          <rect x="946" y="170" width="3.4" height="4.8" class="w2"/><rect x="1116" y="200" width="3.4" height="4.8" class="w3"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="treeswrap">
+    <svg viewBox="0 0 900 330" role="img"
+      aria-label="five trees with era-colored canopies sway together at night while a lit city towers behind them; a monk sits on the ground beneath them, breathing.">
+      <defs>
+        <radialGradient id="cnp" cx="50%" cy="40%" r="62%">
+          <stop offset="0%" stop-color="#fff" stop-opacity=".24"/>
+          <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <g>
+        <g class="t1" transform="translate(110,26)">
+          <path d="M0 304 C4 252 -8 226 -2 190 M-2 232 C-16 220 -24 210 -27 198" stroke="#8a6a48" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <g class="canopy">
+            <circle cx="-5" cy="150" r="52" fill="#4ecb66" opacity=".82"/>
+            <circle cx="-46" cy="176" r="32" fill="#43b95a" opacity=".75"/>
+            <circle cx="36" cy="172" r="35" fill="#5cd674" opacity=".72"/>
+            <circle cx="-24" cy="128" r="27" fill="#5cd674" opacity=".7"/>
+            <circle cx="20" cy="134" r="24" fill="#43b95a" opacity=".68"/>
+            <circle cx="-2" cy="188" r="30" fill="#3aa851" opacity=".6"/>
+            <circle cx="-5" cy="150" r="52" fill="url(#cnp)"/>
+          </g>
+        </g>
+        <g class="t2" transform="translate(290,8)">
+          <path d="M0 322 C-5 264 7 228 1 184 M1 244 C14 230 22 222 26 208" stroke="#8a6a48" stroke-width="13" fill="none" stroke-linecap="round"/>
+          <g class="canopy">
+            <circle cx="2" cy="138" r="57" fill="#e3b31d" opacity=".82"/>
+            <circle cx="-45" cy="170" r="34" fill="#d1a416" opacity=".75"/>
+            <circle cx="47" cy="166" r="36" fill="#f0c235" opacity=".72"/>
+            <circle cx="-20" cy="112" r="28" fill="#f0c235" opacity=".7"/>
+            <circle cx="26" cy="120" r="25" fill="#d1a416" opacity=".68"/>
+            <circle cx="0" cy="180" r="32" fill="#c39a12" opacity=".6"/>
+            <circle cx="2" cy="138" r="57" fill="url(#cnp)"/>
+          </g>
+        </g>
+        <g class="t3" transform="translate(462,0)">
+          <path d="M0 330 C6 260 -6 224 0 172 M0 240 C-16 226 -26 216 -30 202 M0 214 C13 202 21 194 25 182" stroke="#8a6a48" stroke-width="15" fill="none" stroke-linecap="round"/>
+          <g class="canopy">
+            <circle cx="0" cy="114" r="66" fill="#f07f3c" opacity=".82"/>
+            <circle cx="-55" cy="152" r="38" fill="#dd6f2f" opacity=".75"/>
+            <circle cx="55" cy="148" r="40" fill="#ff9251" opacity=".72"/>
+            <circle cx="-26" cy="84" r="31" fill="#ff9251" opacity=".7"/>
+            <circle cx="30" cy="92" r="28" fill="#dd6f2f" opacity=".68"/>
+            <circle cx="0" cy="162" r="36" fill="#cf6427" opacity=".6"/>
+            <circle cx="0" cy="114" r="66" fill="url(#cnp)"/>
+          </g>
+        </g>
+        <g class="t4" transform="translate(640,12)">
+          <path d="M0 318 C-4 264 8 232 2 188 M2 250 C-12 238 -20 230 -24 216" stroke="#8a6a48" stroke-width="13" fill="none" stroke-linecap="round"/>
+          <g class="canopy">
+            <circle cx="4" cy="144" r="55" fill="#e14fe1" opacity=".82"/>
+            <circle cx="-42" cy="174" r="33" fill="#cd41cd" opacity=".75"/>
+            <circle cx="48" cy="170" r="34" fill="#ef66ef" opacity=".72"/>
+            <circle cx="-18" cy="118" r="27" fill="#ef66ef" opacity=".7"/>
+            <circle cx="28" cy="126" r="24" fill="#cd41cd" opacity=".68"/>
+            <circle cx="2" cy="186" r="31" fill="#b937b9" opacity=".6"/>
+            <circle cx="4" cy="144" r="55" fill="url(#cnp)"/>
+          </g>
+        </g>
+        <g class="t5" transform="translate(800,32)">
+          <path d="M0 298 C4 254 -7 234 -1 196 M-1 244 C12 232 20 224 24 212" stroke="#8a6a48" stroke-width="11" fill="none" stroke-linecap="round"/>
+          <g class="canopy">
+            <circle cx="-3" cy="160" r="48" fill="#42a4ff" opacity=".82"/>
+            <circle cx="-40" cy="184" r="29" fill="#3892e8" opacity=".75"/>
+            <circle cx="34" cy="180" r="30" fill="#5cb3ff" opacity=".72"/>
+            <circle cx="-18" cy="136" r="24" fill="#5cb3ff" opacity=".7"/>
+            <circle cx="22" cy="142" r="22" fill="#3892e8" opacity=".68"/>
+            <circle cx="-3" cy="198" r="27" fill="#2f83d4" opacity=".6"/>
+            <circle cx="-3" cy="160" r="48" fill="url(#cnp)"/>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="scrollcue" id="scrollcue" aria-hidden="true">
+    <span class="sct">scroll</span>
+    <span class="sca a1">⌄</span>
+    <span class="sca a2">⌄</span>
+  </div>
+
+  <div class="monk" id="monk" role="img" aria-label="a monk sits meditating beneath the trees, an aura expanding and contracting with each breath, thin era-colored rings orbiting him in coherence">
+    <div class="halo" aria-hidden="true"></div>
+    <div class="breath" aria-hidden="true"></div>
+    <div class="ring r4" aria-hidden="true"></div>
+    <div class="ring r3" aria-hidden="true"></div>
+    <div class="ring r1" aria-hidden="true"></div>
+    <div class="ring r2" aria-hidden="true"></div>
+    <div class="shimmer" aria-hidden="true"></div>
+    <div class="shimmer d" aria-hidden="true"></div>
+    <div class="qi" aria-hidden="true"></div>
+    <div class="sun" aria-hidden="true"></div>
+    <div class="heart"><span id="monkface">🧘</span></div>
+  </div>
+
+  <div class="meteors" aria-hidden="true">
+    <span style="top:9%;left:74%"></span>
+    <span style="top:16%;left:38%"></span>
+    <span style="top:6%;left:55%"></span>
+  </div>
+</header>
+
+<!-- ============ the descent: one pinned scene, four beats, then the floor ============ -->
+<div class="under" id="deepen">
+
+  <div class="dstage" id="dstage">
+    <canvas id="myc" aria-hidden="true"></canvas>
+    <canvas id="flow" aria-hidden="true"></canvas>
+    <div class="strat s1" aria-hidden="true"></div>
+    <div class="strat s2" aria-hidden="true"></div>
+    <div class="strat s3" aria-hidden="true"></div>
+    <div class="droots" id="droots" aria-hidden="true">
+      <svg viewBox="0 0 1100 190" preserveAspectRatio="xMidYMin meet">
+        <g stroke="#6b5433" fill="none" stroke-linecap="round" opacity=".8">
+          <path d="M60 0 C90 60 70 100 120 150" stroke-width="7"/>
+          <path d="M120 150 C150 170 175 172 200 168" stroke-width="4"/>
+          <path d="M250 0 C230 50 260 90 240 140" stroke-width="9"/>
+          <path d="M240 140 C230 160 205 172 185 176" stroke-width="4"/>
+          <path d="M240 140 C255 165 285 175 315 172" stroke-width="5"/>
+          <path d="M430 0 C450 45 425 85 445 130 C455 155 480 168 505 170" stroke-width="10"/>
+          <path d="M445 130 C430 152 405 162 380 162" stroke-width="4"/>
+          <path d="M560 0 C545 55 575 95 555 150" stroke-width="8"/>
+          <path d="M555 150 C570 168 600 176 625 172" stroke-width="4"/>
+          <path d="M700 0 C720 55 690 100 715 145 C728 165 755 174 780 172" stroke-width="9"/>
+          <path d="M715 145 C700 162 675 170 650 168" stroke-width="4"/>
+          <path d="M860 0 C845 50 875 95 855 140" stroke-width="8"/>
+          <path d="M855 140 C868 162 895 172 920 170" stroke-width="4"/>
+          <path d="M1010 0 C1030 60 1005 105 1030 155" stroke-width="7"/>
+          <path d="M1030 155 C1015 170 990 176 965 174" stroke-width="3.5"/>
+        </g>
+      </svg>
+    </div>
+    <div class="qithread" id="qithread" aria-hidden="true"></div>
+    <div class="dvig" id="dvig" aria-hidden="true"></div>
+  </div>
+
+  <div id="dbeats">
+    <div class="beat">
+      <div class="bw">
+        <h1 class="brand" aria-label="dharma.gift">
+          <span class="l1">d</span><span class="l2">h</span><span class="l3">a</span><span class="l4">r</span><span class="l5">m</span><span class="l6">a</span><span class="tld">.gift</span>
+        </h1>
+      </div>
+    </div>
+    <div class="beat">
+      <div class="bw">
+        <div class="expansion">
+          <span class="w1">dharma</span> · <span class="ddef" id="ddef" title="the word has more than one translation — click for the next">what is yours to do</span> &nbsp;✦&nbsp;
+          <span class="w5">gift</span> · <span class="ddef" id="gdef" title="a gift has more than one move — click for the next">handed to you</span>
+        </div>
+        <div class="clickme" aria-hidden="true">
+          <svg width="18" height="22" viewBox="0 0 18 22" fill="none">
+            <path d="M6 21 C12 15 13 9 9.5 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M5.5 7 L9.5 2 L13.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <span>click me</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat why" id="whybeat">
+      <div class="bw">
+        <p class="whycap">lost people build lost systems</p>
+        <svg class="whyviz" viewBox="0 0 640 320" role="img"
+          aria-label="five crooked towers flicker above the ground, each steered by a dim figure buried below the soil. one figure glows gold; golden threads grow from it to the others, each figure lights in its own color, and one by one the towers straighten and their windows warm.">
+          <line x1="8" y1="210" x2="632" y2="210" stroke="#4a3c26" stroke-width="1.4" opacity=".7"/>
+          <!-- the threads, under everything, so the souls sit on top -->
+          <g>
+            <path class="thg" style="--td:.35s;--tdur:1s" d="M320 270 C290 298 230 298 200 270" pathLength="1"/>
+            <path class="th"  style="--td:.35s;--tdur:1s" d="M320 270 C290 298 230 298 200 270" pathLength="1"/>
+            <path class="thg" style="--td:.35s;--tdur:1s" d="M320 270 C350 298 410 298 440 270" pathLength="1"/>
+            <path class="th"  style="--td:.35s;--tdur:1s" d="M320 270 C350 298 410 298 440 270" pathLength="1"/>
+            <path class="thg" style="--td:.6s;--tdur:1.3s" d="M320 270 C260 316 140 316 80 270" pathLength="1"/>
+            <path class="th"  style="--td:.6s;--tdur:1.3s" d="M320 270 C260 316 140 316 80 270" pathLength="1"/>
+            <path class="thg" style="--td:.6s;--tdur:1.3s" d="M320 270 C380 316 500 316 560 270" pathLength="1"/>
+            <path class="th"  style="--td:.6s;--tdur:1.3s" d="M320 270 C380 316 500 316 560 270" pathLength="1"/>
+            <circle class="bead" r="2.2"><animateMotion dur="4.2s" repeatCount="indefinite" path="M320 270 C260 316 140 316 80 270"/></circle>
+            <circle class="bead" r="2.2"><animateMotion dur="4.2s" begin="2.1s" repeatCount="indefinite" path="M320 270 C380 316 500 316 560 270"/></circle>
+          </g>
+          <g class="unit u0" style="--tc:#4ecb66;--tw:-5.5deg;--dt:1.9s">
+            <g class="twr">
+              <rect class="bod" x="53" y="118" width="54" height="92"/>
+              <rect class="win" x="63" y="128" width="10" height="12"/>
+              <rect class="win fl" x="87" y="128" width="10" height="12" style="animation-delay:-1.1s"/>
+              <rect class="win" x="63" y="152" width="10" height="12"/>
+              <rect class="win" x="87" y="152" width="10" height="12"/>
+              <rect class="win fl" x="63" y="176" width="10" height="12"/>
+              <rect class="win" x="87" y="176" width="10" height="12"/>
+              <path class="crk" d="M66 118 L80 140 L71 162 L83 184"/>
+            </g>
+            <line class="stl" x1="80" y1="212" x2="80" y2="262"/>
+            <circle class="ring" cx="80" cy="270" r="11.5"/>
+            <circle class="soul" cx="80" cy="270" r="7"/>
+          </g>
+          <g class="unit u1" style="--tc:#f07f3c;--tw:4.5deg;--dt:1.35s">
+            <g class="twr">
+              <rect class="bod" x="169" y="82" width="62" height="128"/>
+              <rect class="win fl" x="180" y="94" width="10" height="12" style="animation-delay:-.6s"/>
+              <rect class="win" x="206" y="94" width="10" height="12"/>
+              <rect class="win" x="180" y="122" width="10" height="12"/>
+              <rect class="win fl" x="206" y="122" width="10" height="12" style="animation-delay:-2s"/>
+              <rect class="win" x="180" y="150" width="10" height="12"/>
+              <rect class="win" x="206" y="150" width="10" height="12"/>
+              <rect class="win" x="180" y="178" width="10" height="12"/>
+              <rect class="win" x="206" y="178" width="10" height="12"/>
+              <path class="crk" d="M212 82 L200 112 L212 138"/>
+            </g>
+            <line class="stl" x1="200" y1="212" x2="200" y2="262"/>
+            <circle class="ring" cx="200" cy="270" r="11.5"/>
+            <circle class="soul" cx="200" cy="270" r="7"/>
+          </g>
+          <g class="unit u2" style="--tc:#e3b31d;--tw:-3.5deg;--dt:.1s">
+            <g class="twr">
+              <rect class="bod" x="292" y="106" width="56" height="104"/>
+              <rect class="win" x="302" y="116" width="10" height="12"/>
+              <rect class="win fl" x="328" y="116" width="10" height="12" style="animation-delay:-1.7s"/>
+              <rect class="win" x="302" y="144" width="10" height="12"/>
+              <rect class="win" x="328" y="144" width="10" height="12"/>
+              <rect class="win" x="302" y="172" width="10" height="12"/>
+              <rect class="win fl" x="328" y="172" width="10" height="12" style="animation-delay:-.3s"/>
+              <path class="crk" d="M300 106 L313 130 L304 154"/>
+            </g>
+            <line class="stl" x1="320" y1="212" x2="320" y2="262"/>
+            <circle class="hal" cx="320" cy="270" r="8"/>
+            <circle class="hal h2" cx="320" cy="270" r="8"/>
+            <circle class="ring" cx="320" cy="270" r="11.5"/>
+            <circle class="soul" cx="320" cy="270" r="7"/>
+          </g>
+          <g class="unit u3" style="--tc:#e14fe1;--tw:5deg;--dt:1.35s">
+            <g class="twr">
+              <rect class="bod" x="411" y="92" width="58" height="118"/>
+              <rect class="win" x="421" y="104" width="10" height="12"/>
+              <rect class="win" x="447" y="104" width="10" height="12"/>
+              <rect class="win fl" x="421" y="134" width="10" height="12" style="animation-delay:-2.4s"/>
+              <rect class="win" x="447" y="134" width="10" height="12"/>
+              <rect class="win" x="421" y="164" width="10" height="12"/>
+              <rect class="win fl" x="447" y="164" width="10" height="12" style="animation-delay:-.9s"/>
+              <path class="crk" d="M430 92 L445 118 L434 146"/>
+            </g>
+            <line class="stl" x1="440" y1="212" x2="440" y2="262"/>
+            <circle class="ring" cx="440" cy="270" r="11.5"/>
+            <circle class="soul" cx="440" cy="270" r="7"/>
+          </g>
+          <g class="unit u4" style="--tc:#42a4ff;--tw:-4.5deg;--dt:1.9s">
+            <g class="twr">
+              <rect class="bod" x="533" y="128" width="54" height="82"/>
+              <rect class="win fl" x="542" y="138" width="10" height="12" style="animation-delay:-1.4s"/>
+              <rect class="win" x="566" y="138" width="10" height="12"/>
+              <rect class="win" x="542" y="162" width="10" height="12"/>
+              <rect class="win" x="566" y="162" width="10" height="12"/>
+              <rect class="win" x="542" y="186" width="10" height="12"/>
+              <rect class="win" x="566" y="186" width="10" height="12"/>
+              <path class="crk" d="M560 128 L551 150 L560 172"/>
+            </g>
+            <line class="stl" x1="560" y1="212" x2="560" y2="262"/>
+            <circle class="ring" cx="560" cy="270" r="11.5"/>
+            <circle class="soul" cx="560" cy="270" r="7"/>
+          </g>
+        </svg>
+        <p class="whycap whypay"><b>found</b> people build <b>found</b> ones</p>
+      </div>
+    </div>
+
+    <div class="beat why" id="grovebeat">
+      <div class="bw">
+        <p class="whycap">to get found, find what's yours to do</p>
+        <svg class="whyviz grviz" viewBox="0 0 640 140" role="img"
+          aria-label="five identical seeds sit buried in a row under one soil line. as you arrive, each sprouts a different plant in its own color — a branching tree, a spray of wheat, a curled fern, a flower, a pine — no two forms the same.">
+          <line x1="8" y1="110" x2="632" y2="110" stroke="#4a3c26" stroke-width="1.4" opacity=".7"/>
+          <g style="--pc:#4ecb66;--dt:.2s">
+            <path class="pl" d="M96 110 C94 80 98 60 96 38" pathLength="1"/>
+            <path class="pl" d="M96 72 C82 62 74 50 70 38" pathLength="1"/>
+            <path class="pl" d="M96 60 C110 50 120 40 124 28" pathLength="1"/>
+            <path class="pl" d="M96 46 C88 38 84 30 82 22" pathLength="1"/>
+            <circle class="seed" cx="96" cy="122" r="5"/>
+          </g>
+          <g style="--pc:#e3b31d;--dt:.55s">
+            <path class="pl" d="M208 110 C204 70 206 46 210 26" pathLength="1"/>
+            <path class="pl" d="M208 110 C194 80 188 60 184 42" pathLength="1"/>
+            <path class="pl" d="M208 110 C222 82 228 62 232 44" pathLength="1"/>
+            <circle class="pt" cx="210" cy="26" r="2.4"/>
+            <circle class="pt" cx="184" cy="42" r="2.4"/>
+            <circle class="pt" cx="232" cy="44" r="2.4"/>
+            <circle class="seed" cx="208" cy="122" r="5"/>
+          </g>
+          <g style="--pc:#f07f3c;--dt:.9s">
+            <path class="pl" d="M320 110 C318 80 322 60 320 42" pathLength="1"/>
+            <path class="pl" d="M320 42 C320 28 334 22 336 34 C338 44 326 48 324 40" pathLength="1"/>
+            <path class="pl" d="M320 92 C306 84 300 74 298 66" pathLength="1"/>
+            <path class="pl" d="M320 78 C334 70 340 60 342 52" pathLength="1"/>
+            <circle class="seed" cx="320" cy="122" r="5"/>
+          </g>
+          <g style="--pc:#e14fe1;--dt:1.25s">
+            <path class="pl" d="M432 110 C430 84 434 66 432 50" pathLength="1"/>
+            <path class="pl" d="M432 88 C420 82 414 74 412 66" pathLength="1"/>
+            <path class="pl" d="M432 76 C444 70 450 62 452 54" pathLength="1"/>
+            <circle class="pt" cx="432" cy="32" r="5"/>
+            <circle class="pt" cx="441" cy="39" r="5"/>
+            <circle class="pt" cx="438" cy="50" r="5"/>
+            <circle class="pt" cx="426" cy="50" r="5"/>
+            <circle class="pt" cx="423" cy="39" r="5"/>
+            <circle class="pt" cx="432" cy="42" r="3.5" style="fill:#f6df9a"/>
+            <circle class="seed" cx="432" cy="122" r="5"/>
+          </g>
+          <g style="--pc:#42a4ff;--dt:1.6s">
+            <path class="pl" d="M544 110 L544 40" pathLength="1"/>
+            <path class="pl" d="M526 86 L544 64 L562 86" pathLength="1"/>
+            <path class="pl" d="M529 70 L544 50 L559 70" pathLength="1"/>
+            <path class="pl" d="M533 56 L544 40 L555 56" pathLength="1"/>
+            <circle class="seed" cx="544" cy="122" r="5"/>
+          </g>
+        </svg>
+        <p class="whycap whypay">no two dharmas alike — only you can grow <b>yours</b></p>
+      </div>
+    </div>
+
+    <div class="beat why" id="weavebeat">
+      <div class="bw">
+        <p class="whycap">the found find each other</p>
+        <svg class="whyviz wvviz" viewBox="0 0 640 300" role="img"
+          aria-label="a dark field scattered with dim figures. five glow — one in each color — and threads grow from each to its neighbors, forming five small islands of light. then golden arcs bridge the islands through the center, and the scattered figures between them warm too, until the whole field is one loose weave.">
+          <g style="--tc:#e3b31d;--td:.15s;--dd:.95s">
+            <path class="it" d="M320 160 Q303 152 286 136" pathLength="1"/>
+            <path class="it" d="M320 160 Q338 154 356 140" pathLength="1"/>
+            <path class="it" d="M320 160 Q306 179 292 190" pathLength="1"/>
+            <path class="it" d="M320 160 Q336 177 352 186" pathLength="1"/>
+            <circle class="nd" cx="286" cy="136" r="4.5"/>
+            <circle class="nd" cx="356" cy="140" r="4.5"/>
+            <circle class="nd" cx="292" cy="190" r="4.5"/>
+            <circle class="nd" cx="352" cy="186" r="4.5"/>
+            <circle class="wring" cx="320" cy="160" r="10"/>
+            <circle class="an" cx="320" cy="160" r="6"/>
+          </g>
+          <g style="--tc:#4ecb66;--td:.35s;--dd:1.15s">
+            <path class="it" d="M110 80 Q94 75 78 62" pathLength="1"/>
+            <path class="it" d="M110 80 Q125 72 140 58" pathLength="1"/>
+            <path class="it" d="M110 80 Q101 100 92 112" pathLength="1"/>
+            <path class="it" d="M110 80 Q131 92 152 96" pathLength="1"/>
+            <circle class="nd" cx="78" cy="62" r="4.5"/>
+            <circle class="nd" cx="140" cy="58" r="4.5"/>
+            <circle class="nd" cx="92" cy="112" r="4.5"/>
+            <circle class="nd" cx="152" cy="96" r="4.5"/>
+            <circle class="wring" cx="110" cy="80" r="10"/>
+            <circle class="an" cx="110" cy="80" r="6"/>
+          </g>
+          <g style="--tc:#42a4ff;--td:.5s;--dd:1.3s">
+            <path class="it" d="M520 70 Q504 62 488 50" pathLength="1"/>
+            <path class="it" d="M520 70 Q536 66 552 58" pathLength="1"/>
+            <path class="it" d="M520 70 Q510 90 500 104" pathLength="1"/>
+            <path class="it" d="M520 70 Q540 84 560 92" pathLength="1"/>
+            <circle class="nd" cx="488" cy="50" r="4.5"/>
+            <circle class="nd" cx="552" cy="58" r="4.5"/>
+            <circle class="nd" cx="500" cy="104" r="4.5"/>
+            <circle class="nd" cx="560" cy="92" r="4.5"/>
+            <circle class="wring" cx="520" cy="70" r="10"/>
+            <circle class="an" cx="520" cy="70" r="6"/>
+          </g>
+          <g style="--tc:#f07f3c;--td:.65s;--dd:1.45s">
+            <path class="it" d="M150 225 Q133 218 116 206" pathLength="1"/>
+            <path class="it" d="M150 225 Q167 216 184 204" pathLength="1"/>
+            <path class="it" d="M150 225 Q138 242 126 252" pathLength="1"/>
+            <path class="it" d="M150 225 Q169 238 188 244" pathLength="1"/>
+            <circle class="nd" cx="116" cy="206" r="4.5"/>
+            <circle class="nd" cx="184" cy="204" r="4.5"/>
+            <circle class="nd" cx="126" cy="252" r="4.5"/>
+            <circle class="nd" cx="188" cy="244" r="4.5"/>
+            <circle class="wring" cx="150" cy="225" r="10"/>
+            <circle class="an" cx="150" cy="225" r="6"/>
+          </g>
+          <g style="--tc:#e14fe1;--td:.8s;--dd:1.6s">
+            <path class="it" d="M490 220 Q473 212 456 200" pathLength="1"/>
+            <path class="it" d="M490 220 Q507 211 524 198" pathLength="1"/>
+            <path class="it" d="M490 220 Q476 236 462 248" pathLength="1"/>
+            <path class="it" d="M490 220 Q508 234 526 242" pathLength="1"/>
+            <circle class="nd" cx="456" cy="200" r="4.5"/>
+            <circle class="nd" cx="524" cy="198" r="4.5"/>
+            <circle class="nd" cx="462" cy="248" r="4.5"/>
+            <circle class="nd" cx="526" cy="242" r="4.5"/>
+            <circle class="wring" cx="490" cy="220" r="10"/>
+            <circle class="an" cx="490" cy="220" r="6"/>
+          </g>
+          <!-- the bridges: gold, hub through the center island -->
+          <g>
+            <path class="gag" style="--td:1.6s" d="M110 80 Q215 140 320 160" pathLength="1"/>
+            <path class="ga"  style="--td:1.6s" d="M110 80 Q215 140 320 160" pathLength="1"/>
+            <path class="gag" style="--td:1.75s" d="M320 160 Q420 130 520 70" pathLength="1"/>
+            <path class="ga"  style="--td:1.75s" d="M320 160 Q420 130 520 70" pathLength="1"/>
+            <path class="gag" style="--td:1.9s" d="M150 225 Q235 210 320 160" pathLength="1"/>
+            <path class="ga"  style="--td:1.9s" d="M150 225 Q235 210 320 160" pathLength="1"/>
+            <path class="gag" style="--td:2.05s" d="M320 160 Q405 205 490 220" pathLength="1"/>
+            <path class="ga"  style="--td:2.05s" d="M320 160 Q405 205 490 220" pathLength="1"/>
+          </g>
+          <!-- the field between, warming last -->
+          <g>
+            <circle class="st" style="--sd:2.6s" cx="222" cy="96" r="3.5"/>
+            <circle class="st" style="--sd:2.7s" cx="414" cy="100" r="3.5"/>
+            <circle class="st" style="--sd:2.8s" cx="230" cy="178" r="3.5"/>
+            <circle class="st" style="--sd:2.9s" cx="420" cy="168" r="3.5"/>
+            <circle class="st" style="--sd:3s" cx="60" cy="160" r="3.5"/>
+            <circle class="st" style="--sd:3.05s" cx="590" cy="150" r="3.5"/>
+            <circle class="st" style="--sd:3.1s" cx="255" cy="250" r="3.5"/>
+            <circle class="st" style="--sd:3.15s" cx="400" cy="255" r="3.5"/>
+          </g>
+        </svg>
+        <p class="whycap whypay">woven, they <b>shift the system</b></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gatefloor" aria-label="enter">
+    <p class="glede">ten people walk the <b>dharma inquiry</b> together —
+      five weeks, one structured path, begins <b>october 30, 2026</b>.</p>
+    <div class="doorhalo">
+      <a class="enter" href="/cohort"><span class="emj">🏕️</span>join the cohort<span class="aro">→</span></a>
+    </div>
+    <p class="tg">going alone instead? that's off-roading —
+      <a href="/inquiry">🪷 enter the inquiry</a></p>
+    <p class="tg">or just come sit with the others —
+      <a href="https://t.me/+JeffHeYyATMzMDAx" target="_blank" rel="noopener">💬 join the telegram</a></p>
+  </div>
+
+</div>
+
+<script>
+const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const COARSE=matchMedia('(pointer: coarse)').matches;
+const DPR=Math.min(devicePixelRatio||1,2);
+const ERA=['78,203,102','227,179,29','240,127,60','225,79,225','66,164,255'];
+const SEEDX=[.122,.322,.513,.711,.889];
+
+// ---------- the monk changes faces, the seat stays the same ----------
+(function(){
+  const faces=['🧘','🧘‍♂️','🧘‍♀️','🧘🏻','🧘🏼','🧘🏽','🧘🏾','🧘🏿','🧘🏻‍♀️','🧘🏼‍♀️','🧘🏽‍♀️','🧘🏾‍♀️','🧘🏿‍♀️','🧘🏻‍♂️','🧘🏼‍♂️','🧘🏽‍♂️','🧘🏾‍♂️','🧘🏿‍♂️'];
+  const el=document.getElementById('monkface');
+  let i=0; try{ i=(parseInt(localStorage.getItem('dg-monk'),10)||0)%faces.length }catch(e){}
+  el.textContent=faces[i];
+  document.getElementById('monk').addEventListener('click',()=>{
+    i=(i+1)%faces.length; el.textContent=faces[i];
+    try{ localStorage.setItem('dg-monk',String(i)) }catch(e){}
+  });
+})();
+
+// ---------- the scroll cue leaves once you've taken the hint ----------
+(function(){
+  const c=document.getElementById('scrollcue'); if(!c) return;
+  addEventListener('scroll',function on(){
+    if(scrollY>40){ c.classList.add('off'); removeEventListener('scroll',on); }
+  },{passive:true});
+})();
+
+// ---------- dharma translated nine ways, gift translated six ----------
+(function(){
+  const DHARMA=['what is yours to do','your right action',
+    'living in alignment with your nature','the role only you can play',
+    'your path of right action','your deepest responsibility',
+    'the order you are here to serve','what the moment asks of you',
+    'your unique path of right action'];
+  const GIFT=['handed to you','pay it forward',"make someone's day",
+    'spread joy','show appreciation','express gratitude'];
+  function wire(id,defs,auto){
+    const el=document.getElementById(id); if(!el) return;
+    let i=0, timer=0, busy=false;
+    function advance(quick){
+      if(busy) return; busy=true;
+      el.classList.toggle('quick',!!quick);
+      el.classList.add('out');
+      setTimeout(()=>{ i=(i+1)%defs.length; el.textContent=defs[i];
+        el.classList.remove('out'); busy=false; }, quick?190:620);
+    }
+    function arm(){ if(REDUCE||!auto) return; clearInterval(timer);
+      timer=setInterval(()=>advance(false),4600); }
+    el.addEventListener('click',()=>{ advance(true); arm(); });
+    arm();
+  }
+  wire('ddef',DHARMA,true);
+  wire('gdef',GIFT,false);
+})();
+
+// ---------- the stars ----------
+(function(){
+  const box=document.getElementById('stars');
+  const n=COARSE?36:78;
+  let h='';
+  for(let i=0;i<n;i++){
+    const s=(Math.random()*1.6+.6).toFixed(1);
+    h+='<i class="p'+(1+(i%3))+'" style="left:'+(Math.random()*100).toFixed(2)+'%;top:'+
+      (Math.random()*62).toFixed(2)+'%;width:'+s+'px;height:'+s+'px;opacity:'+(.25+Math.random()*.5).toFixed(2)+'"></i>';
+  }
+  box.innerHTML=h;
+})();
+
+// ---------- the descent driver ----------
+// one scroll fraction t, read off the beats' bounding rect (the mc-stage trick):
+// t=0 as the soil lip crosses the fold, t=1 as the last beat leaves. everything on
+// the stage — strata, roots, thread, canvases, vignette — rides that one number.
+(function(){
+  const beats=document.getElementById('dbeats'); if(!beats) return;
+  const roots=document.getElementById('droots'),
+        thread=document.getElementById('qithread'),
+        vig=document.getElementById('dvig'),
+        myc=document.getElementById('myc'), flow=document.getElementById('flow'),
+        strats=[...document.querySelectorAll('.strat')];
+  const SPEED=[70,150,260];                    // px of lift per unit t, per stratum
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const ramp=(t,a,b)=>clamp((t-a)/(b-a),0,1);  // 0→1 across [a,b]
+  if(REDUCE){                                   // no ride: everything rests, visible
+    roots.style.opacity='.5'; return;
+  }
+  let raf=0, live=false;
+  function frame(){
+    raf=0;
+    const r=beats.getBoundingClientRect();
+    const span=r.height-innerHeight;
+    const t=span>0?clamp(-r.top/span,0,1):0;
+    // the roots lift away as you sink past them
+    roots.style.transform='translate(-50%,'+(-t*260)+'px)';
+    roots.style.opacity=String(1-ramp(t,.05,.32));
+    // the earth slides past at three speeds
+    strats.forEach((s,i)=>{ s.style.transform='translateY('+(-t*SPEED[i])+'px)'; });
+    // his thread leads the way down, then hands you to the mycelium
+    thread.style.opacity=String(.9*ramp(t,.02,.14)*(1-ramp(t,.42,.62)));
+    // the root web wakes as the thread fades
+    const mo=ramp(t,.10,.34);
+    myc.style.opacity=String(mo); flow.style.opacity=String(mo);
+    // the dark presses in near the bottom
+    vig.style.opacity=String(.7*ramp(t,.55,.95));
+    if(live) raf=requestAnimationFrame(frame);
+  }
+  new IntersectionObserver(es=>{
+    live=es[0].isIntersecting;
+    if(live&&!raf) raf=requestAnimationFrame(frame);
+  },{rootMargin:'80px'}).observe(document.getElementById('deepen'));
+})();
+
+// ---------- the why beats wake once each, as you reach them ----------
+(function(){
+  const beats=['whybeat','grovebeat','weavebeat']
+    .map(id=>document.getElementById(id)).filter(Boolean);
+  if(!beats.length) return;
+  if(REDUCE||!('IntersectionObserver' in window)){
+    beats.forEach(w=>w.classList.add('lit')); return;
+  }
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('lit'); io.unobserve(e.target); } });
+  },{threshold:.35});
+  beats.forEach(w=>io.observe(w));
+})();
+
+// ---------- the mycelium ----------
+// unchanged organism, new home: it grows inside the pinned stage and the driver
+// above fades it in as you arrive at the root zone.
+(function(){
+  const cv=document.getElementById('myc'); if(!cv) return;
+  const ov=document.getElementById('flow');
+  const ctx=cv.getContext('2d'), octx=ov.getContext('2d');
+  const GOLD='227,196,120', MOSS='127,174,114', QI='255,214,130';
+  const HUES=ERA.concat([QI]);
+  let W=0,H=0,tips=[],segs=[],paths=[],packets=[],grown=false,raf=0,seen=true;
+
+  function size(){
+    const r=cv.parentElement.getBoundingClientRect();
+    W=Math.round(r.width); H=Math.round(r.height);
+    [cv,ov].forEach(c=>{ c.width=W*DPR; c.height=H*DPR; });
+    ctx.setTransform(DPR,0,0,DPR,0,0); octx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.lineCap='round'; octx.lineCap='round';
+    seed(); if(REDUCE){ while(!grown) step(64); }
+  }
+  function seed(){
+    tips=[]; segs=[]; paths=[]; packets=[]; grown=false;
+    ctx.clearRect(0,0,W,H); octx.clearRect(0,0,W,H);
+    SEEDX.forEach((fx,i)=>{ const n=COARSE?2:3;
+      for(let k=0;k<n;k++) tips.push({x:fx*W+(Math.random()-.5)*30, y:-4,
+        a:(Math.random()-.5)*.7, w:2.1+Math.random()*.7, hue:i, pts:[]}); });
+    const mn=COARSE?3:5;
+    for(let k=0;k<mn;k++) tips.push({x:.5*W+(Math.random()-.5)*18, y:-4,
+      a:(Math.random()-.5)*.45, w:2.6+Math.random()*.8, hue:5, pts:[]});
+  }
+  function drawSeg(s){
+    ctx.strokeStyle='rgba('+s.c+',.07)'; ctx.lineWidth=s.w*3.2;
+    ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2); ctx.stroke();
+    ctx.strokeStyle='rgba('+s.c+','+s.al+')'; ctx.lineWidth=s.w;
+    ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2); ctx.stroke();
+  }
+  function retire(t){ if(t.pts.length>7) paths.push({pts:t.pts,hue:t.hue}); }
+  function step(budget){
+    let n=0;
+    for(let i=tips.length-1;i>=0&&n<budget;i--){
+      const t=tips[i]; n++;
+      const x1=t.x,y1=t.y;
+      if(!t.pts.length) t.pts.push([x1,y1]);
+      t.a+=(Math.random()-.5)*.5; t.a=Math.max(-1.15,Math.min(1.15,t.a));
+      const len=4+Math.random()*6;
+      t.x+=Math.sin(t.a)*len; t.y+=Math.cos(t.a)*len;
+      t.pts.push([t.x,t.y]);
+      const depth=Math.max(0,1-(t.y/H)*.75);
+      const roll=Math.random();
+      const s={x1,y1,x2:t.x,y2:t.y,w:t.w,
+        c:t.hue===5?(roll<.6?QI:GOLD):(roll<.26?ERA[t.hue]:(roll<.5?MOSS:GOLD)),
+        al:(.16+t.w*.14)*depth+(t.hue===5?.12:.04)};
+      segs.push(s); drawSeg(s);
+      if(Math.random()<.055 && t.w>.55 && tips.length<(COARSE?90:170))
+        tips.push({x:t.x,y:t.y,a:t.a+(Math.random()<.5?1:-1)*(.5+Math.random()*.6),
+          w:t.w*.72,hue:t.hue,pts:[[t.x,t.y]]});
+      if(Math.random()<.02) t.w*=.9;
+      if(t.w<.32||t.y>H+8||t.x<-30||t.x>W+30){ retire(t); tips.splice(i,1); }
+    }
+    if(!tips.length||segs.length>(COARSE?7000:16000)){
+      tips.forEach(retire); tips=[]; grown=true; }
+  }
+  function spawn(){
+    if(!paths.length) return;
+    const p=paths[(Math.random()*paths.length)|0];
+    packets.push({p,i:0,v:.8+Math.random()*1.6,
+      c:Math.random()<.55?HUES[p.hue]:GOLD});
+  }
+  function moveResources(){
+    octx.clearRect(0,0,W,H);
+    const want=COARSE?6:14;
+    while(packets.length<want && paths.length) spawn();
+    for(let k=packets.length-1;k>=0;k--){
+      const pk=packets[k]; pk.i+=pk.v;
+      const pts=pk.p.pts, idx=pk.i|0;
+      if(idx>=pts.length-1){ packets.splice(k,1); continue; }
+      octx.lineWidth=1.4;
+      for(let j=Math.max(1,idx-7);j<=idx;j++){
+        const a=.35*(1-(idx-j)/8);
+        octx.strokeStyle='rgba('+pk.c+','+a.toFixed(3)+')';
+        octx.beginPath(); octx.moveTo(pts[j-1][0],pts[j-1][1]); octx.lineTo(pts[j][0],pts[j][1]); octx.stroke();
+      }
+      const [x,y]=pts[idx];
+      octx.fillStyle='rgba('+pk.c+',.14)';
+      octx.beginPath(); octx.arc(x,y,6,0,7); octx.fill();
+      octx.fillStyle='rgba(255,250,230,.9)';
+      octx.beginPath(); octx.arc(x,y,1.8,0,7); octx.fill();
+    }
+  }
+  function frame(){
+    raf=0;
+    if(seen&&!REDUCE){
+      if(!grown) step(COARSE?26:52);
+      moveResources();
+      raf=requestAnimationFrame(frame);
+    }
+  }
+  new IntersectionObserver(es=>{ seen=es[0].isIntersecting;
+    if(seen&&!raf&&!REDUCE) raf=requestAnimationFrame(frame); },{rootMargin:'120px'})
+    .observe(document.getElementById('deepen'));
+  addEventListener('resize',()=>{ clearTimeout(size._t); size._t=setTimeout(size,180); },{passive:true});
+  size(); if(!REDUCE) raf=requestAnimationFrame(frame);
+})();
+
+</script>
+</body>
+</html>

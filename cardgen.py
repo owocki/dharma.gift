@@ -80,6 +80,7 @@ CARDS = [
   ("og-inquiry","🪷","the inquiry","six doors into what is yours to do","the dharma inquiry, quoted whole. bring paper.","/inquiry"),
   ("og-sensemaking","🔦","sensemaking","how to see clearly when the fog is manufactured","signal from noise, before you act.","/sensemaking"),
   ("og-islands","🏝️","islands of coherence","communities that already solved it — protocols, not stories","somewhere, a town figured it out.","/islands"),
+  ("og-holarchy","🪺","the holarchy","the patterns at the heart of civilization, drawn on seven nested rings","no words. just the picture.","/holarchy"),
   ("og-kepttime","⌛","how we kept time","5,500 years of counting, from shadow to cesium","press play, it ticks — 37 seconds.","/kepttime"),
   ("og-videos","🎞️","the films","little histories, 40 seconds each — time, food, power, truth","eleven reels, gold on black. press play.","/videos"),
   ("og-alloc", "✨","who gets what","resource allocation — the original poster",DEFAULT_TAG,"/alloc"),
